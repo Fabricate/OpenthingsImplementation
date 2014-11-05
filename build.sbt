@@ -1,8 +1,8 @@
-name := "Lift 2.6 starter template"
+name := "Open Hardware Project Documentation System"
 
-version := "0.0.4"
+version := "0.0.1"
 
-organization := "net.liftweb"
+organization := "at.fabricate"
 
 scalaVersion := "2.11.1"
 
