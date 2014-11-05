@@ -1,0 +1,5 @@
+echo ""
+echo "enter the following line for JDBC URL"
+echo "jdbc:h2:~/Studium/WS_2013_14/MasterArbeit/Start_Coworkingspace/implementation_v1/lift_proto.db;AUTO_SERVER=TRUE"
+echo ""
+java -cp ~/.ivy2/cache/com.h2database/h2/jars/h2-1.3.167.jar org.h2.tools.Server
