@@ -43,6 +43,8 @@ class Boot {
 
     // where to search snippet
     LiftRules.addToPackages("at.fabricate")
+    
+    // TODO : aufraumen, sauberes Menue !!!
 
     val homeMenu = Menu(Loc("Home Page", "index" :: Nil, "Home"))
       
@@ -50,7 +52,7 @@ class Boot {
     
     val userMenu = User.menus
     
-    val menus = homeMenu :: userMenu :: projectMenu
+    val menus = List[Menu](homeMenu) ::: userMenu ::: projectMenu
     
     val IfLoggedIn = If(() => User.currentUser.isDefined, "You must be logged in")
     
@@ -65,7 +67,7 @@ class Boot {
   
     //LiftRules.setSiteMap(SiteMap(menu :_*))
     
-    def sitemap = SiteMap(menu : _* )
+    def sitemap = SiteMap(menus : _* )
     
     // Build SiteMap
     /*
