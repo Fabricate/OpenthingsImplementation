@@ -1,9 +1,10 @@
-package code
+package at.fabricate
 package model
 
 import net.liftweb.mapper._
 import net.liftweb.util._
 import net.liftweb.common._
+import net.liftweb.http.S
 
 /**
  * The singleton that has methods for accessing the database
@@ -25,12 +26,21 @@ object User extends User with MetaMegaProtoUser[User] {
  */
 class User extends MegaProtoUser[User] {
   def getSingleton = User // what's the "meta" server
+  
+  /*
+   * 
+   * override def firstNameDisplayName = "Vorname"
+   * override def lastNameDisplayName = "Nachname"
+   * 
+   * 
+   */
 
   // define an additional field for a personal essay
   object textArea extends MappedTextarea(this, 2048) {
     override def textareaRows  = 10
     override def textareaCols = 50
-    override def displayName = "Personal Essay"
+    // TODO  implement later, as Crudify and Megaprotouser can not be mixed in at the same time
+    override def displayName = S.?("about\u0020me")
   }
 }
 

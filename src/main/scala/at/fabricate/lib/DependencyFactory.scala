@@ -1,4 +1,4 @@
-package code
+package at.fabricate
 package lib
 
 import net.liftweb._

@@ -11,8 +11,11 @@ import sitemap._
 import Loc._
 import mapper._
 
-import code.model._
+import at.fabricate.model._
 import net.liftmodules.JQueryModule
+import net.liftweb.sitemap._
+import net.liftweb.sitemap.Loc._
+
 
 
 /**
@@ -36,12 +39,36 @@ class Boot {
     // Use Lift's Mapper ORM to populate the database
     // you don't need to use Mapper to use Lift... use
     // any ORM you want
-    Schemifier.schemify(true, Schemifier.infoF _, User)
+    Schemifier.schemify(true, Schemifier.infoF _, User, Project)
 
     // where to search snippet
-    LiftRules.addToPackages("code")
+    LiftRules.addToPackages("at.fabricate")
 
+    val homeMenu = Menu(Loc("Home Page", "index" :: Nil, "Home"))
+      
+    val projectMenu = Project.menus
+    
+    val userMenu = User.menus
+    
+    val menus = homeMenu :: userMenu :: projectMenu
+    
+    val IfLoggedIn = If(() => User.currentUser.isDefined, "You must be logged in")
+    
+    def menu: List[Menu] = 
+    List[Menu](Menu.i("Home") / "index",
+               Menu.i("Manage Accounts") / "manage" >> IfLoggedIn,
+               Menu.i("Add Account") / "editAcct" >> Hidden >> IfLoggedIn,
+               Menu.i("View Account") / "viewAcct" / ** >> Hidden >> IfLoggedIn,
+               Menu.i("Help") / "help" / "index") :::
+    User.sitemap :::
+    projectMenu
+  
+    //LiftRules.setSiteMap(SiteMap(menu :_*))
+    
+    def sitemap = SiteMap(menu : _* )
+    
     // Build SiteMap
+    /*
     def sitemap = SiteMap(
       Menu.i("Home") / "index" >> User.AddUserMenusAfter, // the simple way to declare a menu
 
@@ -49,12 +76,16 @@ class Boot {
       // /static path to be visible
       Menu(Loc("Static", Link(List("static"), true, "/static/index"), 
 	       "Static Content")))
+	       * 
+	       */
 
     def sitemapMutators = User.sitemapMutator
 
     // set the sitemap.  Note if you don't want access control for
     // each page, just comment this line out.
-    LiftRules.setSiteMapFunc(() => sitemapMutators(sitemap))
+    //LiftRules.setSiteMapFunc(() => sitemapMutators(sitemap))
+    LiftRules.setSiteMap(sitemap)
+
 
     //Init the jQuery module, see http://liftweb.net/jquery for more information.
     LiftRules.jsArtifacts = JQueryArtifacts

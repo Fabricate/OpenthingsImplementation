@@ -1,4 +1,4 @@
-package code
+package at.fabricate
 package snippet
 
 import net.liftweb._
@@ -7,9 +7,11 @@ import net.liftweb.util._
 import net.liftweb.common._
 import Helpers._
 import lib._
+
 import org.specs2.mutable.Specification
 import org.specs2.specification.AroundExample
 import org.specs2.execute.AsResult
+
 
 
 object HelloWorldTestSpecs extends Specification with AroundExample{
