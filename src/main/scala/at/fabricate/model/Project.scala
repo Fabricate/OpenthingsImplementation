@@ -8,6 +8,7 @@ import net.liftweb.http._
 import net.liftweb.util._
 import net.liftweb.common._
 import scala.xml.{NodeSeq,Text}
+import java.util.Calendar
  
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/
@@ -56,15 +57,17 @@ class Project extends LongKeyedMapper[Project] with IdPK {
     /**Name des Datenfeldes für CRUD-Seiten*/
     override def displayName = S.?("project\u0020initiator")
     
-      /*
+      
     /**Darstellung des Feldes auf CRUD-Seiten. Anstelle der Id wird Nachname und Vorname des Autors
      * angezeigt bzw. "k.A." für "keine Angabe", wenn es zu dieser User-Id keinen User gibt. */
     override def asHtml = Text(User.find(this).map(_.fullCommaName).openOr("k.A."))
-    * 
-    */
+    
         
     /**Namen-Auswahlliste für CRUD-Seiten*/
-    //override def validSelectValues: Box[List[(Long, String)]] = 
+    override def validSelectValues: Box[List[(Long, String)]] = {
+      val currentUser : List[User] = User.currentUser.toList
+      Full(currentUser.map(u => (u.id.get, u.lastName.get) ) )
+    }
     //  Full(User.allTeachers.map(u => (u.id.is, u.lastName.is)))
   }
   //END(crudModify)
@@ -91,7 +94,9 @@ class Project extends LongKeyedMapper[Project] with IdPK {
     
     /**Liste der durchzufuehrenden Validationen*/  
     //override def validations =  FieldValidations.isValidDate(this) _ :: Nil
-    
+    //override def validSelectValues: Box[List[(Long, String)]] = 
+    //	DependencyFactory.inject[Date].map(d => List[(Long,String)] (d.toString(), d.toGMTString()))
+    override def defaultValue = Calendar.getInstance.getTime
   }
 
   /**Liefert das Meta-Objekt zur eigenen Modellklasse.*/

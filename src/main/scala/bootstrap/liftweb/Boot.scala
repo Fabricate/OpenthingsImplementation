@@ -56,6 +56,7 @@ class Boot {
     
     val IfLoggedIn = If(() => User.currentUser.isDefined, "You must be logged in")
     
+    /*
     def menu: List[Menu] = 
     List[Menu](Menu.i("Home") / "index",
                Menu.i("Manage Accounts") / "manage" >> IfLoggedIn,
@@ -66,6 +67,7 @@ class Boot {
     projectMenu
   
     //LiftRules.setSiteMap(SiteMap(menu :_*))
+    */
     
     def sitemap = SiteMap(menus : _* )
     

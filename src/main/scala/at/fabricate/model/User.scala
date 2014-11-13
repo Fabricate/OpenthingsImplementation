@@ -42,5 +42,8 @@ class User extends MegaProtoUser[User] {
     // TODO  implement later, as Crudify and Megaprotouser can not be mixed in at the same time
     override def displayName = S.?("about\u0020me")
   }
+  
+  def fullCommaName: String = this.lastName + ", " + this.firstName
+
 }
 
