@@ -5,6 +5,9 @@ import net.liftweb.mapper._
 import net.liftweb.util._
 import net.liftweb.common._
 import net.liftweb.http.S
+import scala.xml.Node
+import scala.xml.Elem
+import net.liftweb.http.SHtml
 
 /**
  * The singleton that has methods for accessing the database
@@ -14,11 +17,18 @@ object User extends User with MetaMegaProtoUser[User] {
   override def screenWrap = Full(<lift:surround with="default" at="content">
 			       <lift:bind /></lift:surround>)
   // define the order fields will appear in forms and output
-  override def fieldOrder = List(id, firstName, lastName, email,
-  locale, timezone, password, textArea)
+  override def fieldOrder = List(id, userImage, firstName, lastName, email,
+  locale, timezone, password, aboutMe)
+  
+  // define the order fields will appear in the edit page
+  override def editFields = List(userImage, firstName, lastName, email,
+  locale, timezone, aboutMe)
 
   // comment this line out to require email validations
   override def skipEmailValidation = true
+  
+  // just an idea for different signup process
+  //override def signupFields = email :: userName :: password :: Nil 
 }
 
 /**
@@ -36,14 +46,37 @@ class User extends MegaProtoUser[User] {
    */
 
   // define an additional field for a personal essay
-  object textArea extends MappedTextarea(this, 2048) {
+  object aboutMe extends MappedTextarea(this, 2048) {
     override def textareaRows  = 10
     override def textareaCols = 50
     // TODO  implement later, as Crudify and Megaprotouser can not be mixed in at the same time
     override def displayName = S.?("about\u0020me")
+    	  /**Genutzter Spaltenname in der DB-Tabelle*/
+    override def dbColumnName = "about_me"
+  }
+  
+  object userImage extends MappedBinary(this) {
+    
+    val maxWidth = 400
+    val maxHeight = 400
+    
+        // TODO  implement later, as Crudify and Megaprotouser can not be mixed in at the same time
+    override def displayName = S.?("user\u0020image")
+    	  /**Genutzter Spaltenname in der DB-Tabelle*/
+    override def dbColumnName = "user_image"
+      
+     //override def asHtml = 
+     // override def toForm = 
+      //def setFromUpload(fileHolder: Box[FileParamHolder]) = {
+      //S3Sender.uploadImageToS3(path, fileHolder).map(this.set(_))
+      //this.s
+  //}
+
+  //override def asHtml:Node = <img src={this.get} style={"max-width:" + maxWidth + ";max-height:"+maxHeight} />
+  override def _toForm: Box[Elem] = Full(SHtml.fileUpload(fu=>set(fu.file))) // setFromUpload(Full(fu))
+
   }
   
   def fullCommaName: String = this.lastName + ", " + this.firstName
-
 }
 

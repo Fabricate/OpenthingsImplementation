@@ -9,6 +9,7 @@ import net.liftweb.util._
 import net.liftweb.common._
 import scala.xml.{NodeSeq,Text}
 import java.util.Calendar
+import at.fabricate.model.FieldValidations
  
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/

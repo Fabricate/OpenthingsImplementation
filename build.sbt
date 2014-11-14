@@ -28,7 +28,9 @@ libraryDependencies ++= {
     "org.eclipse.jetty.orbit" % "javax.servlet" % "3.0.0.v201112011016" % "container,test" artifacts Artifact("javax.servlet", "jar", "jar"),
     "ch.qos.logback"    % "logback-classic"     % "1.0.6",
     "org.specs2"        %% "specs2"             % "2.3.12"             % "test",
-    "com.h2database"    % "h2"                  % "1.3.167"
+    "com.h2database"    % "h2"                  % "1.3.167",
+    "net.liftmodules"   %% "widgets_2.6"        % "1.4-SNAPSHOT",
+    "net.liftmodules"   %% "imaging_2.6"        % "1.4-SNAPSHOT"
   )
 }
 
