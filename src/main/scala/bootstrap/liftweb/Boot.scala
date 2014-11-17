@@ -49,10 +49,10 @@ class Boot {
     }
     // Set up some rewrites
     LiftRules.statelessRewrite.append {
+      case RewriteRequest(ParsePath(List("designer", "edit"), _, _, _), _, _) =>
+	      RewriteResponse("editDesigner" :: Nil)
       case RewriteRequest(ParsePath(List("designer", designerID), _, _, _), _, _) =>
 	      RewriteResponse("viewDesigner" :: Nil, Map("id" -> urlDecode(designerID)))
-      //case RewriteRequest(ParsePath(List("account", acctName, tag), _, _, _), _, _) =>
-	  //    RewriteResponse("viewAcct" :: Nil, Map("name" -> urlDecode(acctName), "tag" -> urlDecode(tag)))
     }
     
     // TODO : aufraumen, sauberes Menue !!!
@@ -64,9 +64,11 @@ class Boot {
     val userMenu = User.menus
     
     val designerMenu = Menu(Loc("Designer Page", "viewDesigner" :: Nil, "Designers"))
+    val editDesignerMenu = Menu(Loc("Edit Designer", "editDesigner" :: Nil, "Edit Designer"))
+
       //Menu.i("View Account") / "viewAcct" /
     
-    val menus = List[Menu](homeMenu, designerMenu) ::: userMenu ::: projectMenu
+    val menus = List[Menu](homeMenu, designerMenu, editDesignerMenu) ::: userMenu ::: projectMenu
     
     val IfLoggedIn = If(() => User.currentUser.isDefined, "You must be logged in")
     
@@ -103,6 +105,13 @@ class Boot {
     // each page, just comment this line out.
     //LiftRules.setSiteMapFunc(() => sitemapMutators(sitemap))
     LiftRules.setSiteMap(sitemap)
+    
+    
+    def progressPrinter(bytesRead: Long, contentLength: Long, fieldIndex: Int) {
+    	println("Read %d of %d for %d" format (bytesRead, contentLength, fieldIndex))
+    }
+
+    LiftRules.progressListener = progressPrinter
 
 
     //Init the jQuery module, see http://liftweb.net/jquery for more information.

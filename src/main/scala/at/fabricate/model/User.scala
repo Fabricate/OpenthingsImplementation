@@ -8,6 +8,9 @@ import net.liftweb.http.S
 import scala.xml.Node
 import scala.xml.Elem
 import net.liftweb.http.SHtml
+import net.liftweb.http.FileParamHolder
+import java.util.Calendar
+
 
 /**
  * The singleton that has methods for accessing the database
@@ -60,6 +63,9 @@ class User extends MegaProtoUser[User] {
     val maxWidth = 400
     val maxHeight = 400
     
+    //var fileHolder: Box[FileParamHolder]
+    
+    
         // TODO  implement later, as Crudify and Megaprotouser can not be mixed in at the same time
     override def displayName = S.?("user\u0020image")
     	  /**Genutzter Spaltenname in der DB-Tabelle*/
@@ -67,14 +73,28 @@ class User extends MegaProtoUser[User] {
       
      //override def asHtml = 
      // override def toForm = 
-      //def setFromUpload(fileHolder: Box[FileParamHolder]) = {
+      def setFromUpload(fileHolder: Box[FileParamHolder]) = 
+      fileHolder.map(fu => this.set(fu.file))
       //S3Sender.uploadImageToS3(path, fileHolder).map(this.set(_))
-      //this.s
-  //}
 
   //override def asHtml:Node = <img src={this.get} style={"max-width:" + maxWidth + ";max-height:"+maxHeight} />
-  override def _toForm: Box[Elem] = Full(SHtml.fileUpload(fu=>set(fu.file))) // setFromUpload(Full(fu))
+  override def _toForm: Box[Elem] = Full(SHtml.fileUpload(fu=>setFromUpload(Full(fu)))) //fu=>setFromUpload(Full(fu)) setFromUpload(Full(fu))))
 
+  }
+  
+    /**Datumsfeld fuer die Anmeldung des Users */
+  object registrationDate extends MappedDateTime(this){
+    /**Genutzter Spaltenname in der DB-Tabelle*/
+    override def dbColumnName = "registration_date"  
+    
+    /**Name des Datenfeldes für CRUD-Seiten*/
+    override def displayName = S.?("registration\u0020date")
+    
+    /**Liste der durchzufuehrenden Validationen*/  
+    //override def validations =  FieldValidations.isValidDate(this) _ :: Nil
+    //override def validSelectValues: Box[List[(Long, String)]] = 
+    //	DependencyFactory.inject[Date].map(d => List[(Long,String)] (d.toString(), d.toGMTString()))
+    override def defaultValue = Calendar.getInstance.getTime
   }
   
   def fullCommaName: String = this.lastName + ", " + this.firstName
