@@ -14,6 +14,7 @@ import net.liftweb.mapper.By
 import net.liftweb.http.SHtml
 import net.liftweb.http.FileParamHolder
 import net.liftmodules.imaging._
+import net.liftmodules.textile.TextileParser
 
 object Designer extends DispatchSnippet with Logger {
   
@@ -111,6 +112,39 @@ object Designer extends DispatchSnippet with Logger {
         	S.notice("Änderungen gespeichert")
         	S.redirectTo("/designer/"+designer.id.toString)
         }
+          
+          /*different image resizing from http://stackoverflow.com/questions/1404814/lift-image-upload-resize-store-in-database-display
+           * def resize(is:java.io.InputStream, maxWidth:Int, maxHeight:Int):BufferedImage = {
+    require (maxWidth > 0)
+    require (maxHeight > 0)
+    val originalImage:BufferedImage = ImageIO.read(is)
+
+    var height = originalImage.getHeight
+    var width = originalImage.getWidth
+
+    // Shortcut to save a pointless reprocessing in case the image is small enough already
+    if (width <= maxWidth && height <= maxHeight)
+        originalImage
+    else {          
+        // If the picture was too big, it will either fit by width or height.
+        // This essentially resizes the dimensions twice, until it fits
+        if (width > maxWidth){
+          height = (height.doubleValue() * (maxWidth.doubleValue() / width.doubleValue())).intValue
+          width = maxWidth
+        }
+        if (height > maxHeight){
+          width = (width.doubleValue() * (maxHeight.doubleValue() / height.doubleValue())).intValue
+          height = maxHeight
+        }
+        val scaledBI = new BufferedImage(width, height,  BufferedImage.TYPE_INT_RGB)
+        val g = scaledBI.createGraphics
+        g.setComposite(AlphaComposite.Src)
+        g.drawImage(originalImage, 0, 0, width, height, null);
+        g.dispose
+        scaledBI
+    }
+}
+           */
 
 
           bind("dsigner", xhtml,
@@ -189,7 +223,7 @@ object Designer extends DispatchSnippet with Logger {
                //"atomLink" -> <link href={"/api/account/" + acct.id} type="application/atom+xml" rel="alternate" title={acct.name + " feed"} />,
                "firstname" -> designer.firstName.asHtml,
                "lastname" -> designer.lastName.asHtml,
-               "aboutme" -> designer.aboutMe.asHtml,
+               "aboutme" -> TextileParser.toHtml(designer.aboutMe.get),
                //"startDate" -> SHtml.ajaxText("", updateStartDate),
                //"endDate" -> SHtml.ajaxText("", updateEndDate),
                //"graphType" -> SHtml.ajaxSelect(graphChoices, Full("history"), updateGraphType),
