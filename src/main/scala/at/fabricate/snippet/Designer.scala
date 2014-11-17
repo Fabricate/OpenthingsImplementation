@@ -13,6 +13,7 @@ import at.fabricate.model.User
 import net.liftweb.mapper.By
 import net.liftweb.http.SHtml
 import net.liftweb.http.FileParamHolder
+import net.liftmodules.imaging._
 
 object Designer extends DispatchSnippet with Logger {
   
@@ -86,7 +87,14 @@ object Designer extends DispatchSnippet with Logger {
             userImage match {
               case Full(FileParamHolder(_,null,_,_)) =>  S.notice("Huch")
               case Full(FileParamHolder(_,mime,_,data))
-                if mime.startsWith("image/") => 	designer.userImage.set(data)
+                if mime.startsWith("image/") => 	{
+                  val inputStream = userImage.openOrThrowException("User image should not be Empty!").fileStream
+                  var metaImage = ImageResizer.getImageFromStream(inputStream)
+                  metaImage = ImageResizer.removeAlphaChannel(metaImage)
+                  val image = ImageResizer.max(metaImage.orientation, metaImage.image, User.userImage.maxWidth , User.userImage.maxHeight )
+                  val jpg = ImageResizer.imageToBytes(ImageOutFormat.jpeg , image, User.userImage.jpegQuality)
+                  designer.userImage.set(jpg)
+                }
               case Full(_) => S.error("Invalid attachment")
               case _ => {
                 S.error("No attachment")

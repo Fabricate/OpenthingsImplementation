@@ -60,8 +60,9 @@ class User extends MegaProtoUser[User] {
   
   object userImage extends MappedBinary(this) {
     
-    val maxWidth = 400
-    val maxHeight = 400
+    val maxWidth = 600
+    val maxHeight = 800
+    val jpegQuality : Float = 85 / 100.toFloat // HINT: you have to use toFloat, otherwise it will result in 0 !!!
     
     //var fileHolder: Box[FileParamHolder]
     
@@ -77,7 +78,9 @@ class User extends MegaProtoUser[User] {
       fileHolder.map(fu => this.set(fu.file))
       //S3Sender.uploadImageToS3(path, fileHolder).map(this.set(_))
 
-  override def asHtml:Node = <img src={"/serve/userimage/"+this.fieldOwner.id.is} style={"max-width:" + maxWidth + ";max-height:"+maxHeight} />
+  override def asHtml:Node = <img src={"/serve/userimage/"+this.fieldOwner.id.get}  ></img>
+    //style={"max-width:" + maxWidth + ";max-height:"+maxHeight}
+  
   override def _toForm: Box[Elem] = Full(SHtml.fileUpload(fu=>setFromUpload(Full(fu)))) //fu=>setFromUpload(Full(fu)) setFromUpload(Full(fu))))
 
   }
