@@ -77,7 +77,7 @@ class User extends MegaProtoUser[User] {
       fileHolder.map(fu => this.set(fu.file))
       //S3Sender.uploadImageToS3(path, fileHolder).map(this.set(_))
 
-  //override def asHtml:Node = <img src={this.get} style={"max-width:" + maxWidth + ";max-height:"+maxHeight} />
+  override def asHtml:Node = <img src={"/serve/userimage/"+this.fieldOwner.id.is} style={"max-width:" + maxWidth + ";max-height:"+maxHeight} />
   override def _toForm: Box[Elem] = Full(SHtml.fileUpload(fu=>setFromUpload(Full(fu)))) //fu=>setFromUpload(Full(fu)) setFromUpload(Full(fu))))
 
   }

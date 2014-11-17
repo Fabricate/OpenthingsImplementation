@@ -82,12 +82,17 @@ object Designer extends DispatchSnippet with Logger {
             designer.firstName.set(firstName)
             designer.lastName.set(lastName)
             designer.aboutMe.set(aboutMe)
+            // TODO: what about deleting the image???
             userImage match {
               case Full(FileParamHolder(_,null,_,_)) =>  S.notice("Huch")
               case Full(FileParamHolder(_,mime,_,data))
                 if mime.startsWith("image/") => 	designer.userImage.set(data)
               case Full(_) => S.error("Invalid attachment")
-              case _ => S.error("No attachment")
+              case _ => {
+                S.error("No attachment")
+                warn( "No Attachment: "+userImage )
+              }
+              
             }
             designer.save
         		//User.currentUser.openOr(User).subscriptions.foreach(_.delete_!)
@@ -96,7 +101,7 @@ object Designer extends DispatchSnippet with Logger {
         		//	Subscription.create.subscriberId(User.currentUser.openOr(User).id).sourceId(u.id ).save
         		//}
         	S.notice("Änderungen gespeichert")
-        	S.redirectTo(designer.id.toString)
+        	S.redirectTo("/designer/"+designer.id.toString)
         }
 
 
@@ -109,8 +114,8 @@ object Designer extends DispatchSnippet with Logger {
                //"endDate" -> SHtml.ajaxText("", updateEndDate),
                //"graphType" -> SHtml.ajaxSelect(graphChoices, Full("history"), updateGraphType),
                "image" -> SHtml.fileUpload(fph => userImage = Full(fph)), //fu=>setFromUpload(Full(fu))  designer.userImage.asHtml, //<img src={"/graph/" + acctName + "/history"} />,
-               "save" -> SHtml.submit( "Speichern", () => saveChanges )
-
+               "save" -> SHtml.submit( "Speichern", () => saveChanges ) //onSubmitUnit
+               //"save" -> SHtml.onSubmitUnit( () => saveChanges )
                //"table" -> entryTable
                )
                //"image" -> <img src={"/graph/" + acctName + "/history"} />

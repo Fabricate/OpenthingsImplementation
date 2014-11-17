@@ -14,6 +14,7 @@ import net.liftmodules.JQueryModule
 import net.liftweb.sitemap._
 import net.liftweb.sitemap.Loc._
 import at.fabricate.snippet.Designer
+import at.fabricate.lib.ImageLogic
 
 
 
@@ -47,6 +48,10 @@ class Boot {
       case "Designer" => Designer
       //case "AddEntry" => new AddEntry
     }
+    
+    LiftRules.dispatch.append(ImageLogic.matcher)
+
+    
     // Set up some rewrites
     LiftRules.statelessRewrite.append {
       case RewriteRequest(ParsePath(List("designer", "edit"), _, _, _), _, _) =>
