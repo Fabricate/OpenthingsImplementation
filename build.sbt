@@ -30,7 +30,8 @@ libraryDependencies ++= {
     "org.specs2"        %% "specs2"             % "2.3.12"             % "test",
     "com.h2database"    % "h2"                  % "1.3.167",
     "net.liftmodules"   %% "widgets_2.6"        % "1.4-SNAPSHOT",
-    "net.liftmodules"   %% "imaging_2.6"        % "1.4-SNAPSHOT"
+    "net.liftmodules"   %% "imaging_2.6"        % "1.4-SNAPSHOT",
+    "net.liftmodules"   %% "textile_2.6"        % "1.3-SNAPSHOT"
   )
 }
 
