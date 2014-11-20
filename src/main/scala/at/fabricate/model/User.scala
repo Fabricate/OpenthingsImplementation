@@ -15,7 +15,7 @@ import java.util.Calendar
 /**
  * The singleton that has methods for accessing the database
  */
-object User extends User with MetaMegaProtoUser[User] {
+object User extends User with MetaMegaProtoUser[User] with CreatedUpdated {
   override def dbTableName = "users" // define the DB table name
   override def screenWrap = Full(<lift:surround with="default" at="content">
 			       <lift:bind /></lift:surround>)
@@ -37,7 +37,7 @@ object User extends User with MetaMegaProtoUser[User] {
 /**
  * An O-R mapped "User" class that includes first name, last name, password and we add a "Personal Essay" to it
  */
-class User extends MegaProtoUser[User] {
+class User extends MegaProtoUser[User] with CreatedUpdated {
   def getSingleton = User // what's the "meta" server
   
   /*
@@ -73,7 +73,7 @@ class User extends MegaProtoUser[User] {
     override def dbColumnName = "user_image"
       
      //override def asHtml = 
-     // override def toForm = 
+     //override def toForm = SHtml.fileUpload(func, attrs)
       def setFromUpload(fileHolder: Box[FileParamHolder]) = 
       fileHolder.map(fu => this.set(fu.file))
       //S3Sender.uploadImageToS3(path, fileHolder).map(this.set(_))
