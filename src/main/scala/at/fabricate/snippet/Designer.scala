@@ -15,6 +15,9 @@ import net.liftweb.http.SHtml
 import net.liftweb.http.FileParamHolder
 import net.liftmodules.imaging._
 import net.liftmodules.textile.TextileParser
+import net.liftmodules.widgets.autocomplete.AutoComplete
+import at.fabricate.model.Tool
+import scala.collection.mutable.Seq
 
 object Designer extends DispatchSnippet with Logger {
   
@@ -31,6 +34,9 @@ object Designer extends DispatchSnippet with Logger {
           var lastName = designer.lastName.toString
           var aboutMe = designer.aboutMe.toString
           var userImage : Box[FileParamHolder] = Empty
+          var userTools = designer.tools.map(tool => tool.name.toString)
+          var newTool  = ""
+          var allTools = designer.tools.all.map(tool => tool.name.toString)
           
           //∗∗Speichert die Änderungen∗/
         def saveChanges = {
@@ -55,7 +61,9 @@ object Designer extends DispatchSnippet with Logger {
                 S.error("No attachment")
                 warn( "No Attachment: "+userImage )
               }
-              
+              //newTools.map(tool => designer.tools.append(Tool.name(tool))) 
+              var newToolObj : Tool = Tool.create.name(newTool)
+              designer.tools += newToolObj
             }
             designer.validate match {
               case Nil => {
@@ -66,6 +74,10 @@ object Designer extends DispatchSnippet with Logger {
               }
             }
         }
+          
+          def suggest(value: String, limit: Int) = 
+            allTools.filter(_.toLowerCase.startsWith(value))
+          
 
           bind("dsigner", xhtml,
                //"atomLink" -> <link href={"/api/account/" + acct.id} type="application/atom+xml" rel="alternate" title={acct.name + " feed"} />,
@@ -73,7 +85,12 @@ object Designer extends DispatchSnippet with Logger {
                "lastname" -> SHtml.text(lastName, lastName = _) ,
                "aboutme" -> SHtml.textarea(aboutMe, aboutMe = _) ,
                "image" -> SHtml.fileUpload(fph => userImage = Full(fph)),
+               "listtools" -> userTools.mkString(", "),
+               ////"tools" -> AutoComplete("", suggest, newTool = _ ),
+               "tools" -> SHtml.text("", newTool = _) ,
                "save" -> SHtml.submit( "Speichern", () => saveChanges )
+               //"tags" -> Text(entry.tags.map(_.name.is).mkString(", ")),
+               //"tags" -> tags,
                
                )
         }

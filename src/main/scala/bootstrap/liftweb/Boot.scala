@@ -15,6 +15,7 @@ import net.liftweb.sitemap._
 import net.liftweb.sitemap.Loc._
 import at.fabricate.snippet.Designer
 import at.fabricate.lib.ImageLogic
+import net.liftmodules.widgets.autocomplete.AutoComplete
 
 
 
@@ -35,11 +36,13 @@ class Boot {
 
       DB.defineConnectionManager(util.DefaultConnectionIdentifier, vendor)
     }
+    
+    AutoComplete.init
 
     // Use Lift's Mapper ORM to populate the database
     // you don't need to use Mapper to use Lift... use
     // any ORM you want
-    Schemifier.schemify(true, Schemifier.infoF _, User, Project)
+    Schemifier.schemify(true, Schemifier.infoF _, User, Project, Tool, UserHasTools)
 
     // where to search snippet
     LiftRules.addToPackages("at.fabricate")
