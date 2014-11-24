@@ -8,7 +8,7 @@ import java.util.Date
 import java.text.SimpleDateFormat
 
 
-object FieldValidations {
+object FieldValidation {
     /**Definition der Validationsbedingung "Feld darf nicht leer sein"*/
 	def notEmpty(field: FieldIdentifier)(content: String) = {
 		if (content.trim.length == 0)

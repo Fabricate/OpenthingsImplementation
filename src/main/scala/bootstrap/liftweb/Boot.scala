@@ -37,7 +37,7 @@ class Boot {
       DB.defineConnectionManager(util.DefaultConnectionIdentifier, vendor)
     }
     
-    AutoComplete.init
+    //AutoComplete.init
 
     // Use Lift's Mapper ORM to populate the database
     // you don't need to use Mapper to use Lift... use
@@ -69,6 +69,8 @@ class Boot {
       
     val projectMenu = Project.menus
     
+    val toolMenu = Tool.menus
+    
     val userMenu = User.menus
     
     val designerMenu = Menu(Loc("Designer Page", "viewDesigner" :: Nil, "Designers"))
@@ -76,7 +78,7 @@ class Boot {
 
       //Menu.i("View Account") / "viewAcct" /
     
-    val menus = List[Menu](homeMenu, designerMenu, editDesignerMenu) ::: userMenu ::: projectMenu
+    val menus = List[Menu](homeMenu, designerMenu, editDesignerMenu) ::: userMenu ::: toolMenu ::: projectMenu
     
     val IfLoggedIn = If(() => User.currentUser.isDefined, "You must be logged in")
     

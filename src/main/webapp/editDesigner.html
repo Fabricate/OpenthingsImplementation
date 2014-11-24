@@ -1,6 +1,5 @@
 <lift:surround with="default" at="content">
 
- 
 <div class="lift:Designer.edit?form=POST;multipart=true">
 <div class="column span-24">
   <h2>Designer</h2>
@@ -23,14 +22,18 @@
       </tr>
       <tr>
 	<td>Tools</td>
-	<td><dsigner:listtools></dsigner:listtools></td>
+	<td><dsigner:listtools>
+          <div id="tools">
+            <ul>
+              <li><tools:checkbox></tools:checkbox><tools:name></tools:name></li>
+            </ul>
+          </div>
+            </dsigner:listtools>
+        </td>
       </tr>
       <tr>
-	<td>Add Tool</td>
-	<td><dsigner:tools></dsigner:tools></td>
-      </tr>
     </table>
-    
+    <dsigner:addtool></dsigner:addtool>
 	<dsigner:save></dsigner:save>
     
 </div>

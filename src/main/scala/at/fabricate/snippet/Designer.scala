@@ -18,6 +18,7 @@ import net.liftmodules.textile.TextileParser
 import net.liftmodules.widgets.autocomplete.AutoComplete
 import at.fabricate.model.Tool
 import scala.collection.mutable.Seq
+import net.liftweb.http.js.JsCmd
 
 object Designer extends DispatchSnippet with Logger {
   
@@ -36,7 +37,12 @@ object Designer extends DispatchSnippet with Logger {
           var userImage : Box[FileParamHolder] = Empty
           var userTools = designer.tools.map(tool => tool.name.toString)
           var newTool  = ""
-          var allTools = designer.tools.all.map(tool => tool.name.toString)
+          //var allTools = designer.tools.all.map(tool => tool.name.toString)
+          var allTools = Tool.findAll.map(tool => tool.name.toString)
+          
+          var toolsSelected =  List[String]()
+          var toolsUnselected =  List[String]()
+
           
           //∗∗Speichert die Änderungen∗/
         def saveChanges = {
@@ -61,22 +67,73 @@ object Designer extends DispatchSnippet with Logger {
                 S.error("No attachment")
                 warn( "No Attachment: "+userImage )
               }
-              //newTools.map(tool => designer.tools.append(Tool.name(tool))) 
-              var newToolObj : Tool = Tool.create.name(newTool)
-              designer.tools += newToolObj
             }
+            
+              //newTools.map(tool => designer.tools.append(Tool.name(tool))) 
+              //var newToolObj : Tool = Tool.create.name(newTool)
+              //designer.tools += newToolObj
+            //toolsSelected.map(tool => designer.tools.append(Tool.findByName(tool).head))
+              
+            //toolsUnselected.map(tool => designer.tools.filterNot(dtool => dtool == Tool.findByName(tool).head))
+   
             designer.validate match {
               case Nil => {
-                
+               //designer.tools.save 
             designer.save
         	S.notice("Änderungen gespeichert")
         	S.redirectTo("/designer/"+designer.id.toString)
               }
+              case _ => warn("Error validating designer!")
             }
         }
           
+          /*
           def suggest(value: String, limit: Int) = 
             allTools.filter(_.toLowerCase.startsWith(value))
+            
+         def toolSelected(tool: String)(selected: Boolean) : JsCmd = {
+            if ( selected ) designer.tools += Tool.create.name(tool)
+            else designer.tools -= Tool.create.name(tool)
+            designer.save
+            net.liftweb.http.js.
+          }
+            
+         def listTools() = {
+            allTools.map(tool => SHtml.ajaxCheckbox(userTools.contains(tool), toolSelected(tool)(_))
+          }
+          * 
+          */
+         def toolSelected(tool: String)(selected: Boolean) = {
+            if ( selected ) {
+              designer.tools += Tool.findByName(tool).head //toolsSelected = tool :: toolsSelected
+            warn("add: "+tool)
+            }
+            else {
+              designer.tools -= Tool.findByName(tool).head//toolsUnselected = tool :: toolsUnselected
+            		  warn("remove: "+tool)
+            }
+            //designer.tools.save
+            
+            //designer.tools += Tool.create.name(tool)
+            //designer.tools -= Tool.create.name(tool)
+          }
+         
+          def listTools(template: NodeSeq) : NodeSeq  =             
+            allTools.flatMap(tool => bind("tools",template,
+                "checkbox" -> SHtml.checkbox(userTools.contains(tool), toolSelected(tool) _ ),
+                "name" -> tool
+                )
+                )
+            
+                /*
+          def addTool() : JsCmd = {
+            Tool.create.name(newTool).save
+            net.liftweb.http.js.jquery.JqJsCmds.AppendHtml("tools",
+                SHtml.checkbox(userTools.contains(newTool), toolSelected(newTool) _ )
+                )
+          }
+          * 
+          */
           
 
           bind("dsigner", xhtml,
@@ -85,9 +142,11 @@ object Designer extends DispatchSnippet with Logger {
                "lastname" -> SHtml.text(lastName, lastName = _) ,
                "aboutme" -> SHtml.textarea(aboutMe, aboutMe = _) ,
                "image" -> SHtml.fileUpload(fph => userImage = Full(fph)),
-               "listtools" -> userTools.mkString(", "),
+               //"listtools" -> userTools.mkString(", "),
+               "listtools" -> listTools _,
                ////"tools" -> AutoComplete("", suggest, newTool = _ ),
-               "tools" -> SHtml.text("", newTool = _) ,
+               "addtool" -> <link href="/tool/create" title="Create new tool"></link> ,
+               //"savetool" -> SHtml.ajaxSubmit("Hinzufügen", addTool ),
                "save" -> SHtml.submit( "Speichern", () => saveChanges )
                //"tags" -> Text(entry.tags.map(_.name.is).mkString(", ")),
                //"tags" -> tags,
@@ -103,14 +162,23 @@ object Designer extends DispatchSnippet with Logger {
       User.findAll(By(User.id , designerID)) match {
         case designer :: Nil => {
           
-          val currentUser : User = User.find(By(User.id,designerID)) openOrThrowException "User not found!"
+          //val currentUser : User = User.find(By(User.id,designerID)) openOrThrowException "User not found!"
           //currentUser.view
+          val userTools = designer.tools.map(tool => tool.name.toString)
+          
+          def listTools(template: NodeSeq) : NodeSeq  =             
+            userTools.flatMap(tool => bind("tools",template,
+                //"checkbox" -> SHtml.checkbox(userTools.contains(tool), _ => true,  disabled="true"),
+                "name" -> tool
+                )
+                )
 
           bind("dsigner", xhtml,
                "firstname" -> designer.firstName.asHtml,
                "lastname" -> designer.lastName.asHtml,
                "aboutme" -> TextileParser.toHtml(designer.aboutMe.get),
-               "image" -> designer.userImage.asHtml
+               "image" -> designer.userImage.asHtml,
+               "listtools" -> listTools _
                )
         }
         case _ => warn("Couldn't locate designer \"%s\"".format(designerID)); Text("Could not locate designer " + designerID)

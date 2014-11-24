@@ -9,7 +9,6 @@ import net.liftweb.util._
 import net.liftweb.common._
 import scala.xml.{NodeSeq,Text}
 import java.util.Calendar
-import at.fabricate.model.FieldValidations
  
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/
@@ -82,7 +81,7 @@ class Project extends LongKeyedMapper[Project] with IdPK {
     override def displayName = S.?("project\u0020teaser")
     
     /**Liste der durchzufuehrenden Validationen*/  
-    override def validations = FieldValidations.notEmpty(this) _ :: Nil
+    override def validations = FieldValidation.notEmpty(this) _ :: Nil
   }
   
   /**Datumsfeld fuer die Erstellung des Projektes */
