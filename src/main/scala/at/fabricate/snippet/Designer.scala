@@ -23,7 +23,6 @@ import net.liftweb.http.js.JsCmd
 object Designer extends DispatchSnippet with Logger {
   
   def dispatch : DispatchIt = {
-    //case "manage" => manage _
     case "edit" => edit _
     case "view" => view _
   }

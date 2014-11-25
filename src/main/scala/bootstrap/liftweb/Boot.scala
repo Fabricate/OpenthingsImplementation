@@ -49,7 +49,7 @@ class Boot {
     
     LiftRules.snippetDispatch.append {
       case "Designer" => Designer
-      //case "AddEntry" => new AddEntry
+      //case "ListDesigners" => ListDesigners
     }
     
     LiftRules.dispatch.append(ImageLogic.matcher)
@@ -59,6 +59,8 @@ class Boot {
     LiftRules.statelessRewrite.append {
       case RewriteRequest(ParsePath(List("designer", "edit"), _, _, _), _, _) =>
 	      RewriteResponse("editDesigner" :: Nil)
+      case RewriteRequest(ParsePath(List("designer", "list"), _, _, _), _, _) =>
+	      RewriteResponse("listDesigner" :: Nil)	      
       case RewriteRequest(ParsePath(List("designer", designerID), _, _, _), _, _) =>
 	      RewriteResponse("viewDesigner" :: Nil, Map("id" -> urlDecode(designerID)))
 
@@ -101,9 +103,10 @@ class Boot {
     
     
     def menu: List[Menu] = 
-    List[Menu](Menu.i("Home") / "index",
+    List[Menu](Menu.i("Home") / "index" >> Hidden,
                Menu.i("Edit my profile") / "editDesigner" >> Hidden >> AccessControl.loggedIn ,  //>> IfLoggedIn,
-               Menu.i("View Account") / "viewDesigner" / ** >> Hidden,
+               Menu.i("View Designer") / "viewDesigner" / ** >> Hidden,
+               Menu.i("List Designers") / "listDesigner" / ** >> Hidden,               
                Menu.i("Public Data") / "public" / ** >> Hidden,
                Menu.i("SASS") / "sass" / ** >> Hidden,
 //               Menu.i("Navigation Menu") / "navigation"  >> Hidden,
