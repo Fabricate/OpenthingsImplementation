@@ -16,6 +16,9 @@ import java.util.Calendar
  * The singleton that has methods for accessing the database
  */
 object User extends User with MetaMegaProtoUser[User] with CreatedUpdated {
+  
+  override lazy val editPath = List ("designer","edit")
+  
   override def dbTableName = "users" // define the DB table name
   override def screenWrap = Full(<lift:surround with="default" at="content">
 			       <lift:bind /></lift:surround>)
@@ -32,6 +35,7 @@ object User extends User with MetaMegaProtoUser[User] with CreatedUpdated {
   
   // just an idea for different signup process
   //override def signupFields = email :: userName :: password :: Nil 
+  
 }
 
 /**
@@ -47,7 +51,9 @@ class User extends MegaProtoUser[User] with CreatedUpdated with LongKeyedMapper[
    * 
    * 
    */
-
+  
+  
+  
   // define an additional field for a personal essay
   object aboutMe extends MappedTextarea(this, 2048) {
     override def textareaRows  = 10
