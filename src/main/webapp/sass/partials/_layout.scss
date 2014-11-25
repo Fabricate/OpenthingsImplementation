@@ -1,0 +1,48 @@
+.projectComments, .mainContent, .mainContent .projectHeader div, .mainContent .projectDetails{
+	@include box-sizing(border-box);
+}
+body{
+	background-color: $lightgrey;
+}
+.mainContent{
+	width: 100%;
+}
+.projectPage .mainContent{
+	padding: 0 2%;
+}
+.mainContent .featured{
+	width: 47%;
+}
+.mainContent li{
+	margin: 0 0 2% 2%;
+	width: 22.5%;
+	background-color: white;
+}
+.mainContent li header{
+	padding: $tiny-margin-padding $small-margin-padding ;
+}
+.mainContent li a{
+	color: $darkgrey;
+}
+.mainContent article img{
+	width: 100%;
+}
+.mainContent .projectHeader img, .mainContent .projectHeader div{
+	width: 100%;
+}
+.mainContent .projectHeader div{
+	padding: 2%;
+	background-color: $darkgrey;
+	color: white;
+}
+.mainContent .projectDetails{
+	width: 100%;
+	padding: 2%;
+	background-color: rgba($brand-color, .3);
+}
+.projectComments{
+	background-color: white;
+	width: 100%;
+	margin-bottom: 2%;
+	padding: 2%;
+}

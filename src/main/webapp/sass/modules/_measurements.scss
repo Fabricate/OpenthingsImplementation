@@ -1,0 +1,25 @@
+$tiny-margin-padding: 0.3125em;
+$xsmall-margin-padding: 0.625em;
+$small-margin-padding: 0.9375em;
+$smedium-margin-padding: 1.25em;
+$medium-margin-padding: 1.875em;
+$big-margin-padding: 3.125em;
+
+$icon-width: 1.875em;
+$icon-height: 1.875em;
+
+$big-icon-width: 2.5em;
+$big-icon-height: 2.5em;
+
+@mixin box-sizing($box-sizing) {
+  -webkit-box-sizing: $box-sizing;
+     -moz-box-sizing: $box-sizing;
+      -ms-box-sizing: $box-sizing;
+          box-sizing: $box-sizing;
+}
+
+@mixin box-shadow($top, $left, $blur, $color, $inset:"") {
+	-webkit-box-shadow:$top $left $blur $color #{$inset};
+	-moz-box-shadow:$top $left $blur $color #{$inset};
+	box-shadow:$top $left $blur $color #{$inset};
+}

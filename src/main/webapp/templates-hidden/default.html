@@ -1,13 +1,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:lift="http://liftweb.net/">
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <meta name="description" content="" />
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="project description" />
+		
     <meta name="keywords" content="" />
-    <title class="lift:Menu.title">App: </title>
-    <style class="lift:CSS.blueprint"></style>
-    <style class="lift:CSS.fancyType"></style>
-    <script id="jquery" src="/classpath/jquery.js" type="text/javascript"></script>
+    <title class="lift:Menu.title">Openthings | </title>
+
+    <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/public/stylesheets/main.css" />
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
     <script id="json" src="/classpath/json.js" type="text/javascript"></script>
+
     <style type="text/css">
 /* <![CDATA[ */
 .edit_error_class {
@@ -15,71 +24,85 @@
   color: red;
 }
 
-.sidebar ul {
-	margin:0;
-	padding:0;
-	border-bottom:1px solid #ccc;
-}
 	 
-
-.sidebar ul li {
-	margin:0;
-	padding:0;
-	list-style:none;
-	border:1px solid #ccc;
-	border-bottom:none;
-}
-
-.sidebar ul li a {
-	display:block;
-	padding:3px;
-	text-indent:30px;
-	text-decoration:none;
-}
-
-.sidebar ul li span {
-	display:block;
-	padding:3px;
-	text-indent:30px;
-	text-decoration:none;
-}
-
-.sidebar ul li a:hover {
-	background-color: #eee;
-}
-
-
   /* ]]> */
   </style>
   </head>
   <body>
-    <div class="container">
-      <div class="column span-12 last" style="text-align: right">
-        <h1 class="alt">app<img alt="" id="ajax-loader" style="display:none; margin-bottom: 0px; margin-left: 5px" src="/images/ajax-loader.gif"></h1>
-      </div>
 
-      <hr>
 
-      <div class="column span-6 colborder sidebar">
+    <div class="iconSprite" ng-include="'/public/icons/svg-defs.svg'"></div>
+    <nav class="mainNavigation">
+			<a href="index.html" class="logo left">openThings</a>
+			<ul class="left">
+					<li class="current left"><a href="#">Designs</a></li>
+					<li class="left"><a href="#">Tutorials</a></li>
+					<li class="left"><a href="#">Designers</a></li>
+			</ul>
+			<a href="#" class="shareDesignBtn right">share your designs</a>
+		</nav>
+    <section class="mainSearch">
+        <form class="left">
+            <input placeholder="Search: description, tag, type of product">
+            <button type="submit">Search</button>
+        </form>
+        <ul>
+            <li>Type of machine</li>
+            <li>Type of product</li>
+            <li>Expanded search</li>
+        </ul>
         <hr class="space" >
 
 	<span class="lift:Menu.builder"></span>
 
         <div class="lift:Msgs?showAll=true"></div>
         <hr class="space" />
-      </div>
+    </section>
 
       <div class="column span-17 last">
         <div id="content">The main content will get bound here</div>
       </div>
 
-      <hr />
-      <div class="column span-23 last" style="text-align: center">
-        <h4 class="alt">
-          <a href="http://www.liftweb.net"><i>Lift</i></a> 
-	  is Copyright 2007-2012 WorldWide Conferencing, LLC.
-	  Distributed under an Apache 2.0 License.</h4>
-      </div>
+    <nav class="footerNav left">
+        <section class="left">
+            <ul>
+                <li><h1>About us</h1></li>
+                <li><a href="/about_us/who_we_are">Who are we?</a></li>
+                <li>Our mission</li>
+                <li>Help us out</li>
+                <li>Media</li>
+            </ul>
+        </section>
+        <section class="left">
+            <ul>
+                <li><h1>Inspired by</h1></li>
+                <li>WikiPedia</li>
+                <li>OpenDesk</li>
+                <li>Fablab community</li>
+                <li>WikiHouse</li>
+            </ul>
+        </section>
+        <section class="left">
+            <ul>
+                <li><h1>General information</h1></li>
+                <li>FAQ</li>
+                <li>Contact us</li>
+                <li>Give us feedback</li>
+            </ul>
+        </section>
+        <section class="left">
+            <ul>
+                <li><h1>Partners</h1></li>
+                <li>KABK</li>
+                <li>Waag society</li>
+                <li>Fablab</li>
+            </ul>
+        </section>
+    </nav>
+    <footer class="mainFooter">
+        <p class="left">Webdesign made by <a href="#">Martinr.nl</a> feel free to download the designs <a href="#">here</a></p>
+    </footer>
+
     </div>
   </body>
 </html>

@@ -104,6 +104,11 @@ class Boot {
     List[Menu](Menu.i("Home") / "index",
                Menu.i("Edit my profile") / "editDesigner" >> Hidden >> AccessControl.loggedIn ,  //>> IfLoggedIn,
                Menu.i("View Account") / "viewDesigner" / ** >> Hidden,
+               Menu.i("Public Data") / "public" / ** >> Hidden,
+               Menu.i("SASS") / "sass" / ** >> Hidden,
+//               Menu.i("Navigation Menu") / "navigation"  >> Hidden,
+
+
                Menu.i("About Us") / "about_us" / **
                //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
                ) :::  User.sitemap ::: Tool.menus ::: Project.menus
@@ -131,12 +136,14 @@ class Boot {
     // each page, just comment this line out.
     //LiftRules.setSiteMapFunc(() => sitemapMutators(sitemap))
     
-    
+    /*
     def progressPrinter(bytesRead: Long, contentLength: Long, fieldIndex: Int) {
     	println("Read %d of %d for %d" format (bytesRead, contentLength, fieldIndex))
     }
 
     LiftRules.progressListener = progressPrinter
+    * 
+    */
 
 
     //Init the jQuery module, see http://liftweb.net/jquery for more information.

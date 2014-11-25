@@ -1,0 +1,23 @@
+.mainSearch{
+	width: 100%;
+	background-color: white;
+	@include box-sizing(border-box);
+	padding: $small-margin-padding $medium-margin-padding;
+	margin-bottom: $medium-margin-padding;
+}
+.mainSearch li{
+	display: inline;
+	margin: 0 0 0 $medium-margin-padding;
+	line-height: 3.125em;
+}
+.mainSearch input{
+	width: 24.375em;
+	height: 3.125em;
+	padding: 0 $small-margin-padding;
+	@include box-sizing(border-box);
+}
+.mainSearch button{
+	height: 3.125em;
+	padding: 0 $small-margin-padding;
+	margin: 0 $tiny-margin-padding;
+}

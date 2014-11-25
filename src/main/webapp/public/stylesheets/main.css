@@ -1,0 +1,227 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, button, input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+@font-face {
+  font-family: 'proxima_nova_rgregular';
+  src: url("../fonts/mark_simonson_-_proxima_nova_regular-webfont.eot");
+  src: url("../fonts/mark_simonson_-_proxima_nova_regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/mark_simonson_-_proxima_nova_regular-webfont.woff") format("woff"), url("../fonts/mark_simonson_-_proxima_nova_regular-webfont.ttf") format("truetype"), url("../fonts/mark_simonson_-_proxima_nova_regular-webfont.svg#proxima_nova_rgregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+html {
+  font-size: 100%;
+  -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: 'proxima_nova_rgregular', sans-serif;
+  color: #323a45; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal; }
+
+h1 {
+  font-size: 1.125em;
+  line-height: 1.6875em; }
+
+p {
+  margin-bottom: 1em;
+  /* 24 / 16 */ }
+
+a {
+  text-decoration: none;
+  opacity: 1;
+  color: #2cd2b4; }
+
+a:hover {
+  opacity: 0.8;
+  -webkit-transition: opacity 0.3s ease-in-out;
+          transition: opacity 0.3s ease-in-out; }
+
+input {
+  border: 1px solid #edebeb; }
+
+button {
+  color: white;
+  background-color: #2cd2b4;
+  cursor: pointer;
+  padding: 0.625em; }
+
+.icon {
+  width: 30px;
+  height: 30px;
+  fill: #333; }
+
+.right {
+  float: right; }
+
+.left {
+  float: left; }
+
+.projectComments, .mainContent, .mainContent .projectHeader div, .mainContent .projectDetails {
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box; }
+
+body {
+  background-color: #edebeb; }
+
+.mainContent {
+  width: 100%; }
+
+.projectPage .mainContent {
+  padding: 0 2%; }
+
+.mainContent .featured {
+  width: 47%; }
+
+.mainContent li {
+  margin: 0 0 2% 2%;
+  width: 22.5%;
+  background-color: white; }
+
+.mainContent li header {
+  padding: 0.3125em 0.9375em; }
+
+.mainContent li a {
+  color: #323232; }
+
+.mainContent article img {
+  width: 100%; }
+
+.mainContent .projectHeader img, .mainContent .projectHeader div {
+  width: 100%; }
+
+.mainContent .projectHeader div {
+  padding: 2%;
+  background-color: #323232;
+  color: white; }
+
+.mainContent .projectDetails {
+  width: 100%;
+  padding: 2%;
+  background-color: rgba(44, 210, 180, 0.3); }
+
+.projectComments {
+  background-color: white;
+  width: 100%;
+  margin-bottom: 2%;
+  padding: 2%; }
+
+.logo, .shareDesignBtn, .mainNavigation li, .mainNavigation li a {
+  height: 100%; }
+
+.mainNavigation {
+  background-color: #edebeb;
+  height: 75px;
+  font-size: 1.3125em; }
+
+.logo {
+  background: #323232 url(../images/logo.svg) no-repeat 0.9em center;
+  padding: 0 3em;
+  line-height: 3.6em;
+  color: white; }
+
+.shareDesignBtn {
+  background-color: #2cd2b4;
+  padding: 0 1.875em;
+  line-height: 3.6em;
+  color: white; }
+
+.mainNavigation li {
+  display: inline-block; }
+
+.mainNavigation li a {
+  color: #666666;
+  padding: 0 3em;
+  line-height: 3.6em;
+  display: inline-block; }
+
+.mainNavigation .current a {
+  background-color: white; }
+
+.mainNavigation li a:hover {
+  background-color: white; }
+
+.mainSearch {
+  width: 100%;
+  background-color: white;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0.9375em 1.875em;
+  margin-bottom: 1.875em; }
+
+.mainSearch li {
+  display: inline;
+  margin: 0 0 0 1.875em;
+  line-height: 3.125em; }
+
+.mainSearch input {
+  width: 24.375em;
+  height: 3.125em;
+  padding: 0 0.9375em;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.mainSearch button {
+  height: 3.125em;
+  padding: 0 0.9375em;
+  margin: 0 0.3125em; }
+
+.mainFooter {
+  padding: 0 2%; }
+
+.mainFooter p {
+  font-size: 0.875em;
+  color: #666666;
+  margin-top: 1em;
+  line-height: 3em; }
+
+.footerNav {
+  width: 100%;
+  background-color: white; }
+
+.footerNav section {
+  width: 21%;
+  margin: 2%; }
+
+.footerNav li {
+  line-height: 1.5em;
+  font-size: 0.875em; }
