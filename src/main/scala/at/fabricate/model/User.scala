@@ -78,7 +78,12 @@ class User extends MegaProtoUser[User] with CreatedUpdated with LongKeyedMapper[
       fileHolder.map(fu => this.set(fu.file))
       //S3Sender.uploadImageToS3(path, fileHolder).map(this.set(_))
 
-  override def asHtml:Node = <img src={"/serve/userimage/"+this.fieldOwner.id.get}  ></img>
+  override def asHtml:Node = {
+      if (this.get.length > 0)
+      	<img src={"/serve/userimage/"+this.fieldOwner.id.get}  ></img>
+      else
+        <img src={"/images/nouser.png"}  ></img>
+    }
     //style={"max-width:" + maxWidth + ";max-height:"+maxHeight}
   
   override def _toForm: Box[Elem] = Full(SHtml.fileUpload(fu=>setFromUpload(Full(fu)))) //fu=>setFromUpload(Full(fu)) setFromUpload(Full(fu))))

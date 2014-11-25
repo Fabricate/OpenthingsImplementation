@@ -35,24 +35,21 @@ object Designer extends DispatchSnippet with Logger {
           var lastName = designer.lastName.toString
           var aboutMe = designer.aboutMe.toString
           var userImage : Box[FileParamHolder] = Empty
-          var userTools = designer.tools.map(tool => tool.name.toString)
-          var newTool  = ""
-          //var allTools = designer.tools.all.map(tool => tool.name.toString)
+          var userTools = designer.tools.map(tool => tool.name.toString)          
           var allTools = Tool.findAll.map(tool => tool.name.toString)
-          
-          var toolsSelected =  List[String]()
-          var toolsUnselected =  List[String]()
+          var deleteImage = false
 
           
           //∗∗Speichert die Änderungen∗/
-        def saveChanges = {
-            
+        def saveChanges = {            
             designer.firstName.set(firstName)
             designer.lastName.set(lastName)
             designer.aboutMe.set(aboutMe)
-            // TODO: what about deleting the image???
+            if (deleteImage) {
+              designer.userImage.set(Array[Byte]())
+            } else 
             userImage match {
-              case Full(FileParamHolder(_,null,_,_)) =>  S.notice("Huch")
+              case Full(FileParamHolder(_,null,_,_)) => S.error("Sorry - this does not look like an image!")
               case Full(FileParamHolder(_,mime,_,data))
                 if mime.startsWith("image/") => 	{
                   val inputStream = userImage.openOrThrowException("User image should not be Empty!").fileStream
@@ -62,26 +59,17 @@ object Designer extends DispatchSnippet with Logger {
                   val jpg = ImageResizer.imageToBytes(ImageOutFormat.jpeg , image, User.userImage.jpegQuality)
                   designer.userImage.set(jpg)
                 }
+              case Full(FileParamHolder(_,mime,_,data))
+                if ! mime.startsWith("image/") =>  S.error("Sorry - this does not look like an image!")
               case Full(_) => S.error("Invalid attachment")
-              case _ => {
-                S.error("No attachment")
-                warn( "No Attachment: "+userImage )
-              }
+              case _ => warn( "No Attachment: "+userImage )
             }
             
-              //newTools.map(tool => designer.tools.append(Tool.name(tool))) 
-              //var newToolObj : Tool = Tool.create.name(newTool)
-              //designer.tools += newToolObj
-            //toolsSelected.map(tool => designer.tools.append(Tool.findByName(tool).head))
-              
-            //toolsUnselected.map(tool => designer.tools.filterNot(dtool => dtool == Tool.findByName(tool).head))
-   
             designer.validate match {
               case Nil => {
-               //designer.tools.save 
-            designer.save
-        	S.notice("Änderungen gespeichert")
-        	S.redirectTo("/designer/"+designer.id.toString)
+	            designer.save
+	        	S.notice("Änderungen gespeichert")
+	        	S.redirectTo("/designer/"+designer.id.toString)
               }
               case _ => warn("Error validating designer!")
             }
@@ -103,27 +91,7 @@ object Designer extends DispatchSnippet with Logger {
           }
           * 
           */
-         def toolSelected(tool: String)(selected: Boolean) = {
-            if ( selected ) {
-              designer.tools += Tool.findByName(tool).head //toolsSelected = tool :: toolsSelected
-            warn("add: "+tool)
-            }
-            else {
-              designer.tools -= Tool.findByName(tool).head//toolsUnselected = tool :: toolsUnselected
-            		  warn("remove: "+tool)
-            }
-            //designer.tools.save
-            
-            //designer.tools += Tool.create.name(tool)
-            //designer.tools -= Tool.create.name(tool)
-          }
-         
-          def listTools(template: NodeSeq) : NodeSeq  =             
-            allTools.flatMap(tool => bind("tools",template,
-                "checkbox" -> SHtml.checkbox(userTools.contains(tool), toolSelected(tool) _ ),
-                "name" -> tool
-                )
-                )
+          
             
                 /*
           def addTool() : JsCmd = {
@@ -134,6 +102,18 @@ object Designer extends DispatchSnippet with Logger {
           }
           * 
           */
+         def toolSelected(toolName: String)(selected: Boolean) = {
+           val tool = Tool.findByName(toolName).head
+            if ( selected ) designer.tools += tool
+            else designer.tools -= tool
+          }
+         
+          def listTools(template: NodeSeq) : NodeSeq  =             
+            allTools.flatMap(tool => bind("tools",template,
+                "checkbox" -> SHtml.checkbox(userTools.contains(tool), toolSelected(tool) _ ),
+                "name" -> tool
+                )
+              )
           
 
           bind("dsigner", xhtml,
@@ -141,11 +121,12 @@ object Designer extends DispatchSnippet with Logger {
                "firstname" -> SHtml.text(firstName, firstName = _) ,
                "lastname" -> SHtml.text(lastName, lastName = _) ,
                "aboutme" -> SHtml.textarea(aboutMe, aboutMe = _) ,
-               "image" -> SHtml.fileUpload(fph => userImage = Full(fph)),
-               //"listtools" -> userTools.mkString(", "),
+               "showimage" -> designer.userImage.asHtml,
+               "newimage" -> SHtml.fileUpload(fph => userImage = Full(fph)),
+               "deleteimage" -> SHtml.checkbox(false, deleteImage = _ ),
                "listtools" -> listTools _,
                ////"tools" -> AutoComplete("", suggest, newTool = _ ),
-               "addtool" -> <link href="/tool/create" title="Create new tool"></link> ,
+               "addtool" -> <a href="/tool/create">Create new tool</a> ,
                //"savetool" -> SHtml.ajaxSubmit("Hinzufügen", addTool ),
                "save" -> SHtml.submit( "Speichern", () => saveChanges )
                //"tags" -> Text(entry.tags.map(_.name.is).mkString(", ")),

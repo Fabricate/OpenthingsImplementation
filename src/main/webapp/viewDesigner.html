@@ -1,40 +1,40 @@
 <lift:surround with="default" at="content">
+	<div class="lift:Designer.view">
+		<div class="column span-24">
+			<h2>Designer</h2>
+			<table>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+				 </tr>
+				 <tr>
+					<td><dsigner:firstname></dsigner:firstname></td>
+					<td><dsigner:lastname></dsigner:lastname></td>
+				 </tr>
+			</table>
 
- 
-<div class="lift:Designer.view">
-<div class="column span-24">
-  <h2>Designer</h2>
-    <table>
-      <tr>
-	<th>First Name</th>
-	<th>Last Name</th>
-      </tr>
-      <tr>
-	<td><dsigner:firstname></dsigner:firstname></td>
-	<td><dsigner:lastname></dsigner:lastname></td>
-      </tr>
-    </table>
+			<hr/>
     
+			<div>
+				<h2>Image</h2>
+				<dsigner:image></dsigner:image>
+			</div>
 
-<hr/>
+			<hr/>
     
-    <div>
-      <h2>Image</h2>
-      <dsigner:image></dsigner:image>
-    </div>
+			<div>
+			  <h2>About me:</h2>
+			  <dsigner:aboutme></dsigner:aboutme>
+			</div>
 
-<hr/>
-    
-    <div>
-      <h2>About me:</h2>
-      <dsigner:aboutme></dsigner:aboutme>
-    </div>
-
-    <div>
-      <h2>Tools:</h2>
-	<dsigner:listtools><ul><li><tools:checkbox></tools:checkbox><tools:name></tools:name></li></dsigner:listtools>
-    </div>
-
-  </div>
-
+			<div>
+			  <h2>Tools:</h2>
+				<dsigner:listtools>
+					<ul>
+						<li><tools:checkbox></tools:checkbox><tools:name></tools:name></li>
+					</ul>
+				</dsigner:listtools>
+			</div>
+		</div>
+	</div>
 </lift:surround>

@@ -7,11 +7,11 @@ import net.liftweb.util.FieldIdentifier
 import net.liftweb.util.FieldError
 import scala.xml.Text
 
-class Tool extends LongKeyedMapper[Tool] with ManyToMany{
+class Tool extends LongKeyedMapper[Tool] with IdPK with ManyToMany{
   def getSingleton = Tool
-  def primaryKeyField = id
+  //def primaryKeyField = id
   //override def dbIndexes = UniqueIndex(name)::super.dbIndexes
-  object id extends MappedLongIndex(this)
+  //object id extends MappedLongIndex(this)
   object name extends MappedString(this,100){
     
     /**Liste der durchzufuehrenden Validationen*/  
@@ -22,7 +22,7 @@ class Tool extends LongKeyedMapper[Tool] with ManyToMany{
   def existsNot(field: FieldIdentifier)(tool:String)  = 
     this.findByName(tool) match {
     case Nil => List[FieldError]()
-    case _ => List(FieldError(field, Text("Tool existiert bereits")))
+    case someThing :: someRest  => List(FieldError(field, Text("Tool existiert bereits")))
 
   }
   
@@ -30,13 +30,20 @@ class Tool extends LongKeyedMapper[Tool] with ManyToMany{
   
   override def save = 
     this.validate match {
+	  			// create new object
               case Nil => super.save
-              case _ => false
+	  			// update object
+              case _ if (this.id != Empty ) => super.save
+	  			// no new object with same name!
+              case _ => {
+                println("same object already exists - no saving performed!")
+                false
+              }
             }
   
 }
 
-object Tool extends Tool with LongKeyedMetaMapper[Tool] with CRUDify[Long, Tool]
+object Tool extends Tool with LongKeyedMetaMapper[Tool] with IdPK with CRUDify[Long, Tool]
 
 object UserHasTools extends UserHasTools with LongKeyedMetaMapper[UserHasTools]
 
