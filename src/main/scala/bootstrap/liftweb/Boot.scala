@@ -64,7 +64,7 @@ class Boot {
     }
     
     // TODO : aufraumen, sauberes Menue !!!
-
+    /*
     val homeMenu = Menu(Loc("Home Page", "index" :: Nil, "Home"))
       
     val projectMenu = Project.menus
@@ -80,22 +80,27 @@ class Boot {
     
     val menus = List[Menu](homeMenu, designerMenu, editDesignerMenu) ::: userMenu ::: toolMenu ::: projectMenu
     
-    val IfLoggedIn = If(() => User.currentUser.isDefined, "You must be logged in")
+    def sitemap = SiteMap(menus : _* )
     
-    /*
-    def menu: List[Menu] = 
-    List[Menu](Menu.i("Home") / "index",
-               Menu.i("Manage Accounts") / "manage" >> IfLoggedIn,
-               Menu.i("Add Account") / "editAcct" >> Hidden >> IfLoggedIn,
-               Menu.i("View Account") / "viewAcct" / ** >> Hidden >> IfLoggedIn,
-               Menu.i("Help") / "help" / "index") :::
-    User.sitemap :::
-    projectMenu
-  
-    //LiftRules.setSiteMap(SiteMap(menu :_*))
+        LiftRules.setSiteMap(sitemap)
+    
     */
     
-    def sitemap = SiteMap(menus : _* )
+    val IfLoggedIn = If(() => User.currentUser.isDefined, "You must be logged in")
+    
+    
+    def menu: List[Menu] = 
+    List[Menu](Menu.i("Home") / "index",
+               Menu.i("Edit my profile") / "editDesigner" >> IfLoggedIn,
+               Menu.i("View Account") / "viewDesigner" / ** >> Hidden,
+               Menu.i("About Us") / "about_us" / **
+               //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
+               ) :::  User.sitemap ::: Tool.menus ::: Project.menus
+  
+    LiftRules.setSiteMap(SiteMap(menu :_*))
+    
+    
+    
     
     // Build SiteMap
     /*
@@ -114,7 +119,6 @@ class Boot {
     // set the sitemap.  Note if you don't want access control for
     // each page, just comment this line out.
     //LiftRules.setSiteMapFunc(() => sitemapMutators(sitemap))
-    LiftRules.setSiteMap(sitemap)
     
     
     def progressPrinter(bytesRead: Long, contentLength: Long, fieldIndex: Int) {
