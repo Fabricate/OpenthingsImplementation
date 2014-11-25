@@ -79,7 +79,7 @@ class User extends MegaProtoUser[User] with CreatedUpdated with LongKeyedMapper[
       //S3Sender.uploadImageToS3(path, fileHolder).map(this.set(_))
 
   override def asHtml:Node = {
-      if (this.get.length > 0)
+      if (this.get != null && this.get.length > 0)
       	<img src={"/serve/userimage/"+this.fieldOwner.id.get}  ></img>
       else
         <img src={"/images/nouser.png"}  ></img>

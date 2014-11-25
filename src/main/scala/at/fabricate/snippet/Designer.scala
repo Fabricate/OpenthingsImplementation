@@ -159,7 +159,8 @@ object Designer extends DispatchSnippet with Logger {
                "lastname" -> designer.lastName.asHtml,
                "aboutme" -> TextileParser.toHtml(designer.aboutMe.get),
                "image" -> designer.userImage.asHtml,
-               "listtools" -> listTools _
+               "listtools" -> listTools _ ,
+               "membersince" -> designer.createdAt.asHtml 
                )
         }
         case _ => warn("Couldn't locate designer \"%s\"".format(designerID)); Text("Could not locate designer " + designerID)
