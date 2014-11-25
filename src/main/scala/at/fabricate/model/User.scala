@@ -17,11 +17,26 @@ import java.util.Calendar
  */
 object User extends User with MetaMegaProtoUser[User] with CreatedUpdated {
   
-  override lazy val editPath = List ("designer","edit")
+  override lazy val editPath = "designer" :: "edit" :: Nil
+  
+  override val basePath = "user" :: Nil
+  
+  /*
+  override lazy val loginPath = List ("login")
+  
+  override lazy val logoutPath  = List ("logout")
+  
+  override lazy val signUpPath  = List ("sign_up")
+  
+  override lazy val lostPasswordPath  = List ("lost_password")
+  * 
+  */
   
   override def dbTableName = "users" // define the DB table name
+ 
   override def screenWrap = Full(<lift:surround with="default" at="content">
 			       <lift:bind /></lift:surround>)
+			       
   // define the order fields will appear in forms and output
   override def fieldOrder = List(id, userImage, firstName, lastName, email,
   locale, timezone, password, aboutMe)

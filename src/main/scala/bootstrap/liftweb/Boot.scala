@@ -61,6 +61,17 @@ class Boot {
 	      RewriteResponse("editDesigner" :: Nil)
       case RewriteRequest(ParsePath(List("designer", designerID), _, _, _), _, _) =>
 	      RewriteResponse("viewDesigner" :: Nil, Map("id" -> urlDecode(designerID)))
+
+      case RewriteRequest(ParsePath(List("login"), _, _, _), _, _) =>
+	      RewriteResponse("user" :: "login" :: Nil)
+      case RewriteRequest(ParsePath(List("logout"), _, _, _), _, _) =>
+	      RewriteResponse("user" :: "logout" :: Nil)
+	      
+      case RewriteRequest(ParsePath(List("sign_up"), _, _, _), _, _) =>
+	      RewriteResponse("user" :: "sign_up" :: Nil)
+      case RewriteRequest(ParsePath(List("lost_password"), _, _, _), _, _) =>
+	      RewriteResponse("user" :: "lost_password" :: Nil)	  	      
+    
     }
     
     // TODO : aufraumen, sauberes Menue !!!
@@ -91,7 +102,7 @@ class Boot {
     
     def menu: List[Menu] = 
     List[Menu](Menu.i("Home") / "index",
-               Menu.i("Edit my profile") / "editDesigner" >> IfLoggedIn,
+               Menu.i("Edit my profile") / "editDesigner" >> Hidden >> AccessControl.loggedIn ,  //>> IfLoggedIn,
                Menu.i("View Account") / "viewDesigner" / ** >> Hidden,
                Menu.i("About Us") / "about_us" / **
                //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
