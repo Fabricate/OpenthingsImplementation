@@ -32,24 +32,31 @@ object ListDesigners extends PaginatorSnippet[User] with Logger {
   
   private val link = <a href="#"> content </a>
   
-  def changeURL(designer: User, content: NodeSeq) = 
-    //"a [href]" #> s"/designer/${designer.id.toString}" &
-    //"a" #> content  
+  private def surroundWithLink(designer: User, content: NodeSeq) = 
     "a [href]" #> "/designer/%d".format(designer.id.get) &
-    "a *" #> content  
+    "a *" #> content 
+    
+  private def bindCSS(designer: User) = 
+    "#name *" #>  "%s %s".format(designer.firstName.toString, designer.lastName.toString) &
+    "img" #>  designer.userImage.asHtml &
+    "a [href]" #> "/designer/%d".format(designer.id.get)
+
   
   def renderPage (xhtml: NodeSeq) : NodeSeq = page.flatMap( designer =>
-  			bind("dsigner", xhtml,
-	               //"url" -> Text("href=\"/designer/"+designer.id.asString+"\""),
-	               "firstname" -> changeURL(designer,designer.firstName.asHtml)(link),
-	               "lastname" -> changeURL(designer,designer.lastName.asHtml)(link),
-	               "image" -> changeURL(designer,designer.userImage.asHtml)(link)
-	               )
+  			bindCSS(designer)(xhtml)
 	             )
   /*
    * 
+   * working bind example
+   * bind("dsigner", xhtml,
+	               "firstname" -> surroundWithLink(designer,designer.firstName.asHtml)(link),
+	               "lastname" -> surroundWithLink(designer,designer.lastName.asHtml)(link),
+	               "image" -> surroundWithLink(designer,designer.userImage.asHtml)(link)
+	               )
+   * 
+   * 
    *  		strToCssBindPromoter(
-  		    "#name" #>  designer.firstName.toString + " " + designer.lastName.toString
+  		    
   		    )
         )
    * 	    bind("dsigner", xhtml,
