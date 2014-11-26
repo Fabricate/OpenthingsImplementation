@@ -60,7 +60,9 @@ class Boot {
       case RewriteRequest(ParsePath(List("designer", "edit"), _, _, _), _, _) =>
 	      RewriteResponse("editDesigner" :: Nil)
       case RewriteRequest(ParsePath(List("designer", "list"), _, _, _), _, _) =>
-	      RewriteResponse("listDesigner" :: Nil)	      
+	      RewriteResponse("listDesigner" :: Nil)	 
+      case RewriteRequest(ParsePath(List("designer", "list", "random"), _, _, _), _, _) =>
+	      RewriteResponse("listDesigner" :: Nil, Map("type" -> urlDecode("random")))		      
       case RewriteRequest(ParsePath(List("designer", designerID), _, _, _), _, _) =>
 	      RewriteResponse("viewDesigner" :: Nil, Map("id" -> urlDecode(designerID)))
 

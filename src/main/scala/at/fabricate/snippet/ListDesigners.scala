@@ -23,12 +23,28 @@ import net.liftweb.http.PaginatorSnippet
 import net.liftweb.mapper.StartAt
 import net.liftweb.mapper.MaxRows
 import scala.xml.Node
+import net.liftweb.mapper.OrderBySql
+import net.liftweb.mapper.IHaveValidatedThisSQL
+import net.liftweb.mapper.QueryParam
+import net.liftweb.mapper.Like
+import net.liftweb.http.RequestVar
 
 object ListDesigners extends PaginatorSnippet[User] with Logger {
   
+  private var listOfQueryParameters : List[QueryParam[User]] = List(StartAt(curPage*itemsPerPage),
+      MaxRows(itemsPerPage))
+      
+  private var orderByRand : QueryParam[User] = OrderBySql("RAND()",IHaveValidatedThisSQL("Johannes Fischer","2014-11-26"))
+
+  private object requestQueryParameters extends RequestVar(listOfQueryParameters )
+  //By(User.tools, tool)
+  //Like(User.tools," tool") // Error - needs string
+  
   override def count = User.count
   
-  override def page = User.findAll(StartAt(curPage*itemsPerPage),MaxRows(itemsPerPage))
+  override def page = User.findAll(
+      requestQueryParameters:_*
+      )
   
   private val link = <a href="#"> content </a>
   
@@ -42,9 +58,18 @@ object ListDesigners extends PaginatorSnippet[User] with Logger {
     "a [href]" #> "/designer/%d".format(designer.id.get)
 
   
-  def renderPage (xhtml: NodeSeq) : NodeSeq = page.flatMap( designer =>
-  			bindCSS(designer)(xhtml)
+  def renderPage (xhtml: NodeSeq) : NodeSeq = S.param("type") match {
+      case Full("random") => //println("random ordering")
+        requestQueryParameters(orderByRand::listOfQueryParameters)
+        page.flatMap( designer =>
+        bindCSS(designer)(xhtml)
 	             )
+	  case _ => //println("normal ordering")
+	    requestQueryParameters(listOfQueryParameters)
+        page.flatMap( designer =>
+        bindCSS(designer)(xhtml)
+	             )
+    }
   /*
    * 
    * working bind example
