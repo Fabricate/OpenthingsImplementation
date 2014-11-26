@@ -33,15 +33,17 @@ object ListDesigners extends PaginatorSnippet[User] with Logger {
   private val link = <a href="#"> content </a>
   
   def changeURL(designer: User, content: NodeSeq) = 
-    "a [href]" #> s"/designer/${designer.id.toString}" &
-    "a" #> content  
+    //"a [href]" #> s"/designer/${designer.id.toString}" &
+    //"a" #> content  
+    "a [href]" #> "/designer/%d".format(designer.id.get) &
+    "a *" #> content  
   
   def renderPage (xhtml: NodeSeq) : NodeSeq = page.flatMap( designer =>
   			bind("dsigner", xhtml,
 	               //"url" -> Text("href=\"/designer/"+designer.id.asString+"\""),
 	               "firstname" -> changeURL(designer,designer.firstName.asHtml)(link),
-	               "lastname" -> designer.lastName.asHtml,
-	               "image" -> designer.userImage.asHtml
+	               "lastname" -> changeURL(designer,designer.lastName.asHtml)(link),
+	               "image" -> changeURL(designer,designer.userImage.asHtml)(link)
 	               )
 	             )
   /*
