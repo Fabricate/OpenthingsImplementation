@@ -23,9 +23,24 @@ import net.liftweb.http.js.JsCmd
 object Designer extends DispatchSnippet with Logger {
   
   def dispatch : DispatchIt = {
+    case "search" => search _
     case "edit" => edit _
     case "view" => view _
   }
+  
+  private def getAllToolNames = Tool.findAll.map(tool => tool.name.toString)
+  
+  private def bindToolsCSS(toolname : String) = 
+      ":checkbox [value]" #>  toolname &
+      "id=toolname" #>  toolname
+      
+    
+  private def search(xhtml: NodeSeq) : NodeSeq =  
+           getAllToolNames.flatMap( toolName =>
+           		bindToolsCSS(toolName)(xhtml) 
+           		)
+          
+
   
   private def edit (xhtml: NodeSeq) : NodeSeq =  { 
       User.currentUser match {
@@ -35,7 +50,7 @@ object Designer extends DispatchSnippet with Logger {
           var aboutMe = designer.aboutMe.toString
           var userImage : Box[FileParamHolder] = Empty
           var userTools = designer.tools.map(tool => tool.name.toString)          
-          var allTools = Tool.findAll.map(tool => tool.name.toString)
+          val allTools = getAllToolNames
           var deleteImage = false
 
           

@@ -59,6 +59,8 @@ class Boot {
     LiftRules.statelessRewrite.append {
       case RewriteRequest(ParsePath(List("designer", "edit"), _, _, _), _, _) =>
 	      RewriteResponse("editDesigner" :: Nil)
+      case RewriteRequest(ParsePath(List("designer", "search"), _, _, _), _, _) =>
+	      RewriteResponse("searchDesigner" :: Nil)	      
       case RewriteRequest(ParsePath(List("designer", "list"), _, _, _), _, _) =>
 	      RewriteResponse("listDesigner" :: Nil)	 
       case RewriteRequest(ParsePath(List("designer", "list", "random"), _, _, _), _, _) =>
@@ -108,7 +110,8 @@ class Boot {
     List[Menu](Menu.i("Home") / "index" >> Hidden,
                Menu.i("Edit my profile") / "editDesigner" >> Hidden >> AccessControl.loggedIn ,  //>> IfLoggedIn,
                Menu.i("View Designer") / "viewDesigner" / ** >> Hidden,
-               Menu.i("List Designers") / "listDesigner" / ** >> Hidden,               
+               Menu.i("List Designers") / "listDesigner" / ** >> Hidden,
+               Menu.i("Search Designers") / "searchDesigner",                 
                Menu.i("Public Data") / "public" / ** >> Hidden,
                Menu.i("SASS") / "sass" / ** >> Hidden,
 //               Menu.i("Navigation Menu") / "navigation"  >> Hidden,

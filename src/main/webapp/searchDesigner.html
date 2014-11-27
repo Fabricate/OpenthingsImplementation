@@ -1,0 +1,42 @@
+<lift:surround with="default" at="content">
+
+
+
+	<form action="/designer/list" method="get">
+		<div class="column span-24">
+			<h2>Designer</h2>
+			<table>
+			  <tr>
+					<td>First Name</td>
+					<td><input id="firstname" value="" type="text"></input></td>
+			  </tr>
+			  <tr>
+					<td>Last Name</td>
+					<td><input id="lastname" value="" type="text"></input></td>
+			  </tr>
+			  <tr>
+					<td>Tools</td>
+					<td>
+	<div class="lift:Designer.search">
+							<dsigner:listtools>
+								<div id="tools">
+									<ul>
+										<li><input type="checkbox" name="tool" value="TOOLNAME"><span id="toolname">TOOLNAME</span></li>
+									</ul>
+								</div>
+							</dsigner:listtools>
+						</div>
+
+	</div>
+						<br></br>
+						<dsigner:addtool></dsigner:addtool>
+			  	</td>
+			  </tr>
+			  <tr>
+			</table>
+
+			<input type="submit" value="Search"></input>
+		  
+		</div>
+	</form>
+</lift:surround>

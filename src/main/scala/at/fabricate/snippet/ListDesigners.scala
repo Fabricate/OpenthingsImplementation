@@ -42,6 +42,11 @@ object ListDesigners extends PaginatorSnippet[User] with Logger {
   private case class UserRequest() extends TypeOfRequest
   private case class ToolRequest() extends TypeOfRequest
   
+  // TODO: differentiate AND and OR search
+  //private class TypeOfSearch
+  //private case class UserRequest() extends TypeOfRequest
+  //private case class ToolRequest() extends TypeOfRequest
+  
   
   private def listOfQueryParametersUser [T <: Mapper[T]] = List[QueryParam[T]](StartAt(curPage*itemsPerPage),
       MaxRows(itemsPerPage))
@@ -86,6 +91,8 @@ object ListDesigners extends PaginatorSnippet[User] with Logger {
   
   private def getUsersByAllTools() : List[User] = listOfTools.flatMap(toolName => getUsersByTool(toolName)).distinct //.removeDuplicates
   
+  //listOfTools.map(toolName => getUsersByTool(toolName)) // now find out which element is contained in all lists!
+  
   private def getSliceOfUsersByAllTools() : List[User] = getUsersByAllTools.slice(curPage*itemsPerPage,(curPage*itemsPerPage)+itemsPerPage) // or drop(curPage*itemsPerPage).take(itemsPerPage)
   
   
@@ -109,16 +116,16 @@ object ListDesigners extends PaginatorSnippet[User] with Logger {
     "a [href]" #> "/designer/%d".format(designer.id.get)
 
   
-  def renderPage (xhtml: NodeSeq) : NodeSeq = (S.param("type"),S.param("tool")) match {
+  def renderPage (xhtml: NodeSeq) : NodeSeq = (S.param("type"),S.params("tool")) match {
       case (Full("random"), _) => //println("random ordering")
         requestType(UserRequest())
         queryParametersUser(orderByRand[User]::listOfQueryParametersUser[User])
         page.flatMap( designer =>
         bindCSS(designer)(xhtml)
         )
-      case (_, Full(tool)) => //println("tool %s searching".format(tool))
+      case (_, tools:List[String]) => //println("tools %s searching".format( tools.mkString(", ") )) //.mkString(", ")) // generates an error!
         requestType(ToolRequest())
-        listOfTools(List(tool))
+        listOfTools(tools)
         //queryParametersUser(orderByRand[User]::listOfQueryParametersUser[User])
         page.flatMap( designer =>
         bindCSS(designer)(xhtml)
