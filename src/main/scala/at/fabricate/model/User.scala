@@ -120,7 +120,16 @@ class User extends MegaProtoUser[User] with CreatedUpdated with LongKeyedMapper[
   }
   */
   
+  // necessary to remove duplicate elements from lists
   
-  def fullCommaName: String = this.lastName + ", " + this.firstName
+  override def equals(other:Any) = other match {
+    case u:User if u.id.get == this.id.get => true
+    case _ => false
+  }
+  
+  override def hashCode = this.id.get.hashCode
+  
+  // 
+  def fullName: String = "%s %s".format(this.lastName,this.firstName)
 }
 

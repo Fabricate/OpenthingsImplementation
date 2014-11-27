@@ -60,7 +60,7 @@ class Project extends LongKeyedMapper[Project] with IdPK {
       
     /**Darstellung des Feldes auf CRUD-Seiten. Anstelle der Id wird Nachname und Vorname des Autors
      * angezeigt bzw. "k.A." für "keine Angabe", wenn es zu dieser User-Id keinen User gibt. */
-    override def asHtml = Text(User.find(this).map(_.fullCommaName).openOr("k.A."))
+    override def asHtml = Text(User.find(this).map(_.fullName).openOr("k.A."))
     
         
     /**Namen-Auswahlliste für CRUD-Seiten*/
