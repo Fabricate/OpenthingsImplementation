@@ -123,7 +123,7 @@ object ListDesigners extends PaginatorSnippet[User] with Logger {
         page.flatMap( designer =>
         bindCSS(designer)(xhtml)
         )
-      case (_, tools:List[String]) => //println("tools %s searching".format( tools.mkString(", ") )) //.mkString(", ")) // generates an error!
+      case (_, tools:List[String]) if tools.length > 0 => //println("tools %s searching".format( tools.mkString(", ") )) //.mkString(", ")) // generates an error!
         requestType(ToolRequest())
         listOfTools(tools)
         //queryParametersUser(orderByRand[User]::listOfQueryParametersUser[User])

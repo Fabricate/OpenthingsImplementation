@@ -5,46 +5,46 @@
 			<table>
 			  <tr>
 					<td>First Name</td>
-					<td><dsigner:firstname></dsigner:firstname></td>
+					<td><input id="firstname" value="" type="text"></input></td>
 			  </tr>
 			  <tr>
 					<td>Last Name</td>
-					<td><dsigner:lastname></dsigner:lastname></td>
+					<td><input id="lastname" value="" type="text"></input></td>
 			  </tr>
 			  <tr>
 					<td>About me</td>
-					<td><dsigner:aboutme></dsigner:aboutme></td>
+					<td><textarea id="aboutme"></textarea></td>
 			  </tr>
 			  <tr>
 					<td>User Image</td>
 					<td>
-						<dsigner:showimage></dsigner:showimage>
+						<img id="showimage" src="#"></img>
 						<br></br>
 						Delete image?
-						<dsigner:deleteimage></dsigner:deleteimage>
+						<input id="deleteimage" value="false" type="checkbox"></input>
 						<br></br>
 						New image?
-						<dsigner:newimage></dsigner:newimage>
+						<input id="newimage" value=""  type="file"></input>
 					</td>
 			  </tr>
 			  <tr>
 					<td>Tools</td>
 					<td>
-						<dsigner:listtools>
-							<div id="tools">
-								<ul>
-									<li><tools:checkbox></tools:checkbox><tools:name></tools:name></li>
-								</ul>
-							</div>
-						</dsigner:listtools>
+						<div id="listtools">
+								<div id="tools">
+									<ul>
+										<li><input id="toolcheckbox" type="checkbox" name="tool" value="TOOLNAME"><span id="toolname">TOOLNAME</span></li>
+									</ul>
+								</div>
+						</div>
 						<br></br>
-						<dsigner:addtool></dsigner:addtool>
+						<a href="/tool/create" id="addtool">Create new tool</a>
 			  	</td>
 			  </tr>
 			  <tr>
 			</table>
 
-			<dsigner:save></dsigner:save>
+			<input id="save" value="Speichern" type="submit">
 		  
 		</div>
 	</div>

@@ -19,30 +19,33 @@ import net.liftmodules.widgets.autocomplete.AutoComplete
 import at.fabricate.model.Tool
 import scala.collection.mutable.Seq
 import net.liftweb.http.js.JsCmd
+import Helpers._
+import net.liftweb.http.SHtml.ElemAttr
+import net.liftweb.http.SHtml.BasicElemAttr
 
 object Designer extends DispatchSnippet with Logger {
   
   def dispatch : DispatchIt = {
-    case "search" => search _
+    case "listtools" => listtools _
     case "edit" => edit _
     case "view" => view _
   }
   
   private def getAllToolNames = Tool.findAll.map(tool => tool.name.toString)
   
-  private def bindToolsCSS(toolname : String) = 
-      ":checkbox [value]" #>  toolname &
+  private def bindToolsCSS(toolname : String, checkbox: NodeSeq) = 
+      ":checkbox" #>  checkbox &
       "id=toolname" #>  toolname
       
     
-  private def search(xhtml: NodeSeq) : NodeSeq =  
+  private def listtools(xhtml: NodeSeq) : NodeSeq =  
            getAllToolNames.flatMap( toolName =>
-           		bindToolsCSS(toolName)(xhtml) 
+           		bindToolsCSS(toolName, SHtml.checkbox(false, (_) => () , BasicElemAttr("value",toolName)) )(xhtml) 
            		)
           
 
   
-  private def edit (xhtml: NodeSeq) : NodeSeq =  { 
+  private def edit(xhtml: NodeSeq) : NodeSeq  =  { 
       User.currentUser match {
         case Full(designer) => {
           var firstName = designer.firstName.toString
@@ -89,6 +92,24 @@ object Designer extends DispatchSnippet with Logger {
             }
         }
           
+        def bindFieldsCSS =  {
+                    //bind("dsigner", xhtml,
+               //"atomLink" -> <link href={"/api/account/" + acct.id} type="application/atom+xml" rel="alternate" title={acct.name + " feed"} />,
+               "#firstname" #> SHtml.text(firstName, firstName = _) &
+               "#lastname" #> SHtml.text(lastName, lastName = _) &
+               "#aboutme" #> SHtml.textarea(aboutMe, aboutMe = _) &
+               "#showimage" #> designer.userImage.asHtml &
+               "#newimage" #> SHtml.fileUpload(fph => userImage = Full(fph)) &
+               "#deleteimage" #> SHtml.checkbox(false, deleteImage = _ ) &
+               "#listtools" #> listTools _ &
+               ////"tools" -> AutoComplete("", suggest, newTool = _ ),
+               "#addtool" #> <a href="/tool/create">Create new tool</a>  &
+               //"savetool" -> SHtml.ajaxSubmit("Hinzufügen", addTool ),
+               "#save" #> SHtml.submit( "Speichern", () => saveChanges )
+               //"tags" -> Text(entry.tags.map(_.name.is).mkString(", ")),
+               //"tags" -> tags,
+        }
+          
           /*
           def suggest(value: String, limit: Int) = 
             allTools.filter(_.toLowerCase.startsWith(value))
@@ -123,30 +144,13 @@ object Designer extends DispatchSnippet with Logger {
           }
          
           def listTools(template: NodeSeq) : NodeSeq  =             
-            allTools.flatMap(tool => bind("tools",template,
-                "checkbox" -> SHtml.checkbox(userTools.contains(tool), toolSelected(tool) _ ),
-                "name" -> tool
-                )
-              )
-          
+            allTools.flatMap( toolName =>
+           		bindToolsCSS(toolName, SHtml.checkbox(userTools.contains(toolName), toolSelected(toolName) _ ))(template) 
+           		)          
 
-          bind("dsigner", xhtml,
-               //"atomLink" -> <link href={"/api/account/" + acct.id} type="application/atom+xml" rel="alternate" title={acct.name + " feed"} />,
-               "firstname" -> SHtml.text(firstName, firstName = _) ,
-               "lastname" -> SHtml.text(lastName, lastName = _) ,
-               "aboutme" -> SHtml.textarea(aboutMe, aboutMe = _) ,
-               "showimage" -> designer.userImage.asHtml,
-               "newimage" -> SHtml.fileUpload(fph => userImage = Full(fph)),
-               "deleteimage" -> SHtml.checkbox(false, deleteImage = _ ),
-               "listtools" -> listTools _,
-               ////"tools" -> AutoComplete("", suggest, newTool = _ ),
-               "addtool" -> <a href="/tool/create">Create new tool</a> ,
-               //"savetool" -> SHtml.ajaxSubmit("Hinzufügen", addTool ),
-               "save" -> SHtml.submit( "Speichern", () => saveChanges )
-               //"tags" -> Text(entry.tags.map(_.name.is).mkString(", ")),
-               //"tags" -> tags,
+              bindFieldsCSS(xhtml)
                
-               )
+             //  )
         }
         case _ => warn("You must be logged in!"); Text("You must be logged in!")
       }
@@ -162,20 +166,21 @@ object Designer extends DispatchSnippet with Logger {
           val userTools = designer.tools.map(tool => tool.name.toString)
           
           def listTools(template: NodeSeq) : NodeSeq  =             
-            userTools.flatMap(tool => bind("tools",template,
-                //"checkbox" -> SHtml.checkbox(userTools.contains(tool), _ => true,  disabled="true"),
-                "name" -> tool
-                )
-                )
+            userTools.flatMap( toolName =>
+           		bindToolsCSS(toolName, SHtml.checkbox(true, (_) => () ))(template) 
+           		) 
+           		
+         def bindFieldsCSS =  {               
+               "#firstname" #> designer.firstName.asHtml &
+               "#lastname" #> designer.lastName.asHtml &
+               "#aboutme" #> TextileParser.toHtml(designer.aboutMe.get) &
+               "#showimage" #> designer.userImage.asHtml &
+               "#listtools" #> listTools _ &
+               "#membersince" #> designer.createdAt.asHtml                
+          }
 
-          bind("dsigner", xhtml,
-               "firstname" -> designer.firstName.asHtml,
-               "lastname" -> designer.lastName.asHtml,
-               "aboutme" -> TextileParser.toHtml(designer.aboutMe.get),
-               "image" -> designer.userImage.asHtml,
-               "listtools" -> listTools _ ,
-               "membersince" -> designer.createdAt.asHtml 
-               )
+           bindFieldsCSS(xhtml)
+
         }
         case _ => warn("Couldn't locate designer \"%s\"".format(designerID)); Text("Could not locate designer " + designerID)
       }

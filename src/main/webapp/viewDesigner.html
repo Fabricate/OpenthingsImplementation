@@ -8,8 +8,8 @@
 					<th>Last Name</th>
 				 </tr>
 				 <tr>
-					<td><dsigner:firstname></dsigner:firstname></td>
-					<td><dsigner:lastname></dsigner:lastname></td>
+					<td><span id="firstname">FIRSTNAME</span></td>
+					<td><span id="lastname">LASTNAME</span></td>
 				 </tr>
 			</table>
 
@@ -17,28 +17,32 @@
     
 			<div>
 				<h2>Image</h2>
-				<dsigner:image></dsigner:image>
+				<img id="showimage" src="#"></img>
 			</div>
 
 			<hr/>
     
 			<div>
 			  <h2>About me:</h2>
-			  <dsigner:aboutme></dsigner:aboutme>
+			  <span id="aboutme">ABOUTME</span>
 			</div>
 
 			<div>
 			  <h2>Tools:</h2>
-				<dsigner:listtools>
-					<ul>
-						<li><tools:checkbox></tools:checkbox><tools:name></tools:name></li>
-					</ul>
-				</dsigner:listtools>
+				<div id="listtools">
+						<div id="listtools">
+								<div id="tools">
+									<ul>
+										<li><span id="toolname">TOOLNAME</span></li>
+									</ul>
+								</div>
+						</div>
+				</div>
 			</div>
 
 			<div>
 			  <h2>Member since:</h2>
-				<dsigner:membersince></dsigner:membersince>
+				<span id="membersince">MEMBERSINCE</span>
 			</div>
 
 		</div>
