@@ -6,6 +6,9 @@ import net.liftweb.common.Empty
 import net.liftweb.util.FieldIdentifier
 import net.liftweb.util.FieldError
 import scala.xml.Text
+import net.liftweb.json.JsonAST._
+import net.liftweb.json.JsonDSL._
+import net.liftweb.util.Helpers
 
 class Tool extends LongKeyedMapper[Tool] with IdPK with ManyToMany{
   def getSingleton = Tool
@@ -41,6 +44,19 @@ class Tool extends LongKeyedMapper[Tool] with IdPK with ManyToMany{
               }
             }
   
+  def unapply(id: String) : Option[Tool] = Helpers.tryo {
+    Tool.find(By(Tool.id, id.toLong)).toOption
+  } openOr None
+  
+  implicit def toJson(tool: Tool) : JValue =
+    ("Tool" -> 
+        ("name" -> tool.name.get) ~ 
+        ("id" -> tool.id.get) 
+        )
+  implicit def toJson(tools: List[Tool]) : JValue = 
+    ("Tools" ->
+    	tools.map(tool => toJson(tool))
+    	)
 }
 
 object Tool extends Tool with LongKeyedMetaMapper[Tool] with IdPK with CRUDify[Long, Tool]

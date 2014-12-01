@@ -16,8 +16,7 @@ import net.liftweb.sitemap.Loc._
 import at.fabricate.snippet.Designer
 import at.fabricate.lib.ImageLogic
 import net.liftmodules.widgets.autocomplete.AutoComplete
-
-
+import at.fabricate.api._
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -54,6 +53,9 @@ class Boot {
     
     LiftRules.dispatch.append(ImageLogic.matcher)
 
+    LiftRules.dispatch.append(ToolREST)
+    //LiftRules.statelessDispatch.append(ToolREST)
+    
     
     // Set up some rewrites
     LiftRules.statelessRewrite.append {
