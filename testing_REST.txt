@@ -1,0 +1,11 @@
+curl -i -X POST -H "application/json" -H "X-HTTP-Method-Override: PUT" -d '{"name":"hand saw"}' http://localhost:8080/api/tool/47
+
+
+curl -X POST -H "application/json" -d '{"name":"hahd saw", "id":"48"}' http://localhost:8080/api/tool/48
+
+
+curl -i -H "Accept: application/json" -H "X-HTTP-Method-Override: PUT" -X POST -d "name":"hand saw","id":"48" localhost:8080/api/tool
+
+
+
+curl -i -H "Accept: application/json" -H "X-HTTP-Method-Override: PUT" -X POST http://localhost:8080/api/tool/47
