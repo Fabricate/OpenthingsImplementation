@@ -51,7 +51,7 @@ class Boot {
       //case "ListDesigners" => ListDesigners
     }
     
-    LiftRules.dispatch.append(ImageLogic.matcher)
+    //LiftRules.dispatch.append(ImageLogic.matcher)
 
     LiftRules.dispatch.append(ToolREST)
     //LiftRules.statelessDispatch.append(ToolREST)

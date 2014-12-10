@@ -15,12 +15,22 @@ import java.util.Calendar
 /**
  * The singleton that has methods for accessing the database
  */
-object User extends User with MetaMegaProtoUser[User] with CreatedUpdated {
+object User extends User with MetaMegaProtoUser[User] with WithImageMeta[User] with CreatedUpdated {
   
   override lazy val editPath = "designer" :: "edit" :: Nil
   
   override val basePath = "user" :: Nil
   
+  // define WithImage
+  override val defaultImage = "/images/nouser.jpg"
+    
+  override val imageDisplayName = "user name"//S.?("user\u0020image")
+  
+  override val imageDbColumnName = "user_image"
+    
+  override val baseServingPath = "userimage"
+  
+    
   
   override def dbTableName = "users" // define the DB table name
  
@@ -28,12 +38,12 @@ object User extends User with MetaMegaProtoUser[User] with CreatedUpdated {
 			       <lift:bind /></lift:surround>)
 			       
   // define the order fields will appear in forms and output
-  override def fieldOrder = List(id, userImage, firstName, lastName, email,
+  override def fieldOrder = List(id, image, firstName, lastName, email,
   locale, timezone, password, aboutMe)
   
   // define the order fields will appear in the edit page
-  override def editFields = List(userImage, firstName, lastName, email,
-  locale, timezone, aboutMe)
+  override def editFields = List(image, firstName, lastName, email,
+  locale, timezone, aboutMe) 
 
   // comment this line out to require email validations
   override def skipEmailValidation = true
@@ -46,7 +56,7 @@ object User extends User with MetaMegaProtoUser[User] with CreatedUpdated {
 /**
  * An O-R mapped "User" class that includes first name, last name, password and we add a "Personal Essay" to it
  */
-class User extends MegaProtoUser[User] with CreatedUpdated with LongKeyedMapper[User] with OneToMany[Long,User] with ManyToMany {
+class User extends MegaProtoUser[User] with WithImage[User] with CreatedUpdated with OneToMany[Long,User] with ManyToMany {
   def getSingleton = User // what's the "meta" server
   
   /*
@@ -67,38 +77,6 @@ class User extends MegaProtoUser[User] with CreatedUpdated with LongKeyedMapper[
     override def displayName = S.?("about\u0020me")
     	  /**Genutzter Spaltenname in der DB-Tabelle*/
     override def dbColumnName = "about_me"
-  }
-  
-  object userImage extends MappedBinary(this) {
-    
-    val maxWidth = 600
-    val maxHeight = 800
-    val jpegQuality : Float = 85 / 100.toFloat // HINT: you have to use toFloat, otherwise it will result in 0 !!!
-    
-    //var fileHolder: Box[FileParamHolder]
-    
-    
-        // TODO  implement later, as Crudify and Megaprotouser can not be mixed in at the same time
-    override def displayName = S.?("user\u0020image")
-    	  /**Genutzter Spaltenname in der DB-Tabelle*/
-    override def dbColumnName = "user_image"
-      
-     //override def asHtml = 
-     //override def toForm = SHtml.fileUpload(func, attrs)
-      def setFromUpload(fileHolder: Box[FileParamHolder]) = 
-      fileHolder.map(fu => this.set(fu.file))
-      //S3Sender.uploadImageToS3(path, fileHolder).map(this.set(_))
-
-  override def asHtml:Node = {
-      if (this.get != null && this.get.length > 0)
-      	<img src={"/serve/userimage/"+this.fieldOwner.id.get}  ></img>
-      else
-        <img src={"/images/nouser.png"}  ></img>
-    }
-    //style={"max-width:" + maxWidth + ";max-height:"+maxHeight}
-  
-  override def _toForm: Box[Elem] = Full(SHtml.fileUpload(fu=>setFromUpload(Full(fu)))) //fu=>setFromUpload(Full(fu)) setFromUpload(Full(fu))))
-
   }
   
   object tools extends MappedManyToMany(UserHasTools, UserHasTools.user, UserHasTools.tool, Tool)

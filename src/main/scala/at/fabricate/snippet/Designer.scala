@@ -63,23 +63,9 @@ object Designer extends DispatchSnippet with Logger {
             designer.lastName.set(lastName)
             designer.aboutMe.set(aboutMe)
             if (deleteImage) {
-              designer.userImage.set(Array[Byte]())
-            } else 
-            userImage match {
-              case Full(FileParamHolder(_,null,_,_)) => S.error("Sorry - this does not look like an image!")
-              case Full(FileParamHolder(_,mime,_,data))
-                if mime.startsWith("image/") => 	{
-                  val inputStream = userImage.openOrThrowException("User image should not be Empty!").fileStream
-                  var metaImage = ImageResizer.getImageFromStream(inputStream)
-                  metaImage = ImageResizer.removeAlphaChannel(metaImage)
-                  val image = ImageResizer.max(metaImage.orientation, metaImage.image, User.userImage.maxWidth , User.userImage.maxHeight )
-                  val jpg = ImageResizer.imageToBytes(ImageOutFormat.jpeg , image, User.userImage.jpegQuality)
-                  designer.userImage.set(jpg)
-                }
-              case Full(FileParamHolder(_,mime,_,data))
-                if ! mime.startsWith("image/") =>  S.error("Sorry - this does not look like an image!")
-              case Full(_) => S.error("Invalid attachment")
-              case _ => warn( "No Attachment: "+userImage )
+            	designer.image.set(Array[Byte]())
+            } else {
+            	designer.image.setFromUpload(userImage)
             }
             
             designer.validate match {
@@ -98,7 +84,7 @@ object Designer extends DispatchSnippet with Logger {
                "#firstname" #> SHtml.text(firstName, firstName = _) &
                "#lastname" #> SHtml.text(lastName, lastName = _) &
                "#aboutme" #> SHtml.textarea(aboutMe, aboutMe = _) &
-               "#showimage" #> designer.userImage.asHtml &
+               "#showimage" #> designer.image.asHtml &
                "#newimage" #> SHtml.fileUpload(fph => userImage = Full(fph)) &
                "#deleteimage" #> SHtml.checkbox(false, deleteImage = _ ) &
                "#listtools" #> listTools _ &
@@ -174,7 +160,7 @@ object Designer extends DispatchSnippet with Logger {
                "#firstname" #> designer.firstName.asHtml &
                "#lastname" #> designer.lastName.asHtml &
                "#aboutme" #> TextileParser.toHtml(designer.aboutMe.get) &
-               "#showimage" #> designer.userImage.asHtml &
+               "#showimage" #> designer.image.asHtml &
                "#listtools" #> listTools _ &
                "#membersince" #> designer.createdAt.asHtml                
           }

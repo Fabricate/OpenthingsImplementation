@@ -20,10 +20,10 @@ object ImageLogic {
   
     def matcher: LiftRules.DispatchPF = {
     case r @ Req("serve" :: "userimage" :: UserImage(user) ::
-                 Nil, _, GetRequest) => () => Full(InMemoryResponse(user.userImage.get,
+                 Nil, _, GetRequest) => () => Full(InMemoryResponse(user.image.get,
                                List("Content-Type" -> "image/jpeg",
                                     "Content-Length" ->
-                                    user.userImage.get.length.toString), Nil, 200))  
+                                    user.image.get.length.toString), Nil, 200))  
   }
     
   /*
