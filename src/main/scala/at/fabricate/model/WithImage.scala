@@ -11,9 +11,9 @@ import net.liftweb.util.BasicTypesHelpers._
 import net.liftweb.util._
 import scala.xml.Node
 import scala.xml.Elem
+import scala.xml.Text
 
-
-trait WithImage[T <: WithImage[T] ] extends  LongKeyedMapper[T] { 
+trait WithImage[T <: (WithImage[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Long, T]  { // 
   // [T <: Mapper[T] ]s
   //self: KeyedMetaMapper[IdPK,T] =>
   self: T =>
@@ -23,75 +23,90 @@ trait WithImage[T <: WithImage[T] ] extends  LongKeyedMapper[T] {
  // HINT: you have to use toFloat, otherwise it will result in 0 !!!
     
     
-   /*
+   
       // define WithImage
-  val defaultImageWI = "/images/nouser.jpg"
+    /* Syntax in ProtoUser in LIFT version 2.2, causes an Error: S.?? not available !
+  def defaultImage = S.??("/images/nouser.jpg")
     
-  val imageDisplayNameWI = "user name"//S.?("user\u0020image")
+  def imageDisplayName = S.??("user name") //S.?("user\u0020image")
   
-  val imageDbColumnNameWI = "user_image"
+  def imageDbColumnName = S.??("user_image")
     
-  val baseServingPathWI = "userimage"
+  def baseServingPath = S.??("userimage")
   * 
-  */	    
+  */
+    
+  lazy val defaultImage = "/public/images/noimage.jpg"
+    
+  lazy val imageDisplayName = "image"
+  
+  lazy val imageDbColumnName = "image"
+    
+  lazy val baseServingPath = "image"
+	    
 	    
   lazy val image : MappedBinaryImageFileUpload[T] = new myImage(this)
   
    protected class myImage(obj : T) extends MappedBinaryImageFileUpload(obj) {
-    /*
-  // define WithImage
-  override val defaultImage = defaultImageWI
-    
-  override val imageDisplayName = imageDisplayNameWI
   
-  override val imageDbColumnName = imageDbColumnNameWI
+  override val defaultImage = fieldOwner.defaultImage
     
-  override val baseServingPath = baseServingPathWI
-  * 
-  */
+  override val imageDisplayName = fieldOwner.imageDisplayName
+  
+  override val imageDbColumnName = fieldOwner.imageDbColumnName
+    
+  override val baseServingPath = fieldOwner.baseServingPath
+
+  override val fieldId = Some(Text("bin"+imageDbColumnName ))
 
   }
   
 }
 
-trait WithImageMeta[U <: WithImage[U] ] extends LongKeyedMetaMapper[U] {
-    self: U  =>
+trait WithImageMeta[ModelType <: ( WithImage[ModelType] with LongKeyedMapper[ModelType]) ] extends KeyedMetaMapper[Long, ModelType] { //
+    self: ModelType  =>
 
-  
-    
-  object TImage extends GetParent[WithImageMeta[U]](this) {
-    def unapply(in: String): Option[U] =
-    		getParent.find(By(getParent.primaryKeyField, in.toInt ))
+      type TheType = ModelType
+          
+  object TImage extends GetParent[WithImage[TheType]](self) {
+    def unapply(in: String): Option[TheType] = 
+      getParentAs[LongKeyedMetaMapper[TheType]].find( // As[LongKeyedMetaMapper[TheType]]
+    		    By(getParentAs[LongKeyedMetaMapper[TheType]].primaryKeyField, 
+    		        in.toInt ))
   }
   
+      //User.a
   
-  override def afterSchemifier = {
+  abstract override def afterSchemifier : Unit = {
     
     
-
-    super.afterSchemifier 
     
     LiftRules.dispatch.append({
       case r @ Req("serve" :: baseServingPath  :: TImage(id) ::
-                 Nil, _, GetRequest) => () => Full(InMemoryResponse(this.image.get,
+                 Nil, _, GetRequest) => ()  =>  // if (id != Empty)
+                   Full(InMemoryResponse(id.image.get,
                                List("Content-Type" -> "image/jpeg",
                                     "Content-Length" ->
-                                    this.image.get.length.toString), Nil, 200))
+                                    id.image.get.length.toString), Nil, 200))
                                     })
+    
   }
 
+		 // not a member of anyref
+    super.afterSchemifier 
   
 }
 
 class MappedBinaryImageFileUpload[T <: LongKeyedMapper[T]](fieldOwner : T) extends MappedBinary[T](fieldOwner) {
 	    
-  val defaultImage = "/images/nouser.jpg"
     
-  val imageDisplayName = "user image"
+  def defaultImage = "/public/images/noimage.jpg"
+    
+  val imageDisplayName = "image"
   
-  val imageDbColumnName = "user_image"
+  val imageDbColumnName = "image"
     
-  val baseServingPath = "userimage"
+  val baseServingPath = "image"
     
   val maxWidth = 792
   val maxHeight = 445
@@ -133,6 +148,7 @@ class MappedBinaryImageFileUpload[T <: LongKeyedMapper[T]](fieldOwner : T) exten
 
 abstract class GetParent[V](parent: V){
   def getParent : V = parent
+  def getParentAs[U] : U = parent.asInstanceOf[U]
 }
 /*
 object TImageBase [V <: WithImageMeta[V]] (withImage : V){

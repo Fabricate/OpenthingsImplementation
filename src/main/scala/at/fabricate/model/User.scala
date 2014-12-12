@@ -15,30 +15,12 @@ import java.util.Calendar
 /**
  * The singleton that has methods for accessing the database
  */
-object User extends User with MetaMegaProtoUser[User] with WithImageMeta[User] with CreatedUpdated {
+object User extends User with MetaMegaProtoUser[User] with LongKeyedMetaMapper[User] with WithImageMeta[User] with CreatedUpdated {
   
   override lazy val editPath = "designer" :: "edit" :: Nil
   
   override val basePath = "user" :: Nil
-  
-  /*
-  // define WithImage
-
-  override val defaultImageWI = "/images/nouser.jpg"
     
-  override val imageDisplayNameWI = "user name"//S.?("user\u0020image")
-  
-  override val imageDbColumnNameWI = "user_image"
-    
-  override val baseServingPathWI = "userimage"
-  * 
-  */
-  
- 
-  
-  
-    
-  
   override def dbTableName = "users" // define the DB table name
  
   override def screenWrap = Full(<lift:surround with="default" at="content">
@@ -63,7 +45,7 @@ object User extends User with MetaMegaProtoUser[User] with WithImageMeta[User] w
 /**
  * An O-R mapped "User" class that includes first name, last name, password and we add a "Personal Essay" to it
  */
-class User extends MegaProtoUser[User] with WithImage[User] with CreatedUpdated with OneToMany[Long,User] with ManyToMany {
+class User extends MegaProtoUser[User] with LongKeyedMapper[User] with WithImage[User] with CreatedUpdated with OneToMany[Long,User] with ManyToMany {
   def getSingleton = User // what's the "meta" server
   
   /*
@@ -73,6 +55,18 @@ class User extends MegaProtoUser[User] with WithImage[User] with CreatedUpdated 
    * 
    * 
    */
+  
+    // define WithImage
+  
+  // override def works, val gives the known nullpointer exception
+
+  override lazy val defaultImage = "/public/images/nouser.jpg"
+    
+  override lazy val imageDisplayName = "user name"//S.?("user\u0020image") -> Throws an exception
+  
+  override lazy val imageDbColumnName = "user_image"
+    
+  override lazy val baseServingPath = "userimage"
   
   //object image extends MappedBinaryImageFileUpload(this)
   
