@@ -21,14 +21,21 @@ object User extends User with MetaMegaProtoUser[User] with WithImageMeta[User] w
   
   override val basePath = "user" :: Nil
   
+  /*
   // define WithImage
-  override val defaultImage = "/images/nouser.jpg"
+
+  override val defaultImageWI = "/images/nouser.jpg"
     
-  override val imageDisplayName = "user name"//S.?("user\u0020image")
+  override val imageDisplayNameWI = "user name"//S.?("user\u0020image")
   
-  override val imageDbColumnName = "user_image"
+  override val imageDbColumnNameWI = "user_image"
     
-  override val baseServingPath = "userimage"
+  override val baseServingPathWI = "userimage"
+  * 
+  */
+  
+ 
+  
   
     
   
@@ -67,7 +74,7 @@ class User extends MegaProtoUser[User] with WithImage[User] with CreatedUpdated 
    * 
    */
   
-  
+  //object image extends MappedBinaryImageFileUpload(this)
   
   // define an additional field for a personal essay
   object aboutMe extends MappedTextarea(this, 2048) {

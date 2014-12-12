@@ -20,6 +20,71 @@ trait WithImage[T <: WithImage[T] ] extends  LongKeyedMapper[T] {
     
   //type A <: LongKeyedMapper[A]
   
+ // HINT: you have to use toFloat, otherwise it will result in 0 !!!
+    
+    
+   /*
+      // define WithImage
+  val defaultImageWI = "/images/nouser.jpg"
+    
+  val imageDisplayNameWI = "user name"//S.?("user\u0020image")
+  
+  val imageDbColumnNameWI = "user_image"
+    
+  val baseServingPathWI = "userimage"
+  * 
+  */	    
+	    
+  lazy val image : MappedBinaryImageFileUpload[T] = new myImage(this)
+  
+   protected class myImage(obj : T) extends MappedBinaryImageFileUpload(obj) {
+    /*
+  // define WithImage
+  override val defaultImage = defaultImageWI
+    
+  override val imageDisplayName = imageDisplayNameWI
+  
+  override val imageDbColumnName = imageDbColumnNameWI
+    
+  override val baseServingPath = baseServingPathWI
+  * 
+  */
+
+  }
+  
+}
+
+trait WithImageMeta[U <: WithImage[U] ] extends LongKeyedMetaMapper[U] {
+    self: U  =>
+
+  
+    
+  object TImage extends GetParent[WithImageMeta[U]](this) {
+    def unapply(in: String): Option[U] =
+    		getParent.find(By(getParent.primaryKeyField, in.toInt ))
+  }
+  
+  
+  override def afterSchemifier = {
+    
+    
+
+    super.afterSchemifier 
+    
+    LiftRules.dispatch.append({
+      case r @ Req("serve" :: baseServingPath  :: TImage(id) ::
+                 Nil, _, GetRequest) => () => Full(InMemoryResponse(this.image.get,
+                               List("Content-Type" -> "image/jpeg",
+                                    "Content-Length" ->
+                                    this.image.get.length.toString), Nil, 200))
+                                    })
+  }
+
+  
+}
+
+class MappedBinaryImageFileUpload[T <: LongKeyedMapper[T]](fieldOwner : T) extends MappedBinary[T](fieldOwner) {
+	    
   val defaultImage = "/images/nouser.jpg"
     
   val imageDisplayName = "user image"
@@ -30,19 +95,14 @@ trait WithImage[T <: WithImage[T] ] extends  LongKeyedMapper[T] {
     
   val maxWidth = 792
   val maxHeight = 445
-  val jpegQuality : Float = 85 / 100.toFloat // HINT: you have to use toFloat, otherwise it will result in 0 !!!
-	    
-	    
-  lazy val image : MappedBinaryFileUpload[T] = new myImage(this)
+  val jpegQuality : Float = 85 / 100.toFloat
   
-   protected class myImage(obj : T) extends MappedBinaryFileUpload(obj) {
-	    
-	        // TODO  implement later, as Crudify and Megaprotouser can not be mixed in at the same time
+  	        // TODO  implement later, as Crudify and Megaprotouser can not be mixed in at the same time
 	    override def displayName = imageDisplayName
 	    	  /**Genutzter Spaltenname in der DB-Tabelle*/
 	    override def dbColumnName = imageDbColumnName
-	    
-	    override def setFromUpload(fileHolder: Box[FileParamHolder]) = 
+  
+  def setFromUpload(fileHolder: Box[FileParamHolder]) = 
 	      fileHolder match {
 	              case Full(FileParamHolder(_,null,_,_)) => S.error("Sorry - this does not look like an image!")
 	              case Full(FileParamHolder(_,mime,_,data))
@@ -69,42 +129,6 @@ trait WithImage[T <: WithImage[T] ] extends  LongKeyedMapper[T] {
 	    //style={"max-width:" + maxWidth + ";max-height:"+maxHeight}
 	  
 	  override def _toForm: Box[Elem] = Full(SHtml.fileUpload(fu=>setFromUpload(Full(fu)))) //fu=>setFromUpload(Full(fu)) setFromUpload(Full(fu))))
-	  
-  }
-  
-}
-
-trait WithImageMeta[U <: WithImage[U] ] extends LongKeyedMetaMapper[U] {
-  self: U  =>
-  
-  
-    
-  object TImage extends GetParent[WithImageMeta[U]](this) {
-    def unapply(in: String): Option[U] =
-    		getParent.find(By(getParent.primaryKeyField, in.toInt ))
-  }
-  
-  /*
-  override def afterSchemifier = {
-    
-    
-
-    super.afterSchemifier 
-    
-    LiftRules.dispatch.append({
-      case r @ Req("serve" :: baseServingPath  :: TImage(id) ::
-                 Nil, _, GetRequest) => () => Full(InMemoryResponse(this.image.get,
-                               List("Content-Type" -> "image/jpeg",
-                                    "Content-Length" ->
-                                    this.image.get.length.toString), Nil, 200))
-                                    })
-  }
-  * 
-  */
-}
-
-class MappedBinaryFileUpload[T <: Mapper[T]](fieldOwner : T) extends MappedBinary[T](fieldOwner) {
-  def setFromUpload(fileHolder: Box[FileParamHolder]) = {}
 }
 
 abstract class GetParent[V](parent: V){
