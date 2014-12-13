@@ -63,9 +63,9 @@ object Designer extends DispatchSnippet with Logger {
             designer.lastName.set(lastName)
             designer.aboutMe.set(aboutMe)
             if (deleteImage) {
-            	designer.image.set(Array[Byte]())
+            	designer.icon.set(Array[Byte]())
             } else {
-            	designer.image.setFromUpload(userImage)
+            	designer.icon.setFromUpload(userImage)
             }
             
             designer.validate match {
@@ -84,7 +84,7 @@ object Designer extends DispatchSnippet with Logger {
                "#firstname" #> SHtml.text(firstName, firstName = _) &
                "#lastname" #> SHtml.text(lastName, lastName = _) &
                "#aboutme" #> SHtml.textarea(aboutMe, aboutMe = _) &
-               "#showimage" #> designer.image.asHtml &
+               "#showimage" #> designer.icon.asHtml &
                "#newimage" #> SHtml.fileUpload(fph => userImage = Full(fph)) &
                "#deleteimage" #> SHtml.checkbox(false, deleteImage = _ ) &
                "#listtools" #> listTools _ &
@@ -160,7 +160,7 @@ object Designer extends DispatchSnippet with Logger {
                "#firstname" #> designer.firstName.asHtml &
                "#lastname" #> designer.lastName.asHtml &
                "#aboutme" #> TextileParser.toHtml(designer.aboutMe.get) &
-               "#showimage" #> designer.image.asHtml &
+               "#showimage" #> designer.icon.asHtml &
                "#listtools" #> listTools _ &
                "#membersince" #> designer.createdAt.asHtml                
           }

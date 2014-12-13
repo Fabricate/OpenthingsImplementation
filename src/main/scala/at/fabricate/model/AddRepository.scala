@@ -6,7 +6,7 @@ import org.eclipse.jgit.api._
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 import java.io.File
 
-trait WithGit {
+trait AddRepository {
   val projectID = 1
   
 	val repo : Repository = createNewRepo

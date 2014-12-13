@@ -13,7 +13,7 @@ import java.util.Calendar
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/
 //BEGIN(crud)
-object Project extends Project with LongKeyedMetaMapper[Project] with WithImageMeta[Project] with CRUDify[Long, Project]
+object Project extends Project with LongKeyedMetaMapper[Project] with AddIconMeta[Project] with CRUDify[Long, Project]
 //END(crud)
 {
   /**Name der genutzten Tabelle in der Datenbank*/
@@ -46,17 +46,17 @@ object Project extends Project with LongKeyedMetaMapper[Project] with WithImageM
 
 /**Beschreibt eine Projekt-Instanz
 * @author Johannes Fischer **/
-class Project extends LongKeyedMapper[Project] with WithImage[Project] with IdPK {
+class Project extends LongKeyedMapper[Project] with AddIcon[Project] with IdPK {
   
       // define WithImage
   
   // override def works, val gives the known nullpointer exception
 
-  override lazy val defaultImage = "/public/images/noproject.jpg"
+  override lazy val defaultIcon = "/public/images/noproject.jpg"
     
-  override lazy val imageDisplayName = "project icon"//S.?("user\u0020image") -> Throws an exception
+  override lazy val iconDisplayName = "project icon"//S.?("user\u0020image") -> Throws an exception
   
-  override lazy val imageDbColumnName = "project_image"
+  override lazy val iconDbColumnName = "project_image"
     
   override lazy val baseServingPath = "projectimage"
 

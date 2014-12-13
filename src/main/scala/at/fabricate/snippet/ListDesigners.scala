@@ -112,7 +112,7 @@ object ListDesigners extends PaginatorSnippet[User] with Logger {
     
   private def bindCSS(designer: User) = 
     "#name *" #>  "%s %s".format(designer.firstName.toString, designer.lastName.toString) &
-    "img" #>  designer.image.asHtml &
+    "img" #>  designer.icon.asHtml &
     "a [href]" #> "/designer/%d".format(designer.id.get)
 
   

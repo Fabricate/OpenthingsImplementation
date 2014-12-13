@@ -13,7 +13,7 @@ import scala.xml.Node
 import scala.xml.Elem
 import scala.xml.Text
 
-trait WithImage[T <: (WithImage[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Long, T]  { // 
+trait AddIcon[T <: (AddIcon[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Long, T]  { // 
   // [T <: Mapper[T] ]s
   //self: KeyedMetaMapper[IdPK,T] =>
   self: T =>
@@ -36,24 +36,24 @@ trait WithImage[T <: (WithImage[T] with LongKeyedMapper[T]) ] extends KeyedMappe
   * 
   */
     
-  lazy val defaultImage = "/public/images/noimage.jpg"
+  lazy val defaultIcon = "/public/images/noimage.jpg"
     
-  lazy val imageDisplayName = "image"
+  lazy val iconDisplayName = "icon"
   
-  lazy val imageDbColumnName = "image"
+  lazy val iconDbColumnName = "icon"
     
-  lazy val baseServingPath = "image"
+  lazy val baseServingPath = "icon"
 	    
 	    
-  lazy val image : MappedBinaryImageFileUpload[T] = new myImage(this)
+  lazy val icon : MappedBinaryImageFileUpload[T] = new myIcon(this)
   
-   protected class myImage(obj : T) extends MappedBinaryImageFileUpload(obj) {
+   protected class myIcon(obj : T) extends MappedBinaryImageFileUpload(obj) {
   
-  override val defaultImage = fieldOwner.defaultImage
+  override val defaultImage = fieldOwner.defaultIcon
     
-  override val imageDisplayName = fieldOwner.imageDisplayName
+  override val imageDisplayName = fieldOwner.iconDisplayName
   
-  override val imageDbColumnName = fieldOwner.imageDbColumnName
+  override val imageDbColumnName = fieldOwner.iconDbColumnName
     
   override val baseServingPath = fieldOwner.baseServingPath
 
@@ -63,12 +63,12 @@ trait WithImage[T <: (WithImage[T] with LongKeyedMapper[T]) ] extends KeyedMappe
   
 }
 
-trait WithImageMeta[ModelType <: ( WithImage[ModelType] with LongKeyedMapper[ModelType]) ] extends KeyedMetaMapper[Long, ModelType] { //
+trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with LongKeyedMapper[ModelType]) ] extends KeyedMetaMapper[Long, ModelType] { //
     self: ModelType  =>
 
       type TheType = ModelType
           
-  object TImage extends GetParent[WithImage[TheType]](self) {
+  object TImage extends GetParent[AddIcon[TheType]](self) {
     def unapply(in: String): Option[TheType] = 
       getParentAs[LongKeyedMetaMapper[TheType]].find( // As[LongKeyedMetaMapper[TheType]]
     		    By(getParentAs[LongKeyedMetaMapper[TheType]].primaryKeyField, 
@@ -84,10 +84,10 @@ trait WithImageMeta[ModelType <: ( WithImage[ModelType] with LongKeyedMapper[Mod
     LiftRules.dispatch.append({
       case r @ Req("serve" :: baseServingPath  :: TImage(id) ::
                  Nil, _, GetRequest) => ()  =>  // if (id != Empty)
-                   Full(InMemoryResponse(id.image.get,
+                   Full(InMemoryResponse(id.icon.get,
                                List("Content-Type" -> "image/jpeg",
                                     "Content-Length" ->
-                                    id.image.get.length.toString), Nil, 200))
+                                    id.icon.get.length.toString), Nil, 200))
                                     })
     
   }

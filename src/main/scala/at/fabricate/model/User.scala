@@ -15,7 +15,7 @@ import java.util.Calendar
 /**
  * The singleton that has methods for accessing the database
  */
-object User extends User with MetaMegaProtoUser[User] with LongKeyedMetaMapper[User] with WithImageMeta[User] with CreatedUpdated {
+object User extends User with MetaMegaProtoUser[User] with LongKeyedMetaMapper[User] with AddIconMeta[User] with CreatedUpdated {
   
   override lazy val editPath = "designer" :: "edit" :: Nil
   
@@ -27,11 +27,11 @@ object User extends User with MetaMegaProtoUser[User] with LongKeyedMetaMapper[U
 			       <lift:bind /></lift:surround>)
 			       
   // define the order fields will appear in forms and output
-  override def fieldOrder = List(id, image, firstName, lastName, email,
+  override def fieldOrder = List(id, icon, firstName, lastName, email,
   locale, timezone, password, aboutMe)
   
   // define the order fields will appear in the edit page
-  override def editFields = List(image, firstName, lastName, email,
+  override def editFields = List(icon, firstName, lastName, email,
   locale, timezone, aboutMe) 
 
   // comment this line out to require email validations
@@ -45,7 +45,7 @@ object User extends User with MetaMegaProtoUser[User] with LongKeyedMetaMapper[U
 /**
  * An O-R mapped "User" class that includes first name, last name, password and we add a "Personal Essay" to it
  */
-class User extends MegaProtoUser[User] with LongKeyedMapper[User] with WithImage[User] with CreatedUpdated with OneToMany[Long,User] with ManyToMany {
+class User extends MegaProtoUser[User] with LongKeyedMapper[User] with AddIcon[User] with CreatedUpdated with OneToMany[Long,User] with ManyToMany {
   def getSingleton = User // what's the "meta" server
   
   /*
@@ -60,11 +60,11 @@ class User extends MegaProtoUser[User] with LongKeyedMapper[User] with WithImage
   
   // override def works, val gives the known nullpointer exception
 
-  override lazy val defaultImage = "/public/images/nouser.jpg"
+  override lazy val defaultIcon = "/public/images/nouser.jpg"
     
-  override lazy val imageDisplayName = "user name"//S.?("user\u0020image") -> Throws an exception
+  override lazy val iconDisplayName = "user name"//S.?("user\u0020image") -> Throws an exception
   
-  override lazy val imageDbColumnName = "user_image"
+  override lazy val iconDbColumnName = "user_image"
     
   override lazy val baseServingPath = "userimage"
   
