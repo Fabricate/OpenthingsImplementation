@@ -36,28 +36,28 @@ trait AddIcon[T <: (AddIcon[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Lo
   * 
   */
     
-  lazy val defaultIcon = "/public/images/noimage.jpg"
+  def defaultIcon = "/public/images/noimage.jpg"
     
-  lazy val iconDisplayName = "icon"
+  def iconDisplayName = S.?("icon")
   
-  lazy val iconDbColumnName = "icon"
+  def iconDbColumnName = "icon"
     
-  lazy val baseServingPath = "icon"
+  def baseServingPath = "icon"
 	    
 	    
   lazy val icon : MappedBinaryImageFileUpload[T] = new myIcon(this)
   
    protected class myIcon(obj : T) extends MappedBinaryImageFileUpload(obj) {
   
-  override val defaultImage = fieldOwner.defaultIcon
+  override def defaultImage = fieldOwner.defaultIcon
     
-  override val imageDisplayName = fieldOwner.iconDisplayName
+  override def imageDisplayName = fieldOwner.iconDisplayName
   
-  override val imageDbColumnName = fieldOwner.iconDbColumnName
+  override def imageDbColumnName = fieldOwner.iconDbColumnName
     
-  override val baseServingPath = fieldOwner.baseServingPath
+  override def baseServingPath = fieldOwner.baseServingPath
 
-  override val fieldId = Some(Text("bin"+imageDbColumnName ))
+  override def fieldId = Some(Text("bin"+imageDbColumnName ))
 
   }
   
@@ -102,11 +102,11 @@ class MappedBinaryImageFileUpload[T <: LongKeyedMapper[T]](fieldOwner : T) exten
     
   def defaultImage = "/public/images/noimage.jpg"
     
-  val imageDisplayName = "image"
+  def imageDisplayName = S.?("image")
   
-  val imageDbColumnName = "image"
+  def imageDbColumnName = "image"
     
-  val baseServingPath = "image"
+  def baseServingPath = "image"
     
   val maxWidth = 792
   val maxHeight = 445

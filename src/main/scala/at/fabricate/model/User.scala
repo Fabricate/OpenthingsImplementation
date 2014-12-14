@@ -17,7 +17,8 @@ import java.util.Calendar
  */
 object User extends User with MetaMegaProtoUser[User] with LongKeyedMetaMapper[User] with AddIconMeta[User] with CreatedUpdated {
   
-  override lazy val editPath = "designer" :: "edit" :: Nil
+  // provide a path to a  custom page for the edit feature
+  //override lazy val editPath = "designer" :: "edit" :: Nil
   
   override val basePath = "user" :: Nil
     
@@ -48,25 +49,21 @@ object User extends User with MetaMegaProtoUser[User] with LongKeyedMetaMapper[U
 class User extends MegaProtoUser[User] with LongKeyedMapper[User] with AddIcon[User] with CreatedUpdated with OneToMany[Long,User] with ManyToMany {
   def getSingleton = User // what's the "meta" server
   
-  /*
-   * 
-   * override def firstNameDisplayName = "Vorname"
-   * override def lastNameDisplayName = "Nachname"
-   * 
-   * 
-   */
+   override def firstNameDisplayName = S.?("firstname")
+   override def lastNameDisplayName = S.?("lastname")
+
   
     // define WithImage
   
   // override def works, val gives the known nullpointer exception
 
-  override lazy val defaultIcon = "/public/images/nouser.jpg"
+  override def defaultIcon = "/public/images/nouser.jpg"
     
-  override lazy val iconDisplayName = "user name"//S.?("user\u0020image") -> Throws an exception
+  override def iconDisplayName = S.?("user\u0020icon")//S.?("user\u0020image") -> Throws an exception
   
-  override lazy val iconDbColumnName = "user_image"
+  override def iconDbColumnName = "user_image"
     
-  override lazy val baseServingPath = "userimage"
+  override def baseServingPath = "userimage"
   
   //object image extends MappedBinaryImageFileUpload(this)
   

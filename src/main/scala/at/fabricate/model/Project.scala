@@ -9,6 +9,8 @@ import net.liftweb.util._
 import net.liftweb.common._
 import scala.xml.{NodeSeq,Text}
 import java.util.Calendar
+import scala.xml.UnprefixedAttribute
+import scala.xml.Null
  
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/
@@ -25,6 +27,13 @@ object Project extends Project with LongKeyedMetaMapper[Project] with AddIconMet
   /**Name des Menuepunktes für das Erstellen eines neuen Objekts auf CRUDify-Seiten*/
   override def createMenuName = S.?("create\u0020new\u0020project")
 
+  
+  // create a multipart upload form for Crudify
+  override def _createTemplate = super._createTemplate %  	new UnprefixedAttribute("multipart",Text("yes"),Null)
+  
+  override def _editTemplate = super._editTemplate %  	new UnprefixedAttribute("multipart",Text("yes"),Null)
+
+  
   //BEGIN(pageWrapper)
   /**Einbettung aller News-CRUD-Seiten in das default-Template mit Admin-Menue und Titelanzeige 
   * eines "Erstellen"-Links*/
@@ -52,13 +61,13 @@ class Project extends LongKeyedMapper[Project] with AddIcon[Project] with IdPK {
   
   // override def works, val gives the known nullpointer exception
 
-  override lazy val defaultIcon = "/public/images/noproject.jpg"
+  override def defaultIcon = "/public/images/noproject.jpg"
     
-  override lazy val iconDisplayName = "project icon"//S.?("user\u0020image") -> Throws an exception
+  override def iconDisplayName = S.?("project\u0020icon")//S.?("user\u0020image") -> Throws an exception
   
-  override lazy val iconDbColumnName = "project_image"
+  override def iconDbColumnName = "project_image"
     
-  override lazy val baseServingPath = "projectimage"
+  override def baseServingPath = "projectimage"
 
   /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
   object byUserId extends MappedLongForeignKey(this, User){
