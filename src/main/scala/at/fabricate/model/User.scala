@@ -10,6 +10,7 @@ import scala.xml.Elem
 import net.liftweb.http.SHtml
 import net.liftweb.http.FileParamHolder
 import java.util.Calendar
+import net.liftweb.http.SessionVar
 
 
 /**
@@ -41,6 +42,21 @@ object User extends User with MetaMegaProtoUser[User] with LongKeyedMetaMapper[U
   // just an idea for different signup process
   //override def signupFields = email :: userName :: password :: Nil 
   
+  //override def afterCreate = super.afterCreate
+
+  // referrer after login
+  object loginReferrer extends SessionVar("/")
+  
+  override def homePage = {
+    var ret = loginReferrer.get
+    loginReferrer.remove()
+    ret
+  }
+  
+  override def login = {
+    for (r <- S.referer if loginReferrer.get == "/") loginReferrer.set(r)
+    super.login
+  }
 }
 
 /**
@@ -51,7 +67,6 @@ class User extends MegaProtoUser[User] with LongKeyedMapper[User] with AddIcon[U
   
    override def firstNameDisplayName = S.?("firstname")
    override def lastNameDisplayName = S.?("lastname")
-
   
     // define WithImage
   
