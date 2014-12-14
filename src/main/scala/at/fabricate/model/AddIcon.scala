@@ -45,9 +45,9 @@ trait AddIcon[T <: (AddIcon[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Lo
   def baseServingPath = "icon"
 	    
 	    
-  lazy val icon : MappedBinaryImageFileUpload[T] = new myIcon(this)
+  lazy val icon : MappedBinaryImageFileUpload[T] = new MyIcon(this)
   
-   protected class myIcon(obj : T) extends MappedBinaryImageFileUpload(obj) {
+   protected class MyIcon(obj : T) extends MappedBinaryImageFileUpload(obj) {
   
   override def defaultImage = fieldOwner.defaultIcon
     
@@ -57,7 +57,7 @@ trait AddIcon[T <: (AddIcon[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Lo
     
   override def baseServingPath = fieldOwner.baseServingPath
 
-  override def fieldId = Some(Text("bin"+imageDbColumnName ))
+  override val fieldId = Some(Text("bin"+imageDbColumnName ))
 
   }
   
@@ -66,12 +66,12 @@ trait AddIcon[T <: (AddIcon[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Lo
 trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with LongKeyedMapper[ModelType]) ] extends KeyedMetaMapper[Long, ModelType] { //
     self: ModelType  =>
 
-      type TheType = ModelType
+      type TheIconType = ModelType
           
-  object TImage extends GetParent[AddIcon[TheType]](self) {
-    def unapply(in: String): Option[TheType] = 
-      getParentAs[LongKeyedMetaMapper[TheType]].find( // As[LongKeyedMetaMapper[TheType]]
-    		    By(getParentAs[LongKeyedMetaMapper[TheType]].primaryKeyField, 
+  object TImage extends FieldOwner[AddIcon[TheIconType]](self) {
+    def unapply(in: String): Option[TheIconType] = 
+      fieldOwnerAs[LongKeyedMetaMapper[TheIconType]].find( // As[LongKeyedMetaMapper[TheType]]
+    		    By(fieldOwnerAs[LongKeyedMetaMapper[TheIconType]].primaryKeyField, 
     		        in.toInt ))
   }
   
@@ -91,8 +91,7 @@ trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with LongKeyedMapper[ModelTy
                                     })
     
   }
-
-		 // not a member of anyref
+    // also perform all the other afterSchemifier operations
     super.afterSchemifier 
   
 }
@@ -146,9 +145,9 @@ class MappedBinaryImageFileUpload[T <: LongKeyedMapper[T]](fieldOwner : T) exten
 	  override def _toForm: Box[Elem] = Full(SHtml.fileUpload(fu=>setFromUpload(Full(fu)))) //fu=>setFromUpload(Full(fu)) setFromUpload(Full(fu))))
 }
 
-abstract class GetParent[V](parent: V){
-  def getParent : V = parent
-  def getParentAs[U] : U = parent.asInstanceOf[U]
+abstract class FieldOwner[V](fldOwnr: V){
+  def fieldOwner : V = fldOwnr
+  def fieldOwnerAs[U] : U = fldOwnr.asInstanceOf[U]
 }
 /*
 object TImageBase [V <: WithImageMeta[V]] (withImage : V){
