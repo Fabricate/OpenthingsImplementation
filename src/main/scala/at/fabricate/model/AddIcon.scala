@@ -63,17 +63,13 @@ trait AddIcon[T <: (AddIcon[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Lo
   
 }
 
-trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with LongKeyedMapper[ModelType]) ] extends KeyedMetaMapper[Long, ModelType] { //
+trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with LongKeyedMapper[ModelType] with FindByID[ModelType]) ] extends KeyedMetaMapper[Long, ModelType] { //
     self: ModelType  =>
 
       type TheIconType = ModelType
-          
-  object TImage extends FieldOwner[AddIcon[TheIconType]](self) {
-    def unapply(in: String): Option[TheIconType] = 
-      fieldOwnerAs[LongKeyedMetaMapper[TheIconType]].find( // As[LongKeyedMetaMapper[TheType]]
-    		    By(fieldOwnerAs[LongKeyedMetaMapper[TheIconType]].primaryKeyField, 
-    		        in.toInt ))
-  }
+    
+      //self.find
+  //object TheImage extends ObjectById[AddIconMeta[TheIconType]](self) 
   
       //User.a
   
@@ -82,12 +78,12 @@ trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with LongKeyedMapper[ModelTy
     
     
     LiftRules.dispatch.append({
-      case r @ Req("serve" :: baseServingPath  :: TImage(id) ::
+      case r @ Req("serve" :: baseServingPath  :: FindByID(iconTypeID) ::
                  Nil, _, GetRequest) => ()  =>  // if (id != Empty)
-                   Full(InMemoryResponse(id.icon.get,
+                   Full(InMemoryResponse(iconTypeID.icon.get,
                                List("Content-Type" -> "image/jpeg",
                                     "Content-Length" ->
-                                    id.icon.get.length.toString), Nil, 200))
+                                    iconTypeID.icon.get.length.toString), Nil, 200))
                                     })
     
   }
@@ -144,6 +140,14 @@ class MappedBinaryImageFileUpload[T <: LongKeyedMapper[T]](fieldOwner : T) exten
 	  
 	  override def _toForm: Box[Elem] = Full(SHtml.fileUpload(fu=>setFromUpload(Full(fu)))) //fu=>setFromUpload(Full(fu)) setFromUpload(Full(fu))))
 }
+
+  class ObjectById[T <: KeyedMetaMapper[Long,T]](obj : T) extends FieldOwner[T](obj) { 
+    self: T =>
+    def unapply(in: String): Option[T] = 
+      fieldOwner.find( // As[LongKeyedMetaMapper[TheType]]
+    		    By(fieldOwner.primaryKeyField, 
+    		        in.toInt ))
+  }
 
 abstract class FieldOwner[V](fldOwnr: V){
   def fieldOwner : V = fldOwnr

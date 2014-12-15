@@ -57,7 +57,7 @@ class Boot {
 
     LiftRules.dispatch.append(ToolREST)
     //LiftRules.statelessDispatch.append(ToolREST)
-    
+    LiftRules.dispatch.append(FileUploadREST)
     
     // Set up some rewrites
     LiftRules.statelessRewrite.append {
@@ -118,6 +118,7 @@ class Boot {
                Menu.i("View Designer") / "viewDesigner" / ** >> Hidden,
                Menu.i("List Designers") / "listDesigner" / ** >> Hidden,
                Menu.i("Edit Repository") / "editRepository" / ** >> Hidden,
+               Menu.i("Test page") / "testpage" / ** >> Hidden,
                Menu.i("Search Designers") / "searchDesigner",                 
                Menu.i("Public Data") / "public" / ** >> Hidden,
                Menu.i("SASS") / "sass" / ** >> Hidden,

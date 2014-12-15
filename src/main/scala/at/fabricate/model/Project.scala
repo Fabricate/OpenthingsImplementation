@@ -15,7 +15,7 @@ import scala.xml.Null
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/
 //BEGIN(crud)
-object Project extends Project with LongKeyedMetaMapper[Project] with AddIconMeta[Project] with CRUDify[Long, Project] with AddRepositoryMeta[Project]
+object Project extends Project with LongKeyedMetaMapper[Project] with FindByID[Project] with AddIconMeta[Project] with CRUDify[Long, Project] with AddRepositoryMeta[Project]
 //END(crud)
 {
   /**Name der genutzten Tabelle in der Datenbank*/
