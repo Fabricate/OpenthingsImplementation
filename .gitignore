@@ -56,3 +56,4 @@ lift_proto*
 # Pax Runner (for easy OSGi launching)
 runner
 
+src/main/webapp/projects/*

@@ -17,6 +17,7 @@ import at.fabricate.snippet.Designer
 import at.fabricate.lib.ImageLogic
 import net.liftmodules.widgets.autocomplete.AutoComplete
 import at.fabricate.api._
+import at.fabricate.snippet.Repository
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -48,6 +49,7 @@ class Boot {
     
     LiftRules.snippetDispatch.append {
       case "Designer" => Designer
+      case "Repository" => Repository
       //case "ListDesigners" => ListDesigners
     }
     
@@ -80,6 +82,8 @@ class Boot {
       case RewriteRequest(ParsePath(List("lost_password"), _, _, _), _, _) =>
 	      RewriteResponse("user" :: "lost_password" :: Nil)	  	      
     
+	  case RewriteRequest(ParsePath(List("project", "repository", projectID), _, _, _), _, _) =>
+	      RewriteResponse("editRepository" :: Nil, Map("id" -> urlDecode(projectID)))
     }
     
     // TODO : aufraumen, sauberes Menue !!!
@@ -113,6 +117,7 @@ class Boot {
                Menu.i("Edit my profile") / "editDesigner" >> Hidden >> AccessControl.loggedIn ,  //>> IfLoggedIn,
                Menu.i("View Designer") / "viewDesigner" / ** >> Hidden,
                Menu.i("List Designers") / "listDesigner" / ** >> Hidden,
+               Menu.i("Edit Repository") / "editRepository" / ** >> Hidden,
                Menu.i("Search Designers") / "searchDesigner",                 
                Menu.i("Public Data") / "public" / ** >> Hidden,
                Menu.i("SASS") / "sass" / ** >> Hidden,

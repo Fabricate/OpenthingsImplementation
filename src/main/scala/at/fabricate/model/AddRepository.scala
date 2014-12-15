@@ -14,6 +14,11 @@ import net.liftweb.http.S
 import net.liftweb.common.Box
 import net.liftweb.common.Full
 import net.liftweb.mapper.MetaMapper
+import net.liftweb.http.LiftRules
+import java.net.URL
+import java.net.URISyntaxException
+import net.liftweb.common.Empty
+import net.liftweb.mapper.MappedBoolean
 
 trait AddRepository [T <: (AddRepository[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Long, T]  {
 
@@ -23,8 +28,18 @@ trait AddRepository [T <: (AddRepository[T] with LongKeyedMapper[T]) ] extends K
  	
    protected class MyGitWrapper(obj : T) extends GitWrapper(obj) {
      
-     override def pathToRepository = fieldOwner.pathToRepository
+     override def pathToRepository = webappRoot + basePathToRepository + 
+     File.separator + repositoryID + 
+     File.separator + endPathToRepository//fieldOwner.pathToRepository
   
+     override def repositoryID = {
+       if (fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField != Empty && fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField != -1 )
+    	 fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField.get.toString
+       else{
+         println("primary key open")
+         "EMPTY_ID"
+       }
+     }
  	  /*
   override def defaultImage = fieldOwner.defaultIcon
     
@@ -37,13 +52,41 @@ trait AddRepository [T <: (AddRepository[T] with LongKeyedMapper[T]) ] extends K
   override def fieldId = Some(Text("bin"+imageDbColumnName ))
 */
   }
+ 	/*
+ 	def basePath : String = { // //LiftRules.context.ctx.getRealPath("/")
+ 	   			   println(LiftRules.calculateContextPath.toString)
+//LiftRules.excludePathFromContextPathRewriting
+ 	   			   
+ 	  if (!LiftRules.context.path.endsWith(File.separator) )
+ 			 LiftRules.context.path+File.separator
+ 			 else
+ 			   LiftRules.context.path
+ 			   
+ 	}
+ 	* 
+ 	*/
+ 	    
+ 	   def basePathToRepository : String = "projects"
+ 	   def endPathToRepository : String = "repository"+File.separator+".git"
   
-   def pathToRepository : String = "projects/"+primaryKeyField+"/repository/.git"
-   // file structure
+// projects/"+primaryKeyField+"/repository/.git
+   /*
+	def pathToRepository(repositoryID : String) : String = {
+    val url = base.getPath+"projects/"+repositoryID+"/repository/.git"
+     println("URL: "+url)
+     println("LiftCoreResourceName: "+LiftRules.liftCoreResourceName)
+     println("ResourceServePath: "+LiftRules.resourceServerPath)
+     url
+   }
+   * 
+   */
+     //basePath+"projects/"+primaryKeyField+"/repository/.git"
+   // file structure (where to put the zip file?)
   // projects 
-   // 	- ProjectID
-   //		- repository
-   //		- previewImages
+   // 	- <ProjectID>/
+   //		- <ProjectID>.zip
+   //		- repository/
+   //		- previewImages/
 	//	   		- <maybe> commitID
    //				- images
    //		- previewData
@@ -79,13 +122,24 @@ trait AddRepositoryMeta [ModelType <: ( AddRepository[ModelType] with LongKeyedM
 
       type TheRepoType = ModelType
    	// maybe afterSave ??, if ID is not available?
-	override def afterSave = {
+      // -> ID is not available, even after save or commit!!!!
+      
+	/*override def afterSave = {
       println("afterSave")
+      println("id:"+this.primaryKeyField.get)
+ 	  createNewRepo
+ 	  
+ 	  super.afterSave
+ 	}  
+ 	*  
+      override def afterCommit = {
+      println("afterCommit")
+      println("id:"+this.primaryKeyField.get)
  	  createNewRepo
  	  
  	  super.afterCommit
- 	}  
-      
+ 	} 
+ 	*/
     
     /*
     override def create = {
@@ -95,12 +149,14 @@ trait AddRepositoryMeta [ModelType <: ( AddRepository[ModelType] with LongKeyedM
     * 
     */
     
-    override def beforeSave = {
+   /* override def beforeSave = {
       
       println("beforeSave")
       createNewRepo
       super.beforeCreate
     }
+    * 
+    */
       
     private def createNewRepo = {
       // create a new repository on the filesystem
@@ -109,26 +165,44 @@ trait AddRepositoryMeta [ModelType <: ( AddRepository[ModelType] with LongKeyedM
     }
 }
 
-class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](fieldOwner : T) extends FieldOwner[T](fieldOwner) {
+class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) extends MappedBoolean[T](owner) {
+  
+    val webappRoot = LiftRules.getResource("/") .openOrThrowException("Webapp Root not found!") .getPath
+    
+	// may be overridden in subclasses for other behaviour
+    // repositoryID might be used as well
+	def pathToRepository : String = webappRoot+"repository/"+repositoryID+"/.git"
   
 	// may be overridden in subclasses for other behaviour
-	def pathToRepository : String = "repository/.git"
+   	def repositoryID : String = fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField.get.toString
   
-	// may be overridden in subclasses for other behaviour
-   	//def repositoryID : String = fieldOwner.primaryKeyField.toString
-  
-	private lazy val repo : Repository = openExistingRepo
+	private def repo : Repository = {
+      if (existsdOnFilesystem) 
+        openExistingRepo
+        else {
+          println("created new repo for project "+repositoryID)
+          set(true)
+          createNewRepo
+        }
+    }
 	// FileRepo is just one option, maybe put the stuff to the database ??
 	
+    
+    def getRepo : Repository = repo
+    
 	// TODO: Think about a server Interface where you can push and pull - would be amazing!!
 	
 	
 	private val git : Git = new Git(repo)
  	
+    
+    def existsdOnFilesystem = get
    	
    	
   // add a new file to the repo
   def addAFileToTheRepo(filepattern : String) =   git.add.addFilepattern(filepattern).call()
+  
+  private def initialCommit = commit("Repository initialized")
 
   // commit the repository
   def commit(message : String) = git.commit().call()
