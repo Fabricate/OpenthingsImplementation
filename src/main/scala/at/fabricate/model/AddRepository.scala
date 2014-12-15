@@ -176,11 +176,15 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
   
 	private def repo : Repository = {
       if (isIDSet) {
-	      if (existsdOnFilesystem) 
+	      if (existsdOnFilesystem) {
+	        println ("opened repo for project "+repositoryID)
 	        openExistingRepo
+	      }
 	      else {
 	        println("created new repo for project "+repositoryID)
 	        set(true)
+	        fieldOwner.save
+	        //fieldOwner.repository.s
 	        createNewRepo
 	      }
       } else {
@@ -197,7 +201,7 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
 	// TODO: Think about a server Interface where you can push and pull - would be amazing!!
 	
 	
-	private val git : Git = new Git(repo)
+	private def git : Git = new Git(repo)
  	
     // boolean value of the entity represents the status on the filesystem
     def existsdOnFilesystem = get
@@ -212,24 +216,50 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
   // add a new file to the repo
   def addAFileToTheRepo(filepattern : String) =   git.add.addFilepattern(filepattern).call()
   
-  private def initialCommit = commit("Repository initialized")
+  def initialCommit = {
+         Git.init().setDirectory(repo.getDirectory().getParentFile()).call()
+         commit("Repository initialized")
+       }
 
   // commit the repository
-  def commit(message : String) = git.commit().call()
+  def commit(message : String) = git.commit().setMessage(message).call()
   
   // get the file-object of the git repo
-  private def getRepoFile : File = new File(pathToRepository ) // +repositoryID
+  //private def getRepoFile : File = new File(pathToRepository )
+    /*
+   {
+         if (pathToRepository.endsWith(File.separator))
+        	 new File(pathToRepository ) // +repositoryID
+         else 
+           new File(pathToRepository+File.separator )
+       }
+       * 
+       */
   
     // create a new repository
   def createNewRepo() : Repository = {
-	  getRepoFile.getParentFile().mkdirs()
-	  getRepoFile.createNewFile()
+      val repoConfigFile =   new File(pathToRepository + File.separator + "config" )
+      val repoDir = new File(pathToRepository)
+	  repoConfigFile.getParentFile().mkdirs()
+	  //getRepoFile.createNewFile()
 	  // Path must exist
-	  FileRepositoryBuilder.create( getRepoFile )
+	  Git.init().setDirectory(repoDir.getParentFile()).call()	  
+	  val repo = FileRepositoryBuilder.create(  new File(pathToRepository) )
+	  
+	  println("repo dir: "+repo.getDirectory())
+	  // dont do that - endless call!!!
+	  //initialCommit
+	  repo.close()
+	  
+	  openExistingRepo
 	}
   
   // open an exiting repository
-  private def openExistingRepo() : Repository =  new FileRepositoryBuilder().setGitDir( getRepoFile ).build
+  private def openExistingRepo() : Repository =  new FileRepositoryBuilder().
+  setGitDir( new File(pathToRepository ) ).
+  readEnvironment.
+  findGitDir.
+  build
   
   // get a list of commits
   def getAllCommits : List[(Long, String)] = List[(Long, String)] ()

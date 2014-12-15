@@ -161,9 +161,9 @@ object Repository extends DispatchSnippet with Logger {
         Project.find(By(Project.id , projectID)) match {
 	        case Full(project)  => {
 	          		    //project.repository.createNewRepo
-	        	project.repository .getRepo
-	    
-	          Thread.sleep(1000)
+	        	project.repository.getRepo
+	        	project.repository.initialCommit
+	            // Thread.sleep(1000)
 			    JsCmds.Alert("Created repo for project "+projectID)
 	        }
 	        
