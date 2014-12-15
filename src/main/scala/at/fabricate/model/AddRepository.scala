@@ -32,14 +32,9 @@ trait AddRepository [T <: (AddRepository[T] with LongKeyedMapper[T]) ] extends K
      File.separator + repositoryID + 
      File.separator + endPathToRepository//fieldOwner.pathToRepository
   
-     override def repositoryID = {
-       if (fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField != Empty && fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField != -1 )
-    	 fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField.get.toString
-       else{
-         println("primary key open")
-         "EMPTY_ID"
-       }
-     }
+     override def repositoryID = //{
+       fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField.get.toString
+       
  	  /*
   override def defaultImage = fieldOwner.defaultIcon
     
@@ -172,18 +167,27 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
 	// may be overridden in subclasses for other behaviour
     // repositoryID might be used as well
 	def pathToRepository : String = webappRoot+"repository/"+repositoryID+"/.git"
+	
+	// default path if the ID is not set
+	def pathToDefaultRepository : String = webappRoot+"DefaultRepository/.git"
   
 	// may be overridden in subclasses for other behaviour
    	def repositoryID : String = fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField.get.toString
   
 	private def repo : Repository = {
-      if (existsdOnFilesystem) 
-        openExistingRepo
-        else {
-          println("created new repo for project "+repositoryID)
-          set(true)
-          createNewRepo
-        }
+      if (isIDSet) {
+	      if (existsdOnFilesystem) 
+	        openExistingRepo
+	      else {
+	        println("created new repo for project "+repositoryID)
+	        set(true)
+	        createNewRepo
+	      }
+      } else {
+        println("primary key open")
+        // throw an exception here?
+        new FileRepositoryBuilder().setGitDir( new File(pathToDefaultRepository)).build
+      }
     }
 	// FileRepo is just one option, maybe put the stuff to the database ??
 	
@@ -195,9 +199,15 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
 	
 	private val git : Git = new Git(repo)
  	
-    
+    // boolean value of the entity represents the status on the filesystem
     def existsdOnFilesystem = get
-   	
+    
+    def isIDSet : Boolean = 
+    if (fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField != Empty && fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField != -1 )
+    	 true
+       else
+         false
+     
    	
   // add a new file to the repo
   def addAFileToTheRepo(filepattern : String) =   git.add.addFilepattern(filepattern).call()
@@ -226,6 +236,12 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
   
   // get one special commit
   def getCommit(id : String) = Unit
+  
+  private def linkToRepo(linkText : String) = <a href={"/project/repository/"+fieldOwner.primaryKeyField.get}>{linkText}</a>
+  
+  override def asHtml = linkToRepo("view the repository") // TODO: plus additionally a download link for the zip
+
+  override def toForm = Full(linkToRepo("edit the repository"))
 }
 
 

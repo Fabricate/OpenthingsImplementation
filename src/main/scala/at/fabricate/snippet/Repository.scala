@@ -27,10 +27,12 @@ import net.liftweb.http.SHtml
 import net.liftweb.http.js.JsCmds._
 import net.liftweb.http.js.JE._
 import net.liftweb.http.js.JsCmds
+import net.liftweb.http.RequestVar
 
 object Repository extends DispatchSnippet with Logger {
   
-  val id = S.param("id") openOr "No parameter given"
+  //val id = S.param("id") openOr "No parameter given"
+  object id extends RequestVar(S.param("id") openOr "No parameter given")
   
   def dispatch : DispatchIt = {
     //case "listtools" => listtools _
