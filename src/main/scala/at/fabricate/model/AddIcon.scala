@@ -72,10 +72,18 @@ trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with LongKeyedMapper[ModelTy
   //object TheImage extends ObjectById[AddIconMeta[TheIconType]](self) 
     object FindByID extends FieldOwner[KeyedMetaMapper[Long,TheIconType]](self) { 
     //self: TheIconType =>
+        /*
+    def apply(in: Long): Option[TheIconType] = 
+      fieldOwner.find( // As[LongKeyedMetaMapper[TheType]]
+    		    By(fieldOwner.primaryKeyField, 
+    		        in ))
+    		        * 
+    		        */
+    		        
     def unapply(in: String): Option[TheIconType] = 
       fieldOwner.find( // As[LongKeyedMetaMapper[TheType]]
     		    By(fieldOwner.primaryKeyField, 
-    		        in.toInt ))
+    		        in.toLong ))
   }
     
       //User.a

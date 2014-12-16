@@ -49,7 +49,7 @@ object FileUploadREST extends RestHelper {
       BadResponse()
     }
 
-    case _ Post req => BadResponse()
+    //case _ Post req => BadResponse()
   }
 
 }

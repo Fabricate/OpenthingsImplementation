@@ -32,14 +32,26 @@ import net.liftweb.http.RequestVar
 object Repository extends DispatchSnippet with Logger {
   
   //val id = S.param("id") openOr "No parameter given"
-  object id extends RequestVar(S.param("id") openOr "No parameter given")
+  //object id extends RequestVar(S.param("id") openOr "No parameter given")
+  
+//  object commitLabel extends RequestVar("Describe the key features of this project revision")
+
+//    id match {
   
   def dispatch : DispatchIt = {
     //case "listtools" => listtools _
     case "edit" => edit _
     case "button" => button
+    case "testbutton" => testbutton
     //case "view" => view _
   }
+  
+  def callback() : JsCmd = {
+    println("The button was pressed")
+    JsCmds.Alert("You clicked it")
+  }
+  
+  def testbutton = "button [onclick]" #> SHtml.ajaxInvoke(callback)
   
   /*
   private def getAllToolNames = Tool.findAll.map(tool => tool.name.toString)
@@ -157,31 +169,74 @@ object Repository extends DispatchSnippet with Logger {
   
   def callback(id: String)() : JsCmd = {
     id match {
-      case AsLong(projectID) =>
-        Project.find(By(Project.id , projectID)) match {
-	        case Full(project)  => {
+      case Project.FindByID(project) => {
+
 	          		    //project.repository.createNewRepo
 	        	project.repository.getRepo
 	        	project.repository.initialCommit
 	            // Thread.sleep(1000)
-			    JsCmds.Alert("Created repo for project "+projectID)
-	        }
-	        
-	        case _ => JsCmds.Alert("Project not found")
-	      }
-        case _ => JsCmds.Alert("No Project ID supplied")
-    }
+			    JsCmds.Alert("Created repo for project "+id)
+	  }
+	       
+	  case _ => JsCmds.Alert("Project not found")
+	  }
+      
+  }
+  
+    def commit(id: String)(message: String)() : JsCmd = {
+    id match {
+      case Project.FindByID(project) => {
+
+	          		    //project.repository.createNewRepo
+	        	project.repository.commit(message)
+	            // Thread.sleep(1000)
+			    JsCmds.Alert("Commited project "+id+ " with commit message "+message)
+	  }
+	       
+	  case _ => JsCmds.Alert("Project not found")
+	  }
       
   }
 
-  def button  = 
-//    S.param("id") match {
-//    case Full(AsLong(projectID)) => { 
-      "#createrepo [onclick]" #> SHtml.ajaxInvoke(callback(id)) &
-      "#fileupload [data-url]" #> "/api/upload/file/%s".format(id) // "/api/upload/file" //
-//    }
+
+  def button  = {
+    var commitLabel = "Describe the key features of this project revision"
+    var id = S.param("id") openOr "No parameter given"
+    def commit() : JsCmd = {
+	    id match {
+	      case Project.FindByID(project) => {
+	
+		          		    //project.repository.createNewRepo
+		        	project.repository.commit(commitLabel)
+		            // Thread.sleep(1000)
+				    JsCmds.Alert("Commited project "+id+ " with commit message "+commitLabel)
+		  }
+		       
+		  case _ => JsCmds.Alert("Project not found")
+		  }
+	      
+	  }
+//      case AsLong(projectID) =>
+//        Project.find(By(Project.id , projectID)) match {
+//        Project.FindByID(id.get.toLong) match {Describe the key features of this project revision
+
+//	        case Full(project)  => {
+		      "#createrepo [onclick]" #> SHtml.ajaxInvoke(callback(id)) &
+		      //"#commitlabel" #> SHtml.text(commitLabel, commitLabel = _) &
+		      "#commitlabel" #> SHtml.ajaxText(commitLabel, (str) => {
+  commitLabel = str
+//  commit()
+// overrides all other JavaScript  
+//  JsCmds.Noop
+})&
+		      "#commitrepo [onclick]" #> SHtml.ajaxInvoke(commit) &
+		      //"#commitrepo " #> SHtml.hidden(commit(id)) &
+//		      "#testbutton [onclick]" #> SHtml.ajaxInvoke(callback) &
+		      "#fileupload [data-url]" #> "/api/upload/file/%s".format(id) // "/api/upload/file" //
+  }
+//		   }
       
-//    case _ => JsCmds.Alert("No Project ID supplied")projectID
+//    case _ => JsCmds.Alert("No Project ID supplied")
 //    }
     
   def edit (xhtml: NodeSeq) : NodeSeq = S.param("id") match {
