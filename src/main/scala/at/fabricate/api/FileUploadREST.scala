@@ -20,7 +20,7 @@ object FileUploadREST extends RestHelper {
         val repo = project.repository
         println("Received: "+file.fileName)
         // copy the file to the repository
-        val filePathInRepository = new File(repo.getRepo.getDirectory(),file.fileName )
+        val filePathInRepository = new File(repo.getRepo.getDirectory().getParentFile(),file.fileName )
         var output = new FileOutputStream(filePathInRepository)
         try {
           output.write(file.file)
@@ -37,6 +37,17 @@ object FileUploadREST extends RestHelper {
         repo.commit("added file "+file.fileName )
       }
       OkResponse()
+      
+    case "api" ::"upload" ::"file" :: any :: Nil Post req => {
+      println("upload file :: id is not matching a Project")
+      println(any)
+      BadResponse()
+    }
+    
+    case "api" ::"upload" ::"file" :: Nil Post req => {
+      println("upload file :: project id missing")
+      BadResponse()
+    }
 
     case _ Post req => BadResponse()
   }

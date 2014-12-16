@@ -63,14 +63,21 @@ trait AddIcon[T <: (AddIcon[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Lo
   
 }
 
-trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with LongKeyedMapper[ModelType] with FindByID[ModelType]) ] extends KeyedMetaMapper[Long, ModelType] { //
+trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with LongKeyedMapper[ModelType]) ] extends KeyedMetaMapper[Long, ModelType] { //
     self: ModelType  =>
 
       type TheIconType = ModelType
     
       //self.find
   //object TheImage extends ObjectById[AddIconMeta[TheIconType]](self) 
-  
+    object FindByID extends FieldOwner[KeyedMetaMapper[Long,TheIconType]](self) { 
+    //self: TheIconType =>
+    def unapply(in: String): Option[TheIconType] = 
+      fieldOwner.find( // As[LongKeyedMetaMapper[TheType]]
+    		    By(fieldOwner.primaryKeyField, 
+    		        in.toInt ))
+  }
+    
       //User.a
   
   abstract override def afterSchemifier : Unit = {
@@ -142,7 +149,7 @@ class MappedBinaryImageFileUpload[T <: LongKeyedMapper[T]](fieldOwner : T) exten
 }
 
   class ObjectById[T <: KeyedMetaMapper[Long,T]](obj : T) extends FieldOwner[T](obj) { 
-    self: T =>
+    //self: T =>
     def unapply(in: String): Option[T] = 
       fieldOwner.find( // As[LongKeyedMetaMapper[TheType]]
     		    By(fieldOwner.primaryKeyField, 

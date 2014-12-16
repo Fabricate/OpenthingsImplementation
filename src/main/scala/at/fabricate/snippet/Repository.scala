@@ -177,8 +177,8 @@ object Repository extends DispatchSnippet with Logger {
   def button  = 
 //    S.param("id") match {
 //    case Full(AsLong(projectID)) => { 
-      "#createrepo" #> SHtml.ajaxInvoke(callback(id)) &
-      "#fileupload [data-url]" #> Str("/api/upload/file/"+id)
+      "#createrepo [onclick]" #> SHtml.ajaxInvoke(callback(id)) &
+      "#fileupload [data-url]" #> "/api/upload/file/%s".format(id) // "/api/upload/file" //
 //    }
       
 //    case _ => JsCmds.Alert("No Project ID supplied")projectID

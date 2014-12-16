@@ -16,7 +16,7 @@ import net.liftweb.http.SessionVar
 /**
  * The singleton that has methods for accessing the database
  */
-object User extends User with MetaMegaProtoUser[User] with LongKeyedMetaMapper[User] with FindByID[User] with AddIconMeta[User] with CreatedUpdated {
+object User extends User with MetaMegaProtoUser[User] with LongKeyedMetaMapper[User] with AddIconMeta[User] with CreatedUpdated {
   
   // provide a path to a  custom page for the edit feature
   //override lazy val editPath = "designer" :: "edit" :: Nil

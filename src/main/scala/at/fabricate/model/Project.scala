@@ -15,9 +15,11 @@ import scala.xml.Null
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/
 //BEGIN(crud)
-object Project extends Project with LongKeyedMetaMapper[Project] with FindByID[Project] with AddIconMeta[Project] with CRUDify[Long, Project] with AddRepositoryMeta[Project]
+object Project extends Project with LongKeyedMetaMapper[Project] with AddIconMeta[Project] with CRUDify[Long, Project] with AddRepositoryMeta[Project]
 //END(crud)
 {
+  
+
   /**Name der genutzten Tabelle in der Datenbank*/
   override def dbTableName = "project"
   /**Anordnung der Eingabefelder in automatisch generierten Formularen (CRUDFify)*/
@@ -60,6 +62,9 @@ class Project extends LongKeyedMapper[Project] with AddIcon[Project] with AddRep
       // define WithImage
   
   // override def works, val gives the known nullpointer exception
+  
+//      object FindByID extends ObjectById[Project](this)
+
 
   override def defaultIcon = "/public/images/noproject.jpg"
     
