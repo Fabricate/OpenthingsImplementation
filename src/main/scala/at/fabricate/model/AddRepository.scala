@@ -24,6 +24,7 @@ import org.eclipse.jgit.dircache.DirCache
 import net.liftweb.http.FileParamHolder
 import java.io.FileOutputStream
 import java.io.FileFilter
+import scala.collection.JavaConversions._
 
 trait AddRepository [T <: (AddRepository[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Long, T]  {
 
@@ -258,6 +259,16 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
      
    	
   // add a new file to the repo
+   				// TODO:
+  // pay attention: maybe there are some nasty caracters in the filename:
+   				// for example ../../../ 
+   				// and then the file is stored somewhere else!
+   				// or deleted
+   				
+  def deleteFileFromRepository(file : File) =   {
+   			  file.delete()
+   			}
+   	
   def copyAndAddFileToRepository(file : FileParamHolder) =   {
         val filePathInRepository = new File(getRepositoryDirectory,file.fileName )
         var output = new FileOutputStream(filePathInRepository)
@@ -287,12 +298,20 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
   // commit the repository
   def commit(message : String) = 
     withGitReopsitory[RevCommit]{
-   		git => git.commit().setMessage(message).call()
+   		git => {
+   		  // add all files that are in the repository to be added at the commit
+   		  // TODO: might not work with directories, maybe use file.getAbsolutePath() then
+   		  getAllFilesInRepository.map(file => git.add().addFilepattern(file.getName()).call())
+   		  git.commit().setAll(true).
+//   		  setAuthor(new PersonIdent("openthings")).
+   		  setMessage(message).call()
+   		}
   }
 
   object IgnoreDotGitDirectory extends FileFilter {
     override def accept( file : File) : Boolean = {
-    	if (file.getPath().startsWith(".git")) // maybe file.isDirectory && 
+//      println("file: "+file.getPath()+ "\n starts with .git : "+file.getPath().endsWith(".git"))
+    	if (file.getPath().endsWith(".git")) // maybe file.isDirectory && 
     	  false
         else
           true
@@ -302,9 +321,13 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
    	def getAllFilesInRepository = getRepositoryDirectory.listFiles(IgnoreDotGitDirectory).toList
    	
    	
-   	def getAllCommits : java.lang.Iterable[RevCommit] = withGitReopsitory[java.lang.Iterable[RevCommit]]{
-   		git => git.log().call()
+   	def getAllCommits : List[RevCommit] = withGitReopsitory[List[RevCommit]]{
+   		git => git.log().all.call().iterator().toList
    	}
+   	
+   	def revertToCommit(commit : RevCommit)  = withGitReopsitory[Ref]{
+   		git => git.checkout().setName(commit.getName()).call()
+   	}   	
    	
    	
    	private def withGitReopsitory[U](op: Git => U ) : U  = {

@@ -169,44 +169,25 @@ object Repository extends DispatchSnippet with Logger {
  
 
 
-  def button  = {
+  def button (xhtml: NodeSeq) : NodeSeq = {
     var commitLabel = "Describe the key features of this project revision"
-    var id = S.param("id") openOr "No parameter given"
-    def commit() : JsCmd = {
+    var id = S.param("id") openOr "No parameter given"    
 	    id match {
 	      case Project.FindByID(project) => {
-	
+	    	  	def commit() : JsCmd = {
 		          		    //project.repository.createNewRepo
 		        	project.repository.commit(commitLabel)
 		            // Thread.sleep(1000)
 				    JsCmds.Alert("Commited project "+id+ " with commit message "+commitLabel)
-		  }
-		       
-		  case _ => JsCmds.Alert("Project not found")
-		  }
-	      
-	  }
-   def callback() : JsCmd = {
-	    id match {
-	      case Project.FindByID(project) => {
-	
-		          		    //project.repository.createNewRepo
-	//	        	project.repository.getRepo
-	//	        	project.repository.initialCommit
-	    	  		val commits = project.repository.getAllCommits
+	    	  	}
+	    	  	 def callback() : JsCmd = {
+	    	  	   val commits = project.repository.getAllCommits
 		            // Thread.sleep(1000)
 				    JsCmds.Alert("Created repo for project "+id+"\n commits: "+commits)
-		  }
-		       
-		  case _ => JsCmds.Alert("Project not found")
-		  }
-      
-  }
-//      case AsLong(projectID) =>
-//        Project.find(By(Project.id , projectID)) match {
-//        Project.FindByID(id.get.toLong) match {Describe the key features of this project revision
-
-//	        case Full(project)  => {
+	    	  	   
+	    	  	 }
+	    	  	 
+				(
 		      "#createrepo [onclick]" #> SHtml.ajaxInvoke(callback) &
 		      //"#commitlabel" #> SHtml.text(commitLabel, commitLabel = _) &
 		      "#commitlabel" #> SHtml.ajaxText(commitLabel, (str) => {
@@ -215,10 +196,32 @@ object Repository extends DispatchSnippet with Logger {
 // overrides all other JavaScript  
 //  JsCmds.Noop
 })&
+			  "#listfiles" #> project.repository.getAllFilesInRepository.map(
+			      file => (
+			          "#filename" #> file.getName() & 
+			          "#deletefile [onclick]" #> SHtml.ajaxInvoke(() => {
+			            project.repository.deleteFileFromRepository(file)
+			            JsCmds.Alert("deleted file "+file.getName())
+			          } ) ) 
+			          ) &
+			  "#listcommits" #> project.repository.getAllCommits.map(
+			      commit => (
+			          "#commitname" #> commit.getFullMessage() & 
+			          "#resetcommit [onclick]" #> SHtml.ajaxInvoke(() => {
+			            project.repository.revertToCommit(commit)
+			            JsCmds.Alert("Rolled back to commit "+commit.getFullMessage())
+			          } ) ) 
+			          ) &	      
 		      "#commitrepo [onclick]" #> SHtml.ajaxInvoke(commit) &
 		      //"#commitrepo " #> SHtml.hidden(commit(id)) &
 //		      "#testbutton [onclick]" #> SHtml.ajaxInvoke(callback) &
-		      "#fileupload [data-url]" #> "/api/upload/file/%s".format(id) // "/api/upload/file" //
+		      "#fileupload [data-url]" #> "/api/upload/file/%s".format(id) 
+				)(xhtml)
+	      }
+	      
+		       
+		  case _ => Text("Project not found")
+		  }
   }
 //		   }
       
