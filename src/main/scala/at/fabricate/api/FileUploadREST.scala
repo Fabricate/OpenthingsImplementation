@@ -17,24 +17,13 @@ object FileUploadREST extends RestHelper {
 
     case "api" ::"upload" ::"file" :: Project.FindByID(project) :: Nil Post req =>
       for (file <- req.uploadedFiles) {
-        val repo = project.repository
         println("Received: "+file.fileName)
+        
         // copy the file to the repository
-        val filePathInRepository = new File(repo.getRepo.getDirectory().getParentFile(),file.fileName )
-        var output = new FileOutputStream(filePathInRepository)
-        try {
-          output.write(file.file)
-        } catch {
-          case e : Throwable => {
-            println("Exception at fileupload - write to disk: ")
-            println(e)
-          } 
-        } finally {
-            output.close
-            output = null
-          }
-        repo.addAFileToTheRepo(file.fileName )
-        repo.commit("added file "+file.fileName )
+
+        project.repository.copyAndAddFileToRepository(file)
+
+
       }
       OkResponse()
       

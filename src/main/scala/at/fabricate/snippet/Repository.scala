@@ -40,7 +40,7 @@ object Repository extends DispatchSnippet with Logger {
   
   def dispatch : DispatchIt = {
     //case "listtools" => listtools _
-    case "edit" => edit _
+    //case "edit" => edit _
     case "button" => button
     case "testbutton" => testbutton
     //case "view" => view _
@@ -166,37 +166,7 @@ object Repository extends DispatchSnippet with Logger {
   }
   * 
   */
-  
-  def callback(id: String)() : JsCmd = {
-    id match {
-      case Project.FindByID(project) => {
-
-	          		    //project.repository.createNewRepo
-	        	project.repository.getRepo
-	        	project.repository.initialCommit
-	            // Thread.sleep(1000)
-			    JsCmds.Alert("Created repo for project "+id)
-	  }
-	       
-	  case _ => JsCmds.Alert("Project not found")
-	  }
-      
-  }
-  
-    def commit(id: String)(message: String)() : JsCmd = {
-    id match {
-      case Project.FindByID(project) => {
-
-	          		    //project.repository.createNewRepo
-	        	project.repository.commit(message)
-	            // Thread.sleep(1000)
-			    JsCmds.Alert("Commited project "+id+ " with commit message "+message)
-	  }
-	       
-	  case _ => JsCmds.Alert("Project not found")
-	  }
-      
-  }
+ 
 
 
   def button  = {
@@ -216,12 +186,28 @@ object Repository extends DispatchSnippet with Logger {
 		  }
 	      
 	  }
+   def callback() : JsCmd = {
+	    id match {
+	      case Project.FindByID(project) => {
+	
+		          		    //project.repository.createNewRepo
+	//	        	project.repository.getRepo
+	//	        	project.repository.initialCommit
+	    	  		val commits = project.repository.getAllCommits
+		            // Thread.sleep(1000)
+				    JsCmds.Alert("Created repo for project "+id+"\n commits: "+commits)
+		  }
+		       
+		  case _ => JsCmds.Alert("Project not found")
+		  }
+      
+  }
 //      case AsLong(projectID) =>
 //        Project.find(By(Project.id , projectID)) match {
 //        Project.FindByID(id.get.toLong) match {Describe the key features of this project revision
 
 //	        case Full(project)  => {
-		      "#createrepo [onclick]" #> SHtml.ajaxInvoke(callback(id)) &
+		      "#createrepo [onclick]" #> SHtml.ajaxInvoke(callback) &
 		      //"#commitlabel" #> SHtml.text(commitLabel, commitLabel = _) &
 		      "#commitlabel" #> SHtml.ajaxText(commitLabel, (str) => {
   commitLabel = str
@@ -238,7 +224,7 @@ object Repository extends DispatchSnippet with Logger {
       
 //    case _ => JsCmds.Alert("No Project ID supplied")
 //    }
-    
+    /*
   def edit (xhtml: NodeSeq) : NodeSeq = S.param("id") match {
     case Full(AsLong(projectID)) => {
       Project.find(By(Project.id , projectID)) match {
@@ -300,5 +286,7 @@ object Repository extends DispatchSnippet with Logger {
     }
     case _ => Text("No account name provided")
   }
+  * 
+  */
 }
 
