@@ -318,7 +318,11 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
     }
   }
    	
-   	def getAllFilesInRepository = getRepositoryDirectory.listFiles(IgnoreDotGitDirectory).toList
+   	def getAllFilesInRepository : List[java.io.File] = 
+   	  if (getRepositoryDirectory.exists)
+   	    getRepositoryDirectory.listFiles(IgnoreDotGitDirectory).toList
+   	    else
+   	      List[java.io.File]()
    	
    	
    	def getAllCommits : List[RevCommit] = withGitReopsitory[List[RevCommit]]{
