@@ -11,6 +11,8 @@ import net.liftweb.http.SHtml
 import net.liftweb.http.FileParamHolder
 import java.util.Calendar
 import net.liftweb.http.SessionVar
+import net.liftweb.http.LiftSession
+import net.liftweb.http.LiftRules
 
 
 /**
@@ -25,8 +27,58 @@ object User extends User with MetaMegaProtoUser[User] with LongKeyedMetaMapper[U
     
   override def dbTableName = "users" // define the DB table name
  
-  override def screenWrap = Full(<lift:surround with="default" at="content">
-			       <lift:bind /></lift:surround>)
+//  override def screenWrap = Full(<lift:surround with="default" at="content">
+//			       <lift:bind /></lift:surround>)
+    
+   override def signupXhtml(user: TheUserType) = {
+	(<form method="post" action={S.uri}><table><tr><td
+colspan="2">{ S.??("sign.up") }</td></tr>
+	{localForm(user, false, signupFields)}
+<tr><td>&nbsp;</td><td><user:submit/></td></tr>
+</table></form>)
+	}
+   override def loginXhtml = {
+	(<form method="post" action={S.uri}><table><tr><td
+colspan="2">{S.??("log.in")}</td></tr>
+<tr><td>{userNameFieldString}</td><td><user:email /></td></tr>
+<tr><td>{S.??("password")}</td><td><user:password /></td></tr>
+<tr><td><a href={lostPasswordPath.mkString("/", "/", "")}
+>{S.??("recover.password")}</a></td><td><user:submit /></td></tr></table>
+</form>)
+	}
+   override  def lostPasswordXhtml = {
+	(<form method="post" action={S.uri}>
+<table><tr><td
+colspan="2">{S.??("enter.email")}</td></tr>
+<tr><td>{userNameFieldString}</td><td><user:email /></td></tr>
+<tr><td>&nbsp;</td><td><user:submit /></td></tr>
+</table>
+</form>)
+	}
+   override def passwordResetXhtml = {
+	(<form method="post" action={S.uri}>
+<table><tr><td colspan="2">{S.??("reset.your.password")}</td></tr>
+<tr><td>{S.??("enter.your.new.password")}</td><td><user:pwd/></td></tr>
+<tr><td>{S.??("repeat.your.new.password")}</td><td><user:pwd/></td></tr>
+<tr><td>&nbsp;</td><td><user:submit/></td></tr>
+</table>
+</form>)
+	}
+    def changePasswordXhtml = {
+	(<form method="post" action={S.uri}>
+<table><tr><td colspan="2">{S.??("change.password")}</td></tr>
+<tr><td>{S.??("old.password")}</td><td><user:old_pwd /></td></tr>
+<tr><td>{S.??("new.password")}</td><td><user:new_pwd /></td></tr>
+<tr><td>{S.??("repeat.password")}</td><td><user:new_pwd /></td></tr>
+<tr><td>&nbsp;</td><td><user:submit /></td></tr>
+</table>
+</form>)
+	}
+//    net.liftweb.http.Templates.findAnyTemplate("modules"::"user"::Nil) match {
+//    case Full(template) => new Elem(template.theSeq.head)
+//  }
+  //Finder.findAnyTemplate("modules"::""::Nil) openOr(super.loginXhtml)
+//    LiftSession.f
 			       
   // define the order fields will appear in forms and output
   override def fieldOrder = List(id, icon, firstName, lastName, email,

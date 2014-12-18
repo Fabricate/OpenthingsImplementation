@@ -35,6 +35,9 @@ object Project extends Project with LongKeyedMetaMapper[Project] with AddIconMet
   
   override def _editTemplate = super._editTemplate %  	new UnprefixedAttribute("multipart",Text("yes"),Null)
 
+//  override def viewTemplate = 
+    
+    //LiftRules.loadResourceAsXml("/viewProject.html")  openOr <p>Error loading template</p>
   
   //BEGIN(pageWrapper)
   /**Einbettung aller News-CRUD-Seiten in das default-Template mit Admin-Menue und Titelanzeige 
