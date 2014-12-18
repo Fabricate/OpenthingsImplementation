@@ -125,7 +125,7 @@ class Boot {
 //               Menu.i("Navigation Menu") / "navigation"  >> Hidden,
 
 
-               Menu.i("About Us") / "about_us" / **
+               Menu.i("Static") / "static" / ** >> Hidden
                //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
                ) :::  User.sitemap ::: Tool.menus ::: Project.menus
   

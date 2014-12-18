@@ -29,38 +29,20 @@
   </style>
   </head>
   <body>
+		<span class="lift:embed?what=modules/_navigation">Navigation</span>
 
+		<div class="column span-12 last" style="text-align: right">
+			<h1 class="alt"><img alt="" id="ajax-loader" style="display:none; margin-bottom: 0px; margin-left: 5px" src="/images/ajax-loader.gif"></h1>
+		</div>
 
-    <div class="iconSprite" ng-include="'/public/icons/svg-defs.svg'"></div>
-    <nav class="mainNavigation">
-			<a href="/index" class="logo left">openThings</a>
-			<ul class="left">
-					<li class="current left"><a href="/project/list">Designs</a></li>
-					<li class="left"><a href="#">Tutorials</a></li>
-					<li class="left"><a href="/designer/list/random">Designers</a></li>
-			</ul>
-      <div class="column span-12 last" style="text-align: right">
-        <h1 class="alt"><img alt="" id="ajax-loader" style="display:none; margin-bottom: 0px; margin-left: 5px" src="/images/ajax-loader.gif"></h1>
-      </div>
-			<a href="/project/create" class="shareDesignBtn right">share your designs</a>
-		</nav>
-    <section class="mainSearch">
-        <form class="left">
-            <input placeholder="Search: description, tag, type of product">
-            <button type="submit">Search</button>
-        </form>
-        <ul>
-            <li>Type of machine</li>
-            <li>Type of product</li>
-            <li>Expanded search</li>
-        </ul>
-        <hr class="space" >
+		<span class="lift:embed?what=modules/_search">Search</span>
+		<span class="lift:embed?what=modules/_addproject">AddProject</span>
+		<span class="lift:embed?what=modules/_login">Login</span>
+		<span class="lift:embed?what=modules/_account">Account</span>
 
-	<span class="lift:Menu.builder"></span>
-
-        <div class="lift:Msgs?showAll=true"></div>
-        <hr class="space" />
-    </section>
+		<span class="lift:Menu.builder"></span>
+		<div class="lift:Msgs?showAll=true"></div>
+		<hr class="space" />
 
     <section class="mainContent left">
       <div class="column span-17 last">
@@ -68,46 +50,159 @@
       </div>
     </section>
 
-    <nav class="footerNav left">
-        <section class="left">
-            <ul>
-                <li><h1>About us</h1></li>
-                <li><a href="/about_us/who_we_are">Who are we?</a></li>
-                <li>Our mission</li>
-                <li>Help us out</li>
-                <li>Media</li>
-            </ul>
-        </section>
-        <section class="left">
-            <ul>
-                <li><h1>Inspired by</h1></li>
-                <li>WikiPedia</li>
-                <li>OpenDesk</li>
-                <li>Fablab community</li>
-                <li>WikiHouse</li>
-            </ul>
-        </section>
-        <section class="left">
-            <ul>
-                <li><h1>General information</h1></li>
-                <li>FAQ</li>
-                <li>Contact us</li>
-                <li>Give us feedback</li>
-            </ul>
-        </section>
-        <section class="left">
-            <ul>
-                <li><h1>Partners</h1></li>
-                <li>KABK</li>
-                <li>Waag society</li>
-                <li>Fablab</li>
-            </ul>
-        </section>
-    </nav>
-    <footer class="mainFooter">
-        <p class="left">Webdesign made by <a href="#">Martinr.nl</a> feel free to download the designs <a href="#">here</a></p>
-    </footer>
+		<span class="lift:embed?what=modules/_footernav">FooterNav</span>
+		<footer class="mainFooter">
+			<p class="left">Webdesign made by <a href="#">Martinr.nl</a> feel free to download the designs <a href="#">here</a></p>
+		</footer>	
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="public/js/jquery-2.1.1.min.js">\x3C/script>')</script>
+		<script src="public/js/jquery.viewportchecker.js"></script>
+		<script>
+			$(function() {
+				String.prototype.decodeHTML = function() {
+					return $("<div>", {html: "" + this}).html();
+			};
+			var $main = $(".mainContent"),
+		
+			init = function() {	
+				jQuery(document).ready(function() {
+						jQuery('.preview').addClass("hidden").viewportChecker({
+								classToAdd: 'visible animated fadeIn',
+								offset: 100
+							 });
+				});
+		
+				// Do this when a page loads.
+				$('.mainNavigation li a').click(function() {
+					$('.mainNavigation li.current').removeClass('current');
+					$(this).closest('li').addClass('current');
+				});	
+				if(window.location.pathname === "/openthings/tutorial.php" || window.location.pathname === "/openthings/project.php" || window.location.pathname === "/openthings/user.php"){
+					UserRating();
+				}
+				else{}		
+				if(window.location.pathname === "/openthings/tutorials.php" || window.location.pathname === "/openthings/index.php"  || window.location.pathname === "/openthings/designers.php"){
+					$( ".mainContent" ).addClass( "overviewPage" );
+				}
+				else{
+					$( ".mainContent" ).removeClass( "overviewPage" );
+				}
+				if(window.location.pathname === "/openthings/standard.php"){
+					$( ".mainContent" ).addClass( "standardPage" );
+				}
+				else{
+					$( ".mainContent" ).removeClass( "standardPage" );
+				}
+			},
+		
+			ajaxLoad = function(html) {
+				document.title = html
+				  .match(/<title>(.*?)<\/title>/)[1]
+				  .trim()
+				  .decodeHTML();		
 
-    </div>
+				init();
+			},
+		
+			loadPage = function(href) {
+				$main.load(href + " .mainContent>*", ajaxLoad);
+			};
+		
+			init();
+		
+			$(window).on("popstate", function(e) {
+				if (e.originalEvent.state !== null) {
+				  loadPage(location.href);
+				}
+			});
+
+			$(document).on("click", "a, area", function() {
+				var href = $(this).attr("href");
+
+				if (href.indexOf(document.domain) > -1
+				  || href.indexOf(':') === -1)
+				{
+				  history.pushState({}, '', href);
+				  loadPage(href);
+				  return false;
+				}
+			});
+		});
+		</script>
+		<script>
+			function ShowComments(){
+				$(".projectComments ul").slideToggle();
+				$(".viewcomments").addClass( "commentsopen" );
+			}
+			function AddProject(){
+				$(".postProject").slideDown();
+				$(".close-icon").click(function(){
+					$(".postProject").slideUp();
+				});
+			}
+			function LoginScreen(){
+				$(".loginScreen").slideDown();
+				$(".close-icon").click(function(){
+					$(".loginScreen").slideUp();
+				});
+			}
+			function AccountScreen(){
+				$(".accountScreen").slideDown();
+				$(".close-icon").click(function(){
+					$(".accountScreen").slideUp();
+				});
+			}
+			function AddMaterial(){
+				$(".addMaterial").slideToggle();
+			}
+
+			function AddTutorial(){
+				$(".addTutorial").slideToggle();
+				$('html, body').animate({
+				    scrollTop: $(".addTutorial").offset().top
+				}, 500);
+			}
+			function ViewDetails(){
+				$(".versionDetails").slideToggle();
+			}
+
+			function UserRating(){
+				$('.rating1').hover(function() {
+					$('.rating').toggleClass('rated1'); // add class when mouseover happen
+				});		
+				$('.rating2').hover(function() {
+					$('.rating').toggleClass('rated2'); // add class when mouseover happen
+				});	
+				$('.rating3').hover(function() {
+					$('.rating').toggleClass('rated3'); // add class when mouseover happen
+				});	
+				$('.rating4').hover(function() {
+					$('.rating').toggleClass('rated4'); // add class when mouseover happen
+				});
+				$('.rating5').hover(function() {
+					$('.rating').toggleClass('rated5'); // add class when mouseover happen
+				});
+				$(".rating1").click(function(){
+					$(".rating").addClass("isRated1");
+					$(".rating").removeClass("isRated2 isRated3 isRated4 isRated5");
+				});
+				$(".rating2").click(function(){
+					$(".rating").addClass("isRated2");
+					$(".rating").removeClass("isRated3 isRated4 isRated5");
+				});
+				$(".rating3").click(function(){
+					$(".rating").addClass("isRated3");
+					$(".rating").removeClass("isRated4 isRated5");
+				});
+				$(".rating4").click(function(){
+					$(".rating").addClass("isRated4");
+					$(".rating").removeClass("isRated5");
+				});
+				$(".rating5").click(function(){
+					$(".rating").addClass("isRated5");
+				});
+			}
+		</script>
+
   </body>
 </html>

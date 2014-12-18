@@ -9,3 +9,6 @@ curl -i -H "Accept: application/json" -H "X-HTTP-Method-Override: PUT" -X POST -
 
 
 curl -i -H "Accept: application/json" -H "X-HTTP-Method-Override: PUT" -X POST http://localhost:8080/api/tool/47
+
+
+for i in *; do mv "$i" "_`basename $i .php`.html"; done

@@ -16,22 +16,71 @@ body{
 	font-family: 'proxima_nova_rgregular', sans-serif;
 	color: $secondary-brand-color;
 }
-h1, h2, h3, h4, h5, h6{
-	font-weight: normal;
+h1, .alpha,
+h2, .beta,
+h3, .gamma,
+h4, .delta,
+h5, .epsilon,
+h6, .zeta {
+    margin: 0;
 }
-h1{
-		font-size: 1.125em;
-		line-height: 1.6875em;
+h1, .alpha {
+    font-size: 2.625em;
+    line-height: 1.0476190476190477;
+    margin-bottom: 0.5238095238095238em;
 }
-p{
-    margin-bottom: 1em; /* 24 / 16 */
+h2, .beta {
+    font-size: 1.96875em;
+    line-height: 1.3968253968253967;
+    margin-bottom: 0.6984126984126984em;
+}
+h3, .gamma {
+    font-size: 1.3125em;
+    margin: 0 0 1.5714285714285714em;
+    line-height: 1.5714285714285714;
+}
+h4, .delta {
+    font-size: 1.1484375em;
+    line-height: 1.1972789115646258;
+    margin-bottom: 1.1972789115646258em;
+}
+h5, .epsilon {
+    font-size: 0.984375em;
+    line-height: 1.3968253968253967;
+    margin-bottom: 1.3968253968253967em;
+}
+h6, .zeta {
+    font-size: 0.875em;
+    line-height: 1.5714285714285714;
+    margin-bottom: 1.5714285714285714em;
+}
+p,
+blockquote {
+    font-size: 1.3125em;
+    margin: 0 0 1.5714285714285714em;
+    line-height: 1.5714285714285714;
+    -webkit-hyphens: auto;
+       -moz-hyphens: auto;
+        -ms-hyphens: auto;
+            hyphens: auto;
+}
+dd,
+dt,
+li {
+    line-height: 1.5714285714285714;
+    margin: 0;
 }
 a{
     text-decoration: none;
     opacity: 1;
-	color: $brand-color;
+		color: $brand-color;
+    transition: opacity 0.3s ease-in-out;
 }
 a:hover{
     opacity: 0.8;
-    transition: opacity 0.3s ease-in-out;
+}
+
+input, select, button, textarea{
+	font-size: 1.3125em;
+	line-height: 1.5714285714285714;
 }

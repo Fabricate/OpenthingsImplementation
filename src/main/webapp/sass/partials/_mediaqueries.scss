@@ -1,0 +1,29 @@
+@media only screen and (max-width: 1280px)  {
+	.mainContent .preview{
+		width: 30.6%;
+	}
+}
+
+@media only screen and (max-width: 930px)  {	
+ .col-2, .mainContent .projectHeader img, .mainContent .projectHeader div{
+		width: 100%;
+	}
+	.mainContent .preview{
+		width: 47%;
+	}
+}
+
+@media only screen and (max-width: 640px)  {		
+	.mainContent .preview{
+		width: 96%;
+	}
+	.mainNavigation li a, .shareDesignBtn{
+		padding: 0 0.8em;
+	}
+	.loginBtn{
+		display: none;
+	}
+	.mainSearch input{
+		width: 18em;
+	}
+}

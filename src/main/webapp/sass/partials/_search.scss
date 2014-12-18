@@ -3,7 +3,7 @@
 	background-color: white;
 	@include box-sizing(border-box);
 	padding: $small-margin-padding $medium-margin-padding;
-	margin-bottom: $medium-margin-padding;
+	border-bottom: 1px solid #ddd;
 }
 .mainSearch li{
 	display: inline;

@@ -10,13 +10,18 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video, button, input {
+time, mark, audio, video, button, input, textarea, select {
 	margin: 0;
 	padding: 0;
 	border: 0;
 	font: inherit;
 	vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
+	-webkit-appearance: none;
+	-webkit-tap-highlight-color: none;
+	outline: 0;
+	border-style: solid;
+	border-width: 0;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -37,4 +42,7 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+div, section, nav{
+	position: relative;
 }

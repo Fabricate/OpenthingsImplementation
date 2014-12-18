@@ -1,22 +1,24 @@
-.projectComments, .mainContent, .mainContent .projectHeader div, .mainContent .projectDetails{
+.questionsList li, .addTutorial, .detailedDescription, .projectVersions, .userProjectVersions, .commentInput form, .commentInput, .projectComments ul, .projectComments header, .projectComments, .mainContent, .mainContent .projectHeader div, .projectDetails, .userDetails, .postProject, .loginScreen, .accountScreen, .bom{
 	@include box-sizing(border-box);
 }
 body{
 	background-color: $lightgrey;
 }
-.mainContent{
+.projectComments ul,.mainContent, .projectHeader, .mainContent .projectComments li, .commentInput, .commentInput input, .commentInput textarea, .commentInput form, .addTutorial, .projectComments, .userDetails, .projectDetails, .userProjectVersions, .projectVersions, .detailedDescription, .bom{
 	width: 100%;
 }
-.projectPage .mainContent{
-	padding: 0 2%;
+.mainContent .projectHeader img, .mainContent .projectHeader div{
+ 	width: 50%;
+ }
+.col-2{
+	width: 50%;
 }
-.mainContent .featured{
-	width: 47%;
+.overviewPage{
+	padding-bottom: 2%;
 }
-.mainContent li{
-	margin: 0 0 2% 2%;
+.mainContent .preview{
+	margin: 2% 0 0 2%;
 	width: 22.5%;
-	background-color: white;
 }
 .mainContent li header{
 	padding: $tiny-margin-padding $small-margin-padding ;
@@ -24,25 +26,345 @@ body{
 .mainContent li a{
 	color: $darkgrey;
 }
-.mainContent article img{
-	width: 100%;
-}
-.mainContent .projectHeader img, .mainContent .projectHeader div{
-	width: 100%;
-}
 .mainContent .projectHeader div{
-	padding: 2%;
+	padding: 4%;
 	background-color: $darkgrey;
 	color: white;
 }
-.mainContent .projectDetails{
-	width: 100%;
-	padding: 2%;
-	background-color: rgba($brand-color, .3);
+.landingPage .mainContent{
+	padding-bottom: 2%;
+}
+.projectHeader{
+	background-color: $darkgrey;
+}
+.projectHeader p{
+	max-width: 800px;
+}
+.projectHeader a{
+	color: lightblue
+}
+
+.projectVersions{
+	padding: 4%;
+	background-color: rgba(white, .3);
+	color: #333;
+}
+.projectVersions li{
+	border-top: 1px solid rgba(255,255,255, 0.5);
+	padding: 4% 0;
+}
+.versionDetails{
+	margin-top: 4%;
+}
+.versionDetails{
+	display: none;
+}
+.versionDetails li{
+	background: rgba($brand-color, 0.1);
+	padding: 1% 4%;
+}
+.versionDetails li:nth-child(odd){
+	background: rgba($brand-color, 0.15);
+}
+
+.userProjectVersions{
+	padding: 4%;
+	background-color: rgba(white, .3);
+	color: #333;
+}
+.userProjectVersions li{
+	border-top: 1px solid rgba(255,255,255, 0.5);
+	padding: 4% 0;
+}
+.projectDetails{
+	padding: 4%;
+	background-color: rgba(white, .6);
+	color: #333;
+	text-align: center;
+}
+.projectDetails li span{
+	font-size: 3em;	
+}
+.projectDetails li h5{
+	margin-top: 1em;
+	margin-bottom: 0;
+}
+.projectDetails li h6{
+	margin-bottom: 0;
+}
+.projectDetails li{
+	margin: 0 2% 0 0;
+	width: 22.5%;
+}
+.projectDetails li:last-child{
+	margin: 0 0 0 0;
+}
+.bom{
+	padding: 4%;
+	background-color: rgba(white, .3);
+	color: #333;
+}
+.bom li{
+	padding: 1% 0;
+	border-bottom: white 1px solid;
+}
+.addMaterial{
+	display: none;
+}
+.addMaterial input{
+	width: 44%;
+}
+.addMaterial button{
+	margin-left: 0.5em;
+}
+.userDetails{
+	padding: 4%;
+	background-color: rgba(white, .6);
+	color: #333;
+	text-align: center;
+	border-bottom: #ddd solid 1px;
+}
+.userDetails li span{
+	font-size: 3em;	
+}
+.userDetails li h5{
+	margin-top: 1em;
+	margin-bottom: 0;
+}
+.userDetails li h6{
+	margin-bottom: 0;
+}
+.userDetails li{
+	margin: 0 2% 0 0;
+	width: 22.5%;
+}
+.userDetails li:last-child{
+	margin: 0 0 0 0;
+}
+
+.detailedDescription{
+	padding: 4%;
 }
 .projectComments{
+	padding: 4%;
+	background-color: white;
+}
+.projectComments header{
 	background-color: white;
 	width: 100%;
-	margin-bottom: 2%;
+}
+.projectComments div{
+	width: 50%;
+}
+.projectComments ul{
+	background: white;
+	display: none;
+}
+.viewcomments{
+	text-align: right;
+	cursor: pointer;
+}
+.projectComments span{
+	margin-right: 0.1em;
+}
+.comment{
+	border-top: 1px solid $lightgrey;
+	padding: 4% 0 0 0;
+}
+.commentInput{
+	background: white;
+}
+.commentInput form{
+	border-top: 1px solid $lightgrey;
+	padding-top: 4%;
+}
+.commentInput input, .commentInput textarea{
+	margin-bottom: 1em;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+.projectUpdate{
+	padding: 4%;
+	background: rgba($brand-color, 0.02);
+	@include box-sizing(border-box);
+}
+
+.projectUpdate form{
+	width: 100%;
+}
+.projectUpdate input, .projectUpdate textarea{
+	margin-bottom: 1em;
+	max-width: 100%;
+	width: 100%;
+	box-sizing: border-box;
+	border-color: $mediumgrey	;
+}
+
+.standardPage{
 	padding: 2%;
+}
+.standardPage p{
+	max-width: 25em;
+	font-size: 1.8em;
+}
+.postProject{
+	padding: 4%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	background: rgba(255,255,255,0.97);
+	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
+	display: none;
+}
+.postProject form{
+	max-width: 600px;
+	width: 100%;
+}
+.postProject input, .postProject textarea, .postProject select{
+	max-width: 100%;
+	width: 100%;
+	margin-bottom: 1em;
+	@include box-sizing(border-box);
+}
+.loginScreen{
+	padding: 4%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	background: rgba(255,255,255,0.97);
+	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
+	display: none;
+}
+.loginScreen form{
+	max-width: 600px;
+	width: 100%;
+}
+.loginScreen input, .loginScreen textarea, .loginScreen select{
+	max-width: 100%;
+	width: 100%;
+	margin-bottom: 1em;
+	@include box-sizing(border-box);
+}
+.loginScreen button{
+	margin-bottom: 4em;
+}
+.accountScreen{
+	padding: 4%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	background: rgba(255,255,255,0.97);
+	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
+	display: none;
+}
+.accountScreen form{
+	max-width: 600px;
+	width: 100%;
+}
+.accountScreen input, .accountScreen textarea, .accountScreen select{
+	max-width: 100%;
+	width: 100%;
+	margin-bottom: 1em;
+	@include box-sizing(border-box);
+}
+.accountScreen button{
+	margin-bottom: 4em;
+}
+.rating span{
+	padding: 0 0.1em;
+	cursor: pointer;
+}
+.rating span:hover{
+	color: $defaultLinkColor;
+}
+.isRated1 span:nth-child(-n+1), .rated1 span:nth-child(-n+1){
+	color: $defaultLinkColor;
+}
+.isRated2 span:nth-child(-n+2), .rated2 span:nth-child(-n+2){
+	color: $defaultLinkColor;
+}
+.isRated3 span:nth-child(-n+3), .rated3 span:nth-child(-n+3){
+	color: $defaultLinkColor;
+}
+.isRated4 span:nth-child(-n+4), .rated4 span:nth-child(-n+4){
+	color: $defaultLinkColor;
+}
+.isRated5 span:nth-child(-n+5), .rated5 span:nth-child(-n+5){
+	color: $defaultLinkColor;
+}
+.close-icon{
+	position: absolute;
+	top: 4%;
+	right: 4%;
+	transform: rotate(45deg);
+	font-size: 1.5em;
+	cursor: pointer;
+}
+.videoHeader{
+	padding: 0 !important;
+}
+.videoWrapper {
+	position: relative;
+	width: 100% !important;
+	padding-bottom: 56.25% !important; /* 16:9 */
+	padding-top: 25px !important;
+	height: 0;
+}
+.videoWrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.addTutorial{
+	background: white;
+	padding: 4%;
+	display: none;
+}
+.addTutorial form{
+	max-width: 600px;
+	width: 100%;
+}
+.addTutorial input, .addTutorial textarea, .addTutorial select{
+	max-width: 100%;
+	width: 100%;
+	margin-bottom: 1em;
+	@include box-sizing(border-box);
+}
+.step{
+	padding-top: 2em;
+	margin-top: 2em;
+	border-top: 1px solid $lightgrey;
+}
+.creativeCommons{
+	position: absolute;
+	bottom: 0;
+	box-sizing: border-box;
+	font-size: 1.125em;
+}
+.creativeCommons a{
+	color: white;
+}
+.questionsList li{
+	padding: 2% 4%;
+	width: 100%;
+	background: rgba(white, .2);
+}
+.questionsList li:nth-child(odd){
+	background: rgba(white, .4);
+}
+.questionsList li .gamma{
+	margin-bottom: 0;
+}
+.questionsList .icon-messages::before{
+	position: relative;
+	top: 3px;
 }

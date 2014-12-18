@@ -1,0 +1,131 @@
+img{
+	width: 100%;
+}
+
+/* Common style */
+.mainContent figure {
+	position: relative;
+	float: left;
+	overflow: hidden;
+	background: #333;
+	text-align: center;
+	cursor: pointer;
+}
+
+.mainContent figure img {
+	position: relative;
+	display: block;
+	max-width: 100%;
+	opacity: 0.8;
+}
+
+.mainContent figure figcaption {
+	padding: 1em;
+	color: #fff;
+	font-size: 1em;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	box-sizing: border-box;
+}
+
+.mainContent figure figcaption::before,
+.mainContent figure figcaption::after {
+	pointer-events: none;
+}
+
+.mainContent figure figcaption,
+.mainContent figure figcaption > a {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+/* Anchor will cover the whole item by default */
+/* For some effects it will show as a button */
+.mainContent figure figcaption > a {
+	z-index: 1000;
+	text-indent: 200%;
+	white-space: nowrap;
+	font-size: 0;
+	opacity: 0;
+}
+
+.mainContent figure h2,
+.mainContent figure p {
+	margin: 0;
+}
+
+/* Individual effects */
+
+/*---------------*/
+/***** Lily *****/
+/*---------------*/
+
+figure.effect-lily img {
+	max-width: none;
+	width: -webkit-calc(100% + 50px);
+	width: calc(100% + 50px);
+	opacity: 0.8;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: translate3d(-40px,0, 0);
+	transform: translate3d(-40px,0,0);
+}
+
+figure.effect-lily figcaption {
+	text-align: left;
+}
+
+figure.effect-lily figcaption > div {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding: 1em;
+	height: 50%;
+}
+
+figure.effect-lily h2,
+figure.effect-lily p {
+	-webkit-transform: translate3d(0,40px,0);
+	transform: translate3d(0,40px,0);
+	padding: 0 5px;
+}
+
+figure.effect-lily h2 {
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
+	font-size: 1.125em;
+}
+
+figure.effect-lily p {
+	color: rgba(255,255,255,1);
+	font-size: 1em;
+	opacity: 0;
+	-webkit-transition: opacity 0.2s, -webkit-transform 0.35s;
+	transition: opacity 0.2s, transform 0.35s;
+	background: rgba($brand-color, 0.8);
+}
+
+figure.effect-lily:hover img,
+figure.effect-lily:hover p {
+	opacity: 1;
+}
+figure.effect-lily:hover h2{
+	background: rgba(0,0,0,0.8);
+}
+
+figure.effect-lily:hover img,
+figure.effect-lily:hover h2,
+figure.effect-lily:hover p {
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+figure.effect-lily:hover p {
+	-webkit-transition-delay: 0.05s;
+	transition-delay: 0.05s;
+	-webkit-transition-duration: 0.35s;
+	transition-duration: 0.35s;
+}

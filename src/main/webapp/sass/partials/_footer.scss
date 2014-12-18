@@ -4,18 +4,19 @@
 .mainFooter p{
 	font-size: 0.875em;
 	color: $mediumgrey;
-	margin-top: 1em;
+	margin-top: 0.5em;
 	line-height: 3em;
+	margin-bottom: 0;
 }
 .footerNav{
 	width: 100%;
 	background-color: white;
+	border-top: 1px solid #ddd;
 }
 .footerNav section{
 	width: 21%;
 	margin: 2%;
 }
-
 .footerNav li{
 	line-height: 1.5em;
 	font-size: 0.875em;

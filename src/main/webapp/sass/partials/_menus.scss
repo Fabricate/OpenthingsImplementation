@@ -7,14 +7,14 @@
 	font-size: 1.3125em;
 }
 .logo{
-	background: $darkgrey url(../images/logo.svg) no-repeat 0.9em center;
-	padding: 0 3em;
+	background: $darkgrey;
+	padding: 0 1.4em;
 	line-height: 3.6em;
 	color: white;
 }
 .shareDesignBtn{
 	background-color: $brand-color;
-	padding: 0 $medium-margin-padding;
+	padding: 0 1.4em;
 	line-height: 3.6em;
 	color: white;
 }
@@ -24,13 +24,29 @@
 
 .mainNavigation li a{
 	color: $mediumgrey;
-	padding: 0 3em;
+	padding: 0 1.4em;
 	line-height: 3.6em;
 	display: inline-block;
+}
+.mainNavigation li .logo{
+	color: white;
+}
+.mainNavigation .current .logo{
+	color: $mediumgrey;
+}
+.mainNavigation li .logo:hover{
+	color: $mediumgrey;
 }
 .mainNavigation .current a{
 	background-color: white;
 }
 .mainNavigation li a:hover{
 	background-color: white;
+}
+
+.mainNavigation a{
+	line-height: 3.6em;
+}
+.loginBtn{
+	margin-right: 1.4em;
 }
