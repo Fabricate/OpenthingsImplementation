@@ -111,9 +111,11 @@ object ListDesigners extends PaginatorSnippet[User] with Logger {
   }
     
   private def bindCSS(designer: User) = 
-    "#name *" #>  "%s %s".format(designer.firstName.toString, designer.lastName.toString) &
-    "img" #>  designer.icon.asHtml &
-    "a [href]" #> "/designer/%d".format(designer.id.get)
+    "#designer *" #> (
+    		"#designername *" #>  "%s %s".format(designer.firstName.toString, designer.lastName.toString) &
+    		"#designerimage" #>  designer.icon.asHtml &
+    		"#designerpage [href]" #> "/designer/%d".format(designer.id.get)
+    )
 
   
   def renderPage (xhtml: NodeSeq) : NodeSeq = (S.param("type"),S.params("tool")) match {

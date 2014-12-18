@@ -157,10 +157,13 @@ object Designer extends DispatchSnippet with Logger {
            		) 
            		
          def bindFieldsCSS =  {               
-               "#firstname" #> designer.firstName.asHtml &
-               "#lastname" #> designer.lastName.asHtml &
-               "#aboutme" #> TextileParser.toHtml(designer.aboutMe.get) &
-               "#showimage" #> designer.icon.asHtml &
+               "#title *" #> "%s %s".format(designer.firstName.asHtml, designer.lastName.asHtml) &
+               "#description *" #> TextileParser.toHtml(designer.aboutMe.get) &
+               //"#icon [href]" #> designer.icon.getURL &
+               "#icon" #> designer.icon.asHtml &
+               // delete those two fields
+               "#initiator" #> "" &
+               "#license" #> "" &               
                "#listtools" #> listTools _ &
                "#membersince" #> designer.createdAt.asHtml                
           }
