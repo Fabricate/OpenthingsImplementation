@@ -10,6 +10,7 @@ import scala.xml.{NodeSeq, Text}
 import net.liftweb.util._
 import net.liftweb.common._
 import Helpers._
+import bootstrap.liftweb.AccessControl
 
 
 /**
@@ -116,6 +117,86 @@ func()
 }
 }
 
+
+def changePassword = {
+val user = currentUser.openOrThrowException("we can do this because the logged in test has happened")
+var oldPassword = ""
+var newPassword: List[String] = Nil
+def testAndSet() {
+if (!user.testPassword(Full(oldPassword))) S.error(S.?("wrong.old.password"))
+else {
+user.setPasswordFromListString(newPassword)
+user.validate match {
+case Nil => user.save; S.notice(S.?("password.changed")); S.redirectTo(homePage)
+case xs => S.error(xs)
+}
+}
+}
+val bind = {
+// Use the same password input for both new password fields.
+val passwordInput = SHtml.password_*("", LFuncHolder(s => newPassword = s))
+".old-password" #> SHtml.password("", s => oldPassword = s) &
+".new-password" #> passwordInput &
+"type=submit" #> changePasswordSubmitButton(S.?("change"), testAndSet _)
+}
+bind(changePasswordXhtml)
+}
+def changePasswordSubmitButton(name: String, func: () => Any = () => {}): NodeSeq = {
+standardSubmitButton(name, func)
+}
+def editXhtml(user: TheUserType) = {
+(<form method="post" action={S.uri}>
+<table><tr><td colspan="2">{S.?("edit")}</td></tr>
+{localForm(user, true, editFields)}
+<tr><td>&nbsp;</td><td><input type="submit" /></td></tr>
+</table>
+</form>)
+}
+
+ object editFunc extends RequestVar[Box[() => NodeSeq]](Empty) {
+override lazy val __nameSalt = Helpers.nextFuncName
+}
+/**
+* If there's any mutation to do to the user on retrieval for
+* editing, override this method and mutate the user. This can
+* be used to pull query parameters from the request and assign
+* certain fields. Issue #722
+*
+* @param user the user to mutate
+* @return the mutated user
+*/
+protected def mutateUserOnEdit(user: TheUserType): TheUserType = user
+def edit = {
+val theUser: TheUserType =
+mutateUserOnEdit(currentUser.openOrThrowException("we know we're logged in"))
+val theName = editPath.mkString("")
+def testEdit() {
+theUser.validate match {
+case Nil =>
+theUser.save
+S.notice(S.?("profile.updated"))
+S.redirectTo(homePage)
+case xs => S.error(xs) ; editFunc(Full(innerEdit _))
+}
+}
+def innerEdit = {
+("type=submit" #> editSubmitButton(S.?("save"), testEdit _)) apply editXhtml(theUser)
+}
+innerEdit
+}
+def editSubmitButton(name: String, func: () => Any = () => {}): NodeSeq = {
+standardSubmitButton(name, func)
+}
+
+ protected def localForm(user: TheUserType, ignorePassword: Boolean, fields: List[FieldPointerType]): NodeSeq = {
+for {
+pointer <- fields
+field <- computeFieldFromPointer(user, pointer).toList
+if field.show_? && (!ignorePassword || !pointer.isPasswordField_?)
+form <- field.toForm.toList
+} yield <tr><td>{field.displayName}</td><td>{form}</td></tr>
+}
+
 * 
 */
   
@@ -149,6 +230,34 @@ func()
   
   def signup(xhtml: NodeSeq): NodeSeq = {
             User.signup
+  }
+  
+  def changePassword(xhtml: NodeSeq): NodeSeq = {
+   		if (User.loggedIn_? )
+            User.changePassword
+            	else
+            	  Text("Not logged in!")
+  }
+  
+    def edit(xhtml: NodeSeq): NodeSeq = {
+      		// does that make sense?
+      		if (User.loggedIn_? )
+            	User.edit
+            	else
+            	  Text("Not logged in!")
+  }
+    
+    def account(xhtml: NodeSeq): NodeSeq = {
+      		// does that make sense?
+      		if (User.loggedIn_? )
+            	("#loginlogout *" #> "Logout" &
+            	 "#logout [href]" #> "/%s".format(User.logoutPath.mkString("/")) &
+            	 "#loginlogout [onClick]" #> "Logout();"  
+            )(xhtml)
+            	else
+            	("#loginlogout *" #> "Login / register" &
+            	"#account" #> ""
+            )(xhtml)
   }
   
 }

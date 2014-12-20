@@ -1,15 +1,26 @@
 <section class="accountScreen left">
 	<span class="icon-plus close-icon"></span>
-	<form class="left">
 		<h1>Edit Account</h1>
-		<input placeholder="Username">
-		<input type="file" placeholder="Avatar">
-		<input placeholder="E-mail">
-		<input placeholder="Repeat E-mail">
-		
-		<input type="password" placeholder="Old password">
-		<input type="password" placeholder="New password">
-		<input type="password" placeholder="Repeat new password">
-		<button><span class="icon-save"></span> Save</button>
-	</form>
+		<div class="lift:Login.changePassword?form=POST&class=left">
+			<input class="old-password" value="" type="password" placeholder="Old password">
+			<input class="new-password" value="" type="password" placeholder="New password">
+			<input class="new-password" value="" type="password" placeholder="Repeat new password">
+			<input value="change password" type="submit">
+    		</div>
+		<div class="lift:Designer.edit?form=POST&class=left&multipart=true">
+			<input id="firstname" value="" type="text">
+			<input id="lastname" value="" type="text">
+			<textarea id="aboutme"></textarea>
+			<img id="showimage" src="#"></img>
+			Delete image? <input id="deleteimage" value="false" type="checkbox"></input>
+			New image?<input id="newimage" value=""  type="file"></input>
+			<div id="listtools">
+				<div id="tools">
+					<ul>
+						<li><input id="toolcheckbox" type="checkbox" name="tool" value="TOOLNAME"><span id="toolname">TOOLNAME</span></li>
+					</ul>
+				</div>
+			</div>
+			<a href="/tool/create" id="addtool">Create new tool</a>
+    		</div>
 </section>
