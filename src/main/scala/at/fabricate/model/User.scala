@@ -18,7 +18,8 @@ import net.liftweb.http.LiftRules
 /**
  * The singleton that has methods for accessing the database
  */
-object User extends User with MetaMegaProtoUser[User] with LongKeyedMetaMapper[User] with AddIconMeta[User] with CreatedUpdated {
+object User extends User with MetaMegaProtoUser[User] with RedirectAfterLogin[User] with LongKeyedMetaMapper[User] with AddIconMeta[User] with CreatedUpdated {
+  
   
   // provide a path to a  custom page for the edit feature
   //override lazy val editPath = "designer" :: "edit" :: Nil
@@ -27,9 +28,15 @@ object User extends User with MetaMegaProtoUser[User] with LongKeyedMetaMapper[U
     
   override def dbTableName = "users" // define the DB table name
  
-//  override def screenWrap = Full(<lift:surround with="default" at="content">
-//			       <lift:bind /></lift:surround>)
-    
+  override def screenWrap = Full(
+      <lift:surround with="default" at="content">
+		  <section class="mainContent standardPage left">
+			       <lift:bind />
+		  </section>
+	  </lift:surround>)
+	  
+//  override def homePage = "/"
+    /*
    override def signupXhtml(user: TheUserType) = {
 	(<form method="post" action={S.uri}><table><tr><td
 colspan="2">{ S.??("sign.up") }</td></tr>
@@ -79,6 +86,8 @@ colspan="2">{S.??("enter.email")}</td></tr>
 //  }
   //Finder.findAnyTemplate("modules"::""::Nil) openOr(super.loginXhtml)
 //    LiftSession.f
+ *    
+ */
 			       
   // define the order fields will appear in forms and output
   override def fieldOrder = List(id, icon, firstName, lastName, email,
@@ -95,20 +104,6 @@ colspan="2">{S.??("enter.email")}</td></tr>
   //override def signupFields = email :: userName :: password :: Nil 
   
   //override def afterCreate = super.afterCreate
-
-  // referrer after login
-  object loginReferrer extends SessionVar("/")
-  
-  override def homePage = {
-    var ret = loginReferrer.get
-    loginReferrer.remove()
-    ret
-  }
-  
-  override def login = {
-    for (r <- S.referer if loginReferrer.get == "/") loginReferrer.set(r)
-    super.login
-  }
 }
 
 /**
