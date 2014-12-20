@@ -45,8 +45,9 @@ object Login {
         "submit" -> (SHtml.hidden(auth) ++ <input type="submit" value="Login"/>)))
         * 
         */
-	  	("user" #> SHtml.text(user.is, user(_), "maxlength" -> "40") &
-        "pass" #> SHtml.text(user.is, user(_), "maxlength" -> "40")
-            )(xhtml)
+//	  	("user" #> SHtml.text(user.is, user(_), "maxlength" -> "40") &
+//        "pass" #> SHtml.text(user.is, user(_), "maxlength" -> "40")
+//            )(xhtml)
+            User.login 
   }
 }
