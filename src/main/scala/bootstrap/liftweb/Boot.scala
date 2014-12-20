@@ -124,6 +124,7 @@ class Boot {
                Menu.i("SASS") / "sass" / ** >> Hidden,
 //               Menu.i("Navigation Menu") / "navigation"  >> Hidden,
 
+               Menu.i("Page not found!") / "404"  >> Hidden,
 
                Menu.i("Static") / "static" / ** >> Hidden
                //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
@@ -132,7 +133,14 @@ class Boot {
     LiftRules.setSiteMap(SiteMap(menu :_*))
     
     
+    // make the messages disappear after some time
+    LiftRules.noticesAutoFadeOut.default.set((noticeType: NoticeType.Value) => Full((1 seconds, 2 seconds)))
     
+    // use a custom 404 page (404.html or 404[locale].html)
+    LiftRules.uriNotFound.prepend(NamedPF("404handler"){
+      case (req,failure) => 
+        NotFoundAsTemplate(ParsePath(List("404"),"html",false,false))
+    })
     
     // Build SiteMap
     /*
