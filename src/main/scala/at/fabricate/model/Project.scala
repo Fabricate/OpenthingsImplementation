@@ -15,8 +15,9 @@ import scala.xml.Null
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/
 //BEGIN(crud)
-object Project extends Project with LongKeyedMetaMapper[Project] with AddIconMeta[Project] with CRUDify[Long, Project] with AddRepositoryMeta[Project]
+object Project extends Project with LongKeyedMetaMapper[Project] with AddIconMeta[Project] with AddRepositoryMeta[Project]
 //END(crud)
+//with CRUDify[Long, Project] 
 {
   
 
@@ -25,15 +26,15 @@ object Project extends Project with LongKeyedMetaMapper[Project] with AddIconMet
   /**Anordnung der Eingabefelder in automatisch generierten Formularen (CRUDFify)*/
   override def fieldOrder = List(teaser, creationDate, byUserId)
   /**Name des Menuepunktes für die Ansicht aller Objekte fuer CRUDify-Seiten*/
-  override def showAllMenuName = S.?("projects")
+//  override def showAllMenuName = S.?("projects")
   /**Name des Menuepunktes für das Erstellen eines neuen Objekts auf CRUDify-Seiten*/
-  override def createMenuName = S.?("create\u0020new\u0020project")
+//  override def createMenuName = S.?("create\u0020new\u0020project")
 
   
   // create a multipart upload form for Crudify
-  override def _createTemplate = super._createTemplate %  	new UnprefixedAttribute("multipart",Text("yes"),Null)
+//  override def _createTemplate = super._createTemplate %  	new UnprefixedAttribute("multipart",Text("yes"),Null)
   
-  override def _editTemplate = super._editTemplate %  	new UnprefixedAttribute("multipart",Text("yes"),Null)
+//  override def _editTemplate = super._editTemplate %  	new UnprefixedAttribute("multipart",Text("yes"),Null)
 
 //  override def viewTemplate = 
     
@@ -60,7 +61,8 @@ object Project extends Project with LongKeyedMetaMapper[Project] with AddIconMet
 
 /**Beschreibt eine Projekt-Instanz
 * @author Johannes Fischer **/
-class Project extends LongKeyedMapper[Project] with AddIcon[Project] with AddRepository[Project] with IdPK {
+class Project extends LongKeyedMapper[Project] with AddIcon[Project] with AddRepository[Project] with
+OneToMany[Long, Project] with IdPK {
   
       // define WithImage
   
@@ -127,6 +129,10 @@ class Project extends LongKeyedMapper[Project] with AddIcon[Project] with AddRep
     //	DependencyFactory.inject[Date].map(d => List[(Long,String)] (d.toString(), d.toGMTString()))
     override def defaultValue = Calendar.getInstance.getTime
   }
+  
+  // testing comments
+  object comments extends MappedOneToMany(Comment, Comment.commentedItem, OrderBy(Comment.id, Ascending))
+
 
   /**Liefert das Meta-Objekt zur eigenen Modellklasse.*/
   def getSingleton = Project

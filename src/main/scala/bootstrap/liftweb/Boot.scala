@@ -18,6 +18,7 @@ import at.fabricate.lib.ImageLogic
 import net.liftmodules.widgets.autocomplete.AutoComplete
 import at.fabricate.api._
 import at.fabricate.snippet.Repository
+import at.fabricate.snippet.ProjectSnippet
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -42,7 +43,7 @@ class Boot {
     // Use Lift's Mapper ORM to populate the database
     // you don't need to use Mapper to use Lift... use
     // any ORM you want
-    Schemifier.schemify(true, Schemifier.infoF _, User, Project, Tool, UserHasTools)
+    Schemifier.schemify(true, Schemifier.infoF _, User, Project, Tool, UserHasTools, Comment)
 
     // where to search snippet
     LiftRules.addToPackages("at.fabricate")
@@ -50,7 +51,7 @@ class Boot {
     LiftRules.snippetDispatch.append {
       case "Designer" => Designer
       case "Repository" => Repository
-      //case "ListDesigners" => ListDesigners
+      case "Project" => ProjectSnippet
     }
     
     //LiftRules.dispatch.append(ImageLogic.matcher)
@@ -84,6 +85,9 @@ class Boot {
     
 	  case RewriteRequest(ParsePath(List("project", "repository", projectID), _, _, _), _, _) =>
 	      RewriteResponse("editRepository" :: Nil, Map("id" -> urlDecode(projectID)))
+
+	  case RewriteRequest(ParsePath(List("project", projectID), _, _, _), _, _) =>
+	      RewriteResponse("viewProject" :: Nil, Map("id" -> urlDecode(projectID)))	      
     }
     
     // TODO : aufraumen, sauberes Menue !!!
@@ -125,10 +129,13 @@ class Boot {
 //               Menu.i("Navigation Menu") / "navigation"  >> Hidden,
 
                Menu.i("Page not found!") / "404"  >> Hidden,
+               
+               Menu.i("View Project") / "viewProject" / ** >> Hidden,
+
 
                Menu.i("Static") / "static" / ** >> Hidden
                //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
-               ) :::  User.sitemap ::: Tool.menus ::: Project.menus
+               ) :::  User.sitemap ::: Tool.menus 
   
     LiftRules.setSiteMap(SiteMap(menu :_*))
     
