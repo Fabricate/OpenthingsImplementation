@@ -34,7 +34,7 @@ import net.liftweb.mapper.PreCache
 import net.liftweb.mapper.Mapper
 import net.liftweb.mapper.LongKeyedMapper
 
-object ListDesigners extends PaginatorSnippet[User] with Logger {
+object ListDesigners extends AjaxPaginatorSnippet[User] with Logger {
   
   //object QueryParams
   
@@ -118,7 +118,7 @@ object ListDesigners extends PaginatorSnippet[User] with Logger {
     )
 
   
-  def renderPage (xhtml: NodeSeq) : NodeSeq = (S.param("type"),S.params("tool")) match {
+  def renderIt (xhtml: NodeSeq) : NodeSeq = (S.param("type"),S.params("tool")) match {
       case (Full("random"), _) => //println("random ordering")
         requestType(UserRequest())
         queryParametersUser(orderByRand[User]::listOfQueryParametersUser[User])

@@ -79,7 +79,7 @@ object Designer extends DispatchSnippet with Logger {
         }
           
         def bindFieldsCSS =  {
-                    //bind("dsigner", xhtml,
+//                    bind("dsigner", xhtml,
                //"atomLink" -> <link href={"/api/account/" + acct.id} type="application/atom+xml" rel="alternate" title={acct.name + " feed"} />,
                "#firstname" #> SHtml.text(firstName, firstName = _) &
                "#lastname" #> SHtml.text(lastName, lastName = _) &
