@@ -85,9 +85,11 @@ class Boot {
     
 	  case RewriteRequest(ParsePath(List("project", "repository", projectID), _, _, _), _, _) =>
 	      RewriteResponse("editRepository" :: Nil, Map("id" -> urlDecode(projectID)))
-
+	
+	  case RewriteRequest(ParsePath(List("project", "list"), _, _, _), _, _) =>
+	      RewriteResponse("listProject" :: Nil)
 	  case RewriteRequest(ParsePath(List("project", projectID), _, _, _), _, _) =>
-	      RewriteResponse("viewProject" :: Nil, Map("id" -> urlDecode(projectID)))	      
+	      RewriteResponse("viewProject" :: Nil, Map("id" -> urlDecode(projectID)))
     }
     
     // TODO : aufraumen, sauberes Menue !!!
@@ -131,6 +133,7 @@ class Boot {
                Menu.i("Page not found!") / "404"  >> Hidden,
                
                Menu.i("View Project") / "viewProject" / ** >> Hidden,
+               Menu.i("List Project") / "listProject" / ** >> Hidden,
 
 
                Menu.i("Static") / "static" / ** >> Hidden

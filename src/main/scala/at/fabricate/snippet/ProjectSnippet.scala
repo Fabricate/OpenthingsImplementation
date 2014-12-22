@@ -37,8 +37,8 @@ object ProjectSnippet extends DispatchSnippet with Logger {
   }
     private def list:  CssSel =   
     // just a dummy implementation
-   "#dbcontent" #> { Project.findAll.map(project => MapperBinder.bindMapper(project, {
-     "#icon [src]" #> project.icon .url
+   "#item" #> { Project.findAll.map(project => MapperBinder.bindMapper(project, {
+     "#link [href]" #> "/project/%d".format(project.id)
    }) _)}
    
    
