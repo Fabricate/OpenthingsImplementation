@@ -1,4 +1,4 @@
-/* line 13, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/modules/reset */
+/* line 13, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/modules/reset */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, button, input, textarea, select {
   margin: 0;
   padding: 0;
@@ -13,27 +13,72 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   border-width: 0; }
 
 /* HTML5 display-role reset for older browsers */
-/* line 28, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/modules/reset */
+/* line 28, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/modules/reset */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   display: block; }
 
-/* line 31, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/modules/reset */
+/* line 31, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/modules/reset */
 ol, ul {
   list-style: none; }
 
-/* line 34, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/modules/reset */
+/* line 34, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/modules/reset */
 blockquote, q {
   quotes: none; }
 
-/* line 38, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/modules/reset */
+/* line 38, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/modules/reset */
 blockquote:before, blockquote:after, q:before, q:after {
   content: '';
   content: none; }
 
-/* line 42, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/modules/reset */
+/* line 42, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/modules/reset */
 table {
   border-collapse: collapse;
   border-spacing: 0; }
+
+/* line 46, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/modules/reset */
+div, section, nav {
+  position: relative; }
+
+/* Standard Animation styles */
+/* line 3, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/modules/animation */
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both; }
+
+/* line 10, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/modules/animation */
+.animated.infinite {
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite; }
+
+/* line 15, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/modules/animation */
+.animated.hinge {
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s; }
+
+@-webkit-keyframes fadeIn {
+  /* line 21, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/modules/animation */
+  0% {
+    opacity: 0; }
+
+  /* line 22, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/modules/animation */
+  100% {
+    opacity: 1; } }
+
+@keyframes fadeIn {
+  /* line 26, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/modules/animation */
+  0% {
+    opacity: 0; }
+
+  /* line 27, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/modules/animation */
+  100% {
+    opacity: 1; } }
+
+/* line 30, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/modules/animation */
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn; }
 
 @font-face {
   font-family: 'proxima_nova_rgregular';
@@ -42,57 +87,57 @@ table {
   font-weight: normal;
   font-style: normal; }
 
-/* line 11, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typography */
+/* line 11, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
 html {
   font-size: 100%;
   -webkit-font-smoothing: antialiased; }
 
-/* line 15, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typography */
+/* line 15, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
 body {
   font-family: 'proxima_nova_rgregular', sans-serif;
   color: #323a45; }
 
-/* line 24, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typography */
+/* line 24, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
 h1, .alpha, h2, .beta, h3, .gamma, h4, .delta, h5, .epsilon, h6, .zeta {
   margin: 0; }
 
-/* line 27, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typography */
+/* line 27, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
 h1, .alpha {
   font-size: 2.625em;
   line-height: 1.04762;
   margin-bottom: 0.52381em; }
 
-/* line 32, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typography */
+/* line 32, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
 h2, .beta {
   font-size: 1.96875em;
   line-height: 1.39683;
   margin-bottom: 0.69841em; }
 
-/* line 37, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typography */
+/* line 37, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
 h3, .gamma {
   font-size: 1.3125em;
   margin: 0 0 1.57143em;
   line-height: 1.57143; }
 
-/* line 42, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typography */
+/* line 42, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
 h4, .delta {
   font-size: 1.14844em;
   line-height: 1.19728;
   margin-bottom: 1.19728em; }
 
-/* line 47, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typography */
+/* line 47, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
 h5, .epsilon {
   font-size: 0.98438em;
   line-height: 1.39683;
   margin-bottom: 1.39683em; }
 
-/* line 52, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typography */
+/* line 52, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
 h6, .zeta {
   font-size: 0.875em;
   line-height: 1.57143;
   margin-bottom: 1.57143em; }
 
-/* line 58, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typography */
+/* line 58, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
 p, blockquote {
   font-size: 1.3125em;
   margin: 0 0 1.57143em;
@@ -102,67 +147,72 @@ p, blockquote {
   -ms-hyphens: auto;
   hyphens: auto; }
 
-/* line 69, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typography */
+/* line 69, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
 dd, dt, li {
   line-height: 1.57143;
   margin: 0; }
 
-/* line 73, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typography */
+/* line 73, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
 a {
   text-decoration: none;
   opacity: 1;
-  color: #17BA9B;
+  color: #5e198e;
   transition: opacity 0.3s ease-in-out; }
 
-/* line 79, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typography */
+/* line 79, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
 a:hover {
   opacity: 0.8; }
 
-/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/forms */
+/* line 83, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
+input, select, button, textarea {
+  font-size: 1.3125em;
+  line-height: 1.57143; }
+
+/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/forms */
 select, input, textarea {
   border: 1px solid #edebeb;
   padding: 1em;
   border-radius: 1px;
   background: none; }
 
-/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/buttons */
+/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 button {
   color: white;
   background-color: #5e198e;
   cursor: pointer;
-  padding: 0.625em;
+  padding: 0.9375em;
   border-radius: 1px;
   transition: opacity 0.3s ease-in-out; }
 
-/* line 9, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/buttons */
+/* line 9, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .btn {
   color: white !important;
   display: inline-block;
   background-color: #5e198e;
   cursor: pointer;
-  padding: 0.625em;
+  padding: 0.9375em;
   border-radius: 1px;
   transition: opacity 0.3s ease-in-out; }
 
-/* line 18, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/buttons */
+/* line 18, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .updateProjectBtn {
   position: relative;
   top: -0.3em; }
 
-/* line 22, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/buttons */
+/* line 22, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 button:hover, .btn:hover {
   opacity: 0.8; }
 
 @font-face {
-  font-family: 'martin';
-  src: url('../icons/martin.eot?79h4zr');
-  src: url('../icons/martin.eot?#iefix79h4zr') format('embedded-opentype'), url('../icons/martin.woff?79h4zr') format('woff'), url('../icons/martin.ttf?79h4zr') format('truetype'), url('../icons/martin.svg?79h4zr#martin') format('svg');
+  font-family: 'icons';
+  src: url('../icons/icons.eot?79h4zr');
+  src: url('../icons/icons.eot?#iefix79h4zr') format('embedded-opentype'), url('../icons/icons.woff?79h4zr') format('woff'), url('../icons/icons.ttf?79h4zr') format('truetype'), url('../icons/icons.svg?79h4zr#icons') format('svg');
   font-weight: normal;
   font-style: normal; }
 
-/* line 12, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
+/* line 12, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
 [class^="icon-"], [class*=" icon-"] {
-  font-family: 'martin';
+  font-family: 'icons';
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -175,268 +225,336 @@ button:hover, .btn:hover {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-/* line 28, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-difficulty0:before {
-  content: "\e63a"; }
-
-/* line 31, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-difficulty1:before {
-  content: "\e63b"; }
-
-/* line 34, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-difficulty2:before {
-  content: "\e63c"; }
-
-/* line 37, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-difficulty3:before {
-  content: "\e63d"; }
-
-/* line 40, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-difficulty4:before {
-  content: "\e63e"; }
-
-/* line 43, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-difficulty5:before {
-  content: "\e63f"; }
-
-/* line 46, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_apple:before {
+/* line 28, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-apple:before {
   content: "\e600"; }
 
-/* line 49, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_artifact:before {
+/* line 31, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-artifact:before {
   content: "\e601"; }
 
-/* line 52, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_bin:before {
+/* line 34, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-back:before {
   content: "\e602"; }
 
-/* line 55, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_camera:before {
+/* line 37, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-bin:before {
   content: "\e603"; }
 
-/* line 58, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_carrot:before {
+/* line 40, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-build:before {
   content: "\e604"; }
 
-/* line 61, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_chat:before {
+/* line 43, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-building_satellite:before {
   content: "\e605"; }
 
-/* line 64, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_clock:before {
+/* line 46, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-building:before {
   content: "\e606"; }
 
-/* line 67, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_clock2:before {
+/* line 49, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-camera:before {
   content: "\e607"; }
 
-/* line 70, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_cloud:before {
+/* line 52, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-carrot:before {
   content: "\e608"; }
 
-/* line 73, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_code:before {
+/* line 55, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-cc-by:before {
   content: "\e609"; }
 
-/* line 76, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_cup:before {
+/* line 58, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-cc-no-derivs:before {
   content: "\e60a"; }
 
-/* line 79, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_down:before {
+/* line 61, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-cc-noncommercial:before {
   content: "\e60b"; }
 
-/* line 82, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_eye:before {
+/* line 64, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-cc-public-domain:before {
   content: "\e60c"; }
 
-/* line 85, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_flag:before {
+/* line 67, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-cc-remix:before {
   content: "\e60d"; }
 
-/* line 88, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_flat_sat:before {
+/* line 70, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-cc-sampling-plus:before {
   content: "\e60e"; }
 
-/* line 91, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_flat:before {
+/* line 73, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-cc-sampling:before {
   content: "\e60f"; }
 
-/* line 94, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_gift:before {
+/* line 76, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-cc-share-alike:before {
   content: "\e610"; }
 
-/* line 97, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_hammer:before {
+/* line 79, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-cc-share:before {
   content: "\e611"; }
 
-/* line 100, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_health:before {
+/* line 82, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-cc-zero:before {
   content: "\e612"; }
 
-/* line 103, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_heart:before {
+/* line 85, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-cc:before {
   content: "\e613"; }
 
-/* line 106, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_home:before {
+/* line 88, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-clock:before {
   content: "\e614"; }
 
-/* line 109, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_key:before {
+/* line 91, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-clock2:before {
   content: "\e615"; }
 
-/* line 112, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_key2:before {
+/* line 94, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-cloud:before {
   content: "\e616"; }
 
-/* line 115, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_lamp:before {
+/* line 97, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-code:before {
   content: "\e617"; }
 
-/* line 118, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_lemon:before {
+/* line 100, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-coffee:before {
   content: "\e618"; }
 
-/* line 121, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_list:before {
+/* line 103, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-delete:before {
   content: "\e619"; }
 
-/* line 124, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_lock:before {
+/* line 106, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-device:before {
   content: "\e61a"; }
 
-/* line 127, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_loupe:before {
+/* line 109, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-difficulty1:before {
   content: "\e61b"; }
 
-/* line 130, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_meat:before {
+/* line 112, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-difficulty2:before {
   content: "\e61c"; }
 
-/* line 133, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_mechanic:before {
+/* line 115, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-difficulty3:before {
   content: "\e61d"; }
 
-/* line 136, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_message:before {
+/* line 118, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-difficulty4:before {
   content: "\e61e"; }
 
-/* line 139, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_money:before {
+/* line 121, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-difficulty5:before {
   content: "\e61f"; }
 
-/* line 142, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_music:before {
+/* line 124, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-difficulty6:before {
   content: "\e620"; }
 
-/* line 145, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_pencil:before {
+/* line 127, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-discussion:before {
   content: "\e621"; }
 
-/* line 148, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_person:before {
+/* line 130, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-down:before {
   content: "\e622"; }
 
-/* line 151, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_phone:before {
+/* line 133, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-exit:before {
   content: "\e623"; }
 
-/* line 154, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_phone2:before {
+/* line 136, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-eye:before {
   content: "\e624"; }
 
-/* line 157, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_picture:before {
+/* line 139, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-flag:before {
   content: "\e625"; }
 
-/* line 160, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_play:before {
+/* line 142, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-folder:before {
   content: "\e626"; }
 
-/* line 163, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_plug:before {
+/* line 145, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-gift:before {
   content: "\e627"; }
 
-/* line 166, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_plug2:before {
+/* line 148, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-health:before {
   content: "\e628"; }
 
-/* line 169, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_plus:before {
+/* line 151, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-heart:before {
   content: "\e629"; }
 
-/* line 172, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_recycle:before {
+/* line 154, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-house:before {
   content: "\e62a"; }
 
-/* line 175, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_redo:before {
+/* line 157, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-key:before {
   content: "\e62b"; }
 
-/* line 178, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_save:before {
+/* line 160, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-key2:before {
   content: "\e62c"; }
 
-/* line 181, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_screen:before {
+/* line 163, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-lamp:before {
   content: "\e62d"; }
 
-/* line 184, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_search:before {
+/* line 166, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-lemon:before {
   content: "\e62e"; }
 
-/* line 187, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_share:before {
+/* line 169, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-list:before {
   content: "\e62f"; }
 
-/* line 190, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_share2:before {
+/* line 172, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-lock:before {
   content: "\e630"; }
 
-/* line 193, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_star:before {
+/* line 175, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-loupe:before {
   content: "\e631"; }
 
-/* line 196, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_star2:before {
+/* line 178, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-man:before {
   content: "\e632"; }
 
-/* line 199, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_suitcase:before {
+/* line 181, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-meat:before {
   content: "\e633"; }
 
-/* line 202, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_television:before {
+/* line 184, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-messages:before {
   content: "\e634"; }
 
-/* line 205, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_text:before {
+/* line 187, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-money:before {
   content: "\e635"; }
 
-/* line 208, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_title:before {
+/* line 190, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-music:before {
   content: "\e636"; }
 
-/* line 211, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_undo:before {
+/* line 193, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-pencil:before {
   content: "\e637"; }
 
-/* line 214, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_vinyl:before {
+/* line 196, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-picture:before {
   content: "\e638"; }
 
-/* line 217, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/icons */
-.icon-icon_world:before {
+/* line 199, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-play:before {
   content: "\e639"; }
 
-/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 202, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-plug:before {
+  content: "\e63a"; }
+
+/* line 205, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-plug2:before {
+  content: "\e63b"; }
+
+/* line 208, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-plus:before {
+  content: "\e63c"; }
+
+/* line 211, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-plus-92:before {
+  content: "\e63d"; }
+
+/* line 214, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-plus2:before {
+  content: "\e63e"; }
+
+/* line 217, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-redo:before {
+  content: "\e63f"; }
+
+/* line 220, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-redo2:before {
+  content: "\e640"; }
+
+/* line 223, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-save:before {
+  content: "\e641"; }
+
+/* line 226, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-screen:before {
+  content: "\e642"; }
+
+/* line 229, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-search:before {
+  content: "\e643"; }
+
+/* line 232, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-share:before {
+  content: "\e644"; }
+
+/* line 235, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-share2:before {
+  content: "\e645"; }
+
+/* line 238, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-skills:before {
+  content: "\e646"; }
+
+/* line 241, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-star:before {
+  content: "\e647"; }
+
+/* line 244, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-star2:before {
+  content: "\e648"; }
+
+/* line 247, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-suitcase:before {
+  content: "\e649"; }
+
+/* line 250, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-telephone:before {
+  content: "\e64a"; }
+
+/* line 253, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-television:before {
+  content: "\e64b"; }
+
+/* line 256, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-text:before {
+  content: "\e64c"; }
+
+/* line 259, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-title:before {
+  content: "\e64d"; }
+
+/* line 262, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-undo:before {
+  content: "\e64e"; }
+
+/* line 265, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-vinyl:before {
+  content: "\e64f"; }
+
+/* line 268, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-world:before {
+  content: "\e650"; }
+
+/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 img {
   width: 100%; }
 
 /* Common style */
-/* line 6, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 6, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 .mainContent figure {
   position: relative;
   float: left;
@@ -445,14 +563,14 @@ img {
   text-align: center;
   cursor: pointer; }
 
-/* line 15, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 15, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 .mainContent figure img {
   position: relative;
   display: block;
   max-width: 100%;
   opacity: 0.8; }
 
-/* line 22, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 22, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 .mainContent figure figcaption {
   padding: 1em;
   color: #fff;
@@ -461,11 +579,11 @@ img {
   backface-visibility: hidden;
   box-sizing: border-box; }
 
-/* line 32, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 32, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 .mainContent figure figcaption::before, .mainContent figure figcaption::after {
   pointer-events: none; }
 
-/* line 37, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 37, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 .mainContent figure figcaption, .mainContent figure figcaption > a {
   position: absolute;
   top: 0;
@@ -475,7 +593,7 @@ img {
 
 /* Anchor will cover the whole item by default */
 /* For some effects it will show as a button */
-/* line 47, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 47, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 .mainContent figure figcaption > a {
   z-index: 1000;
   text-indent: 200%;
@@ -483,7 +601,7 @@ img {
   font-size: 0;
   opacity: 0; }
 
-/* line 56, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 56, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 .mainContent figure h2, .mainContent figure p {
   margin: 0; }
 
@@ -491,7 +609,7 @@ img {
 /*---------------*/
 /***** Lily *****/
 /*---------------*/
-/* line 66, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 66, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 figure.effect-lily img {
   max-width: none;
   width: -webkit-calc(100% + 50px);
@@ -502,11 +620,11 @@ figure.effect-lily img {
   -webkit-transform: translate3d(-40px, 0, 0);
   transform: translate3d(-40px, 0, 0); }
 
-/* line 77, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 77, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 figure.effect-lily figcaption {
   text-align: left; }
 
-/* line 81, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 81, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 figure.effect-lily figcaption > div {
   position: absolute;
   bottom: 0;
@@ -514,19 +632,19 @@ figure.effect-lily figcaption > div {
   padding: 1em;
   height: 50%; }
 
-/* line 90, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 90, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 figure.effect-lily h2, figure.effect-lily p {
   -webkit-transform: translate3d(0, 40px, 0);
   transform: translate3d(0, 40px, 0);
   padding: 0 5px; }
 
-/* line 96, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 96, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 figure.effect-lily h2 {
   -webkit-transition: -webkit-transform 0.35s;
   transition: transform 0.35s;
   font-size: 1.125em; }
 
-/* line 102, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 102, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 figure.effect-lily p {
   color: white;
   font-size: 1em;
@@ -535,250 +653,291 @@ figure.effect-lily p {
   transition: opacity 0.2s, transform 0.35s;
   background: rgba(94, 25, 142, 0.8); }
 
-/* line 112, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 112, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 figure.effect-lily:hover img, figure.effect-lily:hover p {
   opacity: 1; }
 
-/* line 115, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 115, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 figure.effect-lily:hover h2 {
   background: rgba(0, 0, 0, 0.8); }
 
-/* line 121, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 121, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 figure.effect-lily:hover img, figure.effect-lily:hover h2, figure.effect-lily:hover p {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0); }
 
-/* line 126, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/images */
+/* line 126, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 figure.effect-lily:hover p {
   -webkit-transition-delay: 0.05s;
   transition-delay: 0.05s;
   -webkit-transition-duration: 0.35s;
   transition-duration: 0.35s; }
 
-/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typical_classes */
+/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typical_classes */
 .right {
   float: right; }
 
-/* line 4, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typical_classes */
+/* line 4, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typical_classes */
 .left {
   float: left; }
 
-/* line 7, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typical_classes */
+/* line 7, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typical_classes */
 .hidden {
   opacity: 0; }
 
-/* line 10, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/typical_classes */
+/* line 10, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typical_classes */
 .visible {
   opacity: 1; }
 
-/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
-.detailedDescription, .projectVersions, .userProjectVersions, .commentInput form, .commentInput, .projectComments ul, .projectComments header, .projectComments, .mainContent, .mainContent .projectHeader div, .projectDetails, .userDetails, .postProject, .loginScreen, .accountScreen {
+/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.questionsList li, .addTutorial, .detailedDescription, .projectVersions, .userProjectVersions, .commentInput form, .commentInput, .projectComments ul, .projectComments header, .projectComments, .mainContent, .mainContent .projectHeader div, .projectDetails, .userDetails, .postProject, .loginScreen, .accountScreen, .logoutScreen, .bom {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box; }
 
-/* line 4, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 4, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 body {
   background-color: #edebeb; }
 
-/* line 7, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
-.projectComments ul, .mainContent, .projectHeader, .mainContent .projectComments li, .commentInput, .commentInput input, .commentInput textarea, .commentInput form {
+/* line 7, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.projectComments ul, .mainContent, .projectHeader, .mainContent .projectComments li, .commentInput, .commentInput input, .commentInput textarea, .commentInput form, .addTutorial, .projectComments, .userDetails, .projectDetails, .userProjectVersions, .projectVersions, .detailedDescription, .bom {
   width: 100%; }
 
-/* line 10, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
-.detailedDescription, .mainContent .projectHeader img, .mainContent .projectHeader div {
+/* line 10, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.mainContent .projectHeader img, .mainContent .projectHeader div {
   width: 50%; }
 
-/* line 13, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 13, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.col-2 {
+  width: 50%; }
+
+/* line 16, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .overviewPage {
   padding-bottom: 2%; }
 
-/* line 16, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 19, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .mainContent .preview {
   margin: 2% 0 0 2%;
   width: 22.5%; }
 
-/* line 20, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 23, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .mainContent li header {
   padding: 0.3125em 0.9375em; }
 
-/* line 23, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 26, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .mainContent li a {
   color: #323232; }
 
-/* line 26, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 29, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .mainContent .projectHeader div {
   padding: 4%;
   background-color: #323232;
   color: white; }
 
-/* line 31, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 34, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .landingPage .mainContent {
   padding-bottom: 2%; }
 
-/* line 34, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 37, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectHeader {
   background-color: #323232; }
 
-/* line 37, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 40, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectHeader p {
   max-width: 800px; }
 
-/* line 41, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 43, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.projectHeader a {
+  color: lightblue; }
+
+/* line 47, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectVersions {
-  width: 50%;
   padding: 4%;
   background-color: rgba(255, 255, 255, 0.3);
   color: #333; }
 
-/* line 47, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 52, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectVersions li {
   border-top: 1px solid rgba(255, 255, 255, 0.5);
   padding: 4% 0; }
 
-/* line 52, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 56, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.versionDetails {
+  margin-top: 4%; }
+
+/* line 59, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.versionDetails {
+  display: none; }
+
+/* line 62, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.versionDetails li {
+  background: rgba(94, 25, 142, 0.1);
+  padding: 1% 4%; }
+
+/* line 66, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.versionDetails li:nth-child(odd) {
+  background: rgba(94, 25, 142, 0.15); }
+
+/* line 70, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .userProjectVersions {
-  width: 50%;
   padding: 4%;
   background-color: rgba(255, 255, 255, 0.3);
   color: #333; }
 
-/* line 58, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 75, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .userProjectVersions li {
   border-top: 1px solid rgba(255, 255, 255, 0.5);
   padding: 4% 0; }
 
-/* line 65, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 79, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectDetails {
-  width: 50%;
   padding: 4%;
   background-color: rgba(255, 255, 255, 0.6);
   color: #333;
-  text-align: center;
-  border-bottom: #ddd solid 1px; }
+  text-align: center; }
 
-/* line 73, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 85, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectDetails li span {
   font-size: 3em; }
 
-/* line 76, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 88, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectDetails li h5 {
   margin-top: 1em;
   margin-bottom: 0; }
 
-/* line 80, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 92, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectDetails li h6 {
   margin-bottom: 0; }
 
-/* line 83, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 95, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectDetails li {
   margin: 0 2% 0 0;
   width: 22.5%; }
 
-/* line 87, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 99, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectDetails li:last-child {
   margin: 0 0 0 0; }
 
-/* line 90, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 102, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.bom {
+  padding: 4%;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #333; }
+
+/* line 107, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.bom li {
+  padding: 1% 0;
+  border-bottom: white 1px solid; }
+
+/* line 111, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.addMaterial {
+  display: none; }
+
+/* line 114, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.addMaterial input {
+  width: 44%; }
+
+/* line 117, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.addMaterial button {
+  margin-left: 0.5em; }
+
+/* line 120, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .userDetails {
-  width: 50%;
   padding: 4%;
   background-color: rgba(255, 255, 255, 0.6);
   color: #333;
   text-align: center;
   border-bottom: #ddd solid 1px; }
 
-/* line 98, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 127, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .userDetails li span {
   font-size: 3em; }
 
-/* line 101, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 130, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .userDetails li h5 {
   margin-top: 1em;
   margin-bottom: 0; }
 
-/* line 105, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 134, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .userDetails li h6 {
   margin-bottom: 0; }
 
-/* line 108, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 137, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .userDetails li {
   margin: 0 2% 0 0;
   width: 22.5%; }
 
-/* line 112, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 141, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .userDetails li:last-child {
   margin: 0 0 0 0; }
 
-/* line 116, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 145, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .detailedDescription {
   padding: 4%; }
 
-/* line 120, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 148, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectComments {
-  width: 50%;
   padding: 4%;
   background-color: white; }
 
-/* line 125, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 152, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectComments header {
   background-color: white;
   width: 100%; }
 
-/* line 129, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 156, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectComments div {
   width: 50%; }
 
-/* line 132, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 159, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectComments ul {
   background: white;
   display: none; }
 
-/* line 136, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 163, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .viewcomments {
   text-align: right;
   cursor: pointer; }
 
-/* line 140, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 167, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectComments span {
   margin-right: 0.1em; }
 
-/* line 143, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 170, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .comment {
   border-top: 1px solid #edebeb;
   padding: 4% 0 0 0; }
 
-/* line 147, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 174, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .commentInput {
   background: white; }
 
-/* line 150, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 177, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .commentInput form {
   border-top: 1px solid #edebeb;
   padding-top: 4%; }
 
-/* line 154, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 181, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .commentInput input, .commentInput textarea {
   margin-bottom: 1em;
   max-width: 100%;
   box-sizing: border-box; }
 
-/* line 160, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 187, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectUpdate {
   padding: 4%;
-  width: 50%;
   background: rgba(94, 25, 142, 0.02);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box; }
 
-/* line 167, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 193, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectUpdate form {
   width: 100%; }
 
-/* line 170, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 196, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectUpdate input, .projectUpdate textarea {
   margin-bottom: 1em;
   max-width: 100%;
@@ -786,16 +945,16 @@ body {
   box-sizing: border-box;
   border-color: #666666; }
 
-/* line 178, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 204, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .standardPage {
   padding: 2%; }
 
-/* line 181, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 207, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .standardPage p {
   max-width: 25em;
   font-size: 1.8em; }
 
-/* line 185, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 211, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .postProject {
   padding: 4%;
   width: 100%;
@@ -804,14 +963,15 @@ body {
   left: 0;
   z-index: 9999;
   background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 4px 5px rgba(50, 50, 50, 0.2);
   display: none; }
 
-/* line 195, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 222, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .postProject form {
   max-width: 600px;
   width: 100%; }
 
-/* line 199, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 226, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .postProject input, .postProject textarea, .postProject select {
   max-width: 100%;
   width: 100%;
@@ -821,7 +981,7 @@ body {
   -ms-box-sizing: border-box;
   box-sizing: border-box; }
 
-/* line 205, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 232, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .loginScreen {
   padding: 4%;
   width: 100%;
@@ -833,12 +993,12 @@ body {
   box-shadow: 0 4px 5px rgba(50, 50, 50, 0.2);
   display: none; }
 
-/* line 216, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 243, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .loginScreen form {
   max-width: 600px;
   width: 100%; }
 
-/* line 220, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 247, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .loginScreen input, .loginScreen textarea, .loginScreen select {
   max-width: 100%;
   width: 100%;
@@ -848,11 +1008,42 @@ body {
   -ms-box-sizing: border-box;
   box-sizing: border-box; }
 
-/* line 226, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 253, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .loginScreen button {
   margin-bottom: 4em; }
 
-/* line 229, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 257, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.logoutScreen {
+  padding: 4%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 4px 5px rgba(50, 50, 50, 0.2);
+  display: none; }
+
+/* line 268, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.logoutScreen form {
+  max-width: 600px;
+  width: 100%; }
+
+/* line 272, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.logoutScreen input, .logoutScreen textarea, .logoutScreen select {
+  max-width: 100%;
+  width: 100%;
+  margin-bottom: 1em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box; }
+
+/* line 278, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.logoutScreen button {
+  margin-bottom: 4em; }
+
+/* line 282, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .accountScreen {
   padding: 4%;
   width: 100%;
@@ -864,12 +1055,12 @@ body {
   box-shadow: 0 4px 5px rgba(50, 50, 50, 0.2);
   display: none; }
 
-/* line 240, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 293, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .accountScreen form {
   max-width: 600px;
   width: 100%; }
 
-/* line 244, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 297, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .accountScreen input, .accountScreen textarea, .accountScreen select {
   max-width: 100%;
   width: 100%;
@@ -879,40 +1070,40 @@ body {
   -ms-box-sizing: border-box;
   box-sizing: border-box; }
 
-/* line 250, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 303, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .accountScreen button {
   margin-bottom: 4em; }
 
-/* line 253, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 306, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .rating span {
   padding: 0 0.1em;
   cursor: pointer; }
 
-/* line 257, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 310, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .rating span:hover {
   color: #17BA9B; }
 
-/* line 260, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 313, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .isRated1 span:nth-child(-n+1), .rated1 span:nth-child(-n+1) {
   color: #17BA9B; }
 
-/* line 263, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 316, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .isRated2 span:nth-child(-n+2), .rated2 span:nth-child(-n+2) {
   color: #17BA9B; }
 
-/* line 266, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 319, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .isRated3 span:nth-child(-n+3), .rated3 span:nth-child(-n+3) {
   color: #17BA9B; }
 
-/* line 269, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 322, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .isRated4 span:nth-child(-n+4), .rated4 span:nth-child(-n+4) {
   color: #17BA9B; }
 
-/* line 272, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 325, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .isRated5 span:nth-child(-n+5), .rated5 span:nth-child(-n+5) {
   color: #17BA9B; }
 
-/* line 275, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 328, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .close-icon {
   position: absolute;
   top: 4%;
@@ -921,11 +1112,11 @@ body {
   font-size: 1.5em;
   cursor: pointer; }
 
-/* line 283, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 336, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .videoHeader {
   padding: 0 !important; }
 
-/* line 286, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 339, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .videoWrapper {
   position: relative;
   width: 100% !important;
@@ -934,7 +1125,7 @@ body {
   padding-top: 25px !important;
   height: 0; }
 
-/* line 293, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/layout */
+/* line 346, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .videoWrapper iframe {
   position: absolute;
   top: 0;
@@ -942,58 +1133,127 @@ body {
   width: 100%;
   height: 100%; }
 
-/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/menus */
+/* line 353, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.addTutorial {
+  background: white;
+  padding: 4%;
+  display: none; }
+
+/* line 358, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.addTutorial form {
+  max-width: 600px;
+  width: 100%; }
+
+/* line 362, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.addTutorial input, .addTutorial textarea, .addTutorial select {
+  max-width: 100%;
+  width: 100%;
+  margin-bottom: 1em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box; }
+
+/* line 368, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.step {
+  padding-top: 2em;
+  margin-top: 2em;
+  border-top: 1px solid #edebeb; }
+
+/* line 373, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.creativeCommons {
+  position: absolute;
+  bottom: 0;
+  box-sizing: border-box;
+  font-size: 1.125em; }
+
+/* line 379, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.creativeCommons a {
+  color: white; }
+
+/* line 382, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.questionsList li {
+  padding: 2% 4%;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.2); }
+
+/* line 387, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.questionsList li:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.4); }
+
+/* line 390, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.questionsList li .gamma {
+  margin-bottom: 0; }
+
+/* line 393, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.questionsList .icon-messages::before {
+  position: relative;
+  top: 3px; }
+
+/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/menus */
 .logo, .shareDesignBtn, .mainNavigation li, .mainNavigation li a {
   height: 100%; }
 
-/* line 4, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/menus */
+/* line 4, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/menus */
 .mainNavigation {
   background-color: #edebeb;
   height: 75px;
   font-size: 1.3125em; }
 
-/* line 9, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/menus */
+/* line 9, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/menus */
 .logo {
   background: #323232;
   padding: 0 1.4em;
   line-height: 3.6em;
   color: white; }
 
-/* line 15, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/menus */
+/* line 15, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/menus */
 .shareDesignBtn {
   background-color: #5e198e;
   padding: 0 1.4em;
   line-height: 3.6em;
   color: white; }
 
-/* line 21, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/menus */
+/* line 21, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/menus */
 .mainNavigation li {
   display: inline-block; }
 
-/* line 25, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/menus */
+/* line 25, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/menus */
 .mainNavigation li a {
   color: #666666;
   padding: 0 1.4em;
   line-height: 3.6em;
   display: inline-block; }
 
-/* line 31, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/menus */
+/* line 31, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/menus */
+.mainNavigation li .logo {
+  color: white; }
+
+/* line 34, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/menus */
+.mainNavigation .current .logo {
+  color: #666666; }
+
+/* line 37, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/menus */
+.mainNavigation li .logo:hover {
+  color: #666666; }
+
+/* line 40, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/menus */
 .mainNavigation .current a {
   background-color: white; }
 
-/* line 34, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/menus */
+/* line 43, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/menus */
 .mainNavigation li a:hover {
   background-color: white; }
 
-/* line 38, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/menus */
+/* line 47, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/menus */
 .mainNavigation a {
   line-height: 3.6em; }
 
-/* line 41, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/menus */
+/* line 50, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/menus */
 .loginBtn {
   margin-right: 1.4em; }
 
-/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/search */
+/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/search */
 .mainSearch {
   width: 100%;
   background-color: white;
@@ -1004,13 +1264,13 @@ body {
   padding: 0.9375em 1.875em;
   border-bottom: 1px solid #ddd; }
 
-/* line 8, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/search */
+/* line 8, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/search */
 .mainSearch li {
   display: inline;
   margin: 0 0 0 1.875em;
   line-height: 3.125em; }
 
-/* line 13, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/search */
+/* line 13, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/search */
 .mainSearch input {
   width: 24.375em;
   height: 3.125em;
@@ -1020,17 +1280,17 @@ body {
   -ms-box-sizing: border-box;
   box-sizing: border-box; }
 
-/* line 19, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/search */
+/* line 19, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/search */
 .mainSearch button {
   height: 3.125em;
   padding: 0 0.9375em;
   margin: 0 0.3125em; }
 
-/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/footer */
+/* line 1, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/footer */
 .mainFooter {
   padding: 0 2%; }
 
-/* line 4, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/footer */
+/* line 4, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/footer */
 .mainFooter p {
   font-size: 0.875em;
   color: #666666;
@@ -1038,20 +1298,54 @@ body {
   line-height: 3em;
   margin-bottom: 0; }
 
-/* line 11, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/footer */
+/* line 11, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/footer */
 .footerNav {
   width: 100%;
   background-color: white;
   border-top: 1px solid #ddd; }
 
-/* line 16, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/footer */
+/* line 16, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/footer */
 .footerNav section {
   width: 21%;
   margin: 2%; }
 
-/* line 20, /Users/martinrisseeuw/Dropbox/Development projects/openthings/sass/partials/footer */
+/* line 20, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/footer */
 .footerNav li {
   line-height: 1.5em;
   font-size: 0.875em; }
+
+@media only screen and (max-width: 1280px) {
+  /* line 2, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/mediaqueries */
+  .mainContent .preview {
+    width: 30.6%; }
+ }
+
+@media only screen and (max-width: 930px) {
+  /* line 8, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/mediaqueries */
+  .col-2, .mainContent .projectHeader img, .mainContent .projectHeader div {
+    width: 100%; }
+
+  /* line 11, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/mediaqueries */
+  .mainContent .preview {
+    width: 47%; }
+ }
+
+@media only screen and (max-width: 640px) {
+  /* line 17, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/mediaqueries */
+  .mainContent .preview {
+    width: 96%; }
+
+  /* line 20, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/mediaqueries */
+  .mainNavigation li a, .shareDesignBtn {
+    padding: 0 0.8em; }
+
+  /* line 23, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/mediaqueries */
+  .loginBtn {
+    display: none; }
+
+  /* line 26, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/mediaqueries */
+  .mainSearch input {
+    width: 18em; }
+ }
 
 /*# sourceMappingURL=main.css.map */

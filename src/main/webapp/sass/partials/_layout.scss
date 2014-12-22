@@ -1,4 +1,4 @@
-.questionsList li, .addTutorial, .detailedDescription, .projectVersions, .userProjectVersions, .commentInput form, .commentInput, .projectComments ul, .projectComments header, .projectComments, .mainContent, .mainContent .projectHeader div, .projectDetails, .userDetails, .postProject, .loginScreen, .accountScreen, .bom{
+.questionsList li, .addTutorial, .detailedDescription, .projectVersions, .userProjectVersions, .commentInput form, .commentInput, .projectComments ul, .projectComments header, .projectComments, .mainContent, .mainContent .projectHeader div, .projectDetails, .userDetails, .postProject, .loginScreen, .accountScreen,.logoutScreen, .bom{
 	@include box-sizing(border-box);
 }
 body{
@@ -253,6 +253,32 @@ body{
 .loginScreen button{
 	margin-bottom: 4em;
 }
+
+.logoutScreen{
+	padding: 4%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	background: rgba(255,255,255,0.97);
+	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
+	display: none;
+}
+.logoutScreen form{
+	max-width: 600px;
+	width: 100%;
+}
+.logoutScreen input, .logoutScreen textarea, .logoutScreen select{
+	max-width: 100%;
+	width: 100%;
+	margin-bottom: 1em;
+	@include box-sizing(border-box);
+}
+.logoutScreen button{
+	margin-bottom: 4em;
+}
+
 .accountScreen{
 	padding: 4%;
 	width: 100%;
