@@ -11,6 +11,7 @@ import net.liftweb.mapper._
 	
 	
 	  object commentedItem extends MappedLongForeignKey(this, Project)
+	  object title extends MappedString(this, 40)
 	  object author extends MappedString(this, 40)
 	  object comment extends MappedString(this, 140)
 	}
