@@ -12,6 +12,8 @@ import net.liftweb.util._
 import scala.xml.Node
 import scala.xml.Elem
 import scala.xml.Text
+import scala.xml.UnprefixedAttribute
+import scala.xml.Null
 
 trait AddIcon[T <: (AddIcon[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Long, T]  { // 
   // [T <: Mapper[T] ]s
@@ -144,12 +146,16 @@ class MappedBinaryImageFileUpload[T <: LongKeyedMapper[T]](fieldOwner : T) exten
 	              case Full(_) => S.error("Invalid attachment")
 	              case _ => S.error( "No Attachment: "+fileHolder )
 	            }
+  
+  def url  = {
+    if (this.get != null && this.get.length > 0)
+	      	"/serve/%s/%s".format(baseServingPath,this.fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField.get.toString)
+	      else
+	        defaultImage
+  }
 	
 	  override def asHtml:Node = {
-	      if (this.get != null && this.get.length > 0)
-	      	<img src={"/serve/"+baseServingPath+"/"+this.fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField.get}  ></img>
-	      else
-	        <img src={defaultImage}  ></img>
+	      <img src={url}></img>
 	    }
 	    //style={"max-width:" + maxWidth + ";max-height:"+maxHeight}
 	  

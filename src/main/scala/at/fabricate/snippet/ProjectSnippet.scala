@@ -37,12 +37,16 @@ object ProjectSnippet extends DispatchSnippet with Logger {
   }
     private def list:  CssSel =   
     // just a dummy implementation
-   "#dbcontent" #> { Project.findAll.map(project => MapperBinder.bindMapper(project) _)}
+   "#dbcontent" #> { Project.findAll.map(project => MapperBinder.bindMapper(project, {
+     "#icon [src]" #> project.icon .url
+   }) _)}
    
    
   private def view :  CssSel  =  
     S.param("id").get match {
-      case Project.FindByID(project) => "#dbcontent" #> {MapperBinder.bindMapper(project) _}
+      case Project.FindByID(project) => "#dbcontent" #> {MapperBinder.bindMapper(project, {
+     "#icon [src]" #> project.icon .url
+   }) _}
       case _ => ("*" #> Text("Object not found!") )
     }
 }

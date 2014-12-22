@@ -250,12 +250,15 @@ form <- field.toForm.toList
     def account(xhtml: NodeSeq): NodeSeq = {
       		// does that make sense?
       		if (User.loggedIn_? )
-            	("#loginlogout *" #> "Logout" &
-            	 "#logout [href]" #> "/%s".format(User.logoutPath.mkString("/")) &
+            	("#login" #> "" &
+            	 "#login *" #> "Logout" &
+            	 "#logoutBtn [href]" #> "/%s".format(User.logoutPath.mkString("/")) &
             	 "#loginlogout [onClick]" #> "Logout();"  
             )(xhtml)
             	else
-            	("#loginlogout *" #> "Login / register" &
+            	("#login *" #> "Login / register" &
+            	 "#logout" #> "" &
+            	 "#logoutBtn [href]" #> "/%s".format(User.logoutPath.mkString("/")) &
             	"#account" #> ""
             )(xhtml)
   }
