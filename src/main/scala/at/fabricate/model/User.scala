@@ -101,7 +101,7 @@ colspan="2">{S.??("enter.email")}</td></tr>
   override def skipEmailValidation = true
   
   // just an idea for different signup process
-  //override def signupFields = email :: userName :: password :: Nil 
+  override def signupFields = firstName :: lastName :: email :: password :: Nil 
   
   //override def afterCreate = super.afterCreate
 }
