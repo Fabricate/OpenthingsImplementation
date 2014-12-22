@@ -7,7 +7,7 @@
 				<p class="viewcomments" onclick="ShowComments();"><span class="icon-down"></span>View comments</p>
 			</div>
 		</header>
-		<ul class="left">
+		<ul class="left" id="comments">
 			<li id="comment">
 				<article class="comment">
 					<h1 id="commenttitle" class="gamma">What about the electronics</h1>
@@ -17,7 +17,7 @@
 			</li>
 		</ul>
 		<section id="newcomment" class="commentInput left">
-			<form class="left" >
+			<form class="left" data-lift="form.ajax">
 				<h1 class="gamma">Add your comment</h1>
 				<input id="newcomtitle" placeholder="Title">
 				<input id="newcomauthor" placeholder="Name">
