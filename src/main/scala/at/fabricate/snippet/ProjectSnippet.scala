@@ -35,12 +35,25 @@ object ProjectSnippet extends DispatchSnippet with Logger {
     		"#designerpage [href]" #> "/designer/%d".format(0)
     )(xhtml)
   }
-    private def list:  CssSel =   
+    private def list_removed:  CssSel =   
     // just a dummy implementation
    "#item" #> { Project.findAll.map(project => MapperBinder.bindMapper(project, {
-     "#link [href]" #> "/project/%d".format(project.id)
+     "#toitem [href]" #> project.id &      
+     "#toitem *" #> "View Item"
    }) _)}
    
+   private def bindListCSS(project: Project) : CssSel= {
+     "#designerimage [src]" #> project.icon .url &
+     "#designerpage [href]" #> "/project/%s".format(project.id.toString) &     
+     "#designername *" #> "%s".format(project.id) &
+     "#description *" #> project.teaser.asHtml &
+     "#designerpage *" #> "View Item"
+   }
+   
+    private def list:  CssSel =   
+    // just a dummy implementation
+//   "#item" #> Project.findAll.map(project => bindListCSS(project))
+   "#designer" #> Project.findAll.map(project => bindListCSS(project))
    
   private def view :  CssSel  =  
     S.param("id").get match {
