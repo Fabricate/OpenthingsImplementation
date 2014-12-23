@@ -37,6 +37,7 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
     case "edit" => edit _
     case "view" => view(_)
     case "paginate" => paginate _
+    case "paginatecss" => paginatecss(_)
   }
   
   override def count = Project.count
@@ -49,6 +50,22 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
     S.param("id").get match {
       case Project.FindByID(project) => op(project)
       case _ => (node => Text("Object not found!"))
+    }
+  
+  def paginatecss : CssSel = {
+        "#first" #> pageXml(0, firstXml) &
+        "#prev" #> pageXml(first-itemsPerPage max 0, prevXml) &
+        "#allpages" #> {(n:NodeSeq) => this.pagesXml(0 until numPages,
+n)} &
+        "#zoomedpages" #> {(ns: NodeSeq) => this.pagesXml(zoomedPages,
+ns)} &
+        "#next" #> pageXml(first+itemsPerPage min
+itemsPerPage*(numPages-1) max 0, nextXml) &
+        "#last" #> pageXml(itemsPerPage*(numPages-1), lastXml) &
+        "#records" #> currentXml &
+        "#recordsFrom" #> recordsFrom &
+        "#recordsTo" #> recordsTo &
+        "#recordsCount" #> count.toString
     }
 	
   private def edit(xhtml: NodeSeq) : NodeSeq  =  { 
