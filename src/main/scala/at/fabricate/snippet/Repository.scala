@@ -245,8 +245,10 @@ object Repository extends DispatchSnippet with Logger {
 //		      "#testbutton [onclick]" #> SHtml.ajaxInvoke(callback) &
 		      "#fileupload [data-url]" #> "/api/upload/file/%s".format(id) &
 		      "#uploadconfig *+" #> Function(
-        "UpdateFilelist", List(),updateFileList
-      ).toJsCmd
+        "UpdateFilelist", List("dummy"),SHtml.ajaxCall(JsVar("dummy"), 
+            (dummy: String) => updateFileList 
+            )._2.cmd
+		   )
 				)(xhtml)
 	      }
 	      
