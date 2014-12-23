@@ -22,16 +22,26 @@ import net.liftweb.http.js.jquery.JqJE.JqAppend
 import net.liftweb.http.js.jquery.JqJE.JqAppendTo
 import net.liftweb.http.js.JE.JsRaw
 import net.liftweb.http.js.JsCmd
+import net.liftweb.mapper.StartAt
+import net.liftweb.mapper.MaxRows
 
 
 
-object ProjectSnippet extends DispatchSnippet with Logger {
+object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet with Logger {
     
   def dispatch : DispatchIt = {
-    case "list" => list(_)
+    case "list" => renderIt(_)
+    case "renderIt" => renderIt(_)
     case "edit" => edit _
     case "view" => view(_)
+    case "paginate" => paginate _
   }
+  
+  override def count = Project.count
+  
+  override def itemsPerPage = 9
+  
+  override def page = Project.findAll(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
   
   private def withObject(op : Project => ((NodeSeq) => NodeSeq) ) : ((NodeSeq) => NodeSeq) = 
     S.param("id").get match {
@@ -61,10 +71,10 @@ object ProjectSnippet extends DispatchSnippet with Logger {
      "#designerpage *" #> "View Item"
    }
    
-    private def list:  CssSel =   
+    def renderIt (in: scala.xml.NodeSeq) : scala.xml.NodeSeq =   
     // just a dummy implementation
 //   "#item" #> Project.findAll.map(project => bindListCSS(project))
-   "#designer" #> Project.findAll.map(project => bindListCSS(project))
+   ("#designer" #> page.map(project => bindListCSS(project))).apply(in)
    
   private def view (xhtml: NodeSeq) :  NodeSeq  =  {
     var commentTitle = ""
