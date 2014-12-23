@@ -43,6 +43,12 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
   override def count = Project.count
   
   override def itemsPerPage = 9
+  	override def prevXml: NodeSeq = Text("<")
+	override def nextXml: NodeSeq = Text(">")
+	override def firstXml: NodeSeq = Text("<<")
+	override def lastXml: NodeSeq = Text(">>")
+	override def currentXml: NodeSeq = Text("Displaying records "+(first+1)+"-"+(first+itemsPerPage min count)+" of "+count)
+
   
   override def page = Project.findAll(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage), OrderBy(Project.id, Descending))
   
@@ -50,8 +56,12 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
     S.param("id").get match {
       case Project.FindByID(project) => op(project)
       case _ => (node => Text("Object not found!"))
-    }
-  
+    
+  }
+	
+//	Also if you pass your own parameters they will be eaten to avoid that override page url.
+//	override def pageUrl(offset: Long): String = appendParams(super.pageUrl(offset), List("your param" -> "value"))
+	  
   def paginatecss : CssSel = {
         "#first" #> pageXml(0, firstXml) &
         "#prev" #> pageXml(first-itemsPerPage max 0, prevXml) &
