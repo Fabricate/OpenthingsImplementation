@@ -269,8 +269,9 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
    			  file.delete()
    			}
    	
-  def copyAndAddFileToRepository(file : FileParamHolder) =   {
-        val filePathInRepository = new File(getRepositoryDirectory,file.fileName )
+  def copyFileToRepository(file : FileParamHolder) =   {
+    // remove special characters from the path for security reasons
+        val filePathInRepository = new File(getRepositoryDirectory,file.fileName.replaceAll("[^a-zA-Z0-9.-]", "_") )
         var output = new FileOutputStream(filePathInRepository)
         try {
           output.write(file.file)

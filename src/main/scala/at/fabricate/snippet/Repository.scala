@@ -24,10 +24,15 @@ import net.liftweb.http.SHtml.ElemAttr
 import net.liftweb.http.SHtml.BasicElemAttr
 import at.fabricate.model.Project
 import net.liftweb.http.SHtml
-import net.liftweb.http.js.JsCmds._
-import net.liftweb.http.js.JE._
 import net.liftweb.http.js.JsCmds
+
+import net.liftweb.http.js.JsCmds.Function
+import net.liftweb.http.js.JE._
 import net.liftweb.http.RequestVar
+import net.liftweb.http.js.jquery.JqJE._
+import net.liftweb.http.js.jquery.JqJsCmds._
+import net.liftweb.http.js.JE.JsRaw
+import net.liftweb.http.js.JsCmd
 
 object Repository extends DispatchSnippet with Logger {
   
@@ -171,51 +176,77 @@ object Repository extends DispatchSnippet with Logger {
 
   def button (xhtml: NodeSeq) : NodeSeq = {
     var commitLabel = "Describe the key features of this project revision"
+    var filesTemplate = xhtml
+    var commitTemplate = xhtml
+    var theTemplate = xhtml
+    // get just the file and commit sections
+    ("#listfiles" #> {(node : NodeSeq) => {
+      filesTemplate = node
+      Text("removed")}} &
+      "#listcommits" #> {(node : NodeSeq) => {
+      commitTemplate = node
+      Text("removed")}}).apply(theTemplate)
     var id = S.param("id") openOr "No parameter given"    
 	    id match {
 	      case Project.FindByID(project) => {
 	    	  	def commit() : JsCmd = {
 		          		    //project.repository.createNewRepo
 		        	project.repository.commit(commitLabel)
-		            // Thread.sleep(1000)
-				    JsCmds.Alert("Commited project "+id+ " with commit message "+commitLabel)
+		           
+	    	  	    JqId("commits") ~> JqHtml( getNewCommitList ) 
+
+//		            SetHtml("fruitbat", listAllCommits(commitTemplate) ) &
+//		            SetHtml("fruitbat", //  this one//  this one should also work)
+//				    JsCmds.Alert("Commited project "+id+ " with commit message "+commitLabel)
 	    	  	}
-	    	  	 def callback() : JsCmd = {
-	    	  	   val commits = project.repository.getAllCommits
+	    	  	 def updateFileList : JsCmd = {
+//	    	  	   val commits = project.repository.getAllCommits
 		            // Thread.sleep(1000)
-				    JsCmds.Alert("Created repo for project "+id+"\n commits: "+commits)
+		            JqId("files") ~> JqHtml( getNewFileList ) 
+//				    JsCmds.Alert("Created repo for project "+id+"\n commits: "+commits)
 	    	  	   
 	    	  	 }
 	    	  	 
-				(
-		      "#createrepo [onclick]" #> SHtml.ajaxInvoke(callback) &
-		      //"#commitlabel" #> SHtml.text(commitLabel, commitLabel = _) &
-		      "#commitlabel" #> SHtml.ajaxText(commitLabel, (str) => {
-  commitLabel = str
-//  commit()
-// overrides all other JavaScript  
-//  JsCmds.Noop
-})&
-			  "#listfiles" #> project.repository.getAllFilesInRepository.map(
+	    	  	 def getNewFileList : NodeSeq = ("#listfiles" #>  listAllFiles).apply(filesTemplate) 
+	    	  	 
+	    	  	 def listAllFiles : List[CssSel] = {
+	    	  	   project.repository.getAllFilesInRepository.map(
 			      file => (
 			          "#filename" #> file.getName() & 
 			          "#deletefile [onclick]" #> SHtml.ajaxInvoke(() => {
 			            project.repository.deleteFileFromRepository(file)
+			            updateFileList &
 			            JsCmds.Alert("deleted file "+file.getName())
 			          } ) ) 
-			          ) &
-			  "#listcommits" #> project.repository.getAllCommits.map(
+			          )
+	    	  	 }
+	    	  	 
+	    	  	 def getNewCommitList : NodeSeq = ("#listcommits" #>  listAllCommits).apply(commitTemplate) 
+
+	    	  	 def listAllCommits() : List[CssSel] = {
+	    	  	   project.repository.getAllCommits.map(
 			      commit => (
 			          "#commitname" #> commit.getFullMessage() & 
 			          "#resetcommit [onclick]" #> SHtml.ajaxInvoke(() => {
 			            project.repository.revertToCommit(commit)
 			            JsCmds.Alert("Rolled back to commit "+commit.getFullMessage())
 			          } ) ) 
-			          ) &	      
+			          )
+	    	  	 }
+	    	  	 
+				(
+		      "#createrepo [onclick]" #> SHtml.ajaxInvoke(callback) &
+		      //"#commitlabel" #> SHtml.text(commitLabel, commitLabel = _) &
+		      "#commitlabel" #> SHtml.ajaxText(commitLabel, (str) => {commitLabel = str})&
+			  "#listfiles" #>  listAllFiles &
+			  "#listcommits" #> listAllCommits &	      
 		      "#commitrepo [onclick]" #> SHtml.ajaxInvoke(commit) &
 		      //"#commitrepo " #> SHtml.hidden(commit(id)) &
 //		      "#testbutton [onclick]" #> SHtml.ajaxInvoke(callback) &
-		      "#fileupload [data-url]" #> "/api/upload/file/%s".format(id) 
+		      "#fileupload [data-url]" #> "/api/upload/file/%s".format(id) &
+		      "#uploadconfig *+" #> Function(
+        "UpdateFilelist", List(),updateFileList
+      ).toJsCmd
 				)(xhtml)
 	      }
 	      

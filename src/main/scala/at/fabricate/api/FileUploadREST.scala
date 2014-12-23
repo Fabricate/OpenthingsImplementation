@@ -21,7 +21,7 @@ object FileUploadREST extends RestHelper {
         
         // copy the file to the repository
 
-        project.repository.copyAndAddFileToRepository(file)
+        project.repository.copyFileToRepository(file)
 
 
       }

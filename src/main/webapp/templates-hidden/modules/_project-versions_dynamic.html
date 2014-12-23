@@ -1,0 +1,68 @@
+<section class="projectVersions left">
+	<h1 class="gamma left">Project versions</h1> 
+	<ul class="projectVersionsList left">
+		<div class="lift:Repository.button">
+			Versions:
+			<table id="commits">
+					<tr>					
+						<td>Version</td>
+						<td>reset?</td>
+					</tr>
+				  <tr id="listcommits">
+						<td><span id="commitname"></span></td>
+						<td><button id="resetcommit">reset</button></td>
+				  </tr>
+			</table>
+			Files:
+			<table id="files">
+					<tr>					
+						<td>Filename</td>
+						<td>delete?</td>
+					</tr>
+				  <tr id="listfiles">
+						<td><span id="filename"></span></td>
+						<td><button id="deletefile">delete</button></td>
+				  </tr>
+			</table>
+			Add a new file to the Repository?
+	    		<input id="fileupload" type="file" name="files[]"  multiple>
+			<div id="progress" style="width:20em; border: 1pt solid silver; display: none">
+				<div id="progress-bar" style="background: green; height: 1em; width:0%"></div>
+			</div>	
+			Commit Changes?
+	    		<input id="commitlabel" value="" type="text"></input>
+			<button id="commitrepo">commit repository</button>
+			<br></br>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+    </script>
+    <script src="/js/vendor/jquery.ui.widget.js"></script>
+    <script src="/js/jquery.iframe-transport.js"></script>
+    <script src="/js/jquery.fileupload.js"></script>
+
+    <script id="uploadconfig">
+      $(function () {
+        $('#fileupload').fileupload({
+          dataType: 'json',
+          add: function (e,data) {
+            $('#progress-bar').css('width', '0%');
+            $('#progress').show();
+            data.submit();
+          },
+          progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10) + '%';
+            $('#progress-bar').css('width', progress);
+          },
+          done: function (e, data) {
+            $.each(data.files, function (index, file) {
+              UpdateFilelist();
+            });
+            $('#progress').fadeOut();
+          }
+        });
+      });
+    </script>
+	</div>
+</section>
+</lift:surround>

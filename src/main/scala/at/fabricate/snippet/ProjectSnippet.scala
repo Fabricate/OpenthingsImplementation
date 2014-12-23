@@ -105,6 +105,7 @@ object ProjectSnippet extends DispatchSnippet with Logger {
 			            if (addNewComment(project)) {
 			              JqId("comments") ~> JqAppend( bindCommentCSS(newComment)(commentTemplate) ) &
 			              JsCmds.Noop
+			              // TODO: maybe clear the form or remove the latest JScommand?
 //			                  ("#comment" #> bindCommentCSS(newComment)).apply(commentTemplate))
 //			              JsRaw("$('#comments').append( '<li>Test</li>' );")
 //			              JsCmds.Alert("added comment "+commentTitle)
