@@ -61,7 +61,10 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
 	
 //	Also if you pass your own parameters they will be eaten to avoid that override page url.
 //	override def pageUrl(offset: Long): String = appendParams(super.pageUrl(offset), List("your param" -> "value"))
-	  
+
+//  other name for the offset parameter:
+//	override def offsetParam = "offset"
+	    
   def paginatecss : CssSel = {
         "#first" #> pageXml(0, firstXml) &
         "#prev" #> pageXml(first-itemsPerPage max 0, prevXml) &
