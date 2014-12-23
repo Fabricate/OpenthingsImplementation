@@ -24,6 +24,8 @@ import net.liftweb.http.js.JE.JsRaw
 import net.liftweb.http.js.JsCmd
 import net.liftweb.mapper.StartAt
 import net.liftweb.mapper.MaxRows
+import net.liftweb.mapper.OrderBy
+import net.liftweb.mapper.Descending
 
 
 
@@ -41,7 +43,7 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
   
   override def itemsPerPage = 9
   
-  override def page = Project.findAll(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
+  override def page = Project.findAll(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage), OrderBy(Project.id, Descending))
   
   private def withObject(op : Project => ((NodeSeq) => NodeSeq) ) : ((NodeSeq) => NodeSeq) = 
     S.param("id").get match {
