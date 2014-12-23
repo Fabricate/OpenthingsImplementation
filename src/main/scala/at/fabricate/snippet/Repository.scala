@@ -224,9 +224,12 @@ object Repository extends DispatchSnippet with Logger {
 	    	  	 def getNewCommitList : NodeSeq = ("#listcommits" #>  listAllCommits).apply(commitTemplate) 
 
 	    	  	 def listAllCommits() : List[CssSel] = {
+	    	  	   var commitId=1
+	    	  	   var repoId=project.id.get
 	    	  	   project.repository.getAllCommits.map(
 			      commit => (
 			          "#commitname" #> commit.getFullMessage() & 
+			          "#downloadcommit [href]" #> "/projects/%d/data/%s/%d.zip".format(repoId,commit.getName(),repoId) & 
 			          "#resetcommit [onclick]" #> SHtml.ajaxInvoke(() => {
 			            project.repository.revertToCommit(commit)
 			            JsCmds.Alert("Rolled back to commit "+commit.getFullMessage())

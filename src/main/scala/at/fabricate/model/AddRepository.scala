@@ -25,6 +25,10 @@ import net.liftweb.http.FileParamHolder
 import java.io.FileOutputStream
 import java.io.FileFilter
 import scala.collection.JavaConversions._
+import java.util.zip.ZipOutputStream
+import java.util.zip.ZipEntry
+import java.io.FileInputStream
+import java.io.BufferedInputStream
 
 trait AddRepository [T <: (AddRepository[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Long, T]  {
 
@@ -33,10 +37,15 @@ trait AddRepository [T <: (AddRepository[T] with LongKeyedMapper[T]) ] extends K
  	lazy val repository : GitWrapper[T] = new MyGitWrapper(this)
  	
    protected class MyGitWrapper(obj : T) extends GitWrapper(obj) {
+ 	  
+ 	 override def basePathToProjectFolder = webappRoot + basePathToRepository + 
+     File.separator + repositoryID
      
-     override def pathToRepository = webappRoot + basePathToRepository + 
-     File.separator + repositoryID + 
+     override def pathToRepository =  basePathToProjectFolder + 
      File.separator + endPathToRepository//fieldOwner.pathToRepository
+     
+     override def pathToData =  basePathToProjectFolder + 
+     File.separator + endPathToData//fieldOwner.pathToRepository
   
      override def repositoryID = //{
        fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField.get.toString
@@ -69,6 +78,8 @@ trait AddRepository [T <: (AddRepository[T] with LongKeyedMapper[T]) ] extends K
  	    
  	   def basePathToRepository : String = "projects"
  	   def endPathToRepository : String = "repository"
+ 	   def endPathToData : String = "data"
+
   
 // projects/"+primaryKeyField+"/repository/.git
    /*
@@ -174,7 +185,11 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
     
 	// may be overridden in subclasses for other behaviour
     // repositoryID might be used as well
-	def pathToRepository : String = webappRoot+"repository/"+repositoryID
+	def pathToRepository : String = basePathToProjectFolder + "/repository/"
+	
+	def pathToData : String = basePathToProjectFolder + "/data/"
+
+	def basePathToProjectFolder : String = webappRoot+"repository/"+repositoryID
 	
 	// default path if the ID is not set
 	def pathToDefaultRepository : String = webappRoot+"DefaultRepository"
@@ -208,18 +223,26 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
    	* 
    	*/
    	
+   	private def createDirectory(path : String) = {
+   	  val repoConfigFile =   new File(path, "dummyfile" )
+   	  repoConfigFile.getParentFile().mkdirs()   	  
+   	  println("created directory for: "+path)
+   	}
+   	
    	private def initializeRepository : Repository= {
    	  // delete the dir if it already exists
    	  getRepositoryDotGitDirectory.delete()
    	  // create the directory structure
-   	  val repoConfigFile =   new File(getRepositoryDotGitDirectory.getAbsolutePath(), "config" )
-   	  repoConfigFile.getParentFile().mkdirs()
-   	  println("created directory for: "+repoConfigFile.getParent())
+   	  createDirectory(getRepositoryDotGitDirectory.getAbsolutePath())
+
    	  // initialize the repository
    	  Git.init().setDirectory(getRepositoryDirectory).call()
    	  
    	  val repo = FileRepositoryBuilder.create(  getRepositoryDotGitDirectory )
-   	  new Git(repo).commit().setMessage("Created repository with ID "+repositoryID+" !").call()
+   	  val commit = new Git(repo).commit().setMessage("Created repository with ID "+repositoryID+" !").call()
+   	  
+   	  // create a zip file for that commit - just for convenience
+   	  createZipForCommit(commit.getName())
    	  
    	  // reset the value so that the variable indicates that the repository is initialized
    	  // important: save the fieldOwner afterwards, otherwise it will not be saved
@@ -269,9 +292,48 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
    			  file.delete()
    			}
    	
+  def createZipForCommit(commitName : String) = {
+    val pathToZipDir = pathToData+File.separator+
+    			commitName
+//            (getAllCommits.length+1).toString
+    val pathToZipFile = pathToZipDir+File.separator+
+            fieldOwner.primaryKeyField.get+".zip"
+    println("creating zip at: "+pathToZipFile)
+    createDirectory(pathToZipDir)
+    
+    val zipoutstream = new ZipOutputStream(
+        new FileOutputStream(pathToZipFile) )
+//    var clazz = ZippingFileExample.class
+//    var inputStream = this.getres
+    
+    // configure zip compression
+    zipoutstream.setMethod(ZipOutputStream.DEFLATED)
+    zipoutstream.setLevel(5)
+
+    getAllFilesInRepository.map(file => {      
+      zipoutstream.putNextEntry( new ZipEntry(file.getName()) )
+      val in = new BufferedInputStream(new FileInputStream(file.getAbsolutePath()))
+      var b = in.read()
+      while (b > -1) {
+        zipoutstream.write(b)
+        b = in.read()
+      }
+      in.close()
+      zipoutstream.closeEntry()
+    }
+    )
+     
+//    */
+//    zipoutstream.putNextEntry( new ZipEntry(getRepositoryDirectory.getAbsolutePath()) )
+    zipoutstream.close()
+    
+  }
+   	
+  def createSafeFileName(name: String) : String = name.replaceAll("[^a-zA-Z0-9.-]", "_")
+   	
   def copyFileToRepository(file : FileParamHolder) =   {
     // remove special characters from the path for security reasons
-        val filePathInRepository = new File(getRepositoryDirectory,file.fileName.replaceAll("[^a-zA-Z0-9.-]", "_") )
+        val filePathInRepository = new File(getRepositoryDirectory,createSafeFileName(file.fileName ))
         var output = new FileOutputStream(filePathInRepository)
         try {
           output.write(file.file)
@@ -300,12 +362,17 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
   def commit(message : String) = 
     withGitReopsitory[RevCommit]{
    		git => {
+
    		  // add all files that are in the repository to be added at the commit
    		  // TODO: might not work with directories, maybe use file.getAbsolutePath() then
    		  getAllFilesInRepository.map(file => git.add().addFilepattern(file.getName()).call())
-   		  git.commit().setAll(true).
+   		  val commit = git.commit().setAll(true).
 //   		  setAuthor(new PersonIdent("openthings")).
    		  setMessage(message).call()
+   		  // create a zip file with the actual content
+   		  // ToDo: maybe use a nicer name?
+   		  createZipForCommit(commit.getName())
+   		  commit
    		}
   }
 
@@ -445,7 +512,7 @@ class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) ex
 	  println("repo dir: "+repo.getDirectory())
 	  // dont do that - endless call!!!
 	  //initialCommit
-	  repo.close()
+	  repo.close()))
 	  
 	  openExistingRepo
 	}
