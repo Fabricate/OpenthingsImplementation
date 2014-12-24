@@ -163,7 +163,7 @@ a {
 a:hover {
   opacity: 0.8; }
 
-/* line 83, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
+/* line 82, /Users/martinrisseeuw/Dropbox/Development projects/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
 input, select, button, textarea, .btn {
   font-size: 1.3125em;
   line-height: 1.57143; }
