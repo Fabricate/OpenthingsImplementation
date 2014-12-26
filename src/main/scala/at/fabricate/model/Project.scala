@@ -15,7 +15,8 @@ import scala.xml.Null
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/
 //BEGIN(crud)
-object Project extends Project with LongKeyedMetaMapper[Project] with AddIconMeta[Project] with AddRepositoryMeta[Project]
+object Project extends Project with LongKeyedMetaMapper[Project] with AddIconMeta[Project] with AddRepositoryMeta[Project] with
+AddCommentMeta[Project]
 //END(crud)
 //with CRUDify[Long, Project] 
 {
@@ -62,7 +63,7 @@ object Project extends Project with LongKeyedMetaMapper[Project] with AddIconMet
 /**Beschreibt eine Projekt-Instanz
 * @author Johannes Fischer **/
 class Project extends LongKeyedMapper[Project] with AddIcon[Project] with AddRepository[Project] with
-OneToMany[Long, Project] with IdPK {
+AddComment[Project] with IdPK {
   
       // define WithImage
   
@@ -131,7 +132,7 @@ OneToMany[Long, Project] with IdPK {
   }
   
   // testing comments
-  object comments extends MappedOneToMany(Comment, Comment.commentedItem, OrderBy(Comment.id, Ascending))
+//  object comments extends MappedOneToMany(Comment, Comment.commentedItem, OrderBy(Comment.id, Ascending))
 
 
   /**Liefert das Meta-Objekt zur eigenen Modellklasse.*/
