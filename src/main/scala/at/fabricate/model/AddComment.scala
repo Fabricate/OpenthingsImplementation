@@ -25,6 +25,10 @@ trait AddComment[T <: (AddComment[T] with LongKeyedMapper[T]) ] extends KeyedMap
       class TheComment extends LongKeyedMapper[TheComment] with IdPK{
 	  
 	  def getSingleton = TheComment
+	  
+	 // Bugfix for the compilation issue
+	 // solution by https://groups.google.com/forum/#!msg/liftweb/XYiKeS_wgjQ/KBEcrRZxF4cJ
+	 override def dbDefaultConnectionIdentifier = self.getSingleton.dbDefaultConnectionIdentifier	
 	
 	
 	  object commentedItem extends MappedLongForeignKey(this, self.getSingleton)
@@ -34,7 +38,13 @@ trait AddComment[T <: (AddComment[T] with LongKeyedMapper[T]) ] extends KeyedMap
 	}
 	
 	object TheComment  extends TheComment with LongKeyedMetaMapper[TheComment]{
+	  
 	  	  override def dbTableName =  self.getSingleton.dbTableName+"_comments"
+	  	  
+	  	  // Bugfix for the compilation issue
+	  	  // solution by https://groups.google.com/forum/#!msg/liftweb/XYiKeS_wgjQ/KBEcrRZxF4cJ
+	  	  override def dbDefaultConnectionIdentifier = self.getSingleton.dbDefaultConnectionIdentifier	  	  
+	  	  override def createInstance = new TheComment
 
 	}
 
