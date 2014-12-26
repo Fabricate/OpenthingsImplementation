@@ -116,50 +116,47 @@ itemsPerPage*(numPages-1) max 0, nextXml) &
     var commentMessage = ""
     var commentTemplate = xhtml
     var theTemplate = xhtml
-    val newComment: Comment = Comment.create
     // get just the comment section
     ("#comment" #> {(node : NodeSeq) => {
       commentTemplate = node
       Text("removed")}}).apply(theTemplate)
 //    println("template: "+theTemplate)
 //    println("template cssselected:" +commentTemplate )
-   
-   def bindCommentCSS(comment: Comment) : CssSel= {
-     "#commenttitle *" #> comment.title.asHtml &
-     "#commentauthor *" #> "Posted by: %s".format(comment.author.asHtml) &     
-     "#commentmessage *" #> comment.comment.asHtml
-   }
-      
-    def addNewComment(project : Project) = {
-      newComment.commentedItem(project).
-//      val newComment: Comment = Comment.create.commentedItem(project).
-      title(commentTitle).
-      author(commentAuthor).
-      comment(commentMessage)
-      newComment.save
-    }
-    
-    def bindNewCommentCSS(project : Project) : CssSel= {
-     "#newcomtitle" #> SHtml.ajaxText(commentTitle, commentTitle = _ )&
-     "#newcomauthor" #> SHtml.ajaxText(commentAuthor, commentAuthor = _ )&     
-     "#newcommessage" #> SHtml.ajaxTextarea(commentMessage, commentMessage = _ ) & // rows="6"
-     "#newcomsubmit [onclick]" #> SHtml.ajaxInvoke(() => {
-			            if (addNewComment(project)) {
-			              JqId("comments") ~> JqAppend( bindCommentCSS(newComment)(commentTemplate) ) &
-			              JsCmds.Noop
-			              // TODO: maybe clear the form or remove the latest JScommand?
-//			                  ("#comment" #> bindCommentCSS(newComment)).apply(commentTemplate))
-//			              JsRaw("$('#comments').append( '<li>Test</li>' );")
-//			              JsCmds.Alert("added comment "+commentTitle)
-
-			            }
-			            else
-			              JsCmds.Alert("adding comment '"+commentTitle+"' failed" )
-			          } )
-   } 
 
     S.param("id").get match {
-      case Project.FindByID(project) => { 
+      case Project.FindByID(project) => {         
+    	  val newComment: project.TheComment = project.TheComment.create
+    	  def addNewComment(project : Project) = {
+		      newComment.commentedItem(project).
+		//      val newComment: Comment = Comment.create.commentedItem(project).
+		      title(commentTitle).
+		      author(commentAuthor).
+		      comment(commentMessage)
+		      newComment.save
+		    }
+    	 def bindCommentCSS(comment: project.TheComment) : CssSel= {
+		     "#commenttitle *" #> comment.title.asHtml &
+		     "#commentauthor *" #> "Posted by: %s".format(comment.author.asHtml) &     
+		     "#commentmessage *" #> comment.comment.asHtml
+		   }
+    	 def bindNewCommentCSS(project : Project) : CssSel= {
+		     "#newcomtitle" #> SHtml.ajaxText(commentTitle, commentTitle = _ )&
+		     "#newcomauthor" #> SHtml.ajaxText(commentAuthor, commentAuthor = _ )&     
+		     "#newcommessage" #> SHtml.ajaxTextarea(commentMessage, commentMessage = _ ) & // rows="6"
+		     "#newcomsubmit [onclick]" #> SHtml.ajaxInvoke(() => {
+					            if (addNewComment(project)) {
+					              JqId("comments") ~> JqAppend( bindCommentCSS(newComment)(commentTemplate) ) &
+					              JsCmds.Noop
+					              // TODO: maybe clear the form or remove the latest JScommand?
+		//			                  ("#comment" #> bindCommentCSS(newComment)).apply(commentTemplate))
+		//			              JsRaw("$('#comments').append( '<li>Test</li>' );")
+		//			              JsCmds.Alert("added comment "+commentTitle)
+		
+					            }
+					            else
+					              JsCmds.Alert("adding comment '"+commentTitle+"' failed" )
+					          } )
+		   } 
         ("#dbcontent" #> { MapperBinder.bindMapper(project, {
      "#icon [src]" #> project.icon .url &
      "#comment" #> project.comments.map(comment => bindCommentCSS(comment))  &

@@ -14,34 +14,38 @@ import net.liftweb.mapper.OrderBy
 import net.liftweb.mapper.Ascending
 import net.liftweb.mapper.Schemifier
 
-trait AddComment[T <: (AddComment[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Long, T]  { // 
+trait AddComment[T <: (AddComment[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Long, T]  with OneToMany[Long, T] { // 
 	self: T =>
 
-}
+	  object comments extends MappedOneToMany(TheComment, TheComment.commentedItem, OrderBy(TheComment.id, Ascending))
 
-trait AddCommentMeta[ModelType <: ( AddComment[ModelType] with LongKeyedMapper[ModelType]) ] extends KeyedMetaMapper[Long, ModelType] with OneToMany[Long, ModelType] { //
-    self: ModelType  =>
+	  def getItemsToSchemify = List(TheComment, self)
 
-      type TheCommentType = ModelType
       
-      object comments extends MappedOneToMany(TheComment, TheComment.commentedItem, OrderBy(TheComment.id, Ascending))
-
-      def getItemsToSchemify = List(TheComment, self)
-      
-     class TheComment extends LongKeyedMapper[TheComment] with IdPK{
+      class TheComment extends LongKeyedMapper[TheComment] with IdPK{
 	  
 	  def getSingleton = TheComment
 	
 	
-	  object commentedItem extends MappedLongForeignKey(this, self)
+	  object commentedItem extends MappedLongForeignKey(this, self.getSingleton)
 	  object title extends MappedString(this, 40)
 	  object author extends MappedString(this, 40)
 	  object comment extends MappedString(this, 140)
 	}
 	
 	object TheComment  extends TheComment with LongKeyedMetaMapper[TheComment]{
-	  	  override def dbTableName =  self.dbTableName+"_comments"
+	  	  override def dbTableName =  self.getSingleton.dbTableName+"_comments"
 
 	}
+
+      
+}
+
+trait AddCommentMeta[ModelType <: ( AddComment[ModelType] with LongKeyedMapper[ModelType]) ] extends KeyedMetaMapper[Long, ModelType] { //
+    self: ModelType  =>
+
+      type TheCommentType = ModelType
+      
+
 }
 
