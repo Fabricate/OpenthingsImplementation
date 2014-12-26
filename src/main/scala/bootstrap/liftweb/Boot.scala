@@ -43,9 +43,12 @@ class Boot {
     // Use Lift's Mapper ORM to populate the database
     // you don't need to use Mapper to use Lift... use
     // any ORM you want
-    var itemsToSchemify = List(User, Tool, UserHasTools) ::: Project.getItemsToSchemify
-    Schemifier.schemify(true, Schemifier.infoF _, itemsToSchemify :_*)
-
+    
+    // DID THAT KILL LIFT COMPILATION????
+//    var itemsToSchemify = List(User, Tool, UserHasTools) ::: Project.getItemsToSchemify
+//    Schemifier.schemify(true, Schemifier.infoF _, itemsToSchemify :_*)
+    
+    Schemifier.schemify(true, Schemifier.infoF _, User, Tool, UserHasTools, Project)//, Project.TheComment)
     // where to search snippet
     LiftRules.addToPackages("at.fabricate")
     

@@ -28,7 +28,7 @@ trait AddComment[T <: (AddComment[T] with LongKeyedMapper[T]) ] extends KeyedMap
 	  
 	 // Bugfix for the compilation issue
 	 // solution by https://groups.google.com/forum/#!msg/liftweb/XYiKeS_wgjQ/KBEcrRZxF4cJ
-	 override def dbDefaultConnectionIdentifier = self.getSingleton.dbDefaultConnectionIdentifier	
+	 def dbDefaultConnectionIdentifier = self.getSingleton.dbDefaultConnectionIdentifier	
 	
 	
 	  object commentedItem extends MappedLongForeignKey(this, self.getSingleton)
