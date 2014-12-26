@@ -48,7 +48,7 @@ class Boot {
 //    var itemsToSchemify = List(User, Tool, UserHasTools) ::: Project.getItemsToSchemify
 //    Schemifier.schemify(true, Schemifier.infoF _, itemsToSchemify :_*)
     
-    Schemifier.schemify(true, Schemifier.infoF _, User, Tool, UserHasTools, Project)//, Project.TheComment)
+    Schemifier.schemify(true, Schemifier.infoF _, User, Tool, UserHasTools, Project, Project.TheComment)
     // where to search snippet
     LiftRules.addToPackages("at.fabricate")
     
