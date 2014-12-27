@@ -27,7 +27,7 @@ trait AddComment[T <: (AddComment[T] with LongKeyedMapper[T]) ] extends KeyedMap
       
 	  object comments extends MappedOneToMany(TheComment, TheComment.commentedItem, OrderBy(TheComment.primaryKeyField, Ascending))
 
-	  //def getItemsToSchemify = List(TheComment, self)
+	  def getItemsToSchemify = List(TheComment, self)
       
       class TheComment extends LongKeyedMapper[TheComment] with IdPK {
     	  def getSingleton = TheComment
@@ -37,9 +37,6 @@ trait AddComment[T <: (AddComment[T] with LongKeyedMapper[T]) ] extends KeyedMap
 		  object author extends MappedString(this, 40)
 		  object comment extends MappedString(this, 140)
 		  
-		 // Bugfix for the compilation issue
-		 // solution by https://groups.google.com/forum/#!msg/liftweb/XYiKeS_wgjQ/KBEcrRZxF4cJ
-//		 def dbDefaultConnectionIdentifier = commentedMapper.dbDefaultConnectionIdentifier	
 	}
 	
 	object TheComment  extends TheComment with LongKeyedMetaMapper[TheComment]{
@@ -47,7 +44,6 @@ trait AddComment[T <: (AddComment[T] with LongKeyedMapper[T]) ] extends KeyedMap
 	  	  
 	  	  // Bugfix for the compilation issue
 	  	  // solution by https://groups.google.com/forum/#!msg/liftweb/XYiKeS_wgjQ/KBEcrRZxF4cJ
-//	  	  override def dbDefaultConnectionIdentifier = commentedMapper.dbDefaultConnectionIdentifier	  	  
 	  	  override def createInstance = new TheComment
 	  	  
 	  	  // Hint by David Pollak on https://groups.google.com/forum/#!topic/liftweb/Rkz06yng-P8
@@ -59,6 +55,4 @@ trait AddComment[T <: (AddComment[T] with LongKeyedMapper[T]) ] extends KeyedMap
 
 trait AddCommentMeta[ModelType <: (AddComment[ModelType]  with LongKeyedMapper[ModelType]) ] extends KeyedMetaMapper[Long, ModelType] {
 	self: ModelType =>
-//	  override type TheComment = self.commentGenerator.TheHiddenComment
-//	  val TheComment = self.theComment 
 }
