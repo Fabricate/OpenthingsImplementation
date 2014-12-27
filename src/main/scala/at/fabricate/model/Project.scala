@@ -25,6 +25,17 @@ object Project extends Project with BaseRichEntityMeta[Project] with AddReposito
   /**Anordnung der Eingabefelder in automatisch generierten Formularen (CRUDFify)*/
 //  override def fieldOrder = List(teaser, creationDate, byUserId)
 
+  /*
+   * tried to implement the lazy save feature, did not work
+//  abstract 
+  override def save = {
+    if (byUserId > 0 )
+      super.save      
+      else
+        S.redirectTo("/login")
+  }
+  * 
+  */
 }
 
 
@@ -62,8 +73,9 @@ class Project extends BaseRichEntity[Project] with AddRepository[Project] {
     override def asHtml = User.getLinkToUser(get)
     
   }
-
-  /*
+  
+  /*  override def s
+   * 
   object myEnum extends EnumWithDescription {
   override var _values = List(("icon-difficulty2"->"Starter"), ("icon-difficulty3"->"Avarage"), ("icon-difficulty4"->"Advanced"), ("icon-difficulty5"->"Expert"), ("icon-difficulty6"->"Genius"))
   }
