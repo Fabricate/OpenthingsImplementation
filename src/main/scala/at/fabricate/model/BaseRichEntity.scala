@@ -3,9 +3,9 @@ package model
 
 import net.liftweb.mapper.LongKeyedMapper
 import net.liftweb.mapper.IdPK
-import net.liftweb.mapper.MappedEnum
-
+import scala.xml.Elem
 import at.fabricate.lib.EnumWithDescriptionAndObject
+import at.fabricate.lib.MappedEnumWithDescription
 
 // this is the mapper type where every higher level object inherits from
 // project and tutorial are examples for that
@@ -19,24 +19,48 @@ with IdPK{
 	
 	// TODO:
 	// add Licence Tag (one of many that are stored in a database)
-	// add a difficulty (one of many that comes from a list of string options)
-    object difficultyEnum extends EnumWithDescriptionAndObject[String] {
-	val kids = Value("Kids","icon-difficulty1")
-	val starter = Value("Starter","icon-difficulty2")
-	val average = Value("Average","icon-difficulty3")
-	val advanced = Value("Advanced","icon-difficulty4")
-	val expert = Value("Expert","icon-difficulty5")
-	val genius = Value("Genius","icon-difficulty6")
+    
+        object licenceEnum extends EnumWithDescriptionAndObject[Elem] {
+      
+      private def wrapLicenceLink(linkTarget : String, linkText : String, icons : List[Elem]) : Elem = 
+      <a href={linkTarget} target="_blank">{linkText} {icons :_*}</a>
+    
+      private def iconClass(theClass : String) : Elem = <span class={theClass}></span>
+//      <a href="https://creativecommons.org/licenses/by-nc/3.0/" target="_blank">Attribution 4.0 International <span class="icon-cc"></span> <span class="icon-cc-by"></span></a>
+	val cc_by_nc_30 = Value("Creatice Commons 3.0 BY-NC",wrapLicenceLink(
+	    "https://creativecommons.org/licenses/by-nc/3.0/",
+	    "Attribution 3.0 International",
+	    List(iconClass("icon-cc"),iconClass("icon-cc-by"))
+	    ))
+	 val cc_by_nc_40 = Value("Creatice Commons 4.0 BY-NC",wrapLicenceLink(
+	    "https://creativecommons.org/licenses/by-nc/4.0/",
+	    "Attribution 4.0 International",
+	    List(iconClass("icon-cc"),iconClass("icon-cc-by"))
+	    ))
 	}
   
    /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
-  object difficulty extends MappedEnum(this, difficultyEnum  ){
-    private def findEnumValue(text : String ) : difficultyEnum.ExtendedValue = difficultyEnum.valueOf(text).getOrElse(difficultyEnum.Value("Not Found","icon-difficulty1"))
-    private def getWrapped = findEnumValue(get.toString).wrapped
-    private def getDescription = findEnumValue(get.toString).description
-    override def asHtml = <span class={getWrapped}></span>
-    override def buildDisplayList: List[(Int, String)] = enum.values.toList.map(a => (a.id, findEnumValue(a.toString).description))
-  }
+  object licence extends MappedEnumWithDescription[Elem,T](this,licenceEnum)
+    
+  
+  
+	// add a difficulty (one of many that comes from a list of string options)
+    object difficultyEnum extends EnumWithDescriptionAndObject[Elem] {
+      
+      private def wrapSpanWithClass(theClass : String) : Elem = <span class={theClass}></span>
+    
+	val kids = Value("Kids",wrapSpanWithClass("icon-difficulty1"))
+	val starter = Value("Starter",wrapSpanWithClass("icon-difficulty2"))
+	val average = Value("Average",wrapSpanWithClass("icon-difficulty3"))
+	val advanced = Value("Advanced",wrapSpanWithClass("icon-difficulty4"))
+	val expert = Value("Expert",wrapSpanWithClass("icon-difficulty5"))
+	val genius = Value("Genius",wrapSpanWithClass("icon-difficulty6"))
+	}
+  
+   /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
+  object difficulty extends MappedEnumWithDescription[Elem,T](this,difficultyEnum)
+  
+
 	// add Tag, Tool, ...
     // add field createdby, maybe (without display) also interesting for other types
 
