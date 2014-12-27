@@ -125,8 +125,11 @@ itemsPerPage*(numPages-1) max 0, nextXml) &
    
     def renderIt (in: scala.xml.NodeSeq) : scala.xml.NodeSeq =   
     // just a dummy implementation
-//   "#item" #> Project.findAll.map(project => bindListCSS(project))
-   ("#designer" #> page.map(project => bindListCSS(project))).apply(in)
+   ("#item" #> {page.map(project => MapperBinder.bindMapper(project, {
+     "#toitem [href]" #> "/project/%s".format(project.id.toString) &      
+     "#toitem *" #> "View Item"
+   }) _)}).apply(in)
+//   ("#designer" #> page.map(project => bindListCSS(project))).apply(in)
    
   private def view (xhtml: NodeSeq) :  NodeSeq  =  {
     var commentTitle = ""

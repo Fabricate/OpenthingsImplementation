@@ -22,20 +22,22 @@ with IdPK{
     
         object licenceEnum extends EnumWithDescriptionAndObject[Elem] {
       
-      private def wrapLicenceLink(linkTarget : String, linkText : String, icons : List[Elem]) : Elem = 
-      <a href={linkTarget} target="_blank">{linkText} {icons :_*}</a>
+      private def wrapLicenceLink(linkTarget : String, linkText : String, icons : Elem) : Elem = 
+      <a href={linkTarget} target="_blank">{linkText} {icons }</a>
+//      : _ *
+//      List[Elem]
     
       private def iconClass(theClass : String) : Elem = <span class={theClass}></span>
 //      <a href="https://creativecommons.org/licenses/by-nc/3.0/" target="_blank">Attribution 4.0 International <span class="icon-cc"></span> <span class="icon-cc-by"></span></a>
 	val cc_by_nc_30 = Value("Creatice Commons 3.0 BY-NC",wrapLicenceLink(
 	    "https://creativecommons.org/licenses/by-nc/3.0/",
 	    "Attribution 3.0 International",
-	    List(iconClass("icon-cc"),iconClass("icon-cc-by"))
+	    iconClass("icon-cc")
 	    ))
 	 val cc_by_nc_40 = Value("Creatice Commons 4.0 BY-NC",wrapLicenceLink(
 	    "https://creativecommons.org/licenses/by-nc/4.0/",
 	    "Attribution 4.0 International",
-	    List(iconClass("icon-cc"),iconClass("icon-cc-by"))
+	    iconClass("icon-cc-by")
 	    ))
 	}
   
