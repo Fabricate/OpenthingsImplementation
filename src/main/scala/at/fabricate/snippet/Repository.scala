@@ -188,7 +188,7 @@ object Repository extends DispatchSnippet with Logger {
       Text("removed")}}).apply(theTemplate)
     var id = S.param("id") openOr "No parameter given"    
 	    id match {
-	      case Project.FindByID(project) => {
+	      case Project.MatchItemByID(project) => {
 	    	  	def commit() : JsCmd = {
 		          		    //project.repository.createNewRepo
 		        	project.repository.commit(commitLabel)

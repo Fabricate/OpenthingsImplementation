@@ -54,7 +54,7 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
   
   private def withObject(op : Project => ((NodeSeq) => NodeSeq) ) : ((NodeSeq) => NodeSeq) = 
     S.param("id").get match {
-      case Project.FindByID(project) => op(project)
+      case Project.MatchItemByID(project) => op(project)
       case _ => (node => Text("Object not found!"))
     
   }
@@ -124,7 +124,7 @@ itemsPerPage*(numPages-1) max 0, nextXml) &
 //    println("template cssselected:" +commentTemplate )
 
     S.param("id").get match {
-      case Project.FindByID(project) => {         
+      case Project.MatchItemByID(project) => {         
     	  val newComment: project.TheComment = project.TheComment.create
     	  def addNewComment(project : Project) = {
 		      newComment.commentedItem(project).

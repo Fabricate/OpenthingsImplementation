@@ -109,7 +109,7 @@ colspan="2">{S.??("enter.email")}</td></tr>
 /**
  * An O-R mapped "User" class that includes first name, last name, password and we add a "Personal Essay" to it
  */
-class User extends MegaProtoUser[User] with LongKeyedMapper[User] with AddIcon[User] with CreatedUpdated with OneToMany[Long,User] with ManyToMany {
+class User extends MegaProtoUser[User] with LongKeyedMapper[User] with MatchByID[User] with AddIcon[User] with CreatedUpdated with OneToMany[Long,User] with ManyToMany {
   def getSingleton = User // what's the "meta" server
   
    override def firstNameDisplayName = S.?("firstname")

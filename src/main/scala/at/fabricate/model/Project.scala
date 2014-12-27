@@ -21,6 +21,7 @@ AddCommentMeta[Project]
 //with CRUDify[Long, Project] 
 {
   
+  
 
   /**Name der genutzten Tabelle in der Datenbank*/
   override def dbTableName = "project"
@@ -62,7 +63,7 @@ AddCommentMeta[Project]
 
 /**Beschreibt eine Projekt-Instanz
 * @author Johannes Fischer **/
-class Project extends LongKeyedMapper[Project] with AddIcon[Project] with AddRepository[Project] with
+class Project extends LongKeyedMapper[Project] with MatchByID[Project] with AddIcon[Project] with AddRepository[Project] with
 AddComment[Project] with IdPK {
   
       // define WithImage

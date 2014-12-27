@@ -15,7 +15,7 @@ import scala.xml.Text
 import scala.xml.UnprefixedAttribute
 import scala.xml.Null
 
-trait AddIcon[T <: (AddIcon[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Long, T]  { // 
+trait AddIcon[T <: (AddIcon[T] with LongKeyedMapper[T] with MatchByID[T]) ] extends KeyedMapper[Long, T] { // 
   // [T <: Mapper[T] ]s
   //self: KeyedMetaMapper[IdPK,T] =>
   self: T =>
@@ -65,28 +65,14 @@ trait AddIcon[T <: (AddIcon[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Lo
   
 }
 
-trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with LongKeyedMapper[ModelType]) ] extends KeyedMetaMapper[Long, ModelType] { //
+trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with LongKeyedMapper[ModelType] with MatchByID[ModelType]) ] extends KeyedMetaMapper[Long, ModelType] { //
     self: ModelType  =>
 
       type TheIconType = ModelType
     
       //self.find
   //object TheImage extends ObjectById[AddIconMeta[TheIconType]](self) 
-    object FindByID extends FieldOwner[KeyedMetaMapper[Long,TheIconType]](self) { 
-    //self: TheIconType =>
-        /*
-    def apply(in: Long): Option[TheIconType] = 
-      fieldOwner.find( // As[LongKeyedMetaMapper[TheType]]
-    		    By(fieldOwner.primaryKeyField, 
-    		        in ))
-    		        * 
-    		        */
-    		        
-    def unapply(in: String): Option[TheIconType] = 
-      fieldOwner.find( // As[LongKeyedMetaMapper[TheType]]
-    		    By(fieldOwner.primaryKeyField, 
-    		        in.toLong ))
-  }
+
     
       //User.a
   
@@ -95,7 +81,7 @@ trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with LongKeyedMapper[ModelTy
     
     
     LiftRules.dispatch.append({
-      case r @ Req("serve" :: baseServingPath  :: FindByID(iconTypeID) ::
+      case r @ Req("serve" :: baseServingPath  :: MatchItemByID(iconTypeID) ::
                  Nil, _, GetRequest) => ()  =>  // if (id != Empty)
                    Full(InMemoryResponse(iconTypeID.icon.get,
                                List("Content-Type" -> "image/jpeg",

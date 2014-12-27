@@ -15,7 +15,7 @@ object FileUploadREST extends RestHelper {
 
   serve {
 
-    case "api" ::"upload" ::"file" :: Project.FindByID(project) :: Nil Post req =>
+    case "api" ::"upload" ::"file" :: Project.MatchItemByID(project) :: Nil Post req =>
       for (file <- req.uploadedFiles) {
         println("Received: "+file.fileName)
         
