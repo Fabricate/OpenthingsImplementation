@@ -44,11 +44,11 @@ class Boot {
     // you don't need to use Mapper to use Lift... use
     // any ORM you want
     
-    // DID THAT KILL LIFT COMPILATION????
-//    var itemsToSchemify = List(User, Tool, UserHasTools) ::: Project.getItemsToSchemify
-//    Schemifier.schemify(true, Schemifier.infoF _, itemsToSchemify :_*)
-    
-    Schemifier.schemify(true, Schemifier.infoF _, User, Tool, UserHasTools, Project, Project.TheComment)
+    // DID THAT KILL LIFT COMPILATION???? -> Yea, this was mixing between types
+    // has to be a list of BaseMetaMapper entities
+    val itemsToSchemify : List[BaseMetaMapper] = Project.getItemsToSchemify ::: List[BaseMetaMapper](User, Tool, UserHasTools) 
+    Schemifier.schemify(true, Schemifier.infoF _, itemsToSchemify :_*)
+        
     // where to search snippet
     LiftRules.addToPackages("at.fabricate")
     

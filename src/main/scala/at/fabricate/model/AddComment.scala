@@ -17,17 +17,18 @@ import net.liftweb.mapper.MappedLong
 import net.liftweb.mapper.MetaMapper
 import net.liftweb.mapper.BaseLongKeyedMapper
 import net.liftweb.mapper.MappedForeignKey
+import net.liftweb.mapper.BaseMetaMapper
 
 trait AddComment[T <: (AddComment[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Long, T]  with OneToMany[Long, T] { // 
-	self: T =>
-
-
+	self: T =>      
+	  
       type TheCommentedType = T
-      
+	  
+	  def getItemsToSchemify : List[BaseMetaMapper] =  self.asInstanceOf[BaseMetaMapper] :: TheComment :: Nil
       
 	  object comments extends MappedOneToMany(TheComment, TheComment.commentedItem, OrderBy(TheComment.primaryKeyField, Ascending))
 
-	  def getItemsToSchemify = List(TheComment, self)
+	  //def getItemsToSchemify = List(TheComment, T)
       
       class TheComment extends LongKeyedMapper[TheComment] with IdPK {
     	  def getSingleton = TheComment
