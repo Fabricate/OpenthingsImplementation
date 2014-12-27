@@ -30,6 +30,8 @@ import net.liftweb.mapper.Descending
 
 
 object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet with Logger {
+  
+  private val ID_NOT_SUPPLIED = "-1"
     
   def dispatch : DispatchIt = {
     case "list" => renderIt(_)
@@ -77,10 +79,34 @@ itemsPerPage*(numPages-1) max 0, nextXml) &
 	
   private def edit(xhtml: NodeSeq) : NodeSeq  =  { 
     // just a dummy implementation
-        ("#designername *" #>  "%s %s".format("", "") &
-    		"#designerimage" #>  "" &
-    		"#designerpage [href]" #> "/designer/%d".format(0)
-    )(xhtml)
+       val project : Project = (S.param("id") openOr ID_NOT_SUPPLIED) match {
+      case Project.MatchItemByID(editProject) => {
+        println("project with id %d found".format(editProject.id.get))        
+        println("project title: %s".format(editProject.title.get))
+        editProject
+      }
+      case _ => {
+        // create a new project
+        Project.create
+      }
+        }
+       def saveChanges = {      
+        println("project with id %d created".format(project.id.get))        
+        println("project title: %s".format(project.title.get))      
+            project.validate match {
+              case Nil => {
+	            project.save
+	        	S.notice("Änderungen gespeichert")
+	        	S.redirectTo("/project/"+project.id.toString)
+              }
+              case _ => warn("Error validating designer!")
+            }
+        }
+         ("#item" #> {MapperBinder.bindMapper(project,{
+             "#save" #> SHtml.submit( "save", () => saveChanges )
+        }) _ } 
+         ).apply(xhtml)
+        
   }
     private def list_removed:  CssSel =   
     // just a dummy implementation

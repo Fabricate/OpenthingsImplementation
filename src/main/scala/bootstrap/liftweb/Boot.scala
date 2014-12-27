@@ -89,9 +89,15 @@ class Boot {
     
 	  case RewriteRequest(ParsePath(List("project", "repository", projectID), _, _, _), _, _) =>
 	      RewriteResponse("editRepository" :: Nil, Map("id" -> urlDecode(projectID)))
-	
+
+	  case RewriteRequest(ParsePath(List("project", "index"), _, _, _), _, _) =>
+	      RewriteResponse("listProject" :: Nil)
 	  case RewriteRequest(ParsePath(List("project", "list"), _, _, _), _, _) =>
 	      RewriteResponse("listProject" :: Nil)
+	  case RewriteRequest(ParsePath(List("project", "edit",projectID), _, _, _), _, _) =>
+	      RewriteResponse("editProject" :: Nil, Map("id" -> urlDecode(projectID)))
+	  case RewriteRequest(ParsePath(List("project", "edit"), _, _, _), _, _) =>
+	      RewriteResponse("editProject" :: Nil)
 	  case RewriteRequest(ParsePath(List("project", projectID), _, _, _), _, _) =>
 	      RewriteResponse("viewProject" :: Nil, Map("id" -> urlDecode(projectID)))
     }
@@ -138,6 +144,7 @@ class Boot {
                
                Menu.i("View Project") / "viewProject" / ** >> Hidden,
                Menu.i("List Project") / "listProject" / ** >> Hidden,
+               Menu.i("Edit Project") / "editProject" / ** >> Hidden,
 
 
                Menu.i("Static") / "static" / ** >> Hidden

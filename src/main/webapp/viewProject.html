@@ -1,20 +1,21 @@
 <lift:surround with="default" at="content">
-	<div class="lift:Project.view?eager_eval=true">
-		<section id="dbcontent" class="mainContent left">
-				<span class="lift:embed?what=modules/_project-and-user-header_mb">ProjectAndUserHeader</span>
+        <section class="mainContent left">
+		<div class="lift:Project.view?eager_eval=true">
+			<section id="dbcontent" class="mainContent left">
+					<span class="lift:embed?what=modules/_project-and-user-header_mb">ProjectAndUserHeader</span>
 
-			<div class="col-2 left">
-				<span class="lift:embed?what=modules/_project-details">ProjectDetails</span>
-				<span class="lift:embed?what=modules/_bom">BOM</span>
-			</div>
-			<div class="col-2 right">
+				<div class="col-2 left">
+					<span class="lift:embed?what=modules/_project-details">ProjectDetails</span>
+					<span class="lift:embed?what=modules/_bom">BOM</span>
+				</div>
+				<div class="col-2 right">
 
-				<span class="lift:embed?what=modules/_comments-and-rating">CommentsAndRating</span>
-				<span class="lift:embed?what=modules/_project-versions_dynamic">ProjectVersions</span>
+					<span class="lift:embed?what=modules/_comments-and-rating">CommentsAndRating</span>
+					<span class="lift:embed?what=modules/_project-versions_dynamic">ProjectVersions</span>
+				</div>
 			</div>
 		</div>
-	</div>
 
 			
-    </section>
+	</section>
 </lift:surround>
