@@ -1,37 +1,32 @@
 <lift:surround with="default" at="content">
-	<div class="lift:Designer.view?eager_eval=true">
-    <section class="mainContent left">
-      <span class="lift:embed?what=modules/_project-and-user-header">ProjectAndUserHeader</span>
-			<div class="col-2 left">
-				<span class="lift:embed?what=modules/_user-details">UserDetails</span>
-        <span class="lift:embed?what=modules/_comments-and-rating">CommentsAndRating</span>
-			</div>
-			<div class="col-2 right">
-				<span class="lift:embed?what=modules/_user-projects">UserProjects</span>
-			</div>
-
-			<div>
-			  <h2>Tools:</h2>
-				<div id="listtools">
-						<div id="listtools">
-								<div id="tools">
-									<ul>
-										<li><span id="toolname">TOOLNAME</span></li>
-									</ul>
-								</div>
-						</div>
+	<section class="mainContent left">
+		<div class="lift:User.view?eager_eval=true">
+			<section id="dbcontent" class="mainContent left">
+				<span class="lift:embed?what=modules/_project-and-user-header_mb">ProjectAndUserHeader</span>
+				<div class="col-2 left">
+					<span class="lift:embed?what=modules/_user-details">UserDetails</span>
+					<span class="lift:embed?what=modules/_comments-and-rating">CommentsAndRating</span>
 				</div>
-			</div>
+				<div class="col-2 right">
+					<span class="lift:embed?what=modules/_user-projects">UserProjects</span>
+				</div>
 
-			<div>
-			  <h2>Member since:</h2>
-				<span id="membersince">MEMBERSINCE</span>
-			</div>
+				<div>
+				  <h2>Tools:</h2>
+					<div id="listtools">
+						<div id="tools">
+							<ul>
+								<li><span id="toolname">TOOLNAME</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
 
-		</div>
-	</div>
-
-			
-    </section>
-
+				<div>
+				  <h2>Member since:</h2>
+					<span id="membersince">MEMBERSINCE</span>
+				</div>
+			</section>
+		</div>		
+	</section>
 </lift:surround>

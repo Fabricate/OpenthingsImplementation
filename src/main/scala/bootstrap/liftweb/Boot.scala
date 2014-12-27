@@ -19,6 +19,7 @@ import net.liftmodules.widgets.autocomplete.AutoComplete
 import at.fabricate.api._
 import at.fabricate.snippet.Repository
 import at.fabricate.snippet.ProjectSnippet
+import at.fabricate.snippet.UserSnippet
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -56,6 +57,7 @@ class Boot {
       case "Designer" => Designer
       case "Repository" => Repository
       case "Project" => ProjectSnippet
+      case "User" => UserSnippet
     }
     
     //LiftRules.dispatch.append(ImageLogic.matcher)

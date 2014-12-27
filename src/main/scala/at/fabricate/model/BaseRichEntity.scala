@@ -19,7 +19,14 @@ with IdPK{
 	
 	// TODO:
 	// add Licence Tag (one of many that are stored in a database)
-    
+    // Generalize generation of Licences, (
+//    	CC: version+{BY-NC-SA}^2
+//    	Public Domain
+//    	MIT
+//    	Gnu
+//    	Berkley
+//    	...
+//    )
         object licenceEnum extends EnumWithDescriptionAndObject[Elem] {
       
       private def wrapLicenceLink(linkTarget : String, linkText : String, iconClasses : List[String]) : Elem = 
@@ -44,7 +51,19 @@ with IdPK{
    /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
   object licence extends MappedEnumWithDescription[Elem,T](this,licenceEnum)
     
-  
+  	// TODO:
+//  	// maybe add a completeness / development state field
+//  		would apply to both, projects and tutorials
+//  		 * concept
+//  		 * early development state
+//  		 * evolved (medium state)
+//  		 * late development state
+//  		 * mature
+//  		 * concept
+//  		 * early development state
+//  		 * evolved (medium state)
+//  		 * late development state
+//  		 * mature
   
 	// add a difficulty (one of many that comes from a list of string options)
     object difficultyEnum extends EnumWithDescriptionAndObject[Elem] {
@@ -65,6 +84,8 @@ with IdPK{
 
 	// add Tag, Tool, ...
     // add field createdby, maybe (without display) also interesting for other types
+  
+
 
 	// TOD: Clean up that mess!
 	// getItemsToSchemify comes from the AddComment trait

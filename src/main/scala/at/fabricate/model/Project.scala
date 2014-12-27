@@ -41,9 +41,13 @@ class Project extends BaseRichEntity[Project] with AddRepository[Project] {
     
   override def baseServingPath = "projectimage"
 
+//      object createdByUser extends MappedManyToMany(self,){ }
+    
   /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
   object byUserId extends MappedLongForeignKey(this, User){
 
+    override def defaultValue = User.currentUser.map(_.id.get ) openOr(-2)
+    
 	  /**Genutzter Spaltenname in der DB-Tabelle*/
     override def dbColumnName = "project_initiator"
     
@@ -51,16 +55,12 @@ class Project extends BaseRichEntity[Project] with AddRepository[Project] {
     override def displayName = S.?("project\u0020initiator")
     
       
-    /**Darstellung des Feldes auf CRUD-Seiten. Anstelle der Id wird Nachname und Vorname des Autors
-     * angezeigt bzw. "k.A." für "keine Angabe", wenn es zu dieser User-Id keinen User gibt. */
-    override def asHtml = Text(User.find(this).map(_.fullName).openOr("k.A."))
+    /**Darstellung des Feldes auf CRUD-  object createdByUser extends MappedManyToMany(self,){
     
-        
-    /**Namen-Auswahlliste für CRUD-Seiten*/
-    override def validSelectValues: Box[List[(Long, String)]] = {
-      val currentUser : List[User] = User.currentUser.toList
-      Full(currentUser.map(u => (u.id.get, u.lastName.get) ) )
-    }
+  }Seiten. Anstelle der Id wird Nachname und Vorname des Autors
+     * angezeigt bzw. "k.A." für "keine Angabe", wenn es zu dieser User-Id keinen User gibt. */
+    override def asHtml = User.getLinkToUser(get)
+    
   }
 
   /*

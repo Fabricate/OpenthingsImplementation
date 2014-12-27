@@ -3,6 +3,7 @@ package model
 
 import net.liftweb.mapper._
 import net.liftweb.util._
+import net.liftweb.util.Helpers._
 import net.liftweb.common._
 import net.liftweb.http.S
 import scala.xml.Node
@@ -13,7 +14,6 @@ import java.util.Calendar
 import net.liftweb.http.SessionVar
 import net.liftweb.http.LiftSession
 import net.liftweb.http.LiftRules
-
 
 /**
  * The singleton that has methods for accessing the database
@@ -104,6 +104,24 @@ colspan="2">{S.??("enter.email")}</td></tr>
   override def signupFields = firstName :: lastName :: email :: password :: Nil 
   
   //override def afterCreate = super.afterCreate
+  
+  // get a link to the user
+  def getLinkToUser(userId : Long) : Elem = userId.toString match {
+    // First case is needed because a negative user id is matched to the actual user
+//    case _ if userId < 0 => <span>User not found!</span>
+    case MatchItemByID(theUser) => {
+//      .map(_.fullName).openOr("k.A."))
+      <a href={ "/designer/%s".format(theUser.id.toString ) }>{ theUser.fullName }</a>
+    }
+    case _ => <span>User not found!</span>
+  }
+  
+  object getProjectsByUser extends FieldOwner(this) {
+    private def getProjectList = Project.findAll(By(Project.byUserId, fieldOwner.id))
+    def asHtml : Elem = <ul><li>Project 1 </li></ul>
+      
+    def short : Elem = <ul>{ getProjectList.map(project => <li>{ project.title }</li>) }</ul>
+  }
 }
 
 /**
@@ -129,6 +147,7 @@ class User extends MegaProtoUser[User] with LongKeyedMapper[User] with BaseIconE
     
   
   object tools extends MappedManyToMany(UserHasTools, UserHasTools.user, UserHasTools.tool, Tool)
+  
   
   /*
     /**Datumsfeld fuer die Anmeldung des Users */

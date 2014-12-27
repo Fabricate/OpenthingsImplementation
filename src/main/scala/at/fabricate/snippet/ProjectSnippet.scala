@@ -55,28 +55,6 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
     
   }
 	
-//	Also if you pass your own parameters they will be eaten to avoid that override page url.
-//	override def pageUrl(offset: Long): String = appendParams(super.pageUrl(offset), List("your param" -> "value"))
-
-//  other name for the offset parameter:
-//	override def offsetParam = "offset"
-	    
-  def paginatecss : CssSel = {
-        "#first" #> pageXml(0, firstXml) &
-        "#prev" #> pageXml(first-itemsPerPage max 0, prevXml) &
-        "#allpages" #> {(n:NodeSeq) => this.pagesXml(0 until numPages,
-n)} &
-        "#zoomedpages" #> {(ns: NodeSeq) => this.pagesXml(zoomedPages,
-ns)} &
-        "#next" #> pageXml(first+itemsPerPage min
-itemsPerPage*(numPages-1) max 0, nextXml) &
-        "#last" #> pageXml(itemsPerPage*(numPages-1), lastXml) &
-        "#records" #> currentXml &
-        "#recordsFrom" #> recordsFrom &
-        "#recordsTo" #> recordsTo &
-        "#recordsCount" #> count.toString
-    }
-	
   private def edit(xhtml: NodeSeq) : NodeSeq  =  { 
     // just a dummy implementation
        val project : Project = (S.param("id") openOr ID_NOT_SUPPLIED) match {
