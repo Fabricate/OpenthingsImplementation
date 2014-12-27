@@ -18,7 +18,7 @@ import net.liftweb.http.LiftRules
 /**
  * The singleton that has methods for accessing the database
  */
-object User extends User with MetaMegaProtoUser[User] with RedirectAfterLogin[User] with LongKeyedMetaMapper[User] with AddIconMeta[User] with CreatedUpdated {
+object User extends User with MetaMegaProtoUser[User] with RedirectAfterLogin[User] with BaseIconEntityMeta[User] {
   
   
   // provide a path to a  custom page for the edit feature
@@ -91,11 +91,11 @@ colspan="2">{S.??("enter.email")}</td></tr>
 			       
   // define the order fields will appear in forms and output
   override def fieldOrder = List(id, icon, firstName, lastName, email,
-  locale, timezone, password, aboutMe)
+  locale, timezone, password, description)
   
   // define the order fields will appear in the edit page
   override def editFields = List(icon, firstName, lastName, email,
-  locale, timezone, aboutMe) 
+  locale, timezone, description) 
 
   // comment this line out to require email validations
   override def skipEmailValidation = true
@@ -109,7 +109,7 @@ colspan="2">{S.??("enter.email")}</td></tr>
 /**
  * An O-R mapped "User" class that includes first name, last name, password and we add a "Personal Essay" to it
  */
-class User extends MegaProtoUser[User] with LongKeyedMapper[User] with MatchByID[User] with AddIcon[User] with CreatedUpdated with OneToMany[Long,User] with ManyToMany {
+class User extends MegaProtoUser[User] with LongKeyedMapper[User] with BaseIconEntity[User] with ManyToMany {
   def getSingleton = User // what's the "meta" server
   
    override def firstNameDisplayName = S.?("firstname")
@@ -126,18 +126,7 @@ class User extends MegaProtoUser[User] with LongKeyedMapper[User] with MatchByID
   override def iconDbColumnName = "user_image"
     
   override def baseServingPath = "userimage"
-  
-  //object image extends MappedBinaryImageFileUpload(this)
-  
-  // define an additional field for a personal essay
-  object aboutMe extends MappedTextarea(this, 2048) {
-    override def textareaRows  = 10
-    override def textareaCols = 50
-    // TODO  implement later, as Crudify and Megaprotouser can not be mixed in at the same time
-    override def displayName = S.?("about\u0020me")
-    	  /**Genutzter Spaltenname in der DB-Tabelle*/
-    override def dbColumnName = "about_me"
-  }
+    
   
   object tools extends MappedManyToMany(UserHasTools, UserHasTools.user, UserHasTools.tool, Tool)
   

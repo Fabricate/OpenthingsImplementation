@@ -11,6 +11,7 @@ import net.liftweb.util.BindHelpers._
 import net.liftweb.mapper._
 import net.liftweb.http.Paginator
 import net.liftweb.http.SortedPaginatorSnippet
+import scala.xml.Text
 
 trait AjaxPaginatorSnippet[T] extends PaginatorSnippet[T] {
   private lazy val pagMemo = SHtml.idMemoize(ignored => super.paginate _)
@@ -32,6 +33,16 @@ trait AjaxPaginatorSnippet[T] extends PaginatorSnippet[T] {
   lazy val memo = SHtml.idMemoize(ignored => renderIt _)
   def renderIt(in: NodeSeq): NodeSeq
   def render(html: NodeSeq): NodeSeq = memo(html)
+  
+  
+  	override def itemsPerPage = 9
+  	override def prevXml: NodeSeq = Text("<")
+	override def nextXml: NodeSeq = Text(">")
+	override def firstXml: NodeSeq = Text("<<")
+	override def lastXml: NodeSeq = Text(">>")
+	override def currentXml: NodeSeq = Text("Displaying records "+(first+1)+"-"+(first+itemsPerPage min count)+" of "+count)
+
+
 }
 
 //Define your actual render of rows with renderIt, and use the

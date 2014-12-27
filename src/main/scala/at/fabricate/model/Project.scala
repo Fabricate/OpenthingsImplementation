@@ -15,8 +15,7 @@ import scala.xml.Null
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/
 //BEGIN(crud)
-object Project extends Project with LongKeyedMetaMapper[Project] with AddIconMeta[Project] with AddRepositoryMeta[Project] with
-AddCommentMeta[Project]
+object Project extends Project with BaseRichEntityMeta[Project] with AddRepositoryMeta[Project] 
 //END(crud)
 //with CRUDify[Long, Project] 
 {
@@ -24,9 +23,9 @@ AddCommentMeta[Project]
   
 
   /**Name der genutzten Tabelle in der Datenbank*/
-  override def dbTableName = "project"
+//  override def dbTableName = "project"
   /**Anordnung der Eingabefelder in automatisch generierten Formularen (CRUDFify)*/
-  override def fieldOrder = List(teaser, creationDate, byUserId)
+//  override def fieldOrder = List(teaser, creationDate, byUserId)
   /**Name des Menuepunktes für die Ansicht aller Objekte fuer CRUDify-Seiten*/
 //  override def showAllMenuName = S.?("projects")
   /**Name des Menuepunktes für das Erstellen eines neuen Objekts auf CRUDify-Seiten*/
@@ -63,8 +62,7 @@ AddCommentMeta[Project]
 
 /**Beschreibt eine Projekt-Instanz
 * @author Johannes Fischer **/
-class Project extends LongKeyedMapper[Project] with MatchByID[Project] with AddIcon[Project] with AddRepository[Project] with
-AddComment[Project] with IdPK {
+class Project extends BaseRichEntity[Project] with AddRepository[Project] {
   
       // define WithImage
   
@@ -105,100 +103,8 @@ AddComment[Project] with IdPK {
   }
   //END(crudModify)
 
-  /**Beschreibt Datenfeld fuer den Kurzbeschreibung eines Projektes*/  
-  object teaser extends MappedTextarea(this, 2000){
-    /**Genutzter Spaltenname in der DB-Tabelle*/
-    override def dbColumnName = "teaser"
-    
-    /**Name des Datenfeldes für CRUD-Seiten*/
-    override def displayName = S.?("project\u0020teaser")
-    
-    /**Liste der durchzufuehrenden Validationen*/  
-    override def validations = FieldValidation.notEmpty(this) _ :: Nil
-  }
-  
-  /**Datumsfeld fuer die Erstellung des Projektes */
-  object creationDate extends MappedDateTime(this){
-    /**Genutzter Spaltenname in der DB-Tabelle*/
-    override def dbColumnName = "creation_date"  
-    
-    /**Name des Datenfeldes für CRUD-Seiten*/
-    override def displayName = S.?("creation\u0020date")
-    
-    /**Liste der durchzufuehrenden Validationen*/  
-    //override def validations =  FieldValidations.isValidDate(this) _ :: Nil
-    //override def validSelectValues: Box[List[(Long, String)]] = 
-    //	DependencyFactory.inject[Date].map(d => List[(Long,String)] (d.toString(), d.toGMTString()))
-    override def defaultValue = Calendar.getInstance.getTime
-  }
-  
-  // testing comments
-//  object comments extends MappedOneToMany(Comment, Comment.commentedItem, OrderBy(Comment.id, Ascending))
-
 
   /**Liefert das Meta-Objekt zur eigenen Modellklasse.*/
   def getSingleton = Project
 
-  /*
-  /**Liefert das Gültig-Bis-Datum als Zeichenkette im Format dd.MM.yyyy */
-  def getGermanDateString : String = {
-    val sdfGerman: SimpleDateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH); 
-    if (this.expirationDate.is != null){
-      sdfGerman.format(this.expirationDate.is) 
-    }else ""
-  }
-  * 
-  */
-  
-  /**Liefert alle abonnierten Nachrichten eines Benutzers unter Nutzung eines nativen SQL-Statements.
-   *
-   * @param id Id des Benutzers
-   * @param offset Offset-Wert (Paginierung)
-   * @param maxRows Anzahl der zu beschaffenen Nachrichten (Paginierung)
-   * @return Liste aller Nachrichten von Lehrkräften, die der Benutzers mit der Id id abonniert hat
-   */
-  //BEGIN(forSubscriber)
-  /*
-  def newsBySubscriber(id: Long, offset: Int, maxrows: Int): List[News] =
-  News.findAllByPreparedStatement({  superconn => {
-    val preparedStatement = superconn.connection.prepareStatement(
-	     "SELECT n.* FROM nachricht AS n LEFT JOIN abonnement AS a " +
-		   "ON (n.betrifft_person_id = a.nachrichtenquelle_person_id)" +
-		   "WHERE a.interessent_person_id = ? ORDER BY n.gueltig_bis DESC LIMIT ?, ?"
-    )
-    preparedStatement.setInt(1, id.toInt)
-    preparedStatement.setInt(2, offset.toInt)
-    preparedStatement.setInt(3, maxrows.toInt)
-    preparedStatement
-  }
-  //END(forSubscriber)
-     
-   /* Gleiches Statement in PostgreSQL Syntax:
-  def newsBySubscriber(id : Long, offset: Int, maxrows: Int) : List[News] =
-  News.findAllByPreparedStatement({  superconn => {
-	   val preparedStatement = superconn.connection.prepareStatement(
-	     "SELECT n.* FROM nachricht AS n LEFT JOIN abonnement AS a " +
-		   "ON (n.betrifft_person_id = a.nachrichtenquelle_person_id)" +
-		   "WHERE a.interessent_person_id = ? ORDER BY n.gueltig_bis DESC LIMIT ? OFFSET ?"
-     )
-     preparedStatement.setInt(1, id.toInt);
-     preparedStatement.setInt(2, offset.toInt);
-     preparedStatement.setInt(3, maxrows.toInt);
-     preparedStatement;
-  }
-  */   
-     
- })
-
-  
-  /**Prüft, ob eine Nachricht von einem Benutzer erstellt wurde
-   * @param userId Id des Benutzers
-   * @return Angabe, ob die Nachricht vom Benutzer erstellt wurde
-   */ 
-  def belongsToSubscribed(userId : Long): Boolean = {
-    User.find(userId).openOr(User).subscriptions.exists(_.sourceId == this.byUserId)
-  }
- 
-  * 
-  */
 }

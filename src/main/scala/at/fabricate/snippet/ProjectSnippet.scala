@@ -40,17 +40,11 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
     case "paginatecss" => paginatecss(_)
   }
   
+  // define the page
   override def count = Project.count
-  
-  override def itemsPerPage = 9
-  	override def prevXml: NodeSeq = Text("<")
-	override def nextXml: NodeSeq = Text(">")
-	override def firstXml: NodeSeq = Text("<<")
-	override def lastXml: NodeSeq = Text(">>")
-	override def currentXml: NodeSeq = Text("Displaying records "+(first+1)+"-"+(first+itemsPerPage min count)+" of "+count)
 
-  
   override def page = Project.findAll(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage), OrderBy(Project.id, Descending))
+
   
   private def withObject(op : Project => ((NodeSeq) => NodeSeq) ) : ((NodeSeq) => NodeSeq) = 
     S.param("id").get match {

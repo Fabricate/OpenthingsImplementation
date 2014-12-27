@@ -50,7 +50,7 @@ object Designer extends DispatchSnippet with Logger {
         case Full(designer) => {
           var firstName = designer.firstName.toString
           var lastName = designer.lastName.toString
-          var aboutMe = designer.aboutMe.toString
+          var aboutMe = designer.description.toString
           var userImage : Box[FileParamHolder] = Empty
           var userTools = designer.tools.map(tool => tool.name.toString)          
           val allTools = getAllToolNames
@@ -61,7 +61,7 @@ object Designer extends DispatchSnippet with Logger {
         def saveChanges = {            
             designer.firstName.set(firstName)
             designer.lastName.set(lastName)
-            designer.aboutMe.set(aboutMe)
+            designer.description.set(aboutMe)
             if (deleteImage) {
             	designer.icon.set(Array[Byte]())
             } else {
@@ -158,7 +158,7 @@ object Designer extends DispatchSnippet with Logger {
            		
          def bindFieldsCSS =  {               
                "#title *" #> "%s %s".format(designer.firstName.asHtml, designer.lastName.asHtml) &
-               "#description *" #> TextileParser.toHtml(designer.aboutMe.get) &
+               "#description *" #> TextileParser.toHtml(designer.description.get) &
                //"#icon [href]" #> designer.icon.getURL &
                "#icon" #> designer.icon.asHtml &
                // delete those two fields
