@@ -26,6 +26,9 @@ import net.liftweb.mapper.StartAt
 import net.liftweb.mapper.MaxRows
 import net.liftweb.mapper.OrderBy
 import net.liftweb.mapper.Descending
+import net.liftweb.http.SHtmlJ
+import net.liftweb.http.SHtmlJBridge
+import net.liftweb.http.SHtml.ElemAttr
 
 
 
@@ -110,11 +113,6 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
 //   ("#designer" #> page.map(project => bindListCSS(project))).apply(in)
    
   private def view (xhtml: NodeSeq) :  NodeSeq  =  {
-    var commentTitle = ""
-    var commentAuthor :  String = if (User.loggedIn_?){
-      User.currentUser.map(user => "%s %s".format(user.firstName, user.lastName )).get
-    } else ""
-    var commentMessage = ""
     var commentTemplate = xhtml
     var theTemplate = xhtml
     // get just the comment section
@@ -123,31 +121,29 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
       Text("removed")}}).apply(theTemplate)
 //    println("template: "+theTemplate)
 //    println("template cssselected:" +commentTemplate )
-
+//      AppendHtml()
     S.param("id").get match {
       case Project.MatchItemByID(project) => {         
-    	  val newComment: project.TheComment = project.TheComment.create
-    	  def addNewComment(project : Project) = {
-		      newComment.commentedItem(project).
-		//      val newComment: Comment = Comment.create.commentedItem(project).
-		      title(commentTitle).
-		      author(commentAuthor).
-		      comment(commentMessage)
-		      newComment.save
-		    }
+    	  var newComment: project.TheComment = project.TheComment.create.commentedItem(project)
     	 def bindCommentCSS(comment: project.TheComment) : CssSel= {
 		     "#commenttitle *" #> comment.title.asHtml &
 		     "#commentauthor *" #> "Posted by: %s".format(comment.author.asHtml) &     
 		     "#commentmessage *" #> comment.comment.asHtml
 		   }
-    	 def bindNewCommentCSS(project : Project) : CssSel= {
-		     "#newcomtitle" #> SHtml.ajaxText(commentTitle, commentTitle = _ )&
-		     "#newcomauthor" #> SHtml.ajaxText(commentAuthor, commentAuthor = _ )&     
-		     "#newcommessage" #> SHtml.ajaxTextarea(commentMessage, commentMessage = _ ) & // rows="6"
+    	 def bindNewCommentCSS : CssSel= {
+		     "#newcomtitle" #> SHtml.ajaxText(newComment.title.get, value => {newComment.title.set(value);JsCmds.Noop}, "default"->"Title" )&
+		     "#newcomauthor" #> SHtml.ajaxText(newComment.author.get, value => {newComment.author.set(value);JsCmds.Noop}, "default"->"Name"  )&     
+		     "#newcommessage" #> SHtml.ajaxTextarea(newComment.comment.get, value => {newComment.comment.set(value);JsCmds.Noop}, "default"->"Your comment" ) & // rows="6"
 		     "#newcomsubmit [onclick]" #> SHtml.ajaxInvoke(() => {
-					            if (addNewComment(project)) {
-					              JqId("comments") ~> JqAppend( bindCommentCSS(newComment)(commentTemplate) ) &
-					              JsCmds.Noop
+//		       newComment.validate &&
+					            if ( newComment.save) {
+					              var newCommentHtml = bindCommentCSS(newComment)(commentTemplate)
+					              newComment = project.TheComment.create.commentedItem(project)
+					              // add the new comment to the list of comments
+					              AppendHtml("comments", newCommentHtml) &
+					              // clear the form
+					              JsCmds.SetValById("newcomtitle", "") &
+					              JsCmds.SetValById("newcommessage", "")
 					              // TODO: maybe clear the form or remove the latest JScommand?
 		//			                  ("#comment" #> bindCommentCSS(newComment)).apply(commentTemplate))
 		//			              JsRaw("$('#comments').append( '<li>Test</li>' );")
@@ -155,13 +151,13 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
 		
 					            }
 					            else
-					              JsCmds.Alert("adding comment '"+commentTitle+"' failed" )
+					              JsCmds.Alert("adding comment '"+newComment.title.get+"' failed" )
 					          } )
 		   } 
         ("#dbcontent" #> { MapperBinder.bindMapper(project, {
      "#icon [src]" #> project.icon .url &
      "#comment" #> project.comments.map(comment => bindCommentCSS(comment))  &
-     "#newcomment" #> bindNewCommentCSS(project)
+     "#newcomment" #> bindNewCommentCSS
    }) _ }
      ).apply (xhtml)
     }

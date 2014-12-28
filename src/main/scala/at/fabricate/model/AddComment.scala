@@ -35,7 +35,9 @@ trait AddComment[T <: (AddComment[T] with LongKeyedMapper[T]) ] extends KeyedMap
 	    	  
 	      object commentedItem extends MappedLongForeignKey(this,self.getSingleton)
 	  	  object title extends MappedString(this, 40)
-		  object author extends MappedString(this, 40)
+		  object author extends MappedString(this, 40){
+    	    override def defaultValue = User.currentUser.map(user => "%s %s".format(user.firstName, user.lastName )) openOr("")
+    	  }
 		  object comment extends MappedString(this, 140)
 		  
 	}
