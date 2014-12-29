@@ -153,7 +153,8 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
 	              case errors => {
 	                S.error(errors)
 	                JsCmds.Alert("adding comment '"+newComment.title.get+"' failed" ) &
-	                DisplayMessage("messages", <span>Error</span>, 5 seconds, 1 second)
+	                DisplayMessage("messages", <span>Errors: <ul> {errors.map(error => <li> {error.msg } </li>) } </ul> </span>, 5 seconds, 1 second)
+//	                errors.map(error => DisplayMessage("messages", error.msg , 5 seconds, 1 second) ).reduceLeft[JsCmd]( _ & _)
 	              }
 	            }
 					          } )

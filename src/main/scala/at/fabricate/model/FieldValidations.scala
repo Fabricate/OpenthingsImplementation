@@ -6,14 +6,14 @@ import net.liftweb.util.FieldError
 import net.liftweb.util.FieldIdentifier
 import java.util.Date
 import java.text.SimpleDateFormat
+import net.liftweb.mapper.MappedField
 
 
 object FieldValidation {
       /**Definition der Validationsbedingung "Feld darf nicht leer sein"*/
-	def minLength(field: FieldIdentifier, length: Int)(content: String) = {
+	def minLength(field: MappedField[_,_], length: Int)(content: String) = {
 		if (content.trim.length <= length)
-		  	// TODO : combine text with properties and field.displayName
-			List(FieldError(field, Text("Feld \"%s\" darf muss mehr als %s Zeichen haben".format(field.toString, length))))
+			List(FieldError(field, Text("\"%s\" must have more than %s characters".format(field.displayName, length))))
     	 else
     		 List[FieldError]()
 	  	} 
@@ -23,14 +23,18 @@ object FieldValidation {
 //case str if str != null&& str.length > 10 => Nil
 //case _ => List(FieldError(subject, "Message too short"))
 //}
+	
+//	def minNumOfWords(num: => Int, msg: => String):
+//String => List[FieldError] =
+//s => s match {
+//case str if (str != null) && str.split(" ").size >=
+//num => Nil
+//case _ => List(FieldError(currentField.box openOr new
+//FieldIdentifier {}, Text(msg)))
+//}
     /**Definition der Validationsbedingung "Feld darf nicht leer sein"*/
-	def notEmpty(field: FieldIdentifier)(content: String) = {
-		if (content.trim.length == 0)
-		  	// TODO : combine text with properties and field.displayName
-			List(FieldError(field, Text("Feld \"Inhalt\" darf nicht leer sein")))
-    	 else
-    		 List[FieldError]()
-	  	} 
+	def notEmpty(field: MappedField[_,_])(content: String) = minLength(field, 0)(content)
+	
     /**Validation für ein Kalenderdatum.*/
 	// TODO : useful validation, maybe earliest and latest date in constructor?
   	def isValidDate(field: FieldIdentifier)(date: Date): List[FieldError] = {
