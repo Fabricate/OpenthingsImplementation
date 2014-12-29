@@ -9,6 +9,20 @@ import java.text.SimpleDateFormat
 
 
 object FieldValidation {
+      /**Definition der Validationsbedingung "Feld darf nicht leer sein"*/
+	def minLength(field: FieldIdentifier, length: Int)(content: String) = {
+		if (content.trim.length <= length)
+		  	// TODO : combine text with properties and field.displayName
+			List(FieldError(field, Text("Feld \"%s\" darf muss mehr als %s Zeichen haben".format(field.toString, length))))
+    	 else
+    		 List[FieldError]()
+	  	} 
+//	protected def valMinLen(10, "Subject too short"):
+//String => Lift[FieldError] = s =>
+//s match {
+//case str if str != null&& str.length > 10 => Nil
+//case _ => List(FieldError(subject, "Message too short"))
+//}
     /**Definition der Validationsbedingung "Feld darf nicht leer sein"*/
 	def notEmpty(field: FieldIdentifier)(content: String) = {
 		if (content.trim.length == 0)

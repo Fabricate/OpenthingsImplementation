@@ -34,7 +34,10 @@ import net.liftweb.http.SHtml.ElemAttr
 
 object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet with Logger {
   
+  // Problem with User: User Item with negative ID matches to the actual user (or is that just because the field was null?)
   private val ID_NOT_SUPPLIED = "-1"
+    
+    private val MatchItem = Project.MatchItemByID
     
   def dispatch : DispatchIt = {
     case "list" => renderIt(_)
@@ -51,9 +54,9 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
   override def page = Project.findAll(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage), OrderBy(Project.id, Descending))
 
   
-  private def withObject(op : Project => ((NodeSeq) => NodeSeq) ) : ((NodeSeq) => NodeSeq) = 
-    S.param("id").get match {
-      case Project.MatchItemByID(project) => op(project)
+  private def doWithMatchedItem(op : Project => ((NodeSeq) => NodeSeq) ) : ((NodeSeq) => NodeSeq) = 
+    (S.param("id") openOr ID_NOT_SUPPLIED) match {
+      case MatchItem(project) => op(project)
       case _ => (node => Text("Object not found!"))
     
   }
@@ -61,7 +64,7 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
   private def edit(xhtml: NodeSeq) : NodeSeq  =  { 
     // just a dummy implementation
        val project : Project = (S.param("id") openOr ID_NOT_SUPPLIED) match {
-      case Project.MatchItemByID(editProject) => {
+      case MatchItem(editProject) => {
         println("project with id %d found".format(editProject.id.get))        
         println("project title: %s".format(editProject.title.get))
         editProject
@@ -135,25 +138,27 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
 		     "#newcomauthor" #> SHtml.ajaxText(newComment.author.get, value => {newComment.author.set(value);JsCmds.Noop}, "default"->"Name"  )&     
 		     "#newcommessage" #> SHtml.ajaxTextarea(newComment.comment.get, value => {newComment.comment.set(value);JsCmds.Noop}, "default"->"Your comment" ) & // rows="6"
 		     "#newcomsubmit [onclick]" #> SHtml.ajaxInvoke(() => {
-//		       newComment.validate &&
-					            if ( newComment.save) {
-					              var newCommentHtml = bindCommentCSS(newComment)(commentTemplate)
-					              newComment = project.TheComment.create.commentedItem(project)
-					              // add the new comment to the list of comments
-					              AppendHtml("comments", newCommentHtml) &
-					              // clear the form
-					              JsCmds.SetValById("newcomtitle", "") &
-					              JsCmds.SetValById("newcommessage", "")
-					              // TODO: maybe clear the form or remove the latest JScommand?
-		//			                  ("#comment" #> bindCommentCSS(newComment)).apply(commentTemplate))
-		//			              JsRaw("$('#comments').append( '<li>Test</li>' );")
-		//			              JsCmds.Alert("added comment "+commentTitle)
-		
-					            }
-					            else
-					              JsCmds.Alert("adding comment '"+newComment.title.get+"' failed" )
+		       newComment.validate match {
+	              case Nil => {
+	                newComment.save
+	//	            project.save
+		        	var newCommentHtml = bindCommentCSS(newComment)(commentTemplate)
+		        	newComment = project.TheComment.create.commentedItem(project)
+					 // add the new comment to the list of comments
+					AppendHtml("comments", newCommentHtml) &
+					 // clear the form
+					JsCmds.SetValById("newcomtitle", "") &
+					JsCmds.SetValById("newcommessage", "")
+	              }
+	              case errors => {
+	                S.error(errors)
+	                JsCmds.Alert("adding comment '"+newComment.title.get+"' failed" ) &
+	                DisplayMessage("messages", <span>Error</span>, 5 seconds, 1 second)
+	              }
+	            }
 					          } )
 		   } 
+    	 
         ("#dbcontent" #> { MapperBinder.bindMapper(project, {
      "#icon [src]" #> project.icon .url &
      "#comment" #> project.comments.map(comment => bindCommentCSS(comment))  &

@@ -34,11 +34,16 @@ trait AddComment[T <: (AddComment[T] with LongKeyedMapper[T]) ] extends KeyedMap
     	  def getSingleton = TheComment
 	    	  
 	      object commentedItem extends MappedLongForeignKey(this,self.getSingleton)
-	  	  object title extends MappedString(this, 40)
+	  	  object title extends MappedString(this, 80){    	    
+    	    override def validations = FieldValidation.minLength(this,5) _ :: Nil
+    	  }
 		  object author extends MappedString(this, 40){
+    	    override def validations = FieldValidation.minLength(this,3) _ :: Nil
     	    override def defaultValue = User.currentUser.map(user => "%s %s".format(user.firstName, user.lastName )) openOr("")
     	  }
-		  object comment extends MappedString(this, 140)
+		  object comment extends MappedString(this, 140){		    
+    	    override def validations = FieldValidation.minLength(this,10) _ :: Nil
+		  }
 		  
 	}
 	
