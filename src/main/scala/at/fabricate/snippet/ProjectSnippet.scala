@@ -29,6 +29,9 @@ import net.liftweb.mapper.Descending
 import net.liftweb.http.SHtmlJ
 import net.liftweb.http.SHtmlJBridge
 import net.liftweb.http.SHtml.ElemAttr
+import net.liftweb.mapper.Mapper
+import at.fabricate.model.BaseEntity
+import at.fabricate.model.BaseRichEntity
 
 
 
@@ -37,60 +40,116 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
   // Problem with User: User Item with negative ID matches to the actual user (or is that just because the field was null?)
   private val ID_NOT_SUPPLIED = "-1"
     
-    private val MatchItem = Project.MatchItemByID
+    val TheItem = Project
+    
+    type ItemType = Project
+    
+    val itemBaseUrl = "project"
     
   def dispatch : DispatchIt = {
     case "list" => renderIt(_)
     case "renderIt" => renderIt(_)
     case "edit" => edit _
+    case "create" => create _
     case "view" => view(_)
     case "paginate" => paginate _
-    case "paginatecss" => paginatecss(_)
+    case "paginatecss" => paginatecss(_) 
   }
   
   // define the page
-  override def count = Project.count
+  override def count = TheItem.count
 
-  override def page = Project.findAll(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage), OrderBy(Project.id, Descending))
+  override def page = TheItem.findAll(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage), OrderBy(Project.id, Descending))
 
   
   private def doWithMatchedItem(op : Project => ((NodeSeq) => NodeSeq) ) : ((NodeSeq) => NodeSeq) = 
     (S.param("id") openOr ID_NOT_SUPPLIED) match {
-      case MatchItem(project) => op(project)
+      case TheItem.MatchItemByID(project) => op(project)
       case _ => (node => Text("Object not found!"))
     
   }
+  
+   private def save[T](item : Mapper[_], successAction : () => T, errorAction : List[FieldError] => T) : T = 
+            item.validate match {
+              case Nil => {
+	            item.save	        	
+	        	successAction()
+              }
+              case errors => {
+                errorAction(errors)
+              }
+            }
+                
+   // TODO:
+   // for a more detailed error message have a look at
+   // https://groups.google.com/forum/#!topic/liftweb/4LCWldUaUVA
+   private def saveAndDisplayAjaxMessages(item : Mapper[_], 
+       successAction : () => JsCmd = () => JsCmds.Noop, 
+       errorAction : List[FieldError] => JsCmd = errors => JsCmds.Noop, 
+       idToDisplayMessages : String, 
+       successMessage : String  = "Saved changes!", errorMessage: String  = "Error saving item!") : JsCmd =
+		   save[JsCmd](item,
+		    () => {
+		      // TODO: maybe decide which one to use?
+		      // S.xxx or DisplayMessage
+			   S.notice(successMessage)
+			   DisplayMessage(idToDisplayMessages, <span class="message">{successMessage}</span>, 5 seconds, 1 second) &
+			   successAction()
+		     },
+		     errors => {
+		      // TODO: maybe decide which one to use?
+		      // S.xxx or DisplayMessage
+		       S.error(errorMessage)
+               S.error(errors)
+               DisplayMessage(idToDisplayMessages, <span class="message error">{errorMessage}<br></br> <ul> {errors.map(error => <li> {error.msg } </li>) } </ul> </span>, 5 seconds, 1 second) &
+               errorAction(errors)
+                }
+		     )
+
+	private def saveAndDisplayMessages(item : Mapper[_], 
+       successAction : () => Unit = () => Unit, 
+       errorAction : List[FieldError] => Unit = errors => Unit, 
+       idToDisplayMessages : String, 
+       successMessage : String  = "Saved changes!", errorMessage: String  = "Error saving item!") : Unit =
+		   save[Unit](item,
+		    () => {
+			   S.notice(successMessage)
+			   successAction()
+		     },
+		     errors => {
+		       S.error(errorMessage)
+               S.error(errors)
+               errorAction(errors)
+                }
+		     )
+   
+   private def saveAndRedirectToNewInstance[T](saveOp : ( Mapper[_], () => T,  List[FieldError] => T) => T, item : BaseRichEntity[_], 
+       successAction : () => T = () => (), 
+       errorAction : List[FieldError] => T = (errors : List[FieldError]) => ()) : T = 
+     saveOp(item, () => {
+    	 S.redirectTo("/%s/%s".format(itemBaseUrl, item.id.toString))
+    	 successAction()
+    	 },
+    	 errors => errorAction(errors))
+   
+  
+  private def create(xhtml: NodeSeq) : NodeSeq  = toForm(TheItem.create)(xhtml)
+  
+//   abstract override
+  private def toForm(item : ItemType) : CssSel = {
+
+         "#item" #> {MapperBinder.bindMapper(item,{
+             "#save" #> SHtml.submit( "save", () => 
+//               saveAndRedirectToNewInstance((item, success: () => Unit, errors: List[FieldError] => Unit) => saveAndDisplayMessages(item,success,errors, "") , item,
+               saveAndRedirectToNewInstance(saveAndDisplayMessages(_,_:()=>Unit,_:List[FieldError]=>Unit, "") , item)
+               )
+        }) _ } 
+  }
 	
   private def edit(xhtml: NodeSeq) : NodeSeq  =  { 
-    // just a dummy implementation
-       val project : Project = (S.param("id") openOr ID_NOT_SUPPLIED) match {
-      case MatchItem(editProject) => {
-        println("project with id %d found".format(editProject.id.get))        
-        println("project title: %s".format(editProject.title.get))
-        editProject
-      }
-      case _ => {
-        // create a new project
-        Project.create
-      }
-        }
-       def saveChanges = {      
-        println("project with id %d created".format(project.id.get))        
-        println("project title: %s".format(project.title.get))      
-            project.validate match {
-              case Nil => {
-	            project.save
-	        	S.notice("Änderungen gespeichert")
-	        	S.redirectTo("/project/"+project.id.toString)
-              }
-              case _ => warn("Error validating designer!")
-            }
-        }
-         ("#item" #> {MapperBinder.bindMapper(project,{
-             "#save" #> SHtml.submit( "save", () => saveChanges )
-        }) _ } 
-         ).apply(xhtml)
-        
+    doWithMatchedItem{
+      project => toForm(project)
+    }(xhtml)        
   }
     private def list_removed:  CssSel =   
     // just a dummy implementation
@@ -134,29 +193,23 @@ object ProjectSnippet extends AjaxPaginatorSnippet[Project] with DispatchSnippet
 		     "#commentmessage *" #> comment.comment.asHtml
 		   }
     	 def bindNewCommentCSS : CssSel= {
-		     "#newcomtitle" #> SHtml.ajaxText(newComment.title.get, value => {newComment.title.set(value);JsCmds.Noop}, "default"->"Title" )&
-		     "#newcomauthor" #> SHtml.ajaxText(newComment.author.get, value => {newComment.author.set(value);JsCmds.Noop}, "default"->"Name"  )&     
-		     "#newcommessage" #> SHtml.ajaxTextarea(newComment.comment.get, value => {newComment.comment.set(value);JsCmds.Noop}, "default"->"Your comment" ) & // rows="6"
-		     "#newcomsubmit [onclick]" #> SHtml.ajaxInvoke(() => {
-		       newComment.validate match {
-	              case Nil => {
-	                newComment.save
-	//	            project.save
-		        	var newCommentHtml = bindCommentCSS(newComment)(commentTemplate)
+		     "#newcomtitle" #> SHtml.text(newComment.title.get, value => {newComment.title.set(value);JsCmds.Noop}, "default"->"Title" )&
+		     "#newcomauthor" #> SHtml.text(newComment.author.get, value => {newComment.author.set(value);JsCmds.Noop}, "default"->"Name"  )&     
+		     "#newcommessage" #> SHtml.textarea(newComment.comment.get, value => {newComment.comment.set(value);JsCmds.Noop}, "default"->"Your comment" ) & // rows="6"
+		     "#newcomsubmithidden" #> SHtml.hidden(() => {
+		       saveAndDisplayAjaxMessages(newComment, 
+		           () => {
+		            var newCommentHtml = bindCommentCSS(newComment)(commentTemplate)
 		        	newComment = project.TheComment.create.commentedItem(project)
 					 // add the new comment to the list of comments
 					AppendHtml("comments", newCommentHtml) &
 					 // clear the form
 					JsCmds.SetValById("newcomtitle", "") &
 					JsCmds.SetValById("newcommessage", "")
-	              }
-	              case errors => {
-	                S.error(errors)
-	                JsCmds.Alert("adding comment '"+newComment.title.get+"' failed" ) &
-	                DisplayMessage("messages", <span>Errors: <ul> {errors.map(error => <li> {error.msg } </li>) } </ul> </span>, 5 seconds, 1 second)
-//	                errors.map(error => DisplayMessage("messages", error.msg , 5 seconds, 1 second) ).reduceLeft[JsCmd]( _ & _)
-	              }
-	            }
+		           }, 
+		           errors => {
+		             JsCmds.Alert("adding comment '"+newComment.title.get+"' failed" )
+		           },"commentMessages")
 					          } )
 		   } 
     	 
