@@ -3,10 +3,10 @@ package snippet
 
 import net.liftweb.common.Logger
 import net.liftweb.http.DispatchSnippet
-import at.fabricate.model.User
+import model.User
 import net.liftweb.http.S
 import scala.xml.NodeSeq
-import at.fabricate.lib.MapperBinder
+import lib.MapperBinder
 import net.liftweb.util._
 import net.liftweb.common._
 import net.liftweb.util.Helpers._
@@ -14,7 +14,7 @@ import net.liftweb.mapper.Descending
 import net.liftweb.mapper.OrderBy
 import net.liftweb.mapper.MaxRows
 import net.liftweb.mapper.StartAt
-import at.fabricate.model.Project
+import model.Project
 import scala.xml.Text
 
 object UserSnippet extends AjaxPaginatorSnippet[User] with DispatchSnippet with Logger {

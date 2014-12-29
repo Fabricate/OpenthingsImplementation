@@ -15,24 +15,20 @@ import model.BaseEntityMeta
 import model.BaseRichEntityMeta
 import model.BaseRichEntity
 
-trait AddCommentSnippet[T <: BaseRichEntity[T] with AddComment[T]] extends BaseRichEntitySnippet[T] {
+trait AddCommentSnippet[T <: BaseEntity[T] with AddComment[T]] extends BaseEntitySnippet[T] {
   
   var commentTemplate : NodeSeq = NodeSeq.Empty 
   
   abstract override def view(xhtml: NodeSeq) :  NodeSeq  =  {
-//    var commentTemplate = xhtml
-    // just grab the template for the comments
-    var theTemplate = xhtml
     // get just the comment section
-    ("#comment" #> {(node : NodeSeq) => {
-      commentTemplate = node
-      Text("removed")}}).apply(theTemplate)
-      
-      super.view(xhtml)
+    commentTemplate = ("#comment ^^" #> "str").apply(xhtml)
+    super.view(xhtml)
   }
   
   abstract override def asHtml(item : ItemType) : CssSel = {
 		 
+		println("chaining asHtml from AddCommentSnippet")
+    
 		 def createNewItem = item.TheComment.create.commentedItem(item)
 		 
 		 var newComment: item.TheComment = createNewItem
@@ -61,10 +57,10 @@ trait AddCommentSnippet[T <: BaseRichEntity[T] with AddComment[T]] extends BaseR
 		             JsCmds.Alert("adding comment '"+newComment.title.get+"' failed" )
 		           },"commentMessages")
 					          } ) 
-    	 
-     "#comment" #> item.comments.map(comment => bindCommentCSS(comment))  &
-     "#newcomment" #> bindNewCommentCSS &
+
+     ("#comment" #> item.comments.map(comment => bindCommentCSS(comment))  &
+     "#newcomment" #> bindNewCommentCSS) &
      // chain the css selectors 
-     super.toForm(item)
+     (super.asHtml(item))
   }
 }
