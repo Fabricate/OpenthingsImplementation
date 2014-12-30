@@ -237,8 +237,8 @@ abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippe
      "#title *"  #> item.title &
      "#teaser *"  #> item.teaser &
      "#description *"  #> item.description &
-     "#created *"  #> item.createdAt  &
-     "#updated *"  #> item.updatedAt  &
+     "#created *+"  #> item.createdAt  &
+     "#updated *+"  #> item.updatedAt  &
      "#edititem [href]" #> urlToEditItem(item) &
      "#viewitem [href]" #> urlToViewItem(item) &
      "#viewitem *" #> "View Item"

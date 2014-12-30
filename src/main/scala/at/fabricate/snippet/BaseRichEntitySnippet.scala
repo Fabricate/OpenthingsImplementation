@@ -76,7 +76,7 @@ trait BaseRichEntitySnippet[T <: BaseRichEntity[T]] extends BaseEntitySnippet[T]
 
    (
        "#icon [src]" #> item.icon .url & // will go to the baseiconentitysnippet later on
-//    "#initiator *"  #> {<strong>Made by:</strong> item.de} &
+//    "#initiator *+"  #> {<strong>Made by:</strong> item.de} &
     "#licence *"  #> item.licence &
     "#difficulty"  #> item.difficulty 
    ) &
