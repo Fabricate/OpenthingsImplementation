@@ -73,13 +73,13 @@ abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippe
    final def generateRewrites : PartialFunction[RewriteRequest,RewriteResponse] =  {
       case RewriteRequest(ParsePath(List(itemBaseUrl, "index"), _, _, _), _, _) =>
 	      RewriteResponse(snippetList :: Nil)
-	  case RewriteRequest(ParsePath(List(itemBaseUrl, itemListUrl), _, _, _), _, _) =>
+	  case RewriteRequest(ParsePath(List(itemBaseUrl, "list"), _, _, _), _, _) =>
 	      RewriteResponse(snippetList :: Nil)
-	  case RewriteRequest(ParsePath(List(itemBaseUrl, itemEditUrl, AsLong(itemID)), _, _, _), _, _) =>
+	  case RewriteRequest(ParsePath(List(itemBaseUrl, "edit", AsLong(itemID)), _, _, _), _, _) =>
 	      RewriteResponse(snippetEdit :: Nil, Map("id" -> urlDecode(itemID.toString)))
-	  case RewriteRequest(ParsePath(List(itemBaseUrl, itemEditUrl), _, _, _), _, _) =>
+	  case RewriteRequest(ParsePath(List(itemBaseUrl, "edit"), _, _, _), _, _) =>
 	      RewriteResponse(snippetEdit :: Nil)
-	  case RewriteRequest(ParsePath(List(itemBaseUrl, itemViewUrl, AsLong(itemID)), _, _, _), _, _) =>
+	  case RewriteRequest(ParsePath(List(itemBaseUrl, "view", AsLong(itemID)), _, _, _), _, _) =>
 	      RewriteResponse(snippetView :: Nil, Map("id" -> urlDecode(itemID.toString)))
      }
      

@@ -103,7 +103,7 @@ class Boot {
       	case RewriteRequest(ParsePath(List("project","view", projectID), _, _, _), _, _) =>
       		RewriteResponse("viewProject" :: Nil, Map("id" -> urlDecode(projectID)))
     }
-//    ProjectSnippet.generateRewrites did not work
+    val projectRewritesAuto =  ProjectSnippet.generateRewrites
    
 //    
 //	  case RewriteRequest(ParsePath(List("project", "repository", projectID), _, _, _), _, _) =>
@@ -111,7 +111,7 @@ class Boot {
 //
 //    }
     // Set up some rewrites
-    LiftRules.statelessRewrite.append (userRewrites.orElse(logonRewrites).orElse(projectRewrites) )
+    LiftRules.statelessRewrite.append (userRewrites.orElse(logonRewrites).orElse(projectRewritesAuto) )
     
     // TODO : aufraumen, sauberes Menue !!!
     /*
