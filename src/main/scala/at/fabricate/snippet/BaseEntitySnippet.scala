@@ -69,6 +69,10 @@ abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippe
    //### methods that are fix ###
    final def dispatch : DispatchIt = localDispatch // orElse super.dispatch
    
+   final def displayMessageAndHide(idToDisplayMessage : String, message : String, classAttr : String = "message" ) : JsCmd = {
+    DisplayMessage(idToDisplayMessage, <span class={classAttr}>{message}</span>, 5 seconds, 1 second)
+  }
+   
    // generate the url rewrites
    final def generateRewrites : PartialFunction[RewriteRequest,RewriteResponse] =  {
       case RewriteRequest(ParsePath(List(itemBaseUrl, "index"), _, _, _), _, _) =>
@@ -123,7 +127,7 @@ abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippe
 		      // TODO: maybe decide which one to use?
 		      // S.xxx or DisplayMessage
 			   S.notice(successMessage)
-			   DisplayMessage(idToDisplayMessages, <span class="message">{successMessage}</span>, 5 seconds, 1 second) &
+			   displayMessageAndHide(idToDisplayMessages, successMessage) &
 			   successAction()
 		     },
 		     errors => {
@@ -131,7 +135,7 @@ abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippe
 		      // S.xxx or DisplayMessage
 		       S.error(errorMessage)
                S.error(errors)
-               DisplayMessage(idToDisplayMessages, <span class="message error">{errorMessage}<br></br> <ul> {errors.map(error => <li> {error.msg } </li>) } </ul> </span>, 5 seconds, 1 second) &
+               displayMessageAndHide(idToDisplayMessages, errorMessage, "message error") &
                errorAction(errors)
                 }
 		     )
