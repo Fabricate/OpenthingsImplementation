@@ -21,6 +21,7 @@ import net.liftweb.http.js.jquery.JqJE._
 import net.liftweb.http.js.jquery._
 import net.liftweb.http.js.JsCmds.Function
 import net.liftweb.http.js.JE.JsVar
+import net.liftweb.http.js.JsCmds.SetHtml
 
 
 trait AddRepositorySnippet[T <: BaseEntity[T] with AddRepository[T]] extends BaseEntitySnippet[T] {
@@ -37,27 +38,19 @@ trait AddRepositorySnippet[T <: BaseEntity[T] with AddRepository[T]] extends Bas
   }
   
   abstract override def asHtml(item : ItemType) : CssSel = {
-		     var commitLabel = "Describe the key features of this project revision"
+		     var commitLabel = ""
 
 //		println("chaining asHtml from AddRepositorySnippet")
     
 	    	  	def commit() : JsCmd = {
-		          		    //project.repository.createNewRepo
 		        	item.repository.commit(commitLabel)
-		           
-	    	  	    JqId("commits") ~> JqHtml( getNewCommitList ) 
-
-//		            SetHtml("fruitbat", listAllCommits(commitTemplate) ) &
-//		            SetHtml("fruitbat", //  this one//  this one should also work)
-//				    JsCmds.Alert("Commited project "+id+ " with commit message "+commitLabel)
+	    	  	    SetHtml("commits", getNewCommitList ) &
+	    	  	     // clear the form
+					JsCmds.SetValById("commitlabel", "")
+	    	  	    
 	    	  	}
-	    	  	 def updateFileList : JsCmd = {
-//	    	  	   val commits = project.repository.getAllCommits
-		            // Thread.sleep(1000)
-		            JqId("files") ~> JqHtml( getNewFileList ) 
-//				    JsCmds.Alert("Created repo for project "+id+"\n commits: "+commits)
-	    	  	   
-	    	  	 }
+		     
+	    	  	 def updateFileList : JsCmd = SetHtml("files", getNewFileList ) 
 	    	  	 
 	    	  	 def getNewFileList : NodeSeq = ("#listfiles" #>  listAllFiles).apply(filesTemplate) 
 	    	  	 
@@ -76,7 +69,6 @@ trait AddRepositorySnippet[T <: BaseEntity[T] with AddRepository[T]] extends Bas
 	    	  	 def getNewCommitList : NodeSeq = ("#listcommits" #>  listAllCommits).apply(commitTemplate) 
 
 	    	  	 def listAllCommits() : List[CssSel] = {
-	    	  	   var commitId=1
 	    	  	   var repoId=item.primaryKeyField.get
 	    	  	   item.repository.getAllCommits.map(
 			      commit => (
@@ -92,16 +84,19 @@ trait AddRepositorySnippet[T <: BaseEntity[T] with AddRepository[T]] extends Bas
 				(
 //		      "#createrepo [onclick]" #> SHtml.ajaxInvoke(callback) &
 		      //"#commitlabel" #> SHtml.text(commitLabel, commitLabel = _) &
-		      "#commitlabel" #> SHtml.ajaxText(commitLabel, (str) => {commitLabel = str})&
+		      "#commitlabel" #> SHtml.text("", (str) => {commitLabel = str; JsCmds.Noop}, "default"->"Describe the key features of this project revision")&
 			  "#listfiles" #>  listAllFiles &
 			  "#listcommits" #> listAllCommits &	      
-		      "#commitrepo [onclick]" #> SHtml.ajaxInvoke(commit) &
+		      "#commitrepohidden" #> SHtml.hidden(commit) &
 		      //"#commitrepo " #> SHtml.hidden(commit(id)) &
 //		      "#testbutton [onclick]" #> SHtml.ajaxInvoke(callback) &
 		      "#fileupload [data-url]" #> "/api/upload/file/%s".format(item.primaryKeyField) &
 		      "#uploadconfig *+" #> Function(
-        "UpdateFilelist", List("dummy"),SHtml.ajaxCall(JsVar("dummy"), 
-            (dummy: String) => updateFileList 
+        "UpdateFilelist", List("newfile"),SHtml.ajaxCall(JsVar("dummy"), 
+            (newfile: String) => {
+              println("received "+newfile); 
+              DisplayMessage("repositoryMessages", <span class="message">{"Uploading %s was successful!".format(newfile)}</span>, 5 seconds, 1 second) &
+              updateFileList }
             )._2.cmd
 		   )
 				) &

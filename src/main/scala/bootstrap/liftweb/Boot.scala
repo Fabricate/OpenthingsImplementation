@@ -20,6 +20,7 @@ import at.fabricate.api._
 import at.fabricate.snippet.Repository
 import at.fabricate.snippet.ProjectSnippet
 import at.fabricate.snippet.UserSnippet
+import org.apache.commons.fileupload.FileUploadBase.FileUploadIOException
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -104,6 +105,8 @@ class Boot {
       		RewriteResponse("viewProject" :: Nil, Map("id" -> urlDecode(projectID)))
     }
     
+    
+    
     val projectRewritesAuto =  ProjectSnippet.generateRewrites
    
     val projectRepoRewrite : PartialFunction[RewriteRequest,RewriteResponse] = {
@@ -115,7 +118,7 @@ class Boot {
     LiftRules.statelessRewrite.append (userRewrites.orElse
         (logonRewrites).orElse
         (projectRewrites).orElse(projectRepoRewrite) )
-    
+//    
     // TODO : aufraumen, sauberes Menue !!!
     /*
     val homeMenu = Menu(Loc("Home Page", "index" :: Nil, "Home"))
@@ -201,7 +204,18 @@ class Boot {
     LiftRules.progressListener = progressPrinter
     * 
     */
-
+    
+    // increase the filesize for uploads (in Bytes)
+    LiftRules.maxMimeFileSize = 200000000
+    LiftRules.maxMimeSize = 400000000
+    
+    // catch exceptions at max fileupload size
+    // **** Did not work:
+//    [warn] Class javax.servlet.http.HttpServletRequest not found - continuing with a stub.
+//    LiftRules.exceptionHandler.prepend {
+//		case (_, _, x : FileUploadIOException) =>
+//			ResponseWithReason(BadResponse(), "Unable to process file. Too large?")
+//	}
 
     //Init the jQuery module, see http://liftweb.net/jquery for more information.
     LiftRules.jsArtifacts = JQueryArtifacts
