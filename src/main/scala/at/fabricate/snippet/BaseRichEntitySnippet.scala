@@ -33,17 +33,8 @@ import at.fabricate.model.Project
 // if the comments also want to be paginated with the help of this script, 
 // a new subtype can be created where T is MappedType and U is MappedMetaType 
 // HINT: to redirect and to sort pagination at least a KeyedMapper is needed!
-trait BaseRichEntitySnippet[T <: BaseRichEntity[T]] extends BaseEntitySnippet[T] {
-//  self: T =>
-  
-      
-// def edit(xhtml : NodeSeq) : NodeSeq
-  
-//  def create(xhtml : NodeSeq) : NodeSeq
-
-//  def view(xhtml : NodeSeq) : NodeSeq
-
-      
+trait BaseRichEntitySnippet[T <: BaseRichEntity[T]] extends BaseEntitySnippet[T] with AddCommentSnippet[T] {
+   
 //  def localDispatch : DispatchIt = {    
 //    case "list" => renderIt(_)
 //    case "renderIt" => renderIt(_)
@@ -67,22 +58,28 @@ trait BaseRichEntitySnippet[T <: BaseRichEntity[T]] extends BaseEntitySnippet[T]
     	 
   // internal helper fields that will be chained to create the complete css selector
   //   abstract override
-   abstract override def toForm(item : ItemType) : CssSel = 
+   abstract override def toForm(item : ItemType) : CssSel = {
+     		println("chaining asHtml from BaseRichEntitySnippet")
 
-         ("#item" #> {MapperBinder.bindMapper(item,{
-             "#save" #> SHtml.submit( "save", () => 
-//               saveAndRedirectToNewInstance((item, success: () => Unit, errors: List[FieldError] => Unit) => saveAndDisplayMessages(item,success,errors, "") , item,
-               saveAndRedirectToNewInstance(saveAndDisplayMessages(_,_:()=>Unit,_:List[FieldError]=>Unit, "") , item)
-               )
-        }) _ }) &
+   (
+       "#icon [src]" #> item.icon .toForm & // will go to the baseiconentitysnippet later on
+//    "#initiator *"  #> {<strong>Made by:</strong> item.de} &
+    "#licence"  #> item.licence.toForm &
+    "#difficulty"  #> item.difficulty.toForm
+   ) &
         (super.toForm(item))
-  
+   }
   
    //   abstract override
    abstract override def asHtml(item : ItemType) : CssSel = {
      		println("chaining asHtml from BaseRichEntitySnippet")
 
-   ("#dbcontent" #> { MapperBinder.bindMapper(item, {"#icon [src]" #> item.icon .url}) _ }) &
+   (
+       "#icon [src]" #> item.icon .url & // will go to the baseiconentitysnippet later on
+//    "#initiator *"  #> {<strong>Made by:</strong> item.de} &
+    "#licence *"  #> item.licence &
+    "#difficulty"  #> item.difficulty 
+   ) &
    (super.asHtml(item))
      
 //     , {

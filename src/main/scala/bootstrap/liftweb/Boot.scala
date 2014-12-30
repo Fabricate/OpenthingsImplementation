@@ -66,8 +66,7 @@ class Boot {
     //LiftRules.statelessDispatch.append(ToolREST)
     LiftRules.dispatch.append(FileUploadREST)
     
-    // Set up some rewrites
-    LiftRules.statelessRewrite.append {
+    val userRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
       case RewriteRequest(ParsePath(List("designer", "edit"), _, _, _), _, _) =>
 	      RewriteResponse("editDesigner" :: Nil)
       case RewriteRequest(ParsePath(List("designer", "search"), _, _, _), _, _) =>
@@ -78,8 +77,10 @@ class Boot {
 	      RewriteResponse("listDesigner" :: Nil, Map("type" -> urlDecode("random")))		      
       case RewriteRequest(ParsePath(List("designer", designerID), _, _, _), _, _) =>
 	      RewriteResponse("viewDesigner" :: Nil, Map("id" -> urlDecode(designerID)))
-
-      case RewriteRequest(ParsePath(List("login"), _, _, _), _, _) =>
+    }
+    
+    val logonRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
+       case RewriteRequest(ParsePath(List("login"), _, _, _), _, _) =>
 	      RewriteResponse("user" :: "login" :: Nil)
       case RewriteRequest(ParsePath(List("logout"), _, _, _), _, _) =>
 	      RewriteResponse("user" :: "logout" :: Nil)
@@ -87,22 +88,30 @@ class Boot {
       case RewriteRequest(ParsePath(List("sign_up"), _, _, _), _, _) =>
 	      RewriteResponse("user" :: "sign_up" :: Nil)
       case RewriteRequest(ParsePath(List("lost_password"), _, _, _), _, _) =>
-	      RewriteResponse("user" :: "lost_password" :: Nil)	  	      
-    
-	  case RewriteRequest(ParsePath(List("project", "repository", projectID), _, _, _), _, _) =>
-	      RewriteResponse("editRepository" :: Nil, Map("id" -> urlDecode(projectID)))
-
-	  case RewriteRequest(ParsePath(List("project", "index"), _, _, _), _, _) =>
-	      RewriteResponse("listProject" :: Nil)
-	  case RewriteRequest(ParsePath(List("project", "list"), _, _, _), _, _) =>
-	      RewriteResponse("listProject" :: Nil)
-	  case RewriteRequest(ParsePath(List("project", "edit",projectID), _, _, _), _, _) =>
-	      RewriteResponse("editProject" :: Nil, Map("id" -> urlDecode(projectID)))
-	  case RewriteRequest(ParsePath(List("project", "edit"), _, _, _), _, _) =>
-	      RewriteResponse("editProject" :: Nil)
-	  case RewriteRequest(ParsePath(List("project", projectID), _, _, _), _, _) =>
-	      RewriteResponse("viewProject" :: Nil, Map("id" -> urlDecode(projectID)))
+	      RewriteResponse("user" :: "lost_password" :: Nil)	  	   
     }
+    
+    val projectRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
+      	case RewriteRequest(ParsePath(List("project", "index"), _, _, _), _, _) =>
+      		RewriteResponse("listProject" :: Nil)
+      	case RewriteRequest(ParsePath(List("project", "list"), _, _, _), _, _) =>
+      		RewriteResponse("listProject" :: Nil)
+      	case RewriteRequest(ParsePath(List("project", "edit",projectID), _, _, _), _, _) =>
+      		RewriteResponse("editProject" :: Nil, Map("id" -> urlDecode(projectID)))
+      	case RewriteRequest(ParsePath(List("project", "edit"), _, _, _), _, _) =>
+      		RewriteResponse("editProject" :: Nil)
+      	case RewriteRequest(ParsePath(List("project","view", projectID), _, _, _), _, _) =>
+      		RewriteResponse("viewProject" :: Nil, Map("id" -> urlDecode(projectID)))
+    }
+//    ProjectSnippet.generateRewrites did not work
+   
+//    
+//	  case RewriteRequest(ParsePath(List("project", "repository", projectID), _, _, _), _, _) =>
+//	      RewriteResponse("editRepository" :: Nil, Map("id" -> urlDecode(projectID)))
+//
+//    }
+    // Set up some rewrites
+    LiftRules.statelessRewrite.append (userRewrites.orElse(logonRewrites).orElse(projectRewrites) )
     
     // TODO : aufraumen, sauberes Menue !!!
     /*
@@ -144,14 +153,12 @@ class Boot {
 
                Menu.i("Page not found!") / "404"  >> Hidden,
                
-               Menu.i("View Project") / "viewProject" / ** >> Hidden,
-               Menu.i("List Project") / "listProject" / ** >> Hidden,
-               Menu.i("Edit Project") / "editProject" / ** >> Hidden,
+
 
 
                Menu.i("Static") / "static" / ** >> Hidden
                //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
-               ) :::  User.sitemap ::: Tool.menus 
+               ) :::  User.sitemap ::: ProjectSnippet.getMenu ::: Tool.menus 
   
     LiftRules.setSiteMap(SiteMap(menu :_*))
     

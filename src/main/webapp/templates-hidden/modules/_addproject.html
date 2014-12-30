@@ -1,18 +1,19 @@
 <section class="postProject left">
-	<div class="lift:Project.edit?eager_eval=true">
+	<div class="lift:Project.create?eager_eval=true">
 		<span class="icon-plus close-icon"></span>
-		<form id="item" enctype="multipart/form-data" method="post" action="/project/edit" class="left">
+		<form id="itemform" enctype="multipart/form-data" method="post" action="/project/edit" class="left">
 			<h1>Add project</h1>
 			<p>Add your project to this great domain and begin developing together</p>
-			<input class="mb:title" placeholder="Title">
-			<textarea class="mb:description" placeholder="Project description" rows="8"></textarea>
-			<input class="mb:icon" type="file" name="fileToUpload" id="fileToUpload" multiple>
-			<select class="mb:difficulty">
+			<input id="title" placeholder="Title">
+			<textarea id="description" placeholder="Project description" rows="8"></textarea>
+			<input id="icon" type="file" name="fileToUpload" id="fileToUpload" multiple>
+			<select id="difficulty">
 				<option value="" disabled selected>Difficulty</option>
 			</select>
-			<select class="mb:licence">
+			<select id="licence">
 				<option value="" disabled selected>Licence</option>
 			</select>
+			<input id="itemsubmithidden" type="hidden">
 			<input id="save" value="save" type="submit">
 		</form>
 	</div>

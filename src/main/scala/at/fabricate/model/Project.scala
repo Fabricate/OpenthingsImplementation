@@ -65,6 +65,8 @@ class Project extends BaseRichEntity[Project] with AddRepository[Project] {
     /**Name des Datenfeldes für CRUD-Seiten*/
     override def displayName = S.?("project\u0020initiator")
     
+//    override def validations = FieldValidation.notEmpty(this) :: Nil
+    
       
     /**Darstellung des Feldes auf CRUD-  object createdByUser extends MappedManyToMany(self,){
     

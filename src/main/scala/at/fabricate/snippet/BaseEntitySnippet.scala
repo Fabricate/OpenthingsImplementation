@@ -19,14 +19,20 @@ import net.liftweb.http.js.JsCmds
 import net.liftweb.http.js.JsCmd
 import net.liftweb.http.js.jquery.JqJsCmds.DisplayMessage
 import net.liftweb.mapper.KeyedMapper
+import net.liftweb.util._
 import net.liftweb.util.Helpers._
 import net.liftweb.util.CssSel
-import at.fabricate.lib.MapperBinder
 import at.fabricate.model.BaseEntity
 import at.fabricate.model.BaseEntityMeta
 import net.liftweb.util.CssBind
 import net.liftweb.util.CssBindImpl
 import net.liftweb.util.CSSHelpers
+import net.liftweb.http.SHtml
+import net.liftweb.http.RewriteRequest
+import net.liftweb.http.ParsePath
+import net.liftweb.http.RewriteResponse
+import net.liftweb.sitemap._
+import net.liftweb.sitemap.Loc.Hidden
 
 abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
 
@@ -37,10 +43,52 @@ abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippe
     
 //    val TheItem = ItemType .getSingleton
     
-    val itemBaseUrl = "item"
+    def itemBaseUrl = "item"    
+      
+    def itemViewUrl = "view"    
+      
+    def itemListUrl = "list"
+      
+//    val itemAddUrl = "add"
+      
+    def itemEditUrl = "edit"
+      
+    def snippetView = "viewItem"
+      
+    def snippetList = "listItem"
+      
+    def snippetEdit = "editItem"
+      
+    def menuNameView = "View Item"
+      
+    def menuNameList = "List Item"
+      
+    def menuNameEdit = "Edit Item"
+      
       
    //### methods that are fix ###
    final def dispatch : DispatchIt = localDispatch // orElse super.dispatch
+   
+   // generate the url rewrites
+   final def generateRewrites : PartialFunction[RewriteRequest,RewriteResponse] =  {
+      case RewriteRequest(ParsePath(List(itemBaseUrl, "index"), _, _, _), _, _) =>
+	      RewriteResponse(snippetList :: Nil)
+	  case RewriteRequest(ParsePath(List(itemBaseUrl, itemListUrl), _, _, _), _, _) =>
+	      RewriteResponse(snippetList :: Nil)
+	  case RewriteRequest(ParsePath(List(itemBaseUrl, itemEditUrl, AsLong(itemID)), _, _, _), _, _) =>
+	      RewriteResponse(snippetEdit :: Nil, Map("id" -> urlDecode(itemID.toString)))
+	  case RewriteRequest(ParsePath(List(itemBaseUrl, itemEditUrl), _, _, _), _, _) =>
+	      RewriteResponse(snippetEdit :: Nil)
+	  case RewriteRequest(ParsePath(List(itemBaseUrl, itemViewUrl, AsLong(itemID)), _, _, _), _, _) =>
+	      RewriteResponse(snippetView :: Nil, Map("id" -> urlDecode(itemID.toString)))
+     }
+     
+   final def getMenu : List[Menu] = 
+     List[Menu](
+               Menu.i(menuNameView) / snippetView / ** >> Hidden,
+               Menu.i(menuNameList) / snippetList / ** >> Hidden,
+               Menu.i(menuNameEdit) / snippetEdit / ** >> Hidden
+     )
 
    // lean pattern to get the Item from the supplied ID
    final def doWithMatchedItem(op : ItemType => ((NodeSeq) => NodeSeq) ) : ((NodeSeq) => NodeSeq) = 
@@ -109,12 +157,15 @@ abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippe
        successAction : () => T = () => (), 
        errorAction : List[FieldError] => T = (errors : List[FieldError]) => ()) : T = 
      saveOp(item, () => {
-    	 S.redirectTo("/%s/%s".format(itemBaseUrl, item.primaryKeyField.toString))
+    	 S.redirectTo(urlToViewItem(item))
     	 successAction()
     	 },
     	 errors => errorAction(errors))
 
+    final def urlToViewItem(item: KeyedMapper[_,_]): String =  "/%s/%s/%s".format(itemBaseUrl, itemViewUrl, item.primaryKeyField.toString)
    
+    final def urlToEditItem(item: KeyedMapper[_,_]): String =  "/%s/%s/%s".format(itemBaseUrl, itemEditUrl, item.primaryKeyField.toString)
+
    // ### methods that might be overridden in subclasses ###
     	     	 
    // Problem with User: User Item with negative ID matches to the actual user (or is that just because the field was null?)
@@ -124,10 +175,8 @@ abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippe
   def renderIt (in: scala.xml.NodeSeq) : scala.xml.NodeSeq =   
     // just a dummy implementation
     // later user asHtml
-   ("#item" #> {page.map(item => MapperBinder.bindMapper(item, {
-     "#toitem [href]" #> "/project/%s".format(item.primaryKeyField.toString) &      
-     "#toitem *" #> "View Item"
-   }) _)}).apply(in)
+   ("#item" #> page.map(item => asHtml(item) ) 
+       ).apply(in)
 
   def create(xhtml: NodeSeq) : NodeSeq  = toForm(TheItem.create)(xhtml)
   
@@ -164,11 +213,34 @@ abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippe
      // internal helper fields that will be chained to create the complete css selector
   //   subclasses will implement that methodes with abstract override
   // this is the selector does nothing hopefully
-  def toForm(item : ItemType) : CssSel = ("thiselementdoesnotexist" #> {node : NodeSeq => node})
+  def toForm(item : ItemType) : CssSel = {
+  
+      println("chaining toForm from BaseEntitySnippet")
+    
+     "#title"  #> item.title.toForm &
+     "#teaser"  #> item.teaser.toForm &
+     "#description"  #> item.description.toForm &
+     "#formitem [action]" #> urlToEditItem(item) &
+     "#itemsubmithidden" #> SHtml.hidden(() => saveAndRedirectToNewInstance(saveAndDisplayMessages(_,_:()=>Unit,_:List[FieldError]=>Unit, "itemMessages") , item))
+
+//     "#created *"  #> item.createdAt  &
+//     "#updated *"  #> item.updatedAt  &
+//     "#edititem [href]" #> urlToEditItem(item) &
+//     "#viewitem [href]" #> urlToViewItem(item) &
+//     "#viewitem *" #> "View Item"
+  }
   
   def asHtml(item : ItemType) : CssSel = {
-    		println("chaining asHtml from BaseEntitySnippet")
-
-    ("thiselementdoesnotexist" #> {node : NodeSeq => node})
+    
+    println("chaining asHtml from BaseEntitySnippet")
+    
+     "#title *"  #> item.title &
+     "#teaser *"  #> item.teaser &
+     "#description *"  #> item.description &
+     "#created *"  #> item.createdAt  &
+     "#updated *"  #> item.updatedAt  &
+     "#edititem [href]" #> urlToEditItem(item) &
+     "#viewitem [href]" #> urlToViewItem(item) &
+     "#viewitem *" #> "View Item"
   }
 }
