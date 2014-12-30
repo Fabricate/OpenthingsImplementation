@@ -27,7 +27,7 @@ trait AddCommentSnippet[T <: BaseEntity[T] with AddComment[T]] extends BaseEntit
   
   abstract override def asHtml(item : ItemType) : CssSel = {
 		 
-		println("chaining asHtml from AddCommentSnippet")
+//		println("chaining asHtml from AddCommentSnippet")
     
 		 def createNewItem = item.TheComment.create.commentedItem(item)
 		 

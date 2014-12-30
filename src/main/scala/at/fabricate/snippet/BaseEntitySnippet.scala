@@ -215,7 +215,7 @@ abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippe
   // this is the selector does nothing hopefully
   def toForm(item : ItemType) : CssSel = {
   
-      println("chaining toForm from BaseEntitySnippet")
+//      println("chaining toForm from BaseEntitySnippet")
     
      "#title"  #> item.title.toForm &
      "#teaser"  #> item.teaser.toForm &
@@ -232,7 +232,7 @@ abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippe
   
   def asHtml(item : ItemType) : CssSel = {
     
-    println("chaining asHtml from BaseEntitySnippet")
+//    println("chaining asHtml from BaseEntitySnippet")
     
      "#title *"  #> item.title &
      "#teaser *"  #> item.teaser &

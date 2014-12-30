@@ -103,6 +103,7 @@ class Boot {
       	case RewriteRequest(ParsePath(List("project","view", projectID), _, _, _), _, _) =>
       		RewriteResponse("viewProject" :: Nil, Map("id" -> urlDecode(projectID)))
     }
+    
     val projectRewritesAuto =  ProjectSnippet.generateRewrites
    
 //    

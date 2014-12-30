@@ -59,7 +59,7 @@ trait BaseRichEntitySnippet[T <: BaseRichEntity[T]] extends BaseEntitySnippet[T]
   // internal helper fields that will be chained to create the complete css selector
   //   abstract override
    abstract override def toForm(item : ItemType) : CssSel = {
-     		println("chaining asHtml from BaseRichEntitySnippet")
+//     		println("chaining asHtml from BaseRichEntitySnippet")
 
    (
        "#icon [src]" #> item.icon .toForm & // will go to the baseiconentitysnippet later on
@@ -72,7 +72,7 @@ trait BaseRichEntitySnippet[T <: BaseRichEntity[T]] extends BaseEntitySnippet[T]
   
    //   abstract override
    abstract override def asHtml(item : ItemType) : CssSel = {
-     		println("chaining asHtml from BaseRichEntitySnippet")
+//     		println("chaining asHtml from BaseRichEntitySnippet")
 
    (
        "#icon [src]" #> item.icon .url & // will go to the baseiconentitysnippet later on
