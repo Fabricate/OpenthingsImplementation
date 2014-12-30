@@ -10,7 +10,7 @@ import scala.xml.{NodeSeq, Text}
 import net.liftweb.util._
 import net.liftweb.common._
 import Helpers._
-import bootstrap.liftweb.AccessControl
+import at.fabricate.lib.AccessControl
 
 
 /**

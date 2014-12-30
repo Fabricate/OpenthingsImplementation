@@ -1,4 +1,4 @@
-package bootstrap.liftweb
+package at.fabricate.lib
 
 import at.fabricate.model.User
 import net.liftweb.sitemap.Loc._

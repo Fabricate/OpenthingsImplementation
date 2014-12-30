@@ -17,10 +17,10 @@ import at.fabricate.snippet.Designer
 import at.fabricate.lib.ImageLogic
 import net.liftmodules.widgets.autocomplete.AutoComplete
 import at.fabricate.api._
-import at.fabricate.snippet.Repository
 import at.fabricate.snippet.ProjectSnippet
 import at.fabricate.snippet.UserSnippet
 import org.apache.commons.fileupload.FileUploadBase.FileUploadIOException
+import at.fabricate.lib.AccessControl
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -56,15 +56,12 @@ class Boot {
     
     LiftRules.snippetDispatch.append {
       case "Designer" => Designer
-      case "Repository" => Repository
       case "Project" => ProjectSnippet
       case "User" => UserSnippet
     }
     
     //LiftRules.dispatch.append(ImageLogic.matcher)
-
-    LiftRules.dispatch.append(ToolREST)
-    //LiftRules.statelessDispatch.append(ToolREST)
+    //LiftRules.statelessDispatch.append(FileUploadREST)
     LiftRules.dispatch.append(FileUploadREST)
     
     val userRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
@@ -109,15 +106,10 @@ class Boot {
     
     val projectRewritesAuto =  ProjectSnippet.generateRewrites
    
-    val projectRepoRewrite : PartialFunction[RewriteRequest,RewriteResponse] = {
-	  case RewriteRequest(ParsePath(List("project", "repository", projectID), _, _, _), _, _) =>
-	      RewriteResponse("editRepository" :: Nil, Map("id" -> urlDecode(projectID)))
-
-    }
     // Set up some rewrites
     LiftRules.statelessRewrite.append (userRewrites.orElse
         (logonRewrites).orElse
-        (projectRewrites).orElse(projectRepoRewrite) )
+        (projectRewrites) )
 //    
     // TODO : aufraumen, sauberes Menue !!!
     /*
@@ -150,7 +142,6 @@ class Boot {
                Menu.i("Edit my profile") / "editDesigner" >> Hidden >> AccessControl.loggedIn ,  //>> IfLoggedIn,
                Menu.i("View Designer") / "viewDesigner" / ** >> Hidden,
                Menu.i("List Designers") / "listDesigner" / ** >> Hidden,
-               Menu.i("Edit Repository") / "editRepository" / ** >> Hidden,
                Menu.i("Test page") / "testpage" / ** >> Hidden,
                Menu.i("Search Designers") / "searchDesigner",                 
                Menu.i("Public Data") / "public" / ** >> Hidden,

@@ -62,7 +62,7 @@ trait BaseRichEntitySnippet[T <: BaseRichEntity[T]] extends BaseEntitySnippet[T]
 //     		println("chaining asHtml from BaseRichEntitySnippet")
 
    (
-       "#icon [src]" #> item.icon .toForm & // will go to the baseiconentitysnippet later on
+       "#icon" #> item.icon .toForm & // will go to the baseiconentitysnippet later on
 //    "#initiator *"  #> {<strong>Made by:</strong> item.de} &
     "#licence"  #> item.licence.toForm &
     "#difficulty"  #> item.difficulty.toForm
