@@ -237,8 +237,11 @@ form <- field.toForm.toList
   def signup(xhtml: NodeSeq): NodeSeq = {
             User.customSignup{
              user =>   
-               (".email" #> <input type="text" name="username" default="Your Mail"/> & //FocusOnLoad()
-  			".password" #> <input type="password" name="password" default="Your Passord"/> 
+               ("#txtEmail" #> user.email.toForm.toList & //(user.email.toForm.map(_ % ("default"->"mail adress")) & //FocusOnLoad()
+  			"#txtPassword" #> user.password.toForm.toList &
+  			"#txtFirstName" #> user.firstName.toForm.toList &
+  			"#txtLastName" #> user.lastName.toForm.toList
+//  			"#password" #> user.password.toForm.toList
 //  			"type=submit" #> loginSubmitButton(S.?("log.in"))
   			).apply(xhtml)
             }
