@@ -27,6 +27,7 @@ object Project extends Project with BaseRichEntityMeta[Project] with AddReposito
 
   /*
    * tried to implement the lazy save feature, did not work
+   * Try using loginFirst of the user!!
 //  abstract 
   override def save = {
     if (byUserId > 0 )

@@ -225,7 +225,12 @@ form <- field.toForm.toList
   def login(xhtml: NodeSeq): NodeSeq = {
 //    logger.debug("[Login.login] enter.")
 
-            User.login 
+            User.customLogin{
+  			".email" #> <input type="text" name="username"/> & //FocusOnLoad()
+  			".password" #> <input type="password" name="password"/> 
+//  			"type=submit" #> loginSubmitButton(S.?("log.in"))
+            }.apply(xhtml)
+
   }
   
   def signup(xhtml: NodeSeq): NodeSeq = {

@@ -35,6 +35,40 @@ object User extends User with MetaMegaProtoUser[User] with RedirectAfterLogin[Us
 		  </section>
 	  </lift:surround>)
 	  
+  def customLogin(selector : CssSel) = {
+      if (S.post_?) {
+    	S.param("username").
+    		flatMap(username => findUserByUserName(username)) match {
+    			case Full(user) if user.validated_? &&
+    						user.testPassword(S.param("password")) => {
+    								val preLoginState = User.capturePreLoginState()
+    								val redir = loginRedirect.get match {
+    									case Full(url) =>
+    										loginRedirect(Empty)
+    										url
+    									case _ =>
+    										homePage
+    								}
+    								logUserIn(user, () => {
+    									S.notice(S.?("logged.in"))
+    									preLoginState()
+    									S.redirectTo(redir)
+    								})
+    						}
+    			case Full(user) if !user.validated_? =>
+    				S.error(S.?("account.validation.error"))
+    			case _ => S.error(S.?("invalid.credentials"))
+    	}
+      }
+//  	val bind =
+//  			".email" #> FocusOnLoad(<input type="text" name="username"/>) &
+//  			".password" #> <input type="password" name="password"/> &
+//  			"type=submit" #> loginSubmitButton(S.?("log.in"))
+//  	bind(loginXhtml)
+      selector
+ }
+    									
+	  
 //  override def homePage = "/"
     /*
    override def signupXhtml(user: TheUserType) = {
