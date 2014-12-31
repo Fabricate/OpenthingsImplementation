@@ -226,15 +226,25 @@ form <- field.toForm.toList
 //    logger.debug("[Login.login] enter.")
 
             User.customLogin{
-  			".email" #> <input type="text" name="username"/> & //FocusOnLoad()
-  			".password" #> <input type="password" name="password"/> 
+  			(".email" #> <input type="text" name="username" default="Your Mail"/> & //FocusOnLoad()
+  			".password" #> <input type="password" name="password" default="Your Passord"/> 
 //  			"type=submit" #> loginSubmitButton(S.?("log.in"))
-            }.apply(xhtml)
+  			).apply(xhtml)
+            }
 
   }
   
   def signup(xhtml: NodeSeq): NodeSeq = {
-            User.signup
+            User.customSignup{
+             user =>   
+               (".email" #> <input type="text" name="username" default="Your Mail"/> & //FocusOnLoad()
+  			".password" #> <input type="password" name="password" default="Your Passord"/> 
+//  			"type=submit" #> loginSubmitButton(S.?("log.in"))
+  			).apply(xhtml)
+            }
+//              	 def innerSignup = {
+//  			 ("type=submit" #> signupSubmitButton(S ? "sign.up", testSignup _)) apply signupXhtml(theUser)
+//  	 }
   }
   
   def changePassword(xhtml: NodeSeq): NodeSeq = {

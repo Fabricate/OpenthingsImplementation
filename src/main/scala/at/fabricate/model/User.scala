@@ -14,6 +14,7 @@ import java.util.Calendar
 import net.liftweb.http.SessionVar
 import net.liftweb.http.LiftSession
 import net.liftweb.http.LiftRules
+import scala.xml.NodeSeq
 
 /**
  * The singleton that has methods for accessing the database
@@ -35,7 +36,24 @@ object User extends User with MetaMegaProtoUser[User] with RedirectAfterLogin[Us
 		  </section>
 	  </lift:surround>)
 	  
-  def customLogin(selector : CssSel) = {
+   def customSignup(selector : User => NodeSeq) = {
+	  val theUser: TheUserType = mutateUserOnSignup(createNewUserInstance())
+	  val theName = signUpPath.mkString("")
+	  def testSignup() {
+	  	validateSignup(theUser) match {
+	  		case Nil =>
+	  			actionsAfterSignup(theUser, () => S.redirectTo(homePage))
+	  		case xs => S.error(xs) ; signupFunc(Full(innerSignup _))
+	  	}
+  	 }
+  	 def innerSignup = {
+//  			 ("type=submit" #> signupSubmitButton(S ? "sign.up", testSignup _)) apply signupXhtml(theUser)
+  			 selector(theUser)
+  	 }
+  	 innerSignup
+  }
+	  
+  def customLogin(selector : NodeSeq) = {
       if (S.post_?) {
     	S.param("username").
     		flatMap(username => findUserByUserName(username)) match {
@@ -78,6 +96,29 @@ colspan="2">{ S.??("sign.up") }</td></tr>
 <tr><td>&nbsp;</td><td><user:submit/></td></tr>
 </table></form>)
 	}
+	
+	 /**
+	* Given an instance of TheCrudType and FieldPointerType, convert
+	* that to an actual instance of a BaseField on the instance of TheCrudType
+	*/
+	protected def computeFieldFromPointer(instance: TheUserType, pointer: FieldPointerType): Box[BaseField]
+	protected def localForm(user: TheUserType, ignorePassword: Boolean, fields: List[FieldPointerType]): NodeSeq = {
+	for {
+	pointer <- fields
+	field <- computeFieldFromPointer(user, pointer).toList
+	if field.show_? && (!ignorePassword || !pointer.isPasswordField_?)
+	form <- field.toForm.toList
+	} yield <tr><td>{field.displayName}</td><td>{form}</td></tr>
+	}
+	protected def wrapIt(in: NodeSeq): NodeSeq =
+	screenWrap.map(new RuleTransformer(new RewriteRule {
+	override def transform(n: Node) = n match {
+	case e: Elem if "bind" == e.label && "lift" == e.prefix => in
+	case _ => n
+	}
+	})) openOr in
+	}
+	
    override def loginXhtml = {
 	(<form method="post" action={S.uri}><table><tr><td
 colspan="2">{S.??("log.in")}</td></tr>
