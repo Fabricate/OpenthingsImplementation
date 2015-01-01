@@ -15,6 +15,7 @@ import net.liftweb.http.SessionVar
 import net.liftweb.http.LiftSession
 import net.liftweb.http.LiftRules
 import scala.xml.NodeSeq
+import net.liftweb.http.S.LFuncHolder
 
 /**
  * The singleton that has methods for accessing the database
@@ -52,6 +53,32 @@ object User extends User with MetaMegaProtoUser[User] with RedirectAfterLogin[Us
   	 }
   	 innerSignup
   }
+  
+  
+	def customChangePassword(selector : (User, (String, List[String]) => Unit  ) => NodeSeq) = {
+	val user = currentUser.openOrThrowException("we can do this because the logged in test has happened")
+//	var oldPassword = ""
+//	var newPassword: List[String] = Nil
+	def testAndSet(oldPassword : String, newPassword : List[String])() = {
+		if (!user.testPassword(Full(oldPassword))) S.error(S.?("wrong.old.password"))
+		else {
+			user.setPasswordFromListString(newPassword)
+			user.validate match {
+				case Nil => user.save; S.notice(S.?("password.changed")); S.redirectTo(homePage)
+				case xs => S.error(xs)
+			}
+		}
+	}
+//	val bind = {
+//			// Use the same password input for both new password fields.
+//			val passwordInput = SHtml.password_*("", LFuncHolder(s => newPassword = s))
+//					".old-password" #> SHtml.password("", s => oldPassword = s) &
+//					".new-password" #> passwordInput &
+//					"type=submit" #> changePasswordSubmitButton(S.?("change"), testAndSet _)
+//	}
+//	bind(changePasswordXhtml)
+	selector(user, testAndSet)
+	}
 	  
   def customLogin(selector : NodeSeq) = {
       if (S.post_?) {

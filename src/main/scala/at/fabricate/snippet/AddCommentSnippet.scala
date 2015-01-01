@@ -39,9 +39,9 @@ trait AddCommentSnippet[T <: BaseEntity[T] with AddComment[T]] extends BaseEntit
 		     "#commentmessage *" #> comment.comment.asHtml
 		   
     	 def bindNewCommentCSS : CssSel= 
-		     "#newcomtitle" #> SHtml.text(newComment.title.get, value => {newComment.title.set(value);JsCmds.Noop}, "default"->"Title" )&
-		     "#newcomauthor" #> SHtml.text(newComment.author.get, value => {newComment.author.set(value);JsCmds.Noop}, "default"->"Name"  )&     
-		     "#newcommessage" #> SHtml.textarea(newComment.comment.get, value => {newComment.comment.set(value);JsCmds.Noop}, "default"->"Your comment" ) & // rows="6"
+		     "#newcomtitle" #> SHtml.text(newComment.title.get, value => {newComment.title.set(value);JsCmds.Noop}, "placeholder"->"Title" )&
+		     "#newcomauthor" #> SHtml.text(newComment.author.get, value => {newComment.author.set(value);JsCmds.Noop}, "placeholder"->"Name"  )&     
+		     "#newcommessage" #> SHtml.textarea(newComment.comment.get, value => {newComment.comment.set(value);JsCmds.Noop}, "placeholder"->"Your comment" ) & // rows="6"
 		     "#newcomsubmithidden" #> SHtml.hidden(() => {
 		       saveAndDisplayAjaxMessages(newComment, 
 		           () => {

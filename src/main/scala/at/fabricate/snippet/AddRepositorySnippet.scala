@@ -91,7 +91,7 @@ trait AddRepositorySnippet[T <: BaseEntity[T] with AddRepository[T]] extends Bas
 //		      "#createrepo [onclick]" #> SHtml.ajaxInvoke(callback) &
 		      //"#commitlabel" #> SHtml.text(commitLabel, commitLabel = _) &
 //		      "#commitlabel" #> SHtml.text("", (str) => {commitLabel = str; JsCmds.Noop}, "default"->"Describe the key features of this project revision")&
-		      "#commitlabel" #> SHtml.ajaxText("", value => {commitLabel = value}, "default"->"Describe the key features of this project revision") &
+		      "#commitlabel" #> SHtml.ajaxText("", value => {commitLabel = value}, "placeholder"->"Describe the key features of this project revision") &
 			  "#listfiles" #>  listAllFiles(item ) &
 			  "#listcommits" #> listAllCommits(item ) &	      
 //		      "#commitrepohidden" #> SHtml.hidden(() => commit(item, commitLabel  )) &

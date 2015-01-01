@@ -11,6 +11,7 @@ import net.liftweb.util._
 import net.liftweb.common._
 import Helpers._
 import at.fabricate.lib.AccessControl
+import net.liftweb.http.S.LFuncHolder
 
 
 /**
@@ -226,8 +227,8 @@ form <- field.toForm.toList
 //    logger.debug("[Login.login] enter.")
 
             User.customLogin{
-  			("#email" #> <input type="text" name="username" default="Your Mail"/> & //FocusOnLoad()
-  			"#password" #> <input type="password" name="password" default="Your Passord"/> &
+  			("#email" #> <input type="text" name="username" placeholder="your mail address"/> & //FocusOnLoad()
+  			"#password" #> <input type="password" name="password" placeholder="your password"/> &
   			"#loginform [action]" #> S.uri
 //  			"type=submit" #> loginSubmitButton(S.?("log.in"))
   			).apply(xhtml)
@@ -238,10 +239,16 @@ form <- field.toForm.toList
   def signup(xhtml: NodeSeq): NodeSeq = {
             User.customSignup{
              (user, action) =>   
-               ("#txtEmail" #> user.email.toForm.toList & //(user.email.toForm.map(_ % ("default"->"mail adress")) & //FocusOnLoad()
-  			"#txtPassword" #> user.password.toForm.toList &
-  			"#txtFirstName" #> user.firstName.toForm.toList &
-  			"#txtLastName" #> user.lastName.toForm.toList &
+               ("#txtEmail" #> user.email.toForm.map(_ % ("placeholder"->"mail adress")) & //(user.email.toForm.map(_ % ("default"->"mail adress")) & //FocusOnLoad()
+//  			"#txtPassword" #> user.password.toForm.toList &
+  			"#txtPassword" #> S.fmapFunc({s: List[String] => user.password.setFromAny(s)}){funcName =>
+  					Full(<span><input type="password" name={funcName} value="" placeholder="password" id="txtPassword"/>
+  					<input type="password" name={funcName} value="" placeholder="repeat password" id="txtPassword"/></span>)
+} &
+//               List(SHtml.password("", value => {user.password(value)}, "placeholder" -> "password", "id" -> "txtPassword"),
+//  			    SHtml.password("", value => {user.password(value)}, "placeholder" -> "repeat password", "id" -> "txtPassword")) &
+  			"#txtFirstName" #> user.firstName.toForm.map(_ % ("placeholder"->"first name")) &
+  			"#txtLastName" #> user.lastName.toForm.map(_ % ("placeholder"->"last name")) &
   			"#signuphidden" #> SHtml.hidden(action )&
   			"#signupform [action]" #> S.uri
 //  			"type=submit" #> loginSubmitButton(S.?("log.in"))
@@ -253,10 +260,24 @@ form <- field.toForm.toList
   }
   
   def changePassword(xhtml: NodeSeq): NodeSeq = {
+    	var oldPassword = ""
+    	var newPassword: List[String] = Nil
+   		val passwordInput = SHtml.password_*("", LFuncHolder(s => newPassword = s))
+		
+
    		if (User.loggedIn_? )
-            User.changePassword
+            User.customChangePassword {
+   		     (user, action) =>   
+               ("#old-password" #> SHtml.password("", s => oldPassword = s) &
+  			"#new-password" #> passwordInput &
+  			"#changepasswordhidden" #> SHtml.hidden(() => action(oldPassword, newPassword) )&
+  			"#changepasswordform [action]" #> S.uri
+//  			"type=submit" #> loginSubmitButton(S.?("log.in"))
+  			).apply(xhtml)
+   		}
             	else
             	  Text("Not logged in!")
+
   }
   
     def edit(xhtml: NodeSeq): NodeSeq = {

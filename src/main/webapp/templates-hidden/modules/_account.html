@@ -2,11 +2,14 @@
 	<div class="lift:Login.account">
 	<span class="icon-plus close-icon"></span>
 		<h1>Edit Account</h1>
-		<div id="account" class="lift:Login.changePassword?form=POST&class=left">
-			<input class="old-password" value="" type="password" placeholder="Old password">
-			<input class="new-password" value="" type="password" placeholder="New password">
-			<input class="new-password" value="" type="password" placeholder="Repeat new password">
-			<input value="change password" type="submit">
+		<div id="account" class="lift:Login.changePassword?class=left">
+			<form id="changepasswordform" method="post" action="#">
+				<input id="old-password" class="old-password" value="" type="password" placeholder="Old password">
+				<input id="new-password" class="new-password" value="" type="password" placeholder="New password">
+				<input id="new-password" class="new-password" value="" type="password" placeholder="Repeat new password">
+				<input id="changepasswordhidden" type="hidden">
+				<input value="change password" type="submit">
+			</form>
     		</div>
 		<div id="account" class="lift:Designer.edit?form=POST&class=left&multipart=true">
 			<input id="firstname" value="" type="text">
