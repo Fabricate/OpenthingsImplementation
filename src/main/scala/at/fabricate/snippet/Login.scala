@@ -226,8 +226,9 @@ form <- field.toForm.toList
 //    logger.debug("[Login.login] enter.")
 
             User.customLogin{
-  			(".email" #> <input type="text" name="username" default="Your Mail"/> & //FocusOnLoad()
-  			".password" #> <input type="password" name="password" default="Your Passord"/> 
+  			("#email" #> <input type="text" name="username" default="Your Mail"/> & //FocusOnLoad()
+  			"#password" #> <input type="password" name="password" default="Your Passord"/> &
+  			"#loginform [action]" #> S.uri
 //  			"type=submit" #> loginSubmitButton(S.?("log.in"))
   			).apply(xhtml)
             }
@@ -236,12 +237,13 @@ form <- field.toForm.toList
   
   def signup(xhtml: NodeSeq): NodeSeq = {
             User.customSignup{
-             user =>   
+             (user, action) =>   
                ("#txtEmail" #> user.email.toForm.toList & //(user.email.toForm.map(_ % ("default"->"mail adress")) & //FocusOnLoad()
   			"#txtPassword" #> user.password.toForm.toList &
   			"#txtFirstName" #> user.firstName.toForm.toList &
-  			"#txtLastName" #> user.lastName.toForm.toList
-//  			"#password" #> user.password.toForm.toList
+  			"#txtLastName" #> user.lastName.toForm.toList &
+  			"#signuphidden" #> SHtml.hidden(action )&
+  			"#signupform [action]" #> S.uri
 //  			"type=submit" #> loginSubmitButton(S.?("log.in"))
   			).apply(xhtml)
             }

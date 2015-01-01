@@ -4,18 +4,23 @@
 		<h1>Login / Register</h1>
 		<p>If you already have an account just login.</p>
 
-		<div class="lift:Login.login?form=POST&class=left">
-			<input id="email" class="email"  name="username" type="text">
-			<input id="password" class="password" name="password" type="password">
-			<input id="login" value="login" type="submit">
+		<div class="lift:Login.login?class=left">
+			<form id="loginform" method="post" action="#">
+				<input id="email" class="email"  name="username" type="text">
+				<input id="password" class="password" name="password" type="password">
+				<input id="login" value="login" type="submit">
+			</form>
     		</div>
 		<p>Don't have an account yet, you can quickly register.</p>
-		<div class="lift:Login.signup?form=POST&class=left">
-			<input id="txtFirstName" maxlength="32" type="text">
-			<input id="txtLastName" maxlength="32" type="text">
-			<input id="txtEmail" maxlength="48" type="text">
-			<input id="txtPassword" value="*******" type="password">
-			<input value="register" type="submit"></td></tr>
+		<div class="lift:Login.signup?class=left">
+			<form id="signupform" method="post" action="#">
+				<input id="txtFirstName" maxlength="32" type="text">
+				<input id="txtLastName" maxlength="32" type="text">
+				<input id="txtEmail" maxlength="48" type="text">
+				<input id="txtPassword" value="*******" type="password">
+				<input id="signuphidden" type="hidden">
+				<input value="register" type="submit">
+			</form>
 		</div>
 
 </section>

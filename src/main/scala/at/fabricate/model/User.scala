@@ -36,7 +36,7 @@ object User extends User with MetaMegaProtoUser[User] with RedirectAfterLogin[Us
 		  </section>
 	  </lift:surround>)
 	  
-   def customSignup(selector : User => NodeSeq) = {
+   def customSignup(selector : (User, () => Unit ) => NodeSeq) = {
 	  val theUser: TheUserType = mutateUserOnSignup(createNewUserInstance())
 	  val theName = signUpPath.mkString("")
 	  def testSignup() {
@@ -48,7 +48,7 @@ object User extends User with MetaMegaProtoUser[User] with RedirectAfterLogin[Us
   	 }
   	 def innerSignup = {
 //  			 ("type=submit" #> signupSubmitButton(S ? "sign.up", testSignup _)) apply signupXhtml(theUser)
-  			 selector(theUser)
+  			 selector(theUser, testSignup)
   	 }
   	 innerSignup
   }
