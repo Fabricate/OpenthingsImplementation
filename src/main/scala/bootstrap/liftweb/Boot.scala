@@ -59,6 +59,7 @@ class Boot {
       case "Designer" => Designer
       case "Project" => ProjectSnippet
       case "User" => UserSnippet
+      case "Login" => Login
     }
     
     //LiftRules.dispatch.append(ImageLogic.matcher)
@@ -78,7 +79,7 @@ class Boot {
 	      RewriteResponse("viewDesigner" :: Nil, Map("id" -> urlDecode(designerID)))
     }
     
-    val logonRewrites = Login.generateRewrites
+//    val logonRewrites = Login.generateRewrites
     
 //    val projectRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
 //      	case RewriteRequest(ParsePath(List("project", "index"), _, _, _), _, _) =>
@@ -99,7 +100,7 @@ class Boot {
    
     // Set up some rewrites
     LiftRules.statelessRewrite.append (userRewrites.orElse
-        (logonRewrites).orElse
+//        (logonRewrites).orElse
         (projectRewritesAuto) )
 //    
     // TODO : aufraumen, sauberes Menue !!!
@@ -146,7 +147,7 @@ class Boot {
 
                Menu.i("Static") / "static" / ** >> Hidden
                //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
-               ) :::  User.sitemap ::: ProjectSnippet.getMenu ::: Tool.menus 
+               ) :::  Login.getMenu ::: ProjectSnippet.getMenu ::: Tool.menus 
   
     LiftRules.setSiteMap(SiteMap(menu :_*))
     
@@ -194,10 +195,10 @@ class Boot {
     // catch exceptions at max fileupload size
     // **** Did not work:
 //    [warn] Class javax.servlet.http.HttpServletRequest not found - continuing with a stub.
-//    LiftRules.exceptionHandler.prepend {
-//		case (_, _, x : FileUploadIOException) =>
-//			ResponseWithReason(BadResponse(), "Unable to process file. Too large?")
-//	}
+    LiftRules.exceptionHandler.prepend {
+		case (_, _, x : FileUploadIOException) =>
+			ResponseWithReason(BadResponse(), "Unable to process file. Too large?")
+	}
 
     //Init the jQuery module, see http://liftweb.net/jquery for more information.
     LiftRules.jsArtifacts = JQueryArtifacts

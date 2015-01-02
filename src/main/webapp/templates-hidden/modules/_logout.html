@@ -2,7 +2,7 @@
 	<span class="icon-plus close-icon"></span>
 		<h1>Logout</h1>
 		<p>Do you want to logout?</p>
-		<div class="lift:Login.account">
-			<a href="#" id="logoutBtn" class="loginBtn btn" >Logout</a>
+		<div data-lift="Login.logout?eager_eval=true">
+			<span data-lift="embed?what=modules/_logout-form">LogoutForm</span>
 		</div>
 </section>

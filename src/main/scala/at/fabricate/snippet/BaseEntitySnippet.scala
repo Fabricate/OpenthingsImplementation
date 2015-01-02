@@ -35,6 +35,7 @@ import net.liftweb.sitemap._
 import net.liftweb.sitemap.Loc.Hidden
 import net.liftweb.common.Full
 import net.liftweb.common.Empty
+import at.fabricate.lib.MatchString
 
 abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
 
@@ -55,25 +56,18 @@ abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippe
       
     def itemEditUrl = "edit"
       
-    def snippetView = "viewItem"
+    def viewTemplate = "viewItem"
       
-    def snippetList = "listItem"
+    def listTemplate = "listItem"
       
-    def snippetEdit = "editItem"
+    def editTemplate = "editItem"
       
-    def menuNameView = "View Item"
+    def viewTitle = "View Item"
       
-    def menuNameList = "List Item"
+    def listTitle = "List Item"
       
-    def menuNameEdit = "Edit Item"
+    def editTitle = "Edit Item"
   
-  class MatchString(matchingString : String){
-    def unapply(in: String): Option[String] =
-    		if (in == matchingString)
-    		  Full(in)
-    		else
-    		  Empty
-  }
   object MatchItemPath extends MatchString(itemBaseUrl)
   
   object MatchView extends MatchString(itemViewUrl)
@@ -93,22 +87,22 @@ abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippe
    // generate the url rewrites
    final def generateRewrites : PartialFunction[RewriteRequest,RewriteResponse] =  {
       case RewriteRequest(ParsePath(List(MatchItemPath(itemBasePath), "index"), _, _, _), _, _) =>
-	      RewriteResponse(snippetList :: Nil)
+	      RewriteResponse(listTemplate :: Nil)
 	  case RewriteRequest(ParsePath(List(MatchItemPath(itemBasePath), MatchList(listPath)), _, _, _), _, _) =>
-	      RewriteResponse(snippetList :: Nil)
+	      RewriteResponse(listTemplate :: Nil)
 	  case RewriteRequest(ParsePath(List(MatchItemPath(itemBasePath), MatchEdit(editPath), AsLong(itemID)), _, _, _), _, _) =>
-	      RewriteResponse(snippetEdit :: Nil, Map("id" -> urlDecode(itemID.toString)))
+	      RewriteResponse(editTemplate :: Nil, Map("id" -> urlDecode(itemID.toString)))
 	  case RewriteRequest(ParsePath(List(MatchItemPath(itemBasePath), MatchEdit(editPath)), _, _, _), _, _) =>
-	      RewriteResponse(snippetEdit :: Nil)
+	      RewriteResponse(editTemplate :: Nil)
 	  case RewriteRequest(ParsePath(List(MatchItemPath(itemBasePath), MatchView(viewPath), AsLong(itemID)), _, _, _), _, _) =>
-	      RewriteResponse(snippetView :: Nil, Map("id" -> urlDecode(itemID.toString)))
+	      RewriteResponse(viewTemplate :: Nil, Map("id" -> urlDecode(itemID.toString)))
      }
      
    final def getMenu : List[Menu] = 
      List[Menu](
-               Menu.i(menuNameView) / snippetView / ** >> Hidden,
-               Menu.i(menuNameList) / snippetList / ** >> Hidden,
-               Menu.i(menuNameEdit) / snippetEdit / ** >> Hidden
+               Menu.i(viewTemplate) / viewTemplate  >> Hidden,
+               Menu.i(listTemplate) / listTemplate ,
+               Menu.i(editTemplate) / editTemplate  >> Hidden
      )
 
    // lean pattern to get the Item from the supplied ID

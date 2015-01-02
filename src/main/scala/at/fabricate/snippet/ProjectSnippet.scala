@@ -12,12 +12,12 @@ object ProjectSnippet extends BaseEntitySnippet[Project] with BaseRichEntitySnip
 //  override def itemViewUrl = "view"
 //  override def itemListUrl = "list"
 //  override def itemEditUrl = "edit"
-  override def snippetView = "viewProject"
-  override def snippetList = "listProject"
-  override def snippetEdit = "editProject"
-  override def menuNameView = "View Project"
-  override def menuNameList = "List Project"
-  override def menuNameEdit = "Edit Project"
+  override def viewTemplate = "viewProject"
+  override def listTemplate = "listProject"
+  override def editTemplate = "editProject"
+  override def viewTitle = "View Project"
+  override def listTitle = "List Project"
+  override def editTitle = "Edit Project"
     
 //    override def asHtml(item : ItemType) : CssSel = {
 //    		println("chaining asHtml from ProjectSnippet")
