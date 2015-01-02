@@ -33,6 +33,8 @@ import net.liftweb.http.ParsePath
 import net.liftweb.http.RewriteResponse
 import net.liftweb.sitemap._
 import net.liftweb.sitemap.Loc.Hidden
+import net.liftweb.common.Full
+import net.liftweb.common.Empty
 
 abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
 
@@ -64,8 +66,23 @@ abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippe
     def menuNameList = "List Item"
       
     def menuNameEdit = "Edit Item"
-      
-      
+  
+  class MatchString(matchingString : String){
+    def unapply(in: String): Option[String] =
+    		if (in == matchingString)
+    		  Full(in)
+    		else
+    		  Empty
+  }
+  object MatchItemPath extends MatchString(itemBaseUrl)
+  
+  object MatchView extends MatchString(itemViewUrl)
+  
+  object MatchList extends MatchString(itemListUrl)
+
+  object MatchEdit extends MatchString(itemEditUrl)
+  
+
    //### methods that are fix ###
    final def dispatch : DispatchIt = localDispatch // orElse super.dispatch
    
@@ -75,15 +92,15 @@ abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippe
    
    // generate the url rewrites
    final def generateRewrites : PartialFunction[RewriteRequest,RewriteResponse] =  {
-      case RewriteRequest(ParsePath(List(itemBaseUrl, "index"), _, _, _), _, _) =>
+      case RewriteRequest(ParsePath(List(MatchItemPath(itemBasePath), "index"), _, _, _), _, _) =>
 	      RewriteResponse(snippetList :: Nil)
-	  case RewriteRequest(ParsePath(List(itemBaseUrl, "list"), _, _, _), _, _) =>
+	  case RewriteRequest(ParsePath(List(MatchItemPath(itemBasePath), MatchList(listPath)), _, _, _), _, _) =>
 	      RewriteResponse(snippetList :: Nil)
-	  case RewriteRequest(ParsePath(List(itemBaseUrl, "edit", AsLong(itemID)), _, _, _), _, _) =>
+	  case RewriteRequest(ParsePath(List(MatchItemPath(itemBasePath), MatchEdit(editPath), AsLong(itemID)), _, _, _), _, _) =>
 	      RewriteResponse(snippetEdit :: Nil, Map("id" -> urlDecode(itemID.toString)))
-	  case RewriteRequest(ParsePath(List(itemBaseUrl, "edit"), _, _, _), _, _) =>
+	  case RewriteRequest(ParsePath(List(MatchItemPath(itemBasePath), MatchEdit(editPath)), _, _, _), _, _) =>
 	      RewriteResponse(snippetEdit :: Nil)
-	  case RewriteRequest(ParsePath(List(itemBaseUrl, "view", AsLong(itemID)), _, _, _), _, _) =>
+	  case RewriteRequest(ParsePath(List(MatchItemPath(itemBasePath), MatchView(viewPath), AsLong(itemID)), _, _, _), _, _) =>
 	      RewriteResponse(snippetView :: Nil, Map("id" -> urlDecode(itemID.toString)))
      }
      

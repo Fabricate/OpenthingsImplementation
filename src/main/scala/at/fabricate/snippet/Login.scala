@@ -18,17 +18,29 @@ import net.liftweb.http.S.LFuncHolder
  * Snippet object that configures template-login and connects it to Login.auth
  */
 object Login {
-  private object user extends RequestVar("")
-  private object pass extends RequestVar("")
+//  private object user extends RequestVar("")
+//  private object pass extends RequestVar("")
 
-  def auth() = {
+//  def auth() = {
 //    logger.debug("[Login.auth] enter.")
 
     // validate the user credentials and do a bunch of other stuff
 //    User.logUserIn(who)
 
 //    logger.debug("[Login.auth] exit.")
-  }
+//  }
+  
+  def generateRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
+      case RewriteRequest(ParsePath(List("login"), _, _, _), _, _) =>
+	      RewriteResponse("user" :: "login" :: Nil)
+      case RewriteRequest(ParsePath(List("logout"), _, _, _), _, _) =>
+	      RewriteResponse("user" :: "logout" :: Nil)
+	      
+      case RewriteRequest(ParsePath(List("sign_up"), _, _, _), _, _) =>
+	      RewriteResponse("user" :: "sign_up" :: Nil)
+      case RewriteRequest(ParsePath(List("lost_password"), _, _, _), _, _) =>
+	      RewriteResponse("user" :: "lost_password" :: Nil)	  	   
+    }
   /*
    def loginFirst = If(
 loggedIn_? _,
@@ -201,20 +213,20 @@ form <- field.toForm.toList
 * 
 */
   
-  def loginAjax(xhtml: NodeSeq): NodeSeq = {
-        /*
-         * TODO: Implement that stuff if necessary, not needed ATM
-    SHtml.ajaxForm(
-      bind("login", xhtml,
-        "user" -> SHtml.text(user.is, user(_), "maxlength" -> "40"),
-        "pass" -> SHtml.password(pass.is, pass(_)),
-        "submit" -> (SHtml.hidden(auth) ++ <input type="submit" value="Login"/>)))
-        * 
-        */
-	  	("user" #> SHtml.text(user.is, user(_), "maxlength" -> "40") &
-        "pass" #> SHtml.text(user.is, user(_), "maxlength" -> "40")
-            )(xhtml)
-  }
+//  def loginAjax(xhtml: NodeSeq): NodeSeq = {
+//        /*
+//         * TODO: Implement that stuff if necessary, not needed ATM
+//    SHtml.ajaxForm(
+//      bind("login", xhtml,
+//        "user" -> SHtml.text(user.is, user(_), "maxlength" -> "40"),
+//        "pass" -> SHtml.password(pass.is, pass(_)),
+//        "submit" -> (SHtml.hidden(auth) ++ <input type="submit" value="Login"/>)))
+//        * 
+//        */
+//	  	("user" #> SHtml.text(user.is, user(_), "maxlength" -> "40") &
+//        "pass" #> SHtml.text(user.is, user(_), "maxlength" -> "40")
+//            )(xhtml)
+//  }
 
   /**
    * This is the part of the snippet that creates the form elements and connects the client side components to

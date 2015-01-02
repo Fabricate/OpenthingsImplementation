@@ -21,6 +21,7 @@ import at.fabricate.snippet.ProjectSnippet
 import at.fabricate.snippet.UserSnippet
 import org.apache.commons.fileupload.FileUploadBase.FileUploadIOException
 import at.fabricate.lib.AccessControl
+import at.fabricate.snippet.Login
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -77,30 +78,20 @@ class Boot {
 	      RewriteResponse("viewDesigner" :: Nil, Map("id" -> urlDecode(designerID)))
     }
     
-    val logonRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
-       case RewriteRequest(ParsePath(List("login"), _, _, _), _, _) =>
-	      RewriteResponse("user" :: "login" :: Nil)
-      case RewriteRequest(ParsePath(List("logout"), _, _, _), _, _) =>
-	      RewriteResponse("user" :: "logout" :: Nil)
-	      
-      case RewriteRequest(ParsePath(List("sign_up"), _, _, _), _, _) =>
-	      RewriteResponse("user" :: "sign_up" :: Nil)
-      case RewriteRequest(ParsePath(List("lost_password"), _, _, _), _, _) =>
-	      RewriteResponse("user" :: "lost_password" :: Nil)	  	   
-    }
+    val logonRewrites = Login.generateRewrites
     
-    val projectRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
-      	case RewriteRequest(ParsePath(List("project", "index"), _, _, _), _, _) =>
-      		RewriteResponse("listProject" :: Nil)
-      	case RewriteRequest(ParsePath(List("project", "list"), _, _, _), _, _) =>
-      		RewriteResponse("listProject" :: Nil)
-      	case RewriteRequest(ParsePath(List("project", "edit",projectID), _, _, _), _, _) =>
-      		RewriteResponse("editProject" :: Nil, Map("id" -> urlDecode(projectID)))
-      	case RewriteRequest(ParsePath(List("project", "edit"), _, _, _), _, _) =>
-      		RewriteResponse("editProject" :: Nil)
-      	case RewriteRequest(ParsePath(List("project","view", projectID), _, _, _), _, _) =>
-      		RewriteResponse("viewProject" :: Nil, Map("id" -> urlDecode(projectID)))
-    }
+//    val projectRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
+//      	case RewriteRequest(ParsePath(List("project", "index"), _, _, _), _, _) =>
+//      		RewriteResponse("listProject" :: Nil)
+//      	case RewriteRequest(ParsePath(List("project", "list"), _, _, _), _, _) =>
+//      		RewriteResponse("listProject" :: Nil)
+//      	case RewriteRequest(ParsePath(List("project", "edit",projectID), _, _, _), _, _) =>
+//      		RewriteResponse("editProject" :: Nil, Map("id" -> urlDecode(projectID)))
+//      	case RewriteRequest(ParsePath(List("project", "edit"), _, _, _), _, _) =>
+//      		RewriteResponse("editProject" :: Nil)
+//      	case RewriteRequest(ParsePath(List("project","view", projectID), _, _, _), _, _) =>
+//      		RewriteResponse("viewProject" :: Nil, Map("id" -> urlDecode(projectID)))
+//    }
     
     
     
@@ -109,7 +100,7 @@ class Boot {
     // Set up some rewrites
     LiftRules.statelessRewrite.append (userRewrites.orElse
         (logonRewrites).orElse
-        (projectRewrites) )
+        (projectRewritesAuto) )
 //    
     // TODO : aufraumen, sauberes Menue !!!
     /*
