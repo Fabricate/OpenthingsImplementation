@@ -21,7 +21,7 @@ import at.fabricate.snippet.ProjectSnippet
 import at.fabricate.snippet.UserSnippet
 import org.apache.commons.fileupload.FileUploadBase.FileUploadIOException
 import at.fabricate.lib.AccessControl
-import at.fabricate.snippet.Login
+import at.fabricate.snippet.LoginSnippet
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -59,7 +59,7 @@ class Boot {
       case "Designer" => Designer
       case "Project" => ProjectSnippet
       case "User" => UserSnippet
-      case "Login" => Login
+      case "Login" => LoginSnippet
     }
     
     //LiftRules.dispatch.append(ImageLogic.matcher)
@@ -147,7 +147,7 @@ class Boot {
 
                Menu.i("Static") / "static" / ** >> Hidden
                //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
-               ) :::  Login.getMenu ::: ProjectSnippet.getMenu ::: Tool.menus 
+               ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu ::: Tool.menus 
   
     LiftRules.setSiteMap(SiteMap(menu :_*))
     
