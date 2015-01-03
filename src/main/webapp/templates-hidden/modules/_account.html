@@ -1,17 +1,17 @@
 <section class="accountScreen left">
-	<div class="lift:Login.account">
+	<div data-lift="Login.account">
 	<span class="icon-plus close-icon"></span>
 		<h1>Edit Account</h1>
-		<div id="account" class="lift:Login.changePassword?eager_eval=true&class=left">
-			<span class="lift:embed?what=modules/_change-password-form">ChangePasswordForm</span>
+		<div id="account" data-lift="Login.changePassword?eager_eval=true" class="left">
+			<span data-lift="embed?what=modules/_change-password-form">ChangePasswordForm</span>
     		</div>
-		<div id="account" class="lift:Designer.edit?form=POST&class=left&multipart=true">
+		<div id="account" data-lift="Designer.edit?form=POST&class=left&multipart=true">
 			<input id="firstname" value="" type="text">
 			<input id="lastname" value="" type="text">
 			<textarea id="aboutme"></textarea>
 			<img id="showimage" src="#"></img>
 			Delete image? <input id="deleteimage" value="false" type="checkbox"></input>
-			New image?<input id="newimage" value=""  type="file"></input>
+			New image?<input id="newimage" placeholder="Upload image" value=""  type="file"></input>
 			<div id="listtools">
 				<div id="tools">
 					<ul>

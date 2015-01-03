@@ -1,12 +1,12 @@
-<lift:surround with="default" at="content">
+<div id="main" data-lift="surround?with=default;at=content">
 <section class="mainContent left">
 	<ul>
-		<div class="lift:Project.list?eager_eval=true">
-			<span class="lift:embed?what=modules/_list-item_mb">ProjectAndUserHeader</span>
+		<div data-lift="Project.list?eager_eval=true">
+			<span data-lift="embed?what=modules/_list-item_mb">ProjectAndUserHeader</span>
 		</div>
 
 	</ul>
-	<div class="lift:Project.paginatecss">
+	<div data-lift="Project.paginatecss">
 		<span id="first"> </span>&nbsp; | &nbsp;
 		<span id="prev"> </span>&nbsp; | &nbsp;
 		<span id="zoomedpages">&nbsp;</span> &nbsp; | &nbsp;
@@ -15,4 +15,4 @@
 		<span id="records"></span>
 	</div>
 </section>
-</lift:surround>
+</div>
