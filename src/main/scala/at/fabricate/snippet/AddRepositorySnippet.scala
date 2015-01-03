@@ -14,7 +14,7 @@ import model.BaseEntity
 import model.BaseMetaEntityWithTitleAndDescription
 import java.io.File
 import org.eclipse.jgit.revwalk.RevCommit
-import at.fabricate.model.GitWrapper
+import at.fabricate.lib.GitWrapper
 import net.liftweb.http.js.JsCmd
 import net.liftweb.http.js.JsCmds.SetHtml
 import net.liftweb.http.js.jquery.JqJsCmds.DisplayMessage
@@ -80,7 +80,12 @@ trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRep
 			          
 			     def bindCommitCss(commit : RevCommit, localItem : ItemType) : CssSel =
 			          "#commitname" #> commit.getFullMessage() & 
-			          "#downloadcommit [href]" #> "/projects/%s/data/%s/%s.zip".format(localItem.primaryKeyField.toString,commit.getName(),localItem.primaryKeyField.toString) & 
+			          "#downloadcommit [href]" #> "/%s/%s/%s/%s/%s.zip".format(
+			              localItem.basePathToRepository, 
+			              localItem.repositoryID,
+			              localItem.endPathToData,
+			              commit.getName(),
+			              localItem.repositoryID) & 
 			          "#resetcommit [onclick]" #> SHtml.ajaxInvoke(() => {
 			            localItem.repository.revertToCommit(commit)
 			            displayMessageAndHideLocal("Rolled back to commit "+commit.getFullMessage())
@@ -97,7 +102,11 @@ trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRep
 		      "#commitrepo [onclick]" #> SHtml.ajaxInvoke(commitRepository(item) ) &
 		      //"#commitrepo " #> SHtml.hidden(commit(id)) &
 //		      "#testbutton [onclick]" #> SHtml.ajaxInvoke(callback) &
-		      "#fileupload [data-url]" #> "/api/upload/file/%s".format(item.primaryKeyField) &
+		      "#fileupload [data-url]" #> "/%s/%s/%s/%s".format(
+		          item.apiPath, 
+		          item.uploadPath,
+		          item.repositoryPath,
+		          item.primaryKeyField) &
 		      "#uploadconfig *+" #> Function(
 			        "UpdateFilelist", List("newfile"),SHtml.ajaxCall(JsVar("newfile"), 
 				            (newfile: String) => {

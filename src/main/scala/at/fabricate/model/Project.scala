@@ -45,6 +45,7 @@ object Project extends Project with BaseMetaEntity[Project] with BaseMetaEntityW
 class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepository[Project] {
 
 
+  // override icon-image settings
   override def defaultIcon = "/public/images/noproject.jpg"
     
   override def iconDisplayName = S.?("project\u0020icon")//S.?("user\u0020image") -> Throws an exception
@@ -52,6 +53,22 @@ class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIco
   override def iconDbColumnName = "project_image"
     
   override def iconPath = "projectimage"
+    
+    // override repository settings
+//       override def apiPath = "api"
+//        
+//      override def uploadPath = "upload"
+        
+      override def repositoryPath = "projectrepository"
+        // this is the location where all the projects are
+        // eg. webapp/projects/<projectID>
+       override def basePathToRepository : String = "projects"
+       // this is the location where the repository is inside the project dir
+       // eg. webapp/projects/<projectID>/repository
+ 	   override def endPathToRepository : String = "repository"
+       // this is the location where the data (eg. zip for Repo Commit) is inside the project dir
+       // eg. webapp/projects/<projectID>/data
+ 	   override def endPathToData : String = "data"
 
 //      object createdByUser extends MappedManyToMany(self,){ }
     

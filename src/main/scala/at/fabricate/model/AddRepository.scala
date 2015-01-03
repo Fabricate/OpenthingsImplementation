@@ -32,26 +32,64 @@ import java.io.BufferedInputStream
 import net.liftweb.http.rest.RestHelper
 import net.liftweb.http.OkResponse
 import net.liftweb.http.BadResponse
+import at.fabricate.lib.MatchString
+import net.liftweb.util.Helpers._
+import at.fabricate.lib.GitWrapper
 
-trait AddRepository [T <: (AddRepository[T]) ] extends BaseEntity[T]  {
+trait AddRepository [T <: (AddRepository[T] with MatchByID[T]) ] extends BaseEntity[T]  {
 
   self: T =>
+    
+
+      // defines the path for uploading files to the rest api
+      // example path : URL_TO_THE_SERVER/api/upload/repository    
+      def apiPath : String = "api"
+        
+      def uploadPath : String = "upload"
+        
+      def repositoryPath : String = "repository"
+        
+      // defines the path for uploading files to the rest api
+      // example path : webapp/items/upload/repository         	    
+ 	   def basePathToRepository : String = "items"
+ 	     
+ 	   def endPathToRepository : String = "repository"
+ 	     
+ 	   def endPathToData : String = "data"
+ 	   
+ 	   def repositoryID : String = primaryKeyField.get.toString
+ 	   
+ 	   def initRepoMessage = "Initialized repository!"
+
     
  	lazy val repository : GitWrapper[T] = new MyGitWrapper(this)
  	
    protected class MyGitWrapper(obj : T) extends GitWrapper(obj) {
+        
+       private val webappRootURL : URL = LiftRules.getResource("/") .openOrThrowException("Webapp Root not found!") 
+
+       private val webappRoot = webappRootURL.getPath() // TODO : maybe use urlDecode to convert the "%20" to " "
+       
+       private val basePathToRepository = fieldOwner.basePathToRepository
+ 	   private val endPathToRepository = fieldOwner.endPathToRepository
+ 	   private val endPathToData = fieldOwner.endPathToData
  	  
- 	 override def basePathToProjectFolder = webappRoot + basePathToRepository + 
+ 	 override def basePathToItemFolder = webappRoot + basePathToRepository + 
      File.separator + repositoryID
      
-     override def pathToRepository =  basePathToProjectFolder + 
+     override def pathToRepository =  basePathToItemFolder + 
      File.separator + endPathToRepository//fieldOwner.pathToRepository
      
-     override def pathToData =  basePathToProjectFolder + 
+     override def pathToData =  basePathToItemFolder + 
      File.separator + endPathToData//fieldOwner.pathToRepository
   
-     override def repositoryID = //{
-       fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField.get.toString
+     def repositoryID : String = fieldOwner.repositoryID
+     
+     override def initRepoMessage = fieldOwner.initRepoMessage
+       
+//     override def urlToRepo = 
+//       
+//     override def urlToData = 
        
  	  /*
   override def defaultImage = fieldOwner.defaultIcon
@@ -78,16 +116,12 @@ trait AddRepository [T <: (AddRepository[T]) ] extends BaseEntity[T]  {
  	}
  	* 
  	*/
- 	    
- 	   def basePathToRepository : String = "projects"
- 	   def endPathToRepository : String = "repository"
- 	   def endPathToData : String = "data"
 
   
-// projects/"+primaryKeyField+"/repository/.git
+// items/"+primaryKeyField+"/repository/.git
    /*
 	def pathToRepository(repositoryID : String) : String = {
-    val url = base.getPath+"projects/"+repositoryID+"/repository/.git"
+    val url = base.getPath+"items/"+repositoryID+"/repository/.git"
      println("URL: "+url)
      println("LiftCoreResourceName: "+LiftRules.liftCoreResourceName)
      println("ResourceServePath: "+LiftRules.resourceServerPath)
@@ -95,11 +129,11 @@ trait AddRepository [T <: (AddRepository[T]) ] extends BaseEntity[T]  {
    }
    * 
    */
-     //basePath+"projects/"+primaryKeyField+"/repository/.git"
+     //basePath+"items/"+primaryKeyField+"/repository/.git"
    // file structure (where to put the zip file?)
-  // projects 
-   // 	- <ProjectID>/
-   //		- <ProjectID>.zip
+  // items 
+   // 	- <ItemID>/
+   //		- <ItemID>.zip
    //		- repository/
    //		- previewImages/
 	//	   		- <maybe> commitID
@@ -132,10 +166,11 @@ trait AddRepository [T <: (AddRepository[T]) ] extends BaseEntity[T]  {
   
 }
 
-trait AddRepositoryMeta [ModelType <: ( AddRepository[ModelType]) ] extends BaseMetaEntity[ModelType]  { //
+trait AddRepositoryMeta [ModelType <: ( AddRepository[ModelType] with MatchByID[ModelType]) ] extends BaseMetaEntity[ModelType]  { //
     self: ModelType  =>
 
       type TheRepoType = ModelType
+      
    	// maybe afterSave ??, if ID is not available?
       // -> ID is not available, even after save or commit!!!!
       
@@ -180,6 +215,15 @@ trait AddRepositoryMeta [ModelType <: ( AddRepository[ModelType]) ] extends Base
     
     * 
     */
+//        Not needed - matching does not work and simple strings (should) work fine
+//      object MatchAPIPath extends MatchString(apiPath)
+//      
+//      object MatchUploadPath extends MatchString(uploadPath)
+//      
+//      object MatchRepositoryPath extends MatchString(repositoryPath)
+
+      
+      
       abstract override def init : Unit = {
 //        serve ( "simple5" / "item" prefix {
 //// all the inventory
@@ -194,26 +238,27 @@ trait AddRepositoryMeta [ModelType <: ( AddRepository[ModelType]) ] extends Base
 //case Item(item) :: Nil JsonGet _ => item: JValue
 //case Item(item) :: Nil XmlGet _ => item: Node
 //})
+
         object FileUploadREST extends RestHelper {
 
-		  serve ( "api" / "upload" / "file" prefix {
+		  serve ( apiPath / uploadPath / repositoryPath prefix {
 		
-		    case Project.MatchItemByID(project) :: Nil Post req =>
+		    case MatchItemByID(item) :: Nil Post req =>
 		      for (file <- req.uploadedFiles) {
 		        println("Received: "+file.fileName)
 		        // copy the file to the repository
-		        project.repository.copyFileToRepository(file)
+		        item.repository.copyFileToRepository(file)
 		      }
 		      OkResponse()
 		      
 		    case any :: Nil Post req => {
-		      println("upload file :: id is not matching a Project")
+		      println("upload file :: id is not matching a item")
 		      println(any)
 		      BadResponse()
 		    }
 		    
 		    case Nil Post req => {
-		      println("upload file :: project id missing")
+		      println("upload file :: item id missing")
 		      BadResponse()
 		    }
 		
@@ -225,346 +270,6 @@ trait AddRepositoryMeta [ModelType <: ( AddRepository[ModelType]) ] extends Base
       }
 }
 
-class GitWrapper[T <: (AddRepository[T]) ](owner : T) extends MappedBoolean[T](owner) {
-  
-    val webappRoot = LiftRules.getResource("/") .openOrThrowException("Webapp Root not found!") .getPath
-    
-	// may be overridden in subclasses for other behaviour
-    // repositoryID might be used as well
-	def pathToRepository : String = basePathToProjectFolder + "/repository/"
-	
-	def pathToData : String = basePathToProjectFolder + "/data/"
 
-	def basePathToProjectFolder : String = webappRoot+"repository/"+repositoryID
-	
-	// default path if the ID is not set
-	def pathToDefaultRepository : String = webappRoot+"DefaultRepository"
-  
-	// may be overridden in subclasses for other behaviour
-   	def repositoryID : String = fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField.get.toString
- 
-   	// ensure that it is default false, as the value indicates if the repository has alredy been created
-   	override def defaultValue = false
-   	
-   	// get the .git config file inside the repository folder
-   	// this is needed for ghe repository object
-   	def getRepositoryDotGitDirectory : File = {
-      // problem with looping - do it with just strings
-      //getRepo.getDirectory
-      new File(pathToRepository, ".git")
-    }
-   	
-    // get the repository directory
-    // this is the file where all the data is stored inside
-   	def getRepositoryDirectory : File = {
-      getRepositoryDotGitDirectory.getParentFile()
-    }
-   	
-   	private def isRepositoryInitialized : Boolean = get
-   	
-   	/*{
-   	  // not exactly - maybe ask git.log not empty, but maybe that crashes!
-   	  getRepositoryDotGitDirectory.exists() && getRepositoryDotGitDirectory.isDirectory()
-   	}
-   	* 
-   	*/
-   	
-   	private def createDirectory(path : String) = {
-   	  val repoConfigFile =   new File(path, "dummyfile" )
-   	  repoConfigFile.getParentFile().mkdirs()   	  
-   	  println("created directory for: "+path)
-   	}
-   	
-   	private def initializeRepository : Repository= {
-   	  // delete the dir if it already exists
-   	  getRepositoryDotGitDirectory.delete()
-   	  // create the directory structure
-   	  createDirectory(getRepositoryDotGitDirectory.getAbsolutePath())
-
-   	  // initialize the repository
-   	  Git.init().setDirectory(getRepositoryDirectory).call()
-   	  
-   	  val repo = FileRepositoryBuilder.create(  getRepositoryDotGitDirectory )
-   	  val commit = new Git(repo).commit().setMessage("Created repository with ID "+repositoryID+" !").call()
-   	  
-   	  // create a zip file for that commit - just for convenience
-   	  createZipForCommit(commit.getName())
-   	  
-   	  // reset the value so that the variable indicates that the repository is initialized
-   	  // important: save the fieldOwner afterwards, otherwise it will not be saved
-   	  set(true)
-   	  fieldOwner.save
-   	  
-   	  
-   	  println("inizialized repository for id "+fieldOwner.primaryKeyField)
-   	  repo
-   	}
-   	/*
-   	    // create a new repository
-  def createNewRepo() : Repository = {
-      val repoConfigFile =   new File(pathToRepository + File.separator + "config" )
-      val repoDir = new File(pathToRepository)
-	  repoConfigFile.getParentFile().mkdirs()
-	  //getRepoFile.createNewFile()
-	  // Path must exist
-	  Git.init().setDirectory(repoDir.getParentFile()).call()	  
-	  val repo = FileRepositoryBuilder.create(  new File(pathToRepository) )
-	  
-	  println("repo dir: "+repo.getDirectory())
-	  // dont do that - endless call!!!
-	  //initialCommit
-	  repo.close()
-	  
-	  openExistingRepo
-	}
-	* 
-	*/
-
-   	private def isIDSet : Boolean = 
-   			if (fieldOwner.primaryKeyField != Empty && fieldOwner.primaryKeyField != -1 )
-   				true
-   			else
-   				false
-     
-   	
-  // add a new file to the repo
-   				// TODO:
-  // pay attention: maybe there are some nasty caracters in the filename:
-   				// for example ../../../ 
-   				// and then the file is stored somewhere else!
-   				// or deleted
-   				
-  def deleteFileFromRepository(file : File) =   {
-   			  file.delete()
-   			}
-   	
-  def createZipForCommit(commitName : String) = {
-    val pathToZipDir = pathToData+File.separator+
-    			commitName
-//            (getAllCommits.length+1).toString
-    val pathToZipFile = pathToZipDir+File.separator+
-            fieldOwner.primaryKeyField.get+".zip"
-    println("creating zip at: "+pathToZipFile)
-    createDirectory(pathToZipDir)
-    
-    val zipoutstream = new ZipOutputStream(
-        new FileOutputStream(pathToZipFile) )
-//    var clazz = ZippingFileExample.class
-//    var inputStream = this.getres
-    
-    // configure zip compression
-    zipoutstream.setMethod(ZipOutputStream.DEFLATED)
-    zipoutstream.setLevel(5)
-
-    getAllFilesInRepository.map(file => {      
-      zipoutstream.putNextEntry( new ZipEntry(file.getName()) )
-      val in = new BufferedInputStream(new FileInputStream(file.getAbsolutePath()))
-      var b = in.read()
-      while (b > -1) {
-        zipoutstream.write(b)
-        b = in.read()
-      }
-      in.close()
-      zipoutstream.closeEntry()
-    }
-    )
-     
-//    */
-//    zipoutstream.putNextEntry( new ZipEntry(getRepositoryDirectory.getAbsolutePath()) )
-    zipoutstream.close()
-    
-  }
-   	
-  def createSafeFileName(name: String) : String = name.replaceAll("[^a-zA-Z0-9.-]", "_")
-   	
-  def copyFileToRepository(file : FileParamHolder) =   {
-    // remove special characters from the path for security reasons
-        val filePathInRepository = new File(getRepositoryDirectory,createSafeFileName(file.fileName ))
-        var output = new FileOutputStream(filePathInRepository)
-        try {
-          output.write(file.file)
-        } catch {
-          case e : Throwable => {
-            println("Exception while copying file to disk: ")
-            println(e)
-          } 
-        } finally {
-            output.close
-            output = null
-          }
-        /*
-	    withGitReopsitory[RevCommit]{
-	   		git => {
-	   		  git.add.addFilepattern(filePathInRepository.getAbsolutePath()).call()
-	   		  git.commit().setMessage("added file %s to the repository".format(file.fileName )).call()
-	   		}
-   		}
-   		* 
-   		*/
-   	}
-   	
-
-  // commit the repository
-  def commit(message : String) = 
-    withGitReopsitory[RevCommit]{
-   		git => {
-
-   		  // add all files that are in the repository to be added at the commit
-   		  // TODO: might not work with directories, maybe use file.getAbsolutePath() then
-   		  getAllFilesInRepository.map(file => git.add().addFilepattern(file.getName()).call())
-   		  val commit = git.commit().setAll(true).
-//   		  setAuthor(new PersonIdent("openthings")).
-   		  setMessage(message).call()
-   		  // create a zip file with the actual content
-   		  // ToDo: maybe use a nicer name?
-   		  createZipForCommit(commit.getName())
-   		  commit
-   		}
-  }
-
-  object IgnoreDotGitDirectory extends FileFilter {
-    override def accept( file : File) : Boolean = {
-//      println("file: "+file.getPath()+ "\n starts with .git : "+file.getPath().endsWith(".git"))
-    	if (file.getPath().endsWith(".git")) // maybe file.isDirectory && 
-    	  false
-        else
-          true
-    }
-  }
-   	
-   	def getAllFilesInRepository : List[java.io.File] = 
-   	  if (getRepositoryDirectory.exists)
-   	    getRepositoryDirectory.listFiles(IgnoreDotGitDirectory).toList
-   	    else
-   	      List[java.io.File]()
-   	
-   	
-   	def getAllCommits : List[RevCommit] = withGitReopsitory[List[RevCommit]]{
-   		git => git.log().all.call().iterator().toList
-   	}
-   	
-   	def revertToCommit(commit : RevCommit)  = withGitReopsitory[Ref]{
-   		git => git.checkout().setName(commit.getName()).call()
-   	}   	
-   	
-   	
-   	private def withGitReopsitory[U](op: Git => U ) : U  = {
-//      val repoWasInitialized = isRepositoryInitialized   	  
-   	  // create the repository if it does not already exitst
-//   	  if (!repoWasInitialized)
-//   		  initializeRepository
-   	  
-   	  val repository = 
-   	    if (isRepositoryInitialized)
-   	      	openExistingRepo
-   	      else
-   	        initializeRepository
-   	        
-//   	  println("repository: "+repository.getDirectory().getAbsolutePath())
-   	        
-   	  val gitRepository : Git = new Git(repository)
-   	  
-   	  // perform an initial commit as a baseline
-//   	  if (!repoWasInitialized)
-//   	    gitRepository.commit().setMessage("Created repository with ID "+repositoryID+" !").call()
-   	  try {
-   	    op(gitRepository)
-   	  } finally {
-   	    repository.close()
-   	  }
-   	}
-   	
-   	  // open an exiting repository
-  private def openExistingRepo() : Repository =  
-    new FileRepositoryBuilder().
-	  setGitDir( getRepositoryDotGitDirectory ).
-	  readEnvironment.
-	  findGitDir.
-	  build
-	  
-	    
-  // get a list of commits
-  //def getAllCommits : List[(Long, String)] = List[(Long, String)] ()
-  
-  // get one special commit
-  def getCommit(id : String) = Unit
-  
-  private def linkToRepo(linkText : String) = <a href={"/project/repository/"+fieldOwner.primaryKeyField.get}>{linkText}</a>
-  //State: {get}</span>
-  
-  override def asHtml = linkToRepo("view the repository") // TODO: plus additionally a download link for the zip
-
-  override def toForm = Full(linkToRepo("edit the repository"))
-   	
-   	/*
-	private def repo : Repository = {
-      if (isIDSet) {
-	      if (existsdOnFilesystem) {
-	        println ("opened repo for project "+repositoryID)
-	        openExistingRepo
-	      }
-	      else {
-	        println("created new repo for project "+repositoryID)
-	        set(true)
-	        fieldOwner.save
-	        //fieldOwner.repository.s
-	        createNewRepo
-	      }
-      } else {
-        println("primary key open")
-        // throw an exception here?
-        new FileRepositoryBuilder().setGitDir( new File(pathToDefaultRepository)).build
-      }
-    }
-	// FileRepo is just one option, maybe put the stuff to the database ??
-	
-    
-    def getRepo : Repository = repo
-    
-	// TODO: Think about a server Interface where you can push and pull - would be amazing!!
-	
-	
-	//private def git : Git = new Git(repo)
- 	
-
-  
-  
-  private def initialCommit = {
-         Git.init().setDirectory(repo.getDirectory().getParentFile()).call()
-       }
-  
-  // get the file-object of the git repo
-  //private def getRepoFile : File = new File(pathToRepository )
-    /*
-   {
-         if (pathToRepository.endsWith(File.separator))
-        	 new File(pathToRepository ) // +repositoryID
-         else 
-           new File(pathToRepository+File.separator )
-       }
-       * 
-       */
-  
-    // create a new repository
-  def createNewRepo() : Repository = {
-      val repoConfigFile =   new File(pathToRepository + File.separator + "config" )
-      val repoDir = new File(pathToRepository)
-	  repoConfigFile.getParentFile().mkdirs()
-	  //getRepoFile.createNewFile()
-	  // Path must exist
-	  Git.init().setDirectory(repoDir.getParentFile()).call()	  
-	  val repo = FileRepositoryBuilder.create(  new File(pathToRepository) )
-	  
-	  println("repo dir: "+repo.getDirectory())
-	  // dont do that - endless call!!!
-	  //initialCommit
-	  repo.close()))
-	  
-	  openExistingRepo
-	}
-  
-*/
-
-}
 
 

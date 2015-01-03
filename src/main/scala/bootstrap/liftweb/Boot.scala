@@ -16,7 +16,6 @@ import net.liftweb.sitemap.Loc._
 import at.fabricate.snippet.Designer
 import at.fabricate.lib.ImageLogic
 import net.liftmodules.widgets.autocomplete.AutoComplete
-import at.fabricate.api._
 import at.fabricate.snippet.ProjectSnippet
 import at.fabricate.snippet.UserSnippet
 import org.apache.commons.fileupload.FileUploadBase.FileUploadIOException
