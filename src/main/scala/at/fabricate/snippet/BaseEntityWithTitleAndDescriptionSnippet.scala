@@ -83,7 +83,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
   }
    
    // generate the url rewrites
-   final def generateRewrites : PartialFunction[RewriteRequest,RewriteResponse] =  {
+   def generateRewrites : PartialFunction[RewriteRequest,RewriteResponse] =  {
       case RewriteRequest(ParsePath(List(MatchItemPath(itemBasePath), "index"), _, _, _), _, _) =>
 	      RewriteResponse(listTemplate :: Nil)
 	  case RewriteRequest(ParsePath(List(MatchItemPath(itemBasePath), MatchList(listPath)), _, _, _), _, _) =>
@@ -96,7 +96,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 	      RewriteResponse(viewTemplate :: Nil, Map("id" -> urlDecode(itemID.toString)))
      }
      
-   final def getMenu : List[Menu] = 
+   def getMenu : List[Menu] = 
      List[Menu](
                Menu.i(viewTemplate) / viewTemplate  >> Hidden,
                Menu.i(listTemplate) / listTemplate ,

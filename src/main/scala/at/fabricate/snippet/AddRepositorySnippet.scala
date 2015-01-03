@@ -21,6 +21,12 @@ import net.liftweb.http.js.jquery.JqJsCmds.DisplayMessage
 import net.liftweb.http.js.JsCmds.Function
 import net.liftweb.http.js.JE.JsVar
 import at.fabricate.model.BaseEntityWithTitleAndDescription
+import net.liftweb.http.RewriteRequest
+import net.liftweb.http.ParsePath
+import net.liftweb.http.RewriteResponse
+import net.liftweb.sitemap.Menu
+import net.liftweb.sitemap.*
+import net.liftweb.sitemap.Loc.Hidden
 
 
 trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRepository[T]] extends BaseEntityWithTitleAndDescriptionSnippet[T] {
@@ -29,6 +35,16 @@ trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRep
   var commitTemplate : NodeSeq = NodeSeq.Empty 
 
   def displayMessageAndHideLocal(message : String ) : JsCmd = displayMessageAndHide("repositoryMessages",message)
+  
+//  def zipDownloadMenu 
+  
+//  abstract override def getMenu : List[Menu] = (Menu.i("download zip ") / "projects" / * / "data" / * / *   >> Hidden) :: super.getMenu
+  
+//  abstract override def generateRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
+////    projects/30/data/770fbca31f27a3480b5419f459f8c9e2e5cf3281/30.zip
+//      case RewriteRequest(ParsePath(List(MatchItemPath(itemBasePath), "index"), _, _, _), _, _) =>
+//	      RewriteResponse(listTemplate :: Nil)
+//  } orElse super.generateRewrites
   
   abstract override def view(xhtml: NodeSeq) :  NodeSeq  =  {
     // get just the comment section
