@@ -22,6 +22,7 @@ import org.eclipse.jgit.lib.Ref
 import net.liftweb.common.Full
 import scala.collection.JavaConversions._
 import at.fabricate.model.MatchByID
+import org.eclipse.jgit.diff.DiffEntry
 
 
 class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends MappedBoolean[T](owner) { 
@@ -242,10 +243,24 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
    		git => git.log().all.call().iterator().toList
    	}
    	
-   	def revertToCommit(commit : RevCommit)  = withGitReopsitory[Ref]{
+   	def revertToCommit(commit : RevCommit)  = 
+   	  withGitReopsitory[Ref]{
+   	   //this solution creates "head detached" problem
    		git => git.checkout().setName(commit.getName()).call()
+   		// no problem with head detached, but files are not deleted
+//   		git => git.checkout().setAllPaths(true).setName(commit.getName()).call()
+//   	  // other solution -> UNTESTED
+//   	  withGitReopsitory[RevCommit]{
+//   	  git => git.revert().setOurCommitName(commit.getName()).call()
    	}   	
    	
+   	
+//   	def differenceBetweenCommits(commit1 : RevCommit, commit2 : RevCommit)  = 
+//   	  // idea for a solution -> UNTESTED
+//   	  withGitReopsitory[List[DiffEntry]]{
+//
+//   	  git => git.diff().setSourcePrefix(commit1.getName()).setDestinationPrefix(commit2.getName()).call().toList
+//   	}   
    	
    	private def withGitReopsitory[U](op: Git => U ) : U  = {
 //      val repoWasInitialized = isRepositoryInitialized   	  
