@@ -49,9 +49,17 @@ class Boot {
     
     // DID THAT KILL LIFT COMPILATION???? -> Yea, this was mixing between types
     // has to be a list of BaseMetaMapper entities
-    val itemsToSchemify : List[BaseMetaMapper] = Project.getItemsToSchemify ::: List[BaseMetaMapper](User, Tool, UserHasTools) 
+    val itemsToSchemify : List[BaseMetaMapper] = Project.getItemsToSchemify ::: 
+    User.getItemsToSchemify ::: List[BaseMetaMapper](Tool, UserHasTools) 
     Schemifier.schemify(true, Schemifier.infoF _, itemsToSchemify :_*)
         
+    // initialize the Mapper instances
+    // stuff that can only be done at the Startup phase
+    // adds for example serving of images and uploading of files to REST API to the LiftRules
+    
+    User.init
+    Project.init
+    
     // where to search snippet
     LiftRules.addToPackages("at.fabricate")
     
