@@ -11,9 +11,7 @@ import net.liftweb.util.Helpers._
 import scala.xml.NodeSeq
 import scala.xml.Text
 import model.BaseEntity
-import model.BaseEntityMeta
-import model.BaseRichEntityMeta
-import model.BaseRichEntity
+import model.BaseMetaEntityWithTitleAndDescription
 import java.io.File
 import org.eclipse.jgit.revwalk.RevCommit
 import at.fabricate.model.GitWrapper
@@ -22,9 +20,10 @@ import net.liftweb.http.js.JsCmds.SetHtml
 import net.liftweb.http.js.jquery.JqJsCmds.DisplayMessage
 import net.liftweb.http.js.JsCmds.Function
 import net.liftweb.http.js.JE.JsVar
+import at.fabricate.model.BaseEntityWithTitleAndDescription
 
 
-trait AddRepositorySnippet[T <: BaseEntity[T] with AddRepository[T]] extends BaseEntitySnippet[T] {
+trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRepository[T]] extends BaseEntityWithTitleAndDescriptionSnippet[T] {
   
   var filesTemplate : NodeSeq = NodeSeq.Empty 
   var commitTemplate : NodeSeq = NodeSeq.Empty 

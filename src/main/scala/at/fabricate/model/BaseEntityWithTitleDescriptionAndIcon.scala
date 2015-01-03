@@ -6,7 +6,7 @@ import net.liftweb.mapper.LongKeyedMapper
 // This is the basic mapper entity type
 // especially for use in User (without IdPK)
 
-trait BaseIconEntity [T <: (BaseIconEntity[T] with LongKeyedMapper[T]) ] extends BaseEntity[T] with AddIcon[T]
+trait BaseEntityWithTitleDescriptionAndIcon [T <: (BaseEntityWithTitleDescriptionAndIcon[T]) ] extends BaseEntityWithTitleAndDescription[T] with AddIcon[T]
 {
   self: T =>
     
@@ -20,7 +20,7 @@ trait BaseIconEntity [T <: (BaseIconEntity[T] with LongKeyedMapper[T]) ] extends
 	// getItemsToSchemify comes from the AddComment trait
 }
 
-trait BaseIconEntityMeta[ModelType <: ( BaseIconEntity[ModelType] with LongKeyedMapper[ModelType]) ] extends BaseEntityMeta[ModelType] with AddIconMeta[ModelType]
+trait BaseMetaEntityWithTitleDescriptionAndIcon[ModelType <: ( BaseEntityWithTitleDescriptionAndIcon[ModelType]) ] extends BaseMetaEntityWithTitleAndDescription[ModelType] with AddIconMeta[ModelType]
 {
     self: ModelType  =>
       

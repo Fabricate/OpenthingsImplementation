@@ -30,7 +30,7 @@ import java.util.zip.ZipEntry
 import java.io.FileInputStream
 import java.io.BufferedInputStream
 
-trait AddRepository [T <: (AddRepository[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Long, T]  {
+trait AddRepository [T <: (AddRepository[T]) ] extends BaseEntity[T]  {
 
   self: T =>
     
@@ -129,7 +129,7 @@ trait AddRepository [T <: (AddRepository[T] with LongKeyedMapper[T]) ] extends K
   
 }
 
-trait AddRepositoryMeta [ModelType <: ( AddRepository[ModelType] with LongKeyedMapper[ModelType]) ] extends KeyedMetaMapper[Long, ModelType]  { //
+trait AddRepositoryMeta [ModelType <: ( AddRepository[ModelType]) ] extends BaseMetaEntity[ModelType]  { //
     self: ModelType  =>
 
       type TheRepoType = ModelType
@@ -179,7 +179,7 @@ trait AddRepositoryMeta [ModelType <: ( AddRepository[ModelType] with LongKeyedM
     */
 }
 
-class GitWrapper[T <: (AddRepository[T] with LongKeyedMapper[T]) ](owner : T) extends MappedBoolean[T](owner) {
+class GitWrapper[T <: (AddRepository[T]) ](owner : T) extends MappedBoolean[T](owner) {
   
     val webappRoot = LiftRules.getResource("/") .openOrThrowException("Webapp Root not found!") .getPath
     

@@ -1,17 +1,14 @@
 package at.fabricate
 package snippet
 
-import model.BaseEntity
 import net.liftweb.common.Logger
 import net.liftweb.http.DispatchSnippet
-import model.BaseEntityMeta
+import model.BaseEntityWithTitleDescriptionIconAndCommonFields
 import scala.xml.NodeSeq
 import net.liftweb.mapper.StartAt
 import net.liftweb.mapper.MaxRows
 import net.liftweb.mapper.Descending
 import net.liftweb.mapper.OrderBy
-import model.BaseRichEntityMeta
-import model.BaseRichEntity
 import net.liftweb.mapper.IdPK
 import net.liftweb.http.S
 import model.MatchByID
@@ -30,10 +27,11 @@ import net.liftweb.mapper.LongKeyedMapper
 import at.fabricate.model.Project
 
 
+
 // if the comments also want to be paginated with the help of this script, 
 // a new subtype can be created where T is MappedType and U is MappedMetaType 
 // HINT: to redirect and to sort pagination at least a KeyedMapper is needed!
-trait BaseRichEntitySnippet[T <: BaseRichEntity[T]] extends BaseEntitySnippet[T] with AddCommentSnippet[T] {
+trait BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[T <: BaseEntityWithTitleDescriptionIconAndCommonFields[T]] extends BaseEntityWithTitleAndDescriptionSnippet[T] with AddCommentSnippet[T] {
    
 //  def localDispatch : DispatchIt = {    
 //    case "list" => renderIt(_)

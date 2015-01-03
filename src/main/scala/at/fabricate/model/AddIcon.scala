@@ -15,7 +15,7 @@ import scala.xml.Text
 import scala.xml.UnprefixedAttribute
 import scala.xml.Null
 
-trait AddIcon[T <: (AddIcon[T] with LongKeyedMapper[T] with MatchByID[T]) ] extends KeyedMapper[Long, T] { // 
+trait AddIcon[T <: (AddIcon[T] with MatchByID[T]) ] extends BaseEntity[T] { // 
   // [T <: Mapper[T] ]s
   //self: KeyedMetaMapper[IdPK,T] =>
   self: T =>
@@ -65,7 +65,7 @@ trait AddIcon[T <: (AddIcon[T] with LongKeyedMapper[T] with MatchByID[T]) ] exte
   
 }
 
-trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with LongKeyedMapper[ModelType] with MatchByID[ModelType]) ] extends KeyedMetaMapper[Long, ModelType] { //
+trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with MatchByID[ModelType]) ] extends BaseMetaEntity[ModelType] { //
     self: ModelType  =>
 
       type TheIconType = ModelType
@@ -75,8 +75,8 @@ trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with LongKeyedMapper[ModelTy
 
     
       //User.a
-  
-  abstract override def afterSchemifier : Unit = {
+  // TODO: Refactor to use the matchedstring
+  abstract override def init : Unit = {
     
     
     
@@ -91,11 +91,11 @@ trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with LongKeyedMapper[ModelTy
     
   }
     // also perform all the other afterSchemifier operations
-    super.afterSchemifier 
+    super.init 
   
 }
 
-class MappedBinaryImageFileUpload[T <: LongKeyedMapper[T]](fieldOwner : T) extends MappedBinary[T](fieldOwner) {
+class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends MappedBinary[T](fieldOwner) {
 	    
     
   def defaultImage = "/public/images/noimage.jpg"

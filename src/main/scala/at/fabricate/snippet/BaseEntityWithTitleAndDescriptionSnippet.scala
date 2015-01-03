@@ -3,9 +3,7 @@ package snippet
 
 import net.liftweb.http.DispatchSnippet
 import net.liftweb.common.Logger
-import at.fabricate.model.BaseRichEntity
 import at.fabricate.model.MatchByID
-import at.fabricate.model.BaseRichEntityMeta
 import net.liftweb.mapper.Descending
 import net.liftweb.mapper.StartAt
 import net.liftweb.mapper.MaxRows
@@ -22,8 +20,7 @@ import net.liftweb.mapper.KeyedMapper
 import net.liftweb.util._
 import net.liftweb.util.Helpers._
 import net.liftweb.util.CssSel
-import at.fabricate.model.BaseEntity
-import at.fabricate.model.BaseEntityMeta
+import at.fabricate.model.BaseMetaEntityWithTitleAndDescription
 import net.liftweb.util.CssBind
 import net.liftweb.util.CssBindImpl
 import net.liftweb.util.CSSHelpers
@@ -36,13 +33,14 @@ import net.liftweb.sitemap.Loc.Hidden
 import net.liftweb.common.Full
 import net.liftweb.common.Empty
 import at.fabricate.lib.MatchString
+import at.fabricate.model.BaseEntityWithTitleAndDescription
 
-abstract class BaseEntitySnippet[T <: BaseEntity[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
+abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
 
   // ### Things that have to be defined/refined in subclasses/traits ###
      type ItemType = T
     
-     val TheItem : BaseEntityMeta[T] with MatchByID[T]
+     val TheItem : BaseMetaEntityWithTitleAndDescription[T] with MatchByID[T]
     
 //    val TheItem = ItemType .getSingleton
     

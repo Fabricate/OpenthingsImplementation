@@ -6,11 +6,13 @@ import net.liftweb.mapper.IdPK
 import scala.xml.Elem
 import at.fabricate.lib.EnumWithDescriptionAndObject
 import at.fabricate.lib.MappedEnumWithDescription
+import net.liftweb.mapper.BaseLongKeyedMapper
+import net.liftweb.mapper.KeyedMapper
 
 // this is the mapper type where every higher level object inherits from
 // project and tutorial are examples for that
 
-trait BaseRichEntity [T <: (BaseRichEntity[T] with LongKeyedMapper[T]) ] extends BaseIconEntity[T]
+trait BaseEntityWithTitleDescriptionIconAndCommonFields [T <: (BaseEntityWithTitleDescriptionIconAndCommonFields[T] with LongKeyedMapper[T]) ] extends BaseEntityWithTitleDescriptionAndIcon[T]
 //with AddRepository[T]
 with AddComment[T]
 with IdPK{
@@ -91,7 +93,7 @@ with IdPK{
 	// getItemsToSchemify comes from the AddComment trait
 }
 
-trait BaseRichEntityMeta[ModelType <: ( BaseRichEntity[ModelType] with LongKeyedMapper[ModelType]) ] extends BaseIconEntityMeta[ModelType]
+trait BaseMetaEntityWithTitleDescriptionIconAndCommonFields[ModelType <: ( BaseEntityWithTitleDescriptionIconAndCommonFields[ModelType] with LongKeyedMapper[ModelType]) ] extends BaseMetaEntityWithTitleDescriptionAndIcon[ModelType]
 //with AddRepositoryMeta[ModelType] 
 with AddCommentMeta[ModelType] 
 {

@@ -9,9 +9,6 @@ import java.io.File
 import java.io.FileOutputStream
 
 object FileUploadREST extends RestHelper {
-  
-  //object TheProject extends ObjectById[Project](Project) 
-
 
   serve {
 
@@ -38,7 +35,6 @@ object FileUploadREST extends RestHelper {
       BadResponse()
     }
 
-    //case _ Post req => BadResponse()
   }
 
 }

@@ -4,7 +4,7 @@ package snippet
 import model.Project
 import net.liftweb.util.CssSel
 
-object ProjectSnippet extends BaseEntitySnippet[Project] with BaseRichEntitySnippet[Project] with AddRepositorySnippet[Project]  {
+object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] with AddRepositorySnippet[Project]  {
   
   override val TheItem = Project
   override def itemBaseUrl = "project"

@@ -11,11 +11,10 @@ import net.liftweb.util.Helpers._
 import scala.xml.NodeSeq
 import scala.xml.Text
 import model.BaseEntity
-import model.BaseEntityMeta
-import model.BaseRichEntityMeta
-import model.BaseRichEntity
+import model.BaseMetaEntityWithTitleAndDescription
+import at.fabricate.model.BaseEntityWithTitleAndDescription
 
-trait AddCommentSnippet[T <: BaseEntity[T] with AddComment[T]] extends BaseEntitySnippet[T] {
+trait AddCommentSnippet[T <: BaseEntityWithTitleAndDescription[T] with AddComment[T]] extends BaseEntityWithTitleAndDescriptionSnippet[T] {
   
   var commentTemplate : NodeSeq = NodeSeq.Empty 
   

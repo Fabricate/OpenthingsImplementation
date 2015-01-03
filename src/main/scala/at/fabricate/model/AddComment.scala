@@ -19,13 +19,13 @@ import net.liftweb.mapper.BaseLongKeyedMapper
 import net.liftweb.mapper.MappedForeignKey
 import net.liftweb.mapper.BaseMetaMapper
 
-trait AddComment[T <: (AddComment[T] with LongKeyedMapper[T]) ] extends KeyedMapper[Long, T]  with OneToMany[Long, T] { // 
+trait AddComment[T <: (AddComment[T]) ] extends BaseEntity[T]  with OneToMany[Long, T] { // 
 	self: T =>      
 	  
       type TheCommentedType = T
-	  
-	  def getItemsToSchemify : List[BaseMetaMapper] =  self.asInstanceOf[BaseMetaMapper] :: TheComment :: Nil
       
+      def getCommentMapper : LongKeyedMetaMapper[_] = TheComment
+	        
 	  object comments extends MappedOneToMany(TheComment, TheComment.commentedItem, OrderBy(TheComment.primaryKeyField, Ascending))
 
 	  //def getItemsToSchemify = List(TheComment, T)
@@ -61,6 +61,8 @@ trait AddComment[T <: (AddComment[T] with LongKeyedMapper[T]) ] extends KeyedMap
       
 }
 
-trait AddCommentMeta[ModelType <: (AddComment[ModelType]  with LongKeyedMapper[ModelType]) ] extends KeyedMetaMapper[Long, ModelType] {
+trait AddCommentMeta[ModelType <: (AddComment[ModelType]) ] extends BaseMetaEntity[ModelType] {
 	self: ModelType =>
+	  	  abstract override def getItemsToSchemify : List[BaseMetaMapper] =  getCommentMapper :: super.getItemsToSchemify
+
 }
