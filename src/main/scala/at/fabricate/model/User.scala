@@ -95,7 +95,7 @@ class User extends MegaProtoUser[User] with BaseEntityWithTitleDescriptionAndIco
   
   override def iconDbColumnName = "user_image"
     
-  override def baseServingPath = "userimage"
+  override def iconPath = "userimage"
     
   
   object tools extends MappedManyToMany(UserHasTools, UserHasTools.user, UserHasTools.tool, Tool)

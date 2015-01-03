@@ -14,6 +14,7 @@ import scala.xml.Elem
 import scala.xml.Text
 import scala.xml.UnprefixedAttribute
 import scala.xml.Null
+import at.fabricate.lib.MatchString
 
 trait AddIcon[T <: (AddIcon[T] with MatchByID[T]) ] extends BaseEntity[T] { // 
   // [T <: Mapper[T] ]s
@@ -44,7 +45,9 @@ trait AddIcon[T <: (AddIcon[T] with MatchByID[T]) ] extends BaseEntity[T] { //
   
   def iconDbColumnName = "icon"
     
-  def baseServingPath = "icon"
+  def baseServingPath = "serve"
+    
+  def iconPath = "icon"
 	    
 	    
   lazy val icon : MappedBinaryImageFileUpload[T] = new MyIcon(this)
@@ -58,6 +61,8 @@ trait AddIcon[T <: (AddIcon[T] with MatchByID[T]) ] extends BaseEntity[T] { //
   override def imageDbColumnName = fieldOwner.iconDbColumnName
     
   override def baseServingPath = fieldOwner.baseServingPath
+  
+  override def iconPath = fieldOwner .iconPath
 
   override val fieldId = Some(Text("bin"+imageDbColumnName ))
 
@@ -73,15 +78,14 @@ trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with MatchByID[ModelType]) ]
       //self.find
   //object TheImage extends ObjectById[AddIconMeta[TheIconType]](self) 
 
-    
+    object MatchServePath extends MatchString(baseServingPath)
+    object MatchIconPath extends MatchString(iconPath)
+
       //User.a
   // TODO: Refactor to use the matchedstring
   abstract override def init : Unit = {
-    
-    
-    
     LiftRules.dispatch.append({
-      case r @ Req("serve" :: baseServingPath  :: MatchItemByID(iconTypeID) ::
+      case r @ Req(MatchServePath(servePath) :: MatchIconPath(iconPath)  :: MatchItemByID(iconTypeID) ::
                  Nil, _, GetRequest) => ()  =>  // if (id != Empty)
                    Full(InMemoryResponse(iconTypeID.icon.get,
                                List("Content-Type" -> "image/jpeg",
@@ -90,7 +94,7 @@ trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with MatchByID[ModelType]) ]
                                     })
     
   }
-    // also perform all the other afterSchemifier operations
+    // also perform all the other init operations
     super.init 
   
 }
@@ -104,7 +108,9 @@ class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends Ma
   
   def imageDbColumnName = "image"
     
-  def baseServingPath = "image"
+  def baseServingPath = "serve"
+    
+  def iconPath = "image"
     
   val maxWidth = 792
   val maxHeight = 445
@@ -135,7 +141,7 @@ class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends Ma
   
   def url  = {
     if (this.get != null && this.get.length > 0)
-	      	"/serve/%s/%s".format(baseServingPath,this.fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField.get.toString)
+	      	"/%s/%s/%s".format(baseServingPath,iconPath,this.fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField.get.toString)
 	      else
 	        defaultImage
   }

@@ -51,7 +51,7 @@ class Project extends BaseEntityWithTitleDescriptionIconAndCommonFields[Project]
   
   override def iconDbColumnName = "project_image"
     
-  override def baseServingPath = "projectimage"
+  override def iconPath = "projectimage"
 
 //      object createdByUser extends MappedManyToMany(self,){ }
     
