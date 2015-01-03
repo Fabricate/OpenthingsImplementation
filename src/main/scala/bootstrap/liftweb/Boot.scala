@@ -72,7 +72,7 @@ class Boot {
     
     //LiftRules.dispatch.append(ImageLogic.matcher)
     //LiftRules.statelessDispatch.append(FileUploadREST)
-    LiftRules.dispatch.append(FileUploadREST)
+//    LiftRules.dispatch.append(FileUploadREST)
     
     val userRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
       case RewriteRequest(ParsePath(List("designer", "edit"), _, _, _), _, _) =>

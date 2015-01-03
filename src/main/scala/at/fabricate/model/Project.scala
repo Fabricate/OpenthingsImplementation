@@ -16,7 +16,7 @@ import at.fabricate.lib.{EnumWithKeyAndValue, EnumWithStringKeyAndValue, EnumWit
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/
 
-object Project extends Project with BaseMetaEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepositoryMeta[Project] {
+object Project extends Project with BaseMetaEntity[Project] with BaseMetaEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepositoryMeta[Project] {
   
   
 
@@ -42,7 +42,7 @@ object Project extends Project with BaseMetaEntityWithTitleDescriptionIconAndCom
 
 /**Beschreibt eine Projekt-Instanz
 * @author Johannes Fischer **/
-class Project extends BaseEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepository[Project] {
+class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepository[Project] {
 
 
   override def defaultIcon = "/public/images/noproject.jpg"

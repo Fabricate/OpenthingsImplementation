@@ -24,7 +24,7 @@ import net.liftweb.util.Mailer.BCC
 /**
  * The singleton that has methods for accessing the database
  */
-object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling[User] with BaseMetaEntityWithTitleDescriptionAndIcon[User] {
+object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling[User] with BaseMetaEntity[User] with BaseMetaEntityWithTitleDescriptionAndIcon[User] {
   
   
   // provide a path to a  custom page for the edit feature
@@ -79,7 +79,7 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
 /**
  * An O-R mapped "User" class that includes first name, last name, password and we add a "Personal Essay" to it
  */
-class User extends MegaProtoUser[User] with BaseEntityWithTitleDescriptionAndIcon[User] with ManyToMany {
+class User extends MegaProtoUser[User] with BaseEntity[User] with BaseEntityWithTitleDescriptionAndIcon[User] with ManyToMany {
   def getSingleton = User // what's the "meta" server
   
    override def firstNameDisplayName = S.?("firstname")

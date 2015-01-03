@@ -29,6 +29,9 @@ import java.util.zip.ZipOutputStream
 import java.util.zip.ZipEntry
 import java.io.FileInputStream
 import java.io.BufferedInputStream
+import net.liftweb.http.rest.RestHelper
+import net.liftweb.http.OkResponse
+import net.liftweb.http.BadResponse
 
 trait AddRepository [T <: (AddRepository[T]) ] extends BaseEntity[T]  {
 
@@ -177,6 +180,49 @@ trait AddRepositoryMeta [ModelType <: ( AddRepository[ModelType]) ] extends Base
     
     * 
     */
+      abstract override def init : Unit = {
+//        serve ( "simple5" / "item" prefix {
+//// all the inventory
+//case Nil JsonGet _ => Item.inventoryItems: JValue
+//case Nil XmlGet _ => Item.inventoryItems: Node
+//55
+//56
+//57
+//58
+//59
+//// a particular item
+//case Item(item) :: Nil JsonGet _ => item: JValue
+//case Item(item) :: Nil XmlGet _ => item: Node
+//})
+        object FileUploadREST extends RestHelper {
+
+		  serve ( "api" / "upload" / "file" prefix {
+		
+		    case Project.MatchItemByID(project) :: Nil Post req =>
+		      for (file <- req.uploadedFiles) {
+		        println("Received: "+file.fileName)
+		        // copy the file to the repository
+		        project.repository.copyFileToRepository(file)
+		      }
+		      OkResponse()
+		      
+		    case any :: Nil Post req => {
+		      println("upload file :: id is not matching a Project")
+		      println(any)
+		      BadResponse()
+		    }
+		    
+		    case Nil Post req => {
+		      println("upload file :: project id missing")
+		      BadResponse()
+		    }
+		
+		  })
+		
+		}
+        LiftRules.dispatch.append(FileUploadREST)
+        super.init
+      }
 }
 
 class GitWrapper[T <: (AddRepository[T]) ](owner : T) extends MappedBoolean[T](owner) {
