@@ -102,8 +102,14 @@ trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRep
 			              localItem.endPathToData,
 			              commit.getName(),
 			              localItem.repositoryID) & 
+			          "#revertcommit [onclick]" #> SHtml.ajaxInvoke(() => {
+			            localItem.repository.revertChangesOfCommit(commit)
+			            updateFileList(localItem) &
+			            displayMessageAndHideLocal("Undo changes of commit "+commit.getFullMessage())
+			          } )& 
 			          "#resetcommit [onclick]" #> SHtml.ajaxInvoke(() => {
-			            localItem.repository.revertToCommit(commit)
+			            localItem.repository.resetToCommit(commit)
+			            updateFileList(localItem) &
 			            displayMessageAndHideLocal("Rolled back to commit "+commit.getFullMessage())
 			          } )
 			          

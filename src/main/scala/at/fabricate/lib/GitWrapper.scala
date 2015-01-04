@@ -23,6 +23,12 @@ import net.liftweb.common.Full
 import scala.collection.JavaConversions._
 import at.fabricate.model.MatchByID
 import org.eclipse.jgit.diff.DiffEntry
+import org.eclipse.jgit.api.ResetCommand.ResetType
+import org.eclipse.jgit.lib.PersonIdent
+import scala.util.Properties
+import scala.sys.process.Process
+import org.eclipse.jgit.lib.ConfigConstants
+import org.eclipse.jgit.merge.MergeStrategy
 
 
 class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends MappedBoolean[T](owner) { 
@@ -39,6 +45,9 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
 	def pathToDefaultRepository : String = basePathToItemFolder+"/DefaultRepository"
 	
 	def initRepoMessage : String = "Initialized repository!"
+	  
+	def defaultCommitterName = "openthings"
+	def defaultCommitterMail = "openthings@openthings.openthings"
   
 	// may be overridden in subclasses for other behaviour
 //   	def repositoryID : String = fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField.get.toString
@@ -213,7 +222,7 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
    		  // TODO: might not work with directories, maybe use file.getAbsolutePath() then
    		  getAllFilesInRepository.map(file => git.add().addFilepattern(file.getName()).call())
    		  val commit = git.commit().setAll(true).
-//   		  setAuthor(new PersonIdent("openthings")).
+//   		  setCommitter(new PersonIdent(defaultCommitterName, defaultCommitterMail)).
    		  setMessage(message).call()
    		  // create a zip file with the actual content
    		  // ToDo: maybe use a nicer name?
@@ -243,30 +252,239 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
    		git => git.log().all.call().iterator().toList
    	}
    	
-   	def revertToCommit(commit : RevCommit)  = 
-   	  withGitReopsitory[Ref]{
-   	   //this solution creates "head detached" problem
-   		git => git.checkout().setName(commit.getName()).call()
-   		// no problem with head detached, but files are not deleted
+   	// TODO: What happens with uncommited changes ?
+   	def revertChangesOfCommit(commit : RevCommit)  = {
+//   	  withGitReopsitory[Ref]{
+//   	   //this solution creates "head detached" problem
+//   		git => git.checkout().setName(commit.getName()).call()
+//   		// no problem with head detached, but files are not deleted
 //   		git => git.checkout().setAllPaths(true).setName(commit.getName()).call()
 //   	  // other solution -> UNTESTED
-//   	  withGitReopsitory[RevCommit]{
-//   	  git => git.revert().setOurCommitName(commit.getName()).call()
+   	  val revertingCommit = withGitReopsitory[RevCommit]{
+   	    // how to set a commiter here ?
+   		git => git.revert().
+   		include(commit). // which commit to revert
+   		setStrategy(MergeStrategy.RESOLVE).
+   		call()
    	}   	
+   	  createZipForCommit(commit.getName())
+   	}
    	
+   	def resetToCommit(commit : RevCommit) = 
+   	  // untested, just taken from the jgit test cases at
+   	  // https://github.com/eclipse/jgit/tree/master/org.eclipse.jgit.test/tst/org/eclipse/jgit/api
+//   	  ResetType.HARD
+//   	  ResetType.SOFT
+//   	  ResetType.MIXED
+   	  withGitReopsitory[Ref]{
+   	  	git => git.reset().
+   	  	setMode(ResetType.HARD).
+   	  	setRef(commit.getName()).
+   	  	call()
+   	}
    	
 //   	def differenceBetweenCommits(commit1 : RevCommit, commit2 : RevCommit)  = 
 //   	  // idea for a solution -> UNTESTED
 //   	  withGitReopsitory[List[DiffEntry]]{
 //
 //   	  git => git.diff().setSourcePrefix(commit1.getName()).setDestinationPrefix(commit2.getName()).call().toList
-//   	}   
+//   	}  
    	
+//   	 public static void main(String[] args) throws IOException, GitAPIException {
+//	Repository repository = CookbookHelper.openJGitCookbookRepository();
+//	// the diff works on TreeIterators, we prepare two for the two branches
+//	AbstractTreeIterator oldTreeParser = prepareTreeParser(repository, "09c65401f3730eb3e619c33bf31e2376fb393727");
+//	AbstractTreeIterator newTreeParser = prepareTreeParser(repository, "aa31703b65774e4a06010824601e56375a70078c");
+//	// then the procelain diff-command returns a list of diff entries
+//	List<DiffEntry> diff = new Git(repository).diff().
+//	setOldTree(oldTreeParser).
+//	setNewTree(newTreeParser).
+//	setPathFilter(PathFilter.create("README.md")).
+//	call();
+//	for (DiffEntry entry : diff) {
+//	System.out.println("Entry: " + entry + ", from: " + entry.getOldId() + ", to: " + entry.getNewId());
+//	DiffFormatter formatter = new DiffFormatter(System.out);
+//	formatter.setRepository(repository);
+//	formatter.format(entry);
+//	}
+//	repository.close();
+//	}
+//	private static AbstractTreeIterator prepareTreeParser(Repository repository, String objectId) throws IOException,
+//	MissingObjectException,
+//	IncorrectObjectTypeException {
+//	// from the commit we can build the tree which allows us to construct the TreeParser
+//	RevWalk walk = new RevWalk(repository);
+//	RevCommit commit = walk.parseCommit(ObjectId.fromString(objectId));
+//	RevTree tree = walk.parseTree(commit.getTree().getId());
+//	CanonicalTreeParser oldTreeParser = new CanonicalTreeParser();
+//	ObjectReader oldReader = repository.newObjectReader();
+//	try {
+//	oldTreeParser.reset(oldReader, tree.getId());
+//	} finally {
+//	oldReader.release();
+//	}
+//	walk.dispose();
+//	return oldTreeParser;
+//	}
+   	
+//	public class ShowChangedFilesBetweenCommits {
+//	public static void main(String[] args) throws IOException, GitAPIException {
+//	Repository repository = CookbookHelper.openJGitCookbookRepository();
+//	// The {tree} will return the underlying tree-id instead of the commit-id itself!
+//	// For a description of what the carets do see e.g. http://www.paulboxley.com/blog/2011/06/git-caret-and-tilde
+//	// This means we are selecting the parent of the parent of the parent of the parent of current HEAD and
+//	// take the tree-ish of it
+//	ObjectId oldHead = repository.resolve("HEAD^^^^{tree}");
+//	ObjectId head = repository.resolve("HEAD^{tree}");
+//	System.out.println("Printing diff between tree: " + oldHead + " and " + head);
+//	// prepare the two iterators to compute the diff between
+//	ObjectReader reader = repository.newObjectReader();
+//	CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
+//	oldTreeIter.reset(reader, oldHead);
+//	CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
+//	newTreeIter.reset(reader, head);
+//	// finally get the list of changed files
+//	List<DiffEntry> diffs= new Git(repository).diff()
+//	.setNewTree(newTreeIter)
+//	.setOldTree(oldTreeIter)
+//	.call();
+//	for (DiffEntry entry : diffs) {
+//	System.out.println("Entry: " + entry);
+//	}
+//	System.out.println("Done");
+//	repository.close();
+//	}
+//	}   
+   	
+//	 Repository repository = CookbookHelper.openJGitCookbookRepository();
+//	Status status = new Git(repository).status().call();
+//	System.out.println("Added: " + status.getAdded());
+//	System.out.println("Changed: " + status.getChanged());
+//	System.out.println("Conflicting: " + status.getConflicting());
+//	System.out.println("ConflictingStageState: " + status.getConflictingStageState());
+//	System.out.println("IgnoredNotInIndex: " + status.getIgnoredNotInIndex());
+//	System.out.println("Missing: " + status.getMissing());
+//	System.out.println("Modified: " + status.getModified());
+//	System.out.println("Removed: " + status.getRemoved());
+//	System.out.println("Untracked: " + status.getUntracked());
+//	System.out.println("UntrackedFolders: " + status.getUntrackedFolders());
+//	repository.close();   	
+   	
+   	
+//	public class CreateArchive {
+//	public static void main(String[] args) throws IOException, GitAPIException {
+//	Repository repository = CookbookHelper.openJGitCookbookRepository();
+//	// make the included archive formats known
+//	ArchiveFormats.registerAll();
+//	try {
+//	write(repository, ".zip", "zip");
+//	write(repository, ".tar.gz", "tgz");
+//	write(repository, ".tar.bz2", "tbz2");
+//	write(repository, ".tar.xz", "txz");
+//	} finally {
+//	ArchiveFormats.unregisterAll();
+//	}
+//	repository.close();
+//	}
+//	private static void write(Repository repository, String suffix, String format) throws IOException, GitAPIException {
+//	// this is the file that we write the archive to
+//	File file = File.createTempFile("test", suffix);
+//	try (OutputStream out = new FileOutputStream(file)) {
+//	// finally call the ArchiveCommand to write out using the various supported formats
+//	new Git(repository).archive()
+//	.setTree(repository.resolve("master"))
+//	.setFormat(format)
+//	.setOutputStream(out)
+//	.call();
+//	}
+//	System.out.println("Wrote " + file.length() + " bytes to " + file);
+//	}
+//	}
+   	
+//	public class AddAndListNoteOfCommit {
+//	public static void main(String[] args) throws IOException, GitAPIException {
+//	Repository repository = CookbookHelper.openJGitCookbookRepository();
+//	Ref head = repository.getRef("refs/heads/master");
+//	System.out.println("Found head: " + head);
+//	RevWalk walk = new RevWalk(repository);
+//	RevCommit commit = walk.parseCommit(head.getObjectId());
+//	System.out.println("Found Commit: " + commit);
+//	new Git(repository).notesAdd().setMessage("some note message").setObjectId(commit).call();
+//	System.out.println("Added Note to commit " + commit);
+//	List<Note> call = new Git(repository).notesList().call();
+//	System.out.println("Listing " + call.size() + " notes");
+//	for(Note note : call) {
+//	// check if we found the note for this commit
+//	if(!note.getName().equals(head.getObjectId().getName())) {
+//	System.out.println("Note " + note + " did not match commit " + head);
+//	continue;
+//	}
+//	System.out.println("Found note: " + note + " for commit " + head);
+//	// displaying the contents of the note is done via a simple blob-read
+//	ObjectLoader loader = repository.open(note.getData());
+//	loader.copyTo(System.out);
+//	}
+//	walk.dispose();
+//	repository.close();
+//	}
+//	}   
+   	
+
+//	final long now = mockSystemReader.getCurrentTime();
+//	final int tz = mockSystemReader.getTimezone(now);
+//	author = new PersonIdent("J. Author", "jauthor@example.com");
+//	author = new PersonIdent(author, now, tz);
+//	committer = new PersonIdent("J. Committer", "jcommitter@example.com");
+//	committer = new PersonIdent(committer, now, tz);   	
+	// check that all commits came in correctly
+
+//	// do 4 commits
+//	Git git = new Git(db);
+//	git.commit().setMessage("initial commit").call();
+//	git.commit().setMessage("second commit").setCommitter(committer).call();
+//	git.commit().setMessage("third commit").setAuthor(author).call();
+//	git.commit().setMessage("fourth commit").setAuthor(author)
+//	.setCommitter(committer).call();
+//	Iterable<RevCommit> commits = git.log().call();
+//	// check that all commits came in correctly
+//	PersonIdent defaultCommitter = new PersonIdent(db);
+//	PersonIdent expectedAuthors[] = new PersonIdent[] { defaultCommitter,
+//	committer, author, author };
+//	PersonIdent expectedCommitters[] = new PersonIdent[] {
+//	defaultCommitter, committer, defaultCommitter, committer };
+//	String expectedMessages[] = new String[] { "initial commit",
+//	"second commit", "third commit", "fourth commit" };
+//	int l = expectedAuthors.length - 1;
+//	for (RevCommit c : commits) {
+//	assertEquals(expectedAuthors[l].getName(), c.getAuthorIdent()
+//	.getName());
+//	assertEquals(expectedCommitters[l].getName(), c.getCommitterIdent()
+//	.getName());
+//	assertEquals(c.getFullMessage(), expectedMessages[l]);
+//	l--;
+//	}
+//	assertEquals(l, -1);
+//	ReflogReader reader = db.getReflogReader(Constants.HEAD);
+//	assertTrue(reader.getLastEntry().getComment().startsWith("commit:"));
+//	reader = db.getReflogReader(db.getBranch());
+//	assertTrue(reader.getLastEntry().getComment().startsWith("commit:"));	
+
    	private def withGitReopsitory[U](op: Git => U ) : U  = {
 //      val repoWasInitialized = isRepositoryInitialized   	  
    	  // create the repository if it does not already exitst
 //   	  if (!repoWasInitialized)
 //   		  initializeRepository
+   	  
+   	  // try to set the system environment variables
+//   	  sys.env.
+//   	  	env.put("GIT_DIR", db.getDirectory().getAbsolutePath());
+//   	  GIT_" + type + "_NAME
+//   	  	env.put("GIT_" + type + "_NAME", who.getName());
+//env.put("GIT_" + type + "_EMAIL", who.getEmailAddress());
+//env.put("GIT_" + type + "_DATE", date);
+//   	  Process(Seq("bash", "-c", "echo $asdf"), None, 
+//   	      "GIT_DIR" -> "Hello, world!", "asdf" -> "Hello, world!")
+//   	  Properties.
    	  
    	  val repository = 
    	    if (isRepositoryInitialized)
@@ -277,7 +495,12 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
 //   	  println("repository: "+repository.getDirectory().getAbsolutePath())
    	        
    	  val gitRepository : Git = new Git(repository)
-   	  
+   	  val config = gitRepository.getRepository().getConfig()
+   	  config.setString(ConfigConstants.CONFIG_USER_SECTION, null, ConfigConstants.CONFIG_KEY_NAME, defaultCommitterName)
+   
+   	  config.setString(ConfigConstants.CONFIG_USER_SECTION, null, ConfigConstants.CONFIG_KEY_EMAIL, defaultCommitterMail)
+   	  config.save()
+//   	  gitRepository.describe().setTarget("committer").setTarget(new PersonIdent(defaultCommitterName,defaultCommitterMail))
    	  // perform an initial commit as a baseline
 //   	  if (!repoWasInitialized)
 //   	    gitRepository.commit().setMessage("Created repository with ID "+repositoryID+" !").call()

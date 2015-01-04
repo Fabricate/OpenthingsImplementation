@@ -60,6 +60,9 @@ trait AddRepository [T <: (AddRepository[T] with MatchByID[T]) ] extends BaseEnt
  	   def repositoryID : String = primaryKeyField.get.toString
  	   
  	   def initRepoMessage = "Initialized repository!"
+ 	     
+ 	   def defaultCommitterName = "openthings"
+	   def defaultCommitterMail = "openthings@openthings.openthings"
 
     
  	lazy val repository : GitWrapper[T] = new MyGitWrapper(this)
@@ -86,6 +89,9 @@ trait AddRepository [T <: (AddRepository[T] with MatchByID[T]) ] extends BaseEnt
      def repositoryID : String = fieldOwner.repositoryID
      
      override def initRepoMessage = fieldOwner.initRepoMessage
+     
+     override def defaultCommitterName = fieldOwner .defaultCommitterName
+	 override def defaultCommitterMail = fieldOwner .defaultCommitterMail
        
 //     override def urlToRepo = 
 //       
