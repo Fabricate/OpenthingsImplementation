@@ -31,7 +31,7 @@ import at.fabricate.model.Project
 // if the comments also want to be paginated with the help of this script, 
 // a new subtype can be created where T is MappedType and U is MappedMetaType 
 // HINT: to redirect and to sort pagination at least a KeyedMapper is needed!
-trait BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[T <: BaseEntityWithTitleDescriptionIconAndCommonFields[T]] extends BaseEntityWithTitleAndDescriptionSnippet[T] with BaseEntityWithTitleDescriptionAndIconSnippet[T] with AddCommentSnippet[T] {
+trait BaseEntityWithTitleDescriptionAndIconSnippet[T <: BaseEntityWithTitleDescriptionIconAndCommonFields[T]] extends BaseEntityWithTitleAndDescriptionSnippet[T] {
    
 //  def localDispatch : DispatchIt = {    
 //    case "list" => renderIt(_)
@@ -60,10 +60,7 @@ trait BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[T <: BaseEntityWi
 //     		println("chaining asHtml from BaseRichEntitySnippet")
 
    (
-//       "#icon" #> item.icon .toForm & // will go to the baseiconentitysnippet later on
-//    "#initiator *"  #> {<strong>Made by:</strong> item.de} &
-    "#licence"  #> item.licence.toForm &
-    "#difficulty"  #> item.difficulty.toForm
+       "#icon" #> item.icon .toForm
    ) &
         (super.toForm(item))
    }
@@ -73,10 +70,7 @@ trait BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[T <: BaseEntityWi
 //     		println("chaining asHtml from BaseRichEntitySnippet")
 
    (
-//       "#icon [src]" #> item.icon .url & // will go to the baseiconentitysnippet later on
-//    "#initiator *+"  #> {<strong>Made by:</strong> item.de} &
-    "#licence *"  #> item.licence &
-    "#difficulty"  #> item.difficulty 
+       "#icon [src]" #> item.icon .url 
    ) &
    (super.asHtml(item))
      

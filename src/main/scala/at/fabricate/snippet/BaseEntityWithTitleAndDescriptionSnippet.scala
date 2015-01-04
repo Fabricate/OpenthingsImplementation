@@ -98,9 +98,9 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      
    def getMenu : List[Menu] = 
      List[Menu](
-               Menu.i(viewTemplate) / viewTemplate  >> Hidden,
-               Menu.i(listTemplate) / listTemplate ,
-               Menu.i(editTemplate) / editTemplate  >> Hidden
+               Menu.i(viewTitle) / viewTemplate  >> Hidden,
+               Menu.i(listTitle) / listTemplate ,
+               Menu.i(editTitle) / editTemplate  >> Hidden
      )
 
    // lean pattern to get the Item from the supplied ID
