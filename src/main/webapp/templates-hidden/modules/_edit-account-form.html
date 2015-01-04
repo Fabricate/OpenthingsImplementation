@@ -1,0 +1,16 @@
+			<form id="editUserForm" action="#" multipart="true" enctype="multipart/form-data" method="post">
+				<input id="firstname" placeholder="first name" type="text">
+				<input id="lastname" placeholder="last name" type="text">
+				<textarea id="description" placeholder="about me"></textarea>
+				<img id="showimage" src="#"></img>
+				Delete image? <input id="deleteimage" value="false" type="checkbox"></input>
+				New image?<input id="icon" placeholder="Upload image" value=""  type="file"></input>
+				<div id="listtools">
+						<ul>
+							<li id="tools"><input id="toolcheckbox" type="checkbox" name="tool" value="TOOLNAME"><span id="toolname">TOOLNAME</span></li>
+						</ul>
+				</div>
+				<a href="/tool/create" id="addtool">Create new tool</a>
+				<input id="itemsubmithidden" type="hidden">
+				<input id="save" value="save" type="submit">
+			</form>

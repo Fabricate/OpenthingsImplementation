@@ -1,53 +1,13 @@
 <div id="main" data-lift="surround?with=default;at=content">
-<section class="mainContent left">
-	<div data-lift="User.edit?form=POST;multipart=true">
+	<section class="mainContent left">
 		<div class="column span-24">
-			<h2>Designer</h2>
-			<table>
-			  <tr>
-					<td>First Name</td>
-					<td><input id="firstname" value="" type="text"></input></td>
-			  </tr>
-			  <tr>
-					<td>Last Name</td>
-					<td><input id="lastname" value="" type="text"></input></td>
-			  </tr>
-			  <tr>
-					<td>About me</td>
-					<td><textarea id="description"></textarea></td>
-			  </tr>
-			  <tr>
-					<td>User Image</td>
-					<td>
-						<img id="showimage" src="#"></img>
-						<br></br>
-						Delete image?
-						<input id="deleteimage" value="false" type="checkbox"></input>
-						<br></br>
-						New image?
-						<input id="icon" value=""  type="file"></input>
-					</td>
-			  </tr>
-			  <tr>
-					<td>Tools</td>
-					<td>
-						<div id="listtools">
-								<div id="tools">
-									<ul>
-										<li><input id="toolcheckbox" type="checkbox" name="tool" value="TOOLNAME"><span id="toolname">TOOLNAME</span></li>
-									</ul>
-								</div>
-						</div>
-						<br></br>
-						<a href="/tool/create" id="addtool">Create new tool</a>
-			  	</td>
-			  </tr>
-			  <tr>
-			</table>
+			<div id="itemMessages">
 
-			<input id="save" value="Speichern" type="submit">
+			</div>
+			<div id="account" data-lift="User.edit?eager_eval=true" class="left">
+				<span data-lift="embed?what=modules/_edit-account-form">EditAccountForm</span>
+	    		</div>
 		  
 		</div>
-	</div>
-</section>
+	</section>
 </div>

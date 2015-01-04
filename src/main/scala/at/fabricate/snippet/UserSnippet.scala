@@ -18,6 +18,7 @@ import model.Project
 import scala.xml.Text
 import net.liftweb.http.SHtml
 import at.fabricate.model.Tool
+import net.liftweb.http.js.JsCmds
 
 object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with BaseEntityWithTitleDescriptionAndIconSnippet[User]  {
   
@@ -37,6 +38,12 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
    private def bindToolsCSS(toolname : String, checkbox: NodeSeq) = 
 	      ":checkbox" #>  checkbox &
 	      "id=toolname" #>  toolname
+	      
+//  saveAndDisplayAjaxMessages(item : Mapper[_], 
+//       successAction : () => JsCmd = () => JsCmds.Noop, 
+//       errorAction : List[FieldError] => JsCmd = errors => JsCmds.Noop, 
+//       idToDisplayMessages : String, 
+//       successMessage : String  = "Saved changes!", errorMessage: String  = "Error saving item!")
     
   override def toForm(item : ItemType) : CssSel = {
 //     		println("chaining asHtml from BaseRichEntitySnippet")
@@ -49,7 +56,7 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
           }
          
           def listTools(template: NodeSeq) : NodeSeq  =             
-            item.tools.map(tool => tool.name.toString).
+            Tool.findAll.map(tool => tool.name.toString).
             	flatMap( toolName =>
            		bindToolsCSS(toolName, SHtml.checkbox(userTools.contains(toolName), value => toolSelected(toolName)(value) ))(template) 
            		)          
@@ -59,7 +66,14 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
        "#firstname" #> item.firstName .toForm &
        "#lastname" #> item.lastName  .toForm &       
        "#showimage" #> item.icon.asHtml &
-       "#listtools" #> listTools _ 
+       "#listtools" #> listTools _  //&
+//       "#toolsubmithidden" #> SHtml.hidden(() => saveAndDisplayAjaxMessages(item.tools, // wrong instance; Changes are saved implicitly!!
+//           JsCmds.Noop, // success action
+//           JsCmds.Noop, //
+//           "itemMessages",
+//           "Saved Tool!",
+//           "Error at saving Tool!")
+
    ) &
         (super.toForm(item))
    }
@@ -76,7 +90,10 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
              //  )
    (
        "#title *" #> "%s %s".format(item.firstName, item.lastName ) &
-       "#listtools" #> listTools _ 
+       "#listtools" #> listTools _ &
+       "#licence *"  #> "" &
+       "#initiator *"  #> "" &
+        "#difficulty"  #>  ""
    ) &
    (super.asHtml(item))
   }
