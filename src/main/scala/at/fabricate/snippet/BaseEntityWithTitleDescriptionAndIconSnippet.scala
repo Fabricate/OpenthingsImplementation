@@ -25,13 +25,14 @@ import at.fabricate.lib.MapperBinder
 import net.liftweb.mapper.KeyedMapper
 import net.liftweb.mapper.LongKeyedMapper
 import at.fabricate.model.Project
+import at.fabricate.model.BaseEntityWithTitleDescriptionAndIcon
 
 
 
 // if the comments also want to be paginated with the help of this script, 
 // a new subtype can be created where T is MappedType and U is MappedMetaType 
 // HINT: to redirect and to sort pagination at least a KeyedMapper is needed!
-trait BaseEntityWithTitleDescriptionAndIconSnippet[T <: BaseEntityWithTitleDescriptionIconAndCommonFields[T]] extends BaseEntityWithTitleAndDescriptionSnippet[T] {
+trait BaseEntityWithTitleDescriptionAndIconSnippet[T <: BaseEntityWithTitleDescriptionAndIcon[T]] extends BaseEntityWithTitleAndDescriptionSnippet[T] {
    
 //  def localDispatch : DispatchIt = {    
 //    case "list" => renderIt(_)

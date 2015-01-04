@@ -1,15 +1,13 @@
 <div id="main" data-lift="surround?with=default;at=content">
         <section class="mainContent left">
 		<div data-lift="Project.view?eager_eval=true">
-			<section id="dbcontent" class="mainContent left">
-					<span data-lift="embed?what=modules/_project-and-user-header_mb">ProjectAndUserHeader</span>
-
+			<div id="item" class="mainContent left">
+				<span data-lift="embed?what=modules/_project-and-user-header">ProjectAndUserHeader</span>
 				<div class="col-2 left">
 					<span data-lift="embed?what=modules/_project-details">ProjectDetails</span>
 					<span data-lift="embed?what=modules/_bom">BOM</span>
 				</div>
 				<div class="col-2 right">
-
 					<span data-lift="embed?what=modules/_comments-and-rating">CommentsAndRating</span>
 					<span data-lift="embed?what=modules/_project-versions_dynamic">ProjectVersions</span>
 				</div>

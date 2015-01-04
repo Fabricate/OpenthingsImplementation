@@ -73,18 +73,18 @@ class Boot {
     //LiftRules.statelessDispatch.append(FileUploadREST)
 //    LiftRules.dispatch.append(FileUploadREST)
     
-    val userRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
-      case RewriteRequest(ParsePath(List("designer", "edit"), _, _, _), _, _) =>
-	      RewriteResponse("editDesigner" :: Nil)
-      case RewriteRequest(ParsePath(List("designer", "search"), _, _, _), _, _) =>
-	      RewriteResponse("searchDesigner" :: Nil)	      
-      case RewriteRequest(ParsePath(List("designer", "list"), _, _, _), _, _) =>
-	      RewriteResponse("listDesigner" :: Nil)	 
-      case RewriteRequest(ParsePath(List("designer", "list", "random"), _, _, _), _, _) =>
-	      RewriteResponse("listDesigner" :: Nil, Map("type" -> urlDecode("random")))		      
-      case RewriteRequest(ParsePath(List("designer", designerID), _, _, _), _, _) =>
-	      RewriteResponse("viewDesigner" :: Nil, Map("id" -> urlDecode(designerID)))
-    }
+//    val userRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
+//      case RewriteRequest(ParsePath(List("designer", "edit"), _, _, _), _, _) =>
+//	      RewriteResponse("editDesigner" :: Nil)
+//      case RewriteRequest(ParsePath(List("designer", "search"), _, _, _), _, _) =>
+//	      RewriteResponse("searchDesigner" :: Nil)	      
+//      case RewriteRequest(ParsePath(List("designer", "list"), _, _, _), _, _) =>
+//	      RewriteResponse("listDesigner" :: Nil)	 
+//      case RewriteRequest(ParsePath(List("designer", "list", "random"), _, _, _), _, _) =>
+//	      RewriteResponse("listDesigner" :: Nil, Map("type" -> urlDecode("random")))		      
+//      case RewriteRequest(ParsePath(List("designer", designerID), _, _, _), _, _) =>
+//	      RewriteResponse("viewDesigner" :: Nil, Map("id" -> urlDecode(designerID)))
+//    }
     
 //    val logonRewrites = Login.generateRewrites
     
@@ -101,14 +101,14 @@ class Boot {
 //      		RewriteResponse("viewProject" :: Nil, Map("id" -> urlDecode(projectID)))
 //    }
     
+    val userRewrites = UserSnippet.generateRewrites
     
-    
-    val projectRewritesAuto =  ProjectSnippet.generateRewrites
+    val projectRewrites =  ProjectSnippet.generateRewrites
    
     // Set up some rewrites
     LiftRules.statelessRewrite.append (userRewrites.orElse
 //        (logonRewrites).orElse
-        (projectRewritesAuto) )
+        (projectRewrites) )
 //    
     // TODO : aufraumen, sauberes Menue !!!
     /*
@@ -138,9 +138,9 @@ class Boot {
     
     def menu: List[Menu] = 
     List[Menu](Menu.i("Home") / "index" >> Hidden,
-               Menu.i("Edit my profile") / "editDesigner" >> Hidden >> AccessControl.loggedIn ,  //>> IfLoggedIn,
-               Menu.i("View Designer") / "viewDesigner" / ** >> Hidden,
-               Menu.i("List Designers") / "listDesigner" / ** >> Hidden,
+//               Menu.i("Edit my profile") / "editDesigner" >> Hidden >> AccessControl.loggedIn ,  //>> IfLoggedIn,
+//               Menu.i("View Designer") / "viewDesigner" / ** >> Hidden,
+//               Menu.i("List Designers") / "listDesigner" / ** >> Hidden,
                Menu.i("Test page") / "testpage" / ** >> Hidden,
                Menu.i("Search Designers") / "searchDesigner",                 
                Menu.i("Public Data") / "public" / ** >> Hidden,
@@ -154,7 +154,7 @@ class Boot {
 
                Menu.i("Static") / "static" / ** >> Hidden
                //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
-               ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu ::: Tool.menus 
+               ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu ::: UserSnippet.getMenu ::: Tool.menus 
   
     LiftRules.setSiteMap(SiteMap(menu :_*))
     
