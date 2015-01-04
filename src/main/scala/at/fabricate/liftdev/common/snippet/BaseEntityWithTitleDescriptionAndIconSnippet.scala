@@ -21,11 +21,11 @@ import net.liftweb.util.Helpers._
 import net.liftweb.http.js.jquery.JqJsCmds.DisplayMessage
 import net.liftweb.util.CssSel
 import net.liftweb.http.SHtml
-import at.fabricate.lib.MapperBinder
+//import at.fabricate.lib.MapperBinder
 import net.liftweb.mapper.KeyedMapper
 import net.liftweb.mapper.LongKeyedMapper
-import at.fabricate.model.Project
-import at.fabricate.model.BaseEntityWithTitleDescriptionAndIcon
+//import model.Project
+import model.BaseEntityWithTitleDescriptionAndIcon
 
 
 

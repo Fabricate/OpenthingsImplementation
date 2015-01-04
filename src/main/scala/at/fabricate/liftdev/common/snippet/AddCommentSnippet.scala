@@ -12,7 +12,7 @@ import scala.xml.NodeSeq
 import scala.xml.Text
 import model.BaseEntity
 import model.BaseMetaEntityWithTitleAndDescription
-import at.fabricate.model.BaseEntityWithTitleAndDescription
+import model.BaseEntityWithTitleAndDescription
 
 trait AddCommentSnippet[T <: BaseEntityWithTitleAndDescription[T] with AddComment[T]] extends BaseEntityWithTitleAndDescriptionSnippet[T] {
   

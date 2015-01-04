@@ -14,7 +14,7 @@ import scala.xml.Elem
 import scala.xml.Text
 import scala.xml.UnprefixedAttribute
 import scala.xml.Null
-import at.fabricate.lib.MatchString
+import lib.MatchString
 
 trait AddIcon[T <: (AddIcon[T] with MatchByID[T]) ] extends BaseEntity[T] { // 
   // [T <: Mapper[T] ]s

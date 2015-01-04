@@ -9,17 +9,17 @@ import scala.xml.{NodeSeq, Text}
 import net.liftweb.util._
 import net.liftweb.common._
 import Helpers._
-import at.fabricate.lib.AccessControl
+//import lib.AccessControl
 import net.liftweb.http.S.LFuncHolder
-import at.fabricate.lib.MatchString
-import at.fabricate.lib.MatchPath
+import lib.MatchString
+import lib.MatchPath
 import net.liftweb.sitemap.Menu
 import net.liftweb.sitemap.Loc.Hidden
 import net.liftweb.sitemap.LocPath
 import net.liftweb.sitemap.*
 import net.liftweb.mapper.MegaProtoUser
 import net.liftweb.mapper.MetaMegaProtoUser
-import at.fabricate.model.CustomizeUserHandling
+import model.CustomizeUserHandling
 
 
 /**

@@ -18,9 +18,13 @@ import net.liftweb.mapper.MetaMapper
 import net.liftweb.mapper.BaseLongKeyedMapper
 import net.liftweb.mapper.MappedForeignKey
 import net.liftweb.mapper.BaseMetaMapper
+import net.liftweb.mapper.ProtoUser
+import net.liftweb.common.Box
 
 trait AddComment[T <: (AddComment[T]) ] extends BaseEntity[T]  with OneToMany[Long, T] { // 
-	self: T =>      
+	self: T =>
+	  
+	  def getCurrentUser : Box[ProtoUser[_]]
 	  
       type TheCommentedType = T
       
@@ -39,7 +43,7 @@ trait AddComment[T <: (AddComment[T]) ] extends BaseEntity[T]  with OneToMany[Lo
     	  }
 		  object author extends MappedString(this, 40){
     	    override def validations = FieldValidation.minLength(this,3) _ :: Nil
-    	    override def defaultValue = User.currentUser.map(user => "%s %s".format(user.firstName, user.lastName )) openOr("")
+    	    override def defaultValue = getCurrentUser.map(user => "%s %s".format(user.firstName, user.lastName )) openOr("")
     	  }
 		  object comment extends MappedString(this, 140){		    
     	    override def validations = FieldValidation.minLength(this,10) _ :: Nil

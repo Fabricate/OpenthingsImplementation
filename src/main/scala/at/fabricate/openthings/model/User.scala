@@ -23,6 +23,9 @@ import net.liftweb.util.Mailer.BCC
 import at.fabricate.liftdev.common.model.BaseMetaEntity
 import at.fabricate.liftdev.common.model.BaseMetaEntityWithTitleDescriptionAndIcon
 import at.fabricate.liftdev.common.model.CustomizeUserHandling
+import at.fabricate.liftdev.common.model.BaseEntity
+import at.fabricate.liftdev.common.model.BaseEntityWithTitleDescriptionAndIcon
+import at.fabricate.liftdev.common.model.FieldOwner
 
 /**
  * The singleton that has methods for accessing the database

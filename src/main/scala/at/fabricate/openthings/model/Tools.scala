@@ -9,6 +9,9 @@ import scala.xml.Text
 import net.liftweb.json.JsonAST._
 import net.liftweb.json.JsonDSL._
 import net.liftweb.util.Helpers
+import at.fabricate.liftdev.common.lib._
+//import at.fabricate.liftdev.common.lib.FieldValidation
+//import at.fabricate.liftdev.common.lib
 
 class Tool extends LongKeyedMapper[Tool] with IdPK with ManyToMany{
   def getSingleton = Tool
@@ -18,7 +21,7 @@ class Tool extends LongKeyedMapper[Tool] with IdPK with ManyToMany{
   object name extends MappedString(this,100){
     
     /**Liste der durchzufuehrenden Validationen*/  
-    override def validations = FieldValidation.notEmpty(this) _ :: this.fieldOwner.existsNot(this) _  :: Nil
+//    override def validations = FieldValidation.notEmpty(this) _ :: this.fieldOwner.existsNot(this) _  :: Nil
   }
   object users extends MappedManyToMany(UserHasTools, UserHasTools.tool, UserHasTools.user, User)
 

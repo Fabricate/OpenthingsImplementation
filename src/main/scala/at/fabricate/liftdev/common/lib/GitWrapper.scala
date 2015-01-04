@@ -2,7 +2,7 @@ package at.fabricate.liftdev.common
 package lib
 
 import net.liftweb.mapper.MappedBoolean
-import at.fabricate.model.AddRepository
+import model.AddRepository
 import net.liftweb.http.LiftRules
 import net.liftweb.mapper.LongKeyedMapper
 import java.io.File
@@ -21,7 +21,7 @@ import java.io.FileFilter
 import org.eclipse.jgit.lib.Ref
 import net.liftweb.common.Full
 import scala.collection.JavaConversions._
-import at.fabricate.model.MatchByID
+import model.MatchByID
 import org.eclipse.jgit.diff.DiffEntry
 import org.eclipse.jgit.api.ResetCommand.ResetType
 import org.eclipse.jgit.lib.PersonIdent

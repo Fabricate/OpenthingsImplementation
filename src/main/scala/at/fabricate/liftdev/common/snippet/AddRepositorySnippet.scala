@@ -14,13 +14,13 @@ import model.BaseEntity
 import model.BaseMetaEntityWithTitleAndDescription
 import java.io.File
 import org.eclipse.jgit.revwalk.RevCommit
-import at.fabricate.lib.GitWrapper
+import lib.GitWrapper
 import net.liftweb.http.js.JsCmd
 import net.liftweb.http.js.JsCmds.SetHtml
 import net.liftweb.http.js.jquery.JqJsCmds.DisplayMessage
 import net.liftweb.http.js.JsCmds.Function
 import net.liftweb.http.js.JE.JsVar
-import at.fabricate.model.BaseEntityWithTitleAndDescription
+import model.BaseEntityWithTitleAndDescription
 import net.liftweb.http.RewriteRequest
 import net.liftweb.http.ParsePath
 import net.liftweb.http.RewriteResponse

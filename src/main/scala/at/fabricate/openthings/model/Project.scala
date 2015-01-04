@@ -11,7 +11,13 @@ import scala.xml.{NodeSeq,Text}
 import java.util.Calendar
 import scala.xml.UnprefixedAttribute
 import scala.xml.Null
-import at.fabricate.lib.{EnumWithKeyAndValue, EnumWithStringKeyAndValue, EnumWithDescriptionAndObject }
+import at.fabricate.liftdev.common.lib.{EnumWithKeyAndValue, EnumWithStringKeyAndValue, EnumWithDescriptionAndObject }
+import at.fabricate.liftdev.common.model.BaseMetaEntity
+import at.fabricate.liftdev.common.model.AddRepositoryMeta
+import at.fabricate.liftdev.common.model.BaseMetaEntityWithTitleDescriptionIconAndCommonFields
+import at.fabricate.liftdev.common.model.BaseEntityWithTitleDescriptionIconAndCommonFields
+import at.fabricate.liftdev.common.model.AddRepository
+import at.fabricate.liftdev.common.model.BaseEntity
  
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/
@@ -44,6 +50,7 @@ object Project extends Project with BaseMetaEntity[Project] with BaseMetaEntityW
 * @author Johannes Fischer **/
 class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepository[Project] {
 
+  override def getCurrentUser = User.currentUser
 
   // override icon-image settings
   override def defaultIcon = "/public/images/noproject.jpg"

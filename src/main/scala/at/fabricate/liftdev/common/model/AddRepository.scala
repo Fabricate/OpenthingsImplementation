@@ -32,9 +32,9 @@ import java.io.BufferedInputStream
 import net.liftweb.http.rest.RestHelper
 import net.liftweb.http.OkResponse
 import net.liftweb.http.BadResponse
-import at.fabricate.lib.MatchString
+import lib.MatchString
 import net.liftweb.util.Helpers._
-import at.fabricate.lib.GitWrapper
+import lib.GitWrapper
 
 trait AddRepository [T <: (AddRepository[T] with MatchByID[T]) ] extends BaseEntity[T]  {
 

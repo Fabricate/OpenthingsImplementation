@@ -5,18 +5,18 @@ import scala.xml.{NodeSeq, Text}
 import net.liftweb.util._
 import net.liftweb.common._
 import java.util.Date
-import at.fabricate.lib._
+import lib._
 import Helpers._
 import net.liftweb.http.DispatchSnippet
 import net.liftweb.http.S
-import at.fabricate.model.User
+import model.User
 import net.liftweb.mapper.By
 import net.liftweb.http.SHtml
 import net.liftweb.http.FileParamHolder
 import net.liftmodules.imaging._
 import net.liftmodules.textile.TextileParser
 import net.liftmodules.widgets.autocomplete.AutoComplete
-import at.fabricate.model.Tool
+import model.Tool
 import scala.collection.mutable.Seq
 import net.liftweb.http.js.JsCmd
 import net.liftweb.http.PaginatorSnippet
@@ -28,11 +28,12 @@ import net.liftweb.mapper.IHaveValidatedThisSQL
 import net.liftweb.mapper.QueryParam
 import net.liftweb.mapper.Like
 import net.liftweb.http.RequestVar
-import at.fabricate.model.UserHasTools
+import model.UserHasTools
 import net.liftweb.mapper.In
 import net.liftweb.mapper.PreCache
 import net.liftweb.mapper.Mapper
 import net.liftweb.mapper.LongKeyedMapper
+import at.fabricate.liftdev.common.snippet.AjaxPaginatorSnippet
 
 object ListDesigners extends AjaxPaginatorSnippet[User] with Logger {
   

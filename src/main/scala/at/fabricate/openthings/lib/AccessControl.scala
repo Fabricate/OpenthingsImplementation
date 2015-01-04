@@ -1,7 +1,7 @@
-package at.fabricate.liftdev.common
+package at.fabricate.openthings
 package lib
 
-import at.fabricate.model.User
+import model.User
 import net.liftweb.sitemap.Loc._
 import net.liftweb.http.RedirectResponse
 

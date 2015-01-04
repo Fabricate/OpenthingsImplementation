@@ -3,6 +3,9 @@ package snippet
 
 import model.Project
 import net.liftweb.util.CssSel
+import at.fabricate.liftdev.common.snippet.AddRepositorySnippet
+import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet
+import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet
 
 object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] with AddRepositorySnippet[Project]  {
   

@@ -1,11 +1,11 @@
-package at.fabricate.liftdev.common
+package at.fabricate.openthings
 package lib
 
-import at.fabricate.model.Image
+import model.Image
 import net.liftweb.mapper.By
 import net.liftweb.http._
 import net.liftweb.common._
-import at.fabricate.model.User
+import model.User
 import net.liftweb.mapper.By
 import net.liftweb.util.BasicTypesHelpers._
 import net.liftweb.util._

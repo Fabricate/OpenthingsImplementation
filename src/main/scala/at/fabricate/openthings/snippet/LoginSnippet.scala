@@ -1,7 +1,8 @@
 package at.fabricate.openthings
 package snippet
 
-import at.fabricate.model.User
+import model.User
+import at.fabricate.liftdev.common.snippet.CustomizeUserHandlingSnippet
 
 object LoginSnippet extends CustomizeUserHandlingSnippet[User](User){
 

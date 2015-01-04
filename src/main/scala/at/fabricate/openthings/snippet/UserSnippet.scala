@@ -6,7 +6,6 @@ import net.liftweb.http.DispatchSnippet
 import model.User
 import net.liftweb.http.S
 import scala.xml.NodeSeq
-import lib.MapperBinder
 import net.liftweb.util._
 import net.liftweb.common._
 import net.liftweb.util.Helpers._
@@ -17,8 +16,10 @@ import net.liftweb.mapper.StartAt
 import model.Project
 import scala.xml.Text
 import net.liftweb.http.SHtml
-import at.fabricate.model.Tool
+import model.Tool
 import net.liftweb.http.js.JsCmds
+import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet
+import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionAndIconSnippet
 
 object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with BaseEntityWithTitleDescriptionAndIconSnippet[User]  {
   

@@ -4,8 +4,8 @@ package model
 import net.liftweb.mapper.LongKeyedMapper
 import net.liftweb.mapper.IdPK
 import scala.xml.Elem
-import at.fabricate.lib.EnumWithDescriptionAndObject
-import at.fabricate.lib.MappedEnumWithDescription
+import lib.EnumWithDescriptionAndObject
+import lib.MappedEnumWithDescription
 import net.liftweb.mapper.BaseLongKeyedMapper
 import net.liftweb.mapper.KeyedMapper
 

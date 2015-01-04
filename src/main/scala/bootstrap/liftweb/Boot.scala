@@ -9,15 +9,14 @@ import js.jquery.JQueryArtifacts
 import sitemap._
 import Loc._
 import mapper._
-import at.fabricate.model._
 import net.liftmodules.JQueryModule
 import net.liftweb.sitemap._
 import net.liftweb.sitemap.Loc._
 import at.fabricate.openthings.snippet._
 import at.fabricate.openthings.model._
-import net.liftmodules.widgets.autocomplete.AutoComplete
+//import net.liftmodules.widgets.autocomplete.AutoComplete
 import org.apache.commons.fileupload.FileUploadBase.FileUploadIOException
-import at.fabricate.liftdev.common.lib.AccessControl
+import at.fabricate.openthings.lib.AccessControl
 
 /**
  * A class that's instantiated early and run.  It allows the application
