@@ -1,0 +1,153 @@
+package at.fabricate.openthings
+package model
+
+import net.liftweb.mapper._
+import java.text.SimpleDateFormat
+import java.util.{Locale, Date}
+import net.liftweb.http._
+import net.liftweb.util._
+import net.liftweb.common._
+import scala.xml.{NodeSeq,Text}
+import java.util.Calendar
+import scala.xml.UnprefixedAttribute
+import scala.xml.Null
+import at.fabricate.lib.{EnumWithKeyAndValue, EnumWithStringKeyAndValue, EnumWithDescriptionAndObject }
+ 
+/**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
+* @author Johannes Fischer **/
+
+object Project extends Project with BaseMetaEntity[Project] with BaseMetaEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepositoryMeta[Project] {
+  
+  
+
+  /**Name der genutzten Tabelle in der Datenbank*/
+//  override def dbTableName = "project"
+  /**Anordnung der Eingabefelder in automatisch generierten Formularen (CRUDFify)*/
+//  override def fieldOrder = List(teaser, creationDate, byUserId)
+
+  /*
+   * tried to implement the lazy save feature, did not work
+   * Try using loginFirst of the user!!
+//  abstract 
+  override def save = {
+    if (byUserId > 0 )
+      super.save      
+      else
+        S.redirectTo("/login")
+  }
+  * 
+  */
+}
+
+
+/**Beschreibt eine Projekt-Instanz
+* @author Johannes Fischer **/
+class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepository[Project] {
+
+
+  // override icon-image settings
+  override def defaultIcon = "/public/images/noproject.jpg"
+    
+  override def iconDisplayName = S.?("project\u0020icon")//S.?("user\u0020image") -> Throws an exception
+  
+  override def iconDbColumnName = "project_image"
+    
+  override def iconPath = "projectimage"
+    
+    // override repository settings
+//       override def apiPath = "api"
+//        
+//      override def uploadPath = "upload"
+        
+      override def repositoryPath = "projectrepository"
+        // this is the location where all the projects are
+        // eg. webapp/projects/<projectID>
+       override def basePathToRepository : String = "projects"
+       // this is the location where the repository is inside the project dir
+       // eg. webapp/projects/<projectID>/repository
+ 	   override def endPathToRepository : String = "repository"
+       // this is the location where the data (eg. zip for Repo Commit) is inside the project dir
+       // eg. webapp/projects/<projectID>/data
+ 	   override def endPathToData : String = "data"
+
+//      object createdByUser extends MappedManyToMany(self,){ }
+    
+  /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
+  object byUserId extends MappedLongForeignKey(this, User){
+
+    override def defaultValue = User.currentUser.map(_.id.get ) openOr(-2)
+    
+	  /**Genutzter Spaltenname in der DB-Tabelle*/
+    override def dbColumnName = "project_initiator"
+    
+    /**Name des Datenfeldes für CRUD-Seiten*/
+    override def displayName = S.?("project\u0020initiator")
+    
+//    override def validations = FieldValidation.notEmpty(this) :: Nil
+    
+      
+    /**Darstellung des Feldes auf CRUD-  object createdByUser extends MappedManyToMany(self,){
+    
+  }Seiten. Anstelle der Id wird Nachname und Vorname des Autors
+     * angezeigt bzw. "k.A." für "keine Angabe", wenn es zu dieser User-Id keinen User gibt. */
+    override def asHtml = User.getLinkToUser(get)
+    
+  }
+  
+  /*  override def s
+   * 
+  object myEnum extends EnumWithDescription {
+  override var _values = List(("icon-difficulty2"->"Starter"), ("icon-difficulty3"->"Avarage"), ("icon-difficulty4"->"Advanced"), ("icon-difficulty5"->"Expert"), ("icon-difficulty6"->"Genius"))
+  }
+  * 
+  */
+//  class DifficultyValue(name: String, description: String) extends ValueWithDescription
+  
+  /*
+  MappedEnumWithDescription(this,myEnum)
+  
+    protected class MappedEnumWithDescription(obj : MapperType, theEnum: EnumWithDescriptionAndObject[String]) extends MappedEnum(obj, theEnum  ){
+  
+    
+//    val values = List(("icon-difficulty2"->"Starter"), ("icon-difficulty3"->"Avarage"), 
+ *    ("icon-difficulty4"->"Advanced"), ("icon-difficulty5"->"Expert"), ("icon-difficulty6"->"Genius")))
+
+    /*
+	  /**Genutzter Spaltenname in der DB-Tabelle*/
+    override def dbColumnName = "project_initiator"
+    
+      
+    /**Name des Datenfeldes für CRUD-Seiten*/
+    override def displayName = S.?("project\u0020initiator")
+    
+      
+    /**Darstellung des Feldes auf CRUD-Seiten. Anstelle der Id wird Nachname und Vorname des Autors
+     * angezeigt bzw. "k.A." für "keine Angabe", wenn es zu dieser User-Id keinen User gibt. */
+    override def asHtml = Text(User.find(this).map(_.fullName).openOr("k.A."))
+    
+        
+    /**Namen-Auswahlliste für CRUD-Seiten*/
+    override def validSelectValues: Box[List[(Long, String)]] = {
+      val currentUser : List[User] = User.currentUser.toList
+      Full(currentUser.map(u => (u.id.get, u.lastName.get) ) )
+    }
+    * 
+    */
+    override def asHtml = <span class={super.asHtml}></span>
+    
+    
+	/**
+	* Build a list for the select. Return a tuple of (String, String) where the first string
+	* is the id.string of the Value and the second string is the Text name of the Value.
+	*/
+	def buildDisplayList: List[(Int, String)] = theEnum.nameDescriptionList.map(item : EnumWithDescription => item)
+//	  enum.values.toList.map(a => (a.id, a.toString))
+  }
+  * 
+  */
+  
+
+  /**Liefert das Meta-Objekt zur eigenen Modellklasse.*/
+  def getSingleton = Project
+
+}

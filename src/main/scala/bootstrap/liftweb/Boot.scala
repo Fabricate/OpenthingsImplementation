@@ -13,14 +13,11 @@ import at.fabricate.model._
 import net.liftmodules.JQueryModule
 import net.liftweb.sitemap._
 import net.liftweb.sitemap.Loc._
-import at.fabricate.snippet.Designer
-import at.fabricate.lib.ImageLogic
+import at.fabricate.openthings.snippet._
+import at.fabricate.openthings.model._
 import net.liftmodules.widgets.autocomplete.AutoComplete
-import at.fabricate.snippet.ProjectSnippet
-import at.fabricate.snippet.UserSnippet
 import org.apache.commons.fileupload.FileUploadBase.FileUploadIOException
-import at.fabricate.lib.AccessControl
-import at.fabricate.snippet.LoginSnippet
+import at.fabricate.liftdev.common.lib.AccessControl
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -60,10 +57,10 @@ class Boot {
     Project.init
     
     // where to search snippet
-    LiftRules.addToPackages("at.fabricate")
+    LiftRules.addToPackages("at.fabricate.openthings")
     
     LiftRules.snippetDispatch.append {
-      case "Designer" => Designer
+//      case "Designer" => Designer
       case "Project" => ProjectSnippet
       case "User" => UserSnippet
       case "Login" => LoginSnippet
