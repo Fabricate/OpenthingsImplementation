@@ -106,16 +106,16 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
 //    		super.asHtml(item)
 //  }
 
-  override def localDispatch : DispatchIt = dispatchEditOwn orElse super.localDispatch
-     
-  def dispatchEditOwn : DispatchIt = {
-     case "editOwn" => editOwn _
-   }
-   	      
-  def editOwn(xhtml: NodeSeq) : NodeSeq  =  { 
-    if (User.loggedIn_?)
-	    toForm(User.currentUser.get)(xhtml) 
-	 else 
-	   LoginSnippet.notLoggedInMessage   
-  }   
+//  override def localDispatch : DispatchIt = dispatchEditOwn orElse super.localDispatch
+//     
+//  def dispatchEditOwn : DispatchIt = {
+//     case "editOwn" => editOwn _
+//   }
+//   	      
+//  def editOwn(xhtml: NodeSeq) : NodeSeq  =  { 
+//    if (User.loggedIn_?)
+//	    toForm(User.currentUser.get)(xhtml) 
+//	 else 
+//	   LoginSnippet.notLoggedInMessage   
+//  }   
 }

@@ -4,6 +4,6 @@ package snippet
 import model.User
 import at.fabricate.liftdev.common.snippet.CustomizeUserHandlingSnippet
 
-object LoginSnippet extends CustomizeUserHandlingSnippet[User](User){
+object LoginSnippet extends CustomizeUserHandlingSnippet[User](User,UserSnippet){
 
 }

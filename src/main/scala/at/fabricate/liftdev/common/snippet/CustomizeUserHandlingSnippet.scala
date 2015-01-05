@@ -9,7 +9,6 @@ import scala.xml.{NodeSeq, Text}
 import net.liftweb.util._
 import net.liftweb.common._
 import Helpers._
-//import lib.AccessControl
 import net.liftweb.http.S.LFuncHolder
 import lib.MatchString
 import lib.MatchPath
@@ -20,12 +19,13 @@ import net.liftweb.sitemap.*
 import net.liftweb.mapper.MegaProtoUser
 import net.liftweb.mapper.MetaMegaProtoUser
 import model.CustomizeUserHandling
+import model.BaseEntityWithTitleAndDescription
 
 
 /**
  * Snippet object that configures template-login and connects it to Login.auth
  */
-class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T]](userObject : MetaMegaProtoUser[T] with CustomizeUserHandling[T]) extends DispatchSnippet {
+class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitleAndDescription[T]](userObject : MetaMegaProtoUser[T] with CustomizeUserHandling[T], userSnippet : BaseEntityWithTitleAndDescriptionSnippet[T]) extends DispatchSnippet {
 //  private object user extends RequestVar("")
 //  private object pass extends RequestVar("")
 
@@ -229,7 +229,7 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T]](userObject : MetaMegaP
     def edit(xhtml: NodeSeq): NodeSeq = {
       		// does that make sense?
       		if (userObject.loggedIn_? )
-            	userObject.edit
+            	userSnippet.toForm(userObject.currentUser.getOrElse(userObject.create)).apply(xhtml)
             	else
             	  notLoggedInMessage
   }
