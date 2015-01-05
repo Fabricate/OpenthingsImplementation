@@ -149,6 +149,7 @@ class Boot {
     
     val IfLoggedIn = If(() => User.currentUser.isDefined, "You must be logged in")
     
+    // links can be defined more often than once
 //    SiteMap.enforceUniqueLinks = false
     
     def menu: List[Menu] = 

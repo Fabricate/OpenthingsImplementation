@@ -26,6 +26,8 @@ import at.fabricate.liftdev.common.model.CustomizeUserHandling
 import at.fabricate.liftdev.common.model.BaseEntity
 import at.fabricate.liftdev.common.model.BaseEntityWithTitleDescriptionAndIcon
 import at.fabricate.liftdev.common.model.FieldOwner
+import at.fabricate.liftdev.common.lib.EnumWithDescriptionAndObject
+import at.fabricate.liftdev.common.lib.MappedEnumWithDescription
 
 /**
  * The singleton that has methods for accessing the database
@@ -105,6 +107,29 @@ class User extends MegaProtoUser[User] with BaseEntity[User] with BaseEntityWith
     
   
   object tools extends MappedManyToMany(UserHasTools, UserHasTools.user, UserHasTools.tool, Tool)
+  
+  object mailSettingsConst {
+    def pub = <span>public</span>
+    def priv = <span>private</span>
+  }
+  	// add email settings for privacy
+    object mailSettingsEnum extends EnumWithDescriptionAndObject[Elem] {
+    
+    
+	val pub = Value("Other users can ask me via mail!",mailSettingsConst.pub)
+	val priv = Value("I dont want to get Mails from other users!",mailSettingsConst.priv)
+//	val average = Value("Average",wrapSpanWithClass("icon-difficulty3"))
+//	val advanced = Value("Advanced",wrapSpanWithClass("icon-difficulty4"))
+//	val expert = Value("Expert",wrapSpanWithClass("icon-difficulty5"))
+//	val genius = Value("Genius",wrapSpanWithClass("icon-difficulty6"))
+	}
+  
+   /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
+  object emailSettings extends MappedEnumWithDescription[Elem,User](this,mailSettingsEnum)
+  
+  
+  
+  object personalWebsite extends MappedString(this,100)
   
   
   /*

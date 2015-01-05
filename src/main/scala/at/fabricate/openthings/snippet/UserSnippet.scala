@@ -66,7 +66,9 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
    (
        "#firstname" #> item.firstName .toForm &
        "#lastname" #> item.lastName  .toForm &       
-       "#showimage" #> item.icon.asHtml &
+       "#showicon" #> item.icon.asHtml &      
+       "#emailsettings" #> item.emailSettings.toForm &      
+       "#personalwebsite" #> item.personalWebsite.toForm &
        "#listtools" #> listTools _  //&
 //       "#toolsubmithidden" #> SHtml.hidden(() => saveAndDisplayAjaxMessages(item.tools, // wrong instance; Changes are saved implicitly!!
 //           JsCmds.Noop, // success action
@@ -90,7 +92,8 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
            		)                         
              //  )
    (
-       "#title *" #> "%s %s".format(item.firstName, item.lastName ) &
+       "#title *" #> "%s %s".format(item.firstName, item.lastName ) &    
+       "#personalwebsite [href]" #> item.personalWebsite.get &
        "#listtools" #> listTools _ &
        "#licence *"  #> "" &
        "#initiator *"  #> "" &
