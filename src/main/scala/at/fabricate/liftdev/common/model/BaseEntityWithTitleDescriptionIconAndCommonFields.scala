@@ -16,6 +16,7 @@ trait BaseEntityWithTitleDescriptionIconAndCommonFields [T <: (BaseEntityWithTit
 with BaseEntityWithTitleDescriptionAndIcon[T]
 //with AddRepository[T]
 with AddComment[T]
+with AddRating[T]
 with IdPK{
   self: T =>
     
@@ -98,6 +99,7 @@ trait BaseMetaEntityWithTitleDescriptionIconAndCommonFields[ModelType <: ( BaseE
 with BaseMetaEntityWithTitleDescriptionAndIcon[ModelType]
 //with AddRepositoryMeta[ModelType] 
 with AddCommentMeta[ModelType] 
+with AddRatingMeta[ModelType] 
 {
     self: ModelType  =>
       
