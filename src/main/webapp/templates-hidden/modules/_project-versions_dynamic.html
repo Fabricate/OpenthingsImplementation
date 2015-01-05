@@ -6,8 +6,8 @@
 	<h1 class="gamma left">Project versions</h1> 
 	
 			<ul  id="commits" class="projectVersionsList left">
-				<li>
-					<article id="listcommits">
+				<li id="listcommits">
+					<article>
 						<h1 id="commitname" class="epsilon">10 file(s) updated by martinrisseeuw</h1>
 						<p>I first started with creating the abstract version of the bourgie lamp with Rhinoceros (mac). I first drew the basic shape in Illustrator(image.1) after that I imported in Rhinoceros. I used the revolve command to create half of the lamps shape.</p> 
 						<a href"" class="btn" id="downloadcommit"><span class="icon-save"></span> Download this version</a><button id="revertcommit">undo changes</button>
@@ -15,32 +15,13 @@
 					</article>
 				</li>
 			</ul>
-	
-			Versions:
-			<table id="commits" class="left">
-					<tr>					
-						<td>Version</td>
-						<td>download that version</td>
-						<td>reset?</td>
-					</tr>
-				  <tr id="listcommits">
-						<td><span id="commitname"></span></td>
-						<td><a id="downloadcommit" href="">get that version</a></td>
-						<td><button id="revertcommit">undo the changes of this commit</button></td>
-						<td><button id="resetcommit">go back to this version (ATTENTION: this deletes all newer versions)</button></td>
-				  </tr>
-			</table>
-			Files:
-			<table id="files">
-					<tr>					
-						<td>Filename</td>
-						<td>delete?</td>
-					</tr>
-				  <tr id="listfiles">
-						<td><span id="filename"></span></td>
-						<td><button id="deletefile">delete</button></td>
-				  </tr>
-			</table>
+			<ul id="files" class="projectVersionsList left">
+				<li> Files for the project: </li>
+				  <li id="listfiles">
+						<span id="filename"></span>
+						<button id="deletefile">delete</button>
+				  </li>
+			</ul>
 			Add a new file to the Repository?
 	    <input id="fileupload" type="file" name="files[]"  multiple>
 			<div id="progress" style="width:20em; border: 1pt solid silver; display: none">
