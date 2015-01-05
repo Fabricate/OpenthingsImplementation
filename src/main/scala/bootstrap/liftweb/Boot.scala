@@ -14,9 +14,11 @@ import net.liftweb.sitemap._
 import net.liftweb.sitemap.Loc._
 import at.fabricate.openthings.snippet._
 import at.fabricate.openthings.model._
-//import net.liftmodules.widgets.autocomplete.AutoComplete
 import org.apache.commons.fileupload.FileUploadBase.FileUploadIOException
 import at.fabricate.openthings.lib.AccessControl
+import javax.mail.Authenticator
+import javax.mail.PasswordAuthentication
+import javax.mail.internet.MimeMessage
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -24,6 +26,8 @@ import at.fabricate.openthings.lib.AccessControl
  */
 class Boot {
   def boot {
+    
+    // Set up the database connection
     if (!DB.jndiJdbcConnAvailable_?) {
       val vendor = 
 	new StandardDBVendor(Props.get("db.driver") openOr "org.h2.Driver",
@@ -35,6 +39,20 @@ class Boot {
 
       DB.defineConnectionManager(util.DefaultConnectionIdentifier, vendor)
     }
+    
+    // configure mailing (setup authentification)
+    Mailer.authenticator = for {
+    	user <- Props.get("mail.user")
+    	pass <- Props.get("mail.password")
+    } yield new Authenticator {
+    	override def getPasswordAuthentication =
+    			new PasswordAuthentication(user,pass)
+    }
+    
+//    // just do something else if a mail wants to be sent
+//    Mailer.devModeSend.default.set( (m: MimeMessage) =>
+//    	println("Would have sent: "+m.getContent)
+//    )
     
     //AutoComplete.init
 
@@ -131,6 +149,7 @@ class Boot {
     
     val IfLoggedIn = If(() => User.currentUser.isDefined, "You must be logged in")
     
+//    SiteMap.enforceUniqueLinks = false
     
     def menu: List[Menu] = 
     List[Menu](Menu.i("Home") / "index" >> Hidden,
@@ -150,7 +169,7 @@ class Boot {
 
                Menu.i("Static") / "static" / ** >> Hidden
                //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
-               ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu ::: UserSnippet.getMenu ::: Tool.menus 
+               ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu ::: UserSnippet.getMenu ::: Tool.menus ::: User.menus
   
     LiftRules.setSiteMap(SiteMap(menu :_*))
     

@@ -190,6 +190,72 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
     zipoutstream.close()
     
   }
+  
+   def createZipForCommitWithJGIT(commitName : String) = {
+//	public class CreateArchive {
+//	public static void main(String[] args) throws IOException, GitAPIException {
+//	Repository repository = CookbookHelper.openJGitCookbookRepository();
+//	// make the included archive formats known
+//	ArchiveFormats.registerAll();
+//	try {
+//	write(repository, ".zip", "zip");
+//	write(repository, ".tar.gz", "tgz");
+//	write(repository, ".tar.bz2", "tbz2");
+//	write(repository, ".tar.xz", "txz");
+//	} finally {
+//	ArchiveFormats.unregisterAll();
+//	}
+//	repository.close();
+//	}
+//	private static void write(Repository repository, String suffix, String format) throws IOException, GitAPIException {
+//	// this is the file that we write the archive to
+//	File file = File.createTempFile("test", suffix);
+//	try (OutputStream out = new FileOutputStream(file)) {
+//	// finally call the ArchiveCommand to write out using the various supported formats
+//	new Git(repository).archive()
+//	.setTree(repository.resolve("master"))
+//	.setFormat(format)
+//	.setOutputStream(out)
+//	.call();
+//	}
+//	System.out.println("Wrote " + file.length() + " bytes to " + file);
+//	}
+//	}
+    val pathToZipDir = pathToData+File.separator+
+    			commitName
+//            (getAllCommits.length+1).toString
+    val pathToZipFile = pathToZipDir+File.separator+
+            fieldOwner.primaryKeyField.get+".zip"
+    println("creating zip at: "+pathToZipFile)
+    createDirectory(pathToZipDir)
+    
+    val zipoutstream = new ZipOutputStream(
+        new FileOutputStream(pathToZipFile) )
+//    var clazz = ZippingFileExample.class
+//    var inputStream = this.getres
+    
+    // configure zip compression
+//    zipoutstream.setMethod(ZipOutputStream.DEFLATED)
+//    zipoutstream.setLevel(5)
+
+    getAllFilesInRepository.map(file => {      
+      zipoutstream.putNextEntry( new ZipEntry(file.getName()) )
+      val in = new BufferedInputStream(new FileInputStream(file.getAbsolutePath()))
+      var b = in.read()
+      while (b > -1) {
+        zipoutstream.write(b)
+        b = in.read()
+      }
+      in.close()
+      zipoutstream.closeEntry()
+    }
+    )
+     
+//    */
+//    zipoutstream.putNextEntry( new ZipEntry(getRepositoryDirectory.getAbsolutePath()) )
+    zipoutstream.close()
+    
+  }
    	
   def createSafeFileName(name: String) : String = name.replaceAll("[^a-zA-Z0-9.-]", "_")
    	
@@ -598,7 +664,6 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
   override def asHtml = linkToRepo("view the repository") // TODO: plus additionally a download link for the zip
 
   override def toForm = Full(linkToRepo("edit the repository"))
-   	org.eclipse.jgit.errors.LockFailedException: Cannot lock
    	/*
 	private def repo : Repository = {
       if (isIDSet) {
