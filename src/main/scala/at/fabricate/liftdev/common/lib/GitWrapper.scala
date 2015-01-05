@@ -169,8 +169,8 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
 //    var inputStream = this.getres
     
     // configure zip compression
-    zipoutstream.setMethod(ZipOutputStream.DEFLATED)
-    zipoutstream.setLevel(5)
+//    zipoutstream.setMethod(ZipOutputStream.DEFLATED)
+//    zipoutstream.setLevel(5)
 
     getAllFilesInRepository.map(file => {      
       zipoutstream.putNextEntry( new ZipEntry(file.getName()) )
@@ -522,7 +522,7 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
 //	l--;
 //	}
 //	assertEquals(l, -1);
-//	ReflogReader reader = db.getReflogReader(Constants.HEAD);
+//	ReflogReader reader = db.getorg.eclipse.jgit.errors.LockFailedException: Cannot lockReflogReader(Constants.HEAD);
 //	assertTrue(reader.getLastEntry().getComment().startsWith("commit:"));
 //	reader = db.getReflogReader(db.getBranch());
 //	assertTrue(reader.getLastEntry().getComment().startsWith("commit:"));	
@@ -598,7 +598,7 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
   override def asHtml = linkToRepo("view the repository") // TODO: plus additionally a download link for the zip
 
   override def toForm = Full(linkToRepo("edit the repository"))
-   	
+   	org.eclipse.jgit.errors.LockFailedException: Cannot lock
    	/*
 	private def repo : Repository = {
       if (isIDSet) {
