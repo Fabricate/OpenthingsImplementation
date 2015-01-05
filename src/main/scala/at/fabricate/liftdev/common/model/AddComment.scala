@@ -30,7 +30,8 @@ trait AddComment[T <: (AddComment[T]) ] extends BaseEntity[T]  with OneToMany[Lo
       
       def getCommentMapper : LongKeyedMetaMapper[_] = TheComment
 	        
-	  object comments extends MappedOneToMany(TheComment, TheComment.commentedItem, OrderBy(TheComment.primaryKeyField, Ascending))
+	  object comments extends MappedOneToMany(TheComment, TheComment.commentedItem, OrderBy(TheComment.primaryKeyField, Ascending)) with Owned[TheComment]
+with Cascade[TheComment]
 
 	  //def getItemsToSchemify = List(TheComment, T)
       

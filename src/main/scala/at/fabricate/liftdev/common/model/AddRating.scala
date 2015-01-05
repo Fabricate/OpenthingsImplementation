@@ -31,7 +31,8 @@ trait AddRating[T <: (AddRating[T]) ] extends BaseEntity[T]  with OneToMany[Long
       
       def getRatingMapper : LongKeyedMetaMapper[_] = TheRating
 	        
-	  object ratings extends MappedOneToMany(TheRating, TheRating.ratedItem, OrderBy(TheRating.primaryKeyField, Ascending))
+	  object ratings extends MappedOneToMany(TheRating, TheRating.ratedItem, OrderBy(TheRating.primaryKeyField, Ascending))  with Owned[TheRating]
+with Cascade[TheRating]
 
 	  //def getItemsToSchemify = List(TheComment, T)
       

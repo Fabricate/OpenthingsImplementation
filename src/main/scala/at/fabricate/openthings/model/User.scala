@@ -28,6 +28,7 @@ import at.fabricate.liftdev.common.model.BaseEntityWithTitleDescriptionAndIcon
 import at.fabricate.liftdev.common.model.FieldOwner
 import at.fabricate.liftdev.common.lib.EnumWithDescriptionAndObject
 import at.fabricate.liftdev.common.lib.MappedEnumWithDescription
+import at.fabricate.liftdev.common.model.EqualityByID
 
 /**
  * The singleton that has methods for accessing the database
@@ -87,7 +88,10 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
 /**
  * An O-R mapped "User" class that includes first name, last name, password and we add a "Personal Essay" to it
  */
-class User extends MegaProtoUser[User] with BaseEntity[User] with BaseEntityWithTitleDescriptionAndIcon[User] with ManyToMany {
+class User extends MegaProtoUser[User] with BaseEntity[User] with BaseEntityWithTitleDescriptionAndIcon[User] 
+with EqualityByID[User] 
+with ManyToMany 
+{
   def getSingleton = User // what's the "meta" server
   
    override def firstNameDisplayName = S.?("firstname")
@@ -149,14 +153,7 @@ class User extends MegaProtoUser[User] with BaseEntity[User] with BaseEntityWith
   }
   */
   
-  // necessary to remove duplicate elements from lists
-  
-  override def equals(other:Any) = other match {
-    case u:User if u.id.get == this.id.get => true
-    case _ => false
-  }
-  
-  override def hashCode = this.id.get.hashCode
+
   
   // 
   def fullName: String = "%s %s".format(this.lastName,this.firstName)

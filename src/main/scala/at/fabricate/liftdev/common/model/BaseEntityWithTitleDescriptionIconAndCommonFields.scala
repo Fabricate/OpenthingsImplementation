@@ -17,7 +17,9 @@ with BaseEntityWithTitleDescriptionAndIcon[T]
 //with AddRepository[T]
 with AddComment[T]
 with AddRating[T]
-with IdPK{
+with IdPK
+with EqualityByID[T] 
+{
   self: T =>
     
 	
