@@ -57,3 +57,4 @@ lift_proto*
 runner
 
 src/main/webapp/projects/*
+src/main/resources/props/default.props
