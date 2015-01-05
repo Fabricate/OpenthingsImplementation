@@ -27,6 +27,7 @@ import net.liftweb.http.RewriteResponse
 import net.liftweb.sitemap.Menu
 import net.liftweb.sitemap.*
 import net.liftweb.sitemap.Loc.Hidden
+import scala.collection.JavaConversions._
 
 
 trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRepository[T]] extends BaseEntityWithTitleAndDescriptionSnippet[T] {
@@ -94,8 +95,18 @@ trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRep
 	    	  			   commit => bindCommitCss(commit, localItem) 
 			          )
 			          
-			     def bindCommitCss(commit : RevCommit, localItem : ItemType) : CssSel =
-			          "#commitname" #> commit.getFullMessage() & 
+			     def bindCommitCss(commit : RevCommit, localItem : ItemType) : CssSel ={
+			          var diffs = if (commit.getParents().length > 0) {
+			        	  			println(" commit has parents ")
+			            localItem.repository.differenceBetweenCommits(commit, commit.getParents().head)
+			          }
+			        	  		else
+			        	  		  List()
+			          "#committext" #> commit.getFullMessage() & 
+			          "#commitcommitter" #> commit.getCommitterIdent().getName() & 
+			          "#commitdifferencecount" #> diffs.length & 
+			          "#commitdifferencedetails" #> <ul>{diffs.map(difference => <li>{difference.toString() }</li>)}</ul> & 
+//			          "#commitfooter" #> <ul>{commit.getFooterLines().toList.map(line => <li>{line.toString()}</li>)}</ul> & 
 			          "#downloadcommit [href]" #> "/%s/%s/%s/%s/%s.zip".format(
 			              localItem.basePathToRepository, 
 			              localItem.repositoryID,
@@ -112,6 +123,8 @@ trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRep
 			            updateFileList(localItem) &
 			            displayMessageAndHideLocal("Rolled back to commit "+commit.getFullMessage())
 			          } )
+			          
+			       }
 			          
 				(
 //		      "#createrepo [onclick]" #> SHtml.ajaxInvoke(callback) &

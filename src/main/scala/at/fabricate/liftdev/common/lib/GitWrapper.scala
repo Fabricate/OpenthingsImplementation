@@ -94,7 +94,15 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
    	  Git.init().setDirectory(getRepositoryDirectory).call()
    	  
    	  val repo = FileRepositoryBuilder.create(  getRepositoryDotGitDirectory )
-   	  val commit = new Git(repo).commit().setMessage(initRepoMessage).call()
+   	  val gitRepository = new Git(repo)
+   	  // TODO: DRY!!!
+   	  val config = gitRepository.getRepository().getConfig()
+   	  config.setString(ConfigConstants.CONFIG_USER_SECTION, null, ConfigConstants.CONFIG_KEY_NAME, defaultCommitterName)
+   
+   	  config.setString(ConfigConstants.CONFIG_USER_SECTION, null, ConfigConstants.CONFIG_KEY_EMAIL, defaultCommitterMail)
+   	  config.save()
+   	  
+   	  val commit = gitRepository.commit().setMessage(initRepoMessage).call()
    	  
    	  // create a zip file for that commit - just for convenience
    	  createZipForCommit(commit.getName())
@@ -214,7 +222,7 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
    	
 
   // commit the repository
-  def commit(message : String) = 
+  def commit(message : String, committerName : String = defaultCommitterName, committerMail : String = defaultCommitterMail) = 
     withGitReopsitory[RevCommit]{
    		git => {
 
@@ -222,7 +230,7 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
    		  // TODO: might not work with directories, maybe use file.getAbsolutePath() then
    		  getAllFilesInRepository.map(file => git.add().addFilepattern(file.getName()).call())
    		  val commit = git.commit().setAll(true).
-//   		  setCommitter(new PersonIdent(defaultCommitterName, defaultCommitterMail)).
+   		  setCommitter(new PersonIdent(committerName, committerMail)).
    		  setMessage(message).call()
    		  // create a zip file with the actual content
    		  // ToDo: maybe use a nicer name?
@@ -283,12 +291,12 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
    	  	call()
    	}
    	
-//   	def differenceBetweenCommits(commit1 : RevCommit, commit2 : RevCommit)  = 
-//   	  // idea for a solution -> UNTESTED
-//   	  withGitReopsitory[List[DiffEntry]]{
-//
-//   	  git => git.diff().setSourcePrefix(commit1.getName()).setDestinationPrefix(commit2.getName()).call().toList
-//   	}  
+   	def differenceBetweenCommits(commit1 : RevCommit, commit2 : RevCommit)  = 
+   	  // idea for a solution -> UNTESTED
+   	  withGitReopsitory[List[DiffEntry]]{
+
+   	  git => git.diff().setSourcePrefix(commit1.getName()).setDestinationPrefix(commit2.getName()).call().toList
+   	}  
    	
 //   	 public static void main(String[] args) throws IOException, GitAPIException {
 //	Repository repository = CookbookHelper.openJGitCookbookRepository();
@@ -323,7 +331,7 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
 //	} finally {
 //	oldReader.release();
 //	}
-//	walk.dispose();
+//	walk.dispose();0 differences by openthings
 //	return oldTreeParser;
 //	}
    	
