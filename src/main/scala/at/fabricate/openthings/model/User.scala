@@ -77,12 +77,12 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
     case _ => <span>User not found!</span>
   }
   
-  object getProjectsByUser extends FieldOwner(this) {
-    private def getProjectList = Project.findAll(By(Project.byUserId, fieldOwner.id))
-    def asHtml : Elem = <ul><li>Project 1 </li></ul>
-      
-    def short : Elem = <ul>{ getProjectList.map(project => <li>{ project.title }</li>) }</ul>
-  }
+//  object getProjectsByUser extends FieldOwner(this) {
+//    private def getProjectList = Project.findAll(By(Project.byUserId, fieldOwner.id))
+//    def asHtml : Elem = <ul><li>Project 1 </li></ul>
+//      
+//    def short : Elem = <ul>{ getProjectList.map(project => <li>{ project.title }</li>) }</ul>
+//  }
 }
 
 /**

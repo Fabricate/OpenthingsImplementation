@@ -22,7 +22,7 @@ import at.fabricate.liftdev.common.model.BaseEntity
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/
 
-object Project extends Project with BaseMetaEntity[Project] with BaseMetaEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepositoryMeta[Project] {
+object Project extends Project with BaseMetaEntity[Project] with BaseMetaEntityWithTitleDescriptionIconAndCommonFields[Project,User] with AddRepositoryMeta[Project] {
   
   
 
@@ -48,8 +48,10 @@ object Project extends Project with BaseMetaEntity[Project] with BaseMetaEntityW
 
 /**Beschreibt eine Projekt-Instanz
 * @author Johannes Fischer **/
-class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepository[Project] {
+class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIconAndCommonFields[Project,User] with AddRepository[Project] {
 
+  override def theUserObject = User
+  
   override def getCurrentUser = User.currentUser
 
   // override icon-image settings
@@ -78,28 +80,7 @@ class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIco
  	   override def endPathToData : String = "data"
 
 //      object createdByUser extends MappedManyToMany(self,){ }
-    
-  /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
-  object byUserId extends MappedLongForeignKey(this, User){
 
-    override def defaultValue = User.currentUser.map(_.id.get ) openOr(-2)
-    
-	  /**Genutzter Spaltenname in der DB-Tabelle*/
-    override def dbColumnName = "project_initiator"
-    
-    /**Name des Datenfeldes für CRUD-Seiten*/
-    override def displayName = S.?("project\u0020initiator")
-    
-//    override def validations = FieldValidation.notEmpty(this) :: Nil
-    
-      
-    /**Darstellung des Feldes auf CRUD-  object createdByUser extends MappedManyToMany(self,){
-    
-  }Seiten. Anstelle der Id wird Nachname und Vorname des Autors
-     * angezeigt bzw. "k.A." für "keine Angabe", wenn es zu dieser User-Id keinen User gibt. */
-    override def asHtml = User.getLinkToUser(get)
-    
-  }
   
   /*  override def s
    * 

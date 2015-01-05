@@ -11,4 +11,10 @@ curl -i -H "Accept: application/json" -H "X-HTTP-Method-Override: PUT" -X POST -
 curl -i -H "Accept: application/json" -H "X-HTTP-Method-Override: PUT" -X POST http://localhost:8080/api/tool/47
 
 
+# rename all php files to html 
 for i in *; do mv "$i" "_`basename $i .php`.html"; done
+
+# find lines of code 
+for i in $(find . -name "*.scala"); do cat $i; done | wc -l
+
+for i in $(find . -name "*.html"); do cat $i; done | wc -l

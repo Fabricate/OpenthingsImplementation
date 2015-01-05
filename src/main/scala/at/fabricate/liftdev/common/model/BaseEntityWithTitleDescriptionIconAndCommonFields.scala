@@ -8,11 +8,15 @@ import lib.EnumWithDescriptionAndObject
 import lib.MappedEnumWithDescription
 import net.liftweb.mapper.BaseLongKeyedMapper
 import net.liftweb.mapper.KeyedMapper
+import net.liftweb.mapper.ProtoUser
+import net.liftweb.mapper.MappedLongForeignKey
+import net.liftweb.mapper.MegaProtoUser
+import net.liftweb.mapper.MetaMegaProtoUser
 
 // this is the mapper type where every higher level object inherits from
 // project and tutorial are examples for that
 
-trait BaseEntityWithTitleDescriptionIconAndCommonFields [T <: (BaseEntityWithTitleDescriptionIconAndCommonFields[T] with LongKeyedMapper[T]) ] extends BaseEntity[T]
+trait BaseEntityWithTitleDescriptionIconAndCommonFields [T <: (BaseEntityWithTitleDescriptionIconAndCommonFields[T,U] with LongKeyedMapper[T]), U <: MegaProtoUser[U] ] extends BaseEntity[T]
 with BaseEntityWithTitleDescriptionAndIcon[T]
 //with AddRepository[T]
 with AddComment[T]
@@ -22,7 +26,7 @@ with EqualityByID[T]
 {
   self: T =>
     
-	
+	def theUserObject : MetaMegaProtoUser[U]
 	// TODO:
 	// add Licence Tag (one of many that are stored in a database)
     // Generalize generation of Licences, (
@@ -92,12 +96,29 @@ with EqualityByID[T]
     // add field createdby, maybe (without display) also interesting for other types
   
 
+  object createdByUserId extends MappedLongForeignKey(this, theUserObject){
 
-	// TOD: Clean up that mess!
-	// getItemsToSchemify comes from the AddComment trait
+    override def defaultValue = theUserObject.currentUser.map(_.primaryKeyField.get ) openOr(-1)
+    
+	  /**Genutzter Spaltenname in der DB-Tabelle*/
+    override def dbColumnName = "initiator"
+    
+    /**Name des Datenfeldes für CRUD-Seiten*/
+//    override def displayName = S.?("project\u0020initiator")
+    
+//    override def validations = FieldValidation.notEmpty(this) :: Nil
+    
+      
+    /**Darstellung des Feldes auf CRUD-  object createdByUser extends MappedManyToMany(self,){
+    
+  }Seiten. Anstelle der Id wird Nachname und Vorname des Autors
+     * angezeigt bzw. "k.A." für "keine Angabe", wenn es zu dieser User-Id keinen User gibt. */
+//    override def asHtml = User.getLinkToUser(get)
+    
+  }
 }
 
-trait BaseMetaEntityWithTitleDescriptionIconAndCommonFields[ModelType <: ( BaseEntityWithTitleDescriptionIconAndCommonFields[ModelType] with LongKeyedMapper[ModelType]) ] extends BaseMetaEntity[ModelType]
+trait BaseMetaEntityWithTitleDescriptionIconAndCommonFields[ModelType <: ( BaseEntityWithTitleDescriptionIconAndCommonFields[ModelType, U] with LongKeyedMapper[ModelType]), U <: MegaProtoUser[U]  ] extends BaseMetaEntity[ModelType]
 with BaseMetaEntityWithTitleDescriptionAndIcon[ModelType]
 //with AddRepositoryMeta[ModelType] 
 with AddCommentMeta[ModelType] 

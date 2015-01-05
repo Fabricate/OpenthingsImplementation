@@ -29,7 +29,7 @@ import net.liftweb.mapper.LongKeyedMapper
 // if the comments also want to be paginated with the help of this script, 
 // a new subtype can be created where T is MappedType and U is MappedMetaType 
 // HINT: to redirect and to sort pagination at least a KeyedMapper is needed!
-trait BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[T <: BaseEntityWithTitleDescriptionIconAndCommonFields[T]] extends BaseEntityWithTitleAndDescriptionSnippet[T] 
+trait BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[T <: BaseEntityWithTitleDescriptionIconAndCommonFields[T,_]] extends BaseEntityWithTitleAndDescriptionSnippet[T] 
 with BaseEntityWithTitleDescriptionAndIconSnippet[T]
 with AddCommentSnippet[T]
 with AddRatingSnippet[T]
