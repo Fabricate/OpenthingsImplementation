@@ -28,6 +28,7 @@ import net.liftweb.sitemap.Menu
 import net.liftweb.sitemap.*
 import net.liftweb.sitemap.Loc.Hidden
 import scala.collection.JavaConversions._
+import org.eclipse.jgit.diff.DiffEntry
 
 
 trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRepository[T]] extends BaseEntityWithTitleAndDescriptionSnippet[T] {
@@ -59,6 +60,16 @@ trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRep
 
 //		println("chaining asHtml from AddRepositorySnippet")
       var commitLabel = ""
+        
+      			      var status = item.repository.getStatus()
+			          var update = List(
+			              "added: "->status.getAdded(),
+			              "removed: "->status.getRemoved(),
+			              "missing: "->status.getMissing(),
+			              "changed: "->status.getChanged(),
+			              "modified: "->status.getModified(),
+			              "conflicting: "->status.getConflicting()
+			              )
 	    	  	def commitRepository(localItem : ItemType)() : JsCmd = {
 		    		println("commiting the repository with label: "+commitLabel )
 		        	localItem.repository.commit(commitLabel)
@@ -102,10 +113,22 @@ trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRep
 			          }
 			        	  		else
 			        	  		  List()
+			          def prittyPrintDifference(difference : DiffEntry) : String = {
+			        	  		  difference.getChangeType match {
+			        	  		    case DiffEntry.ChangeType.ADD => "Added file %s to the repository".format(difference.getNewPath())
+			        	  		    case DiffEntry.ChangeType.DELETE => "Deleted file %s from the repository".format(difference.getOldPath())
+			        	  		    case DiffEntry.ChangeType.MODIFY => "Modified file %s".format(difference.getNewPath())
+			        	  		    case DiffEntry.ChangeType.COPY => "Copied file %s to %s".format(difference.getOldPath(),difference.getNewPath())
+			        	  		    case DiffEntry.ChangeType.RENAME => "Renamed file %s to %s".format(difference.getOldPath(),difference.getNewPath())  	  		    
+			        	  		    case _ => difference.toString()
+			        	  		  }
+			        	  		}
+
+//			          status.
 			          "#committext" #> commit.getFullMessage() & 
 			          "#commitcommitter" #> commit.getCommitterIdent().getName() & 
 			          "#commitdifferencecount" #> diffs.length & 
-			          "#commitdifferencedetails" #> <ul>{diffs.map(difference => <li>{difference.toString() }</li>)}</ul> & 
+			          "#commitdifferencedetails" #> <ul>{diffs.map(difference => <li>{prittyPrintDifference(difference)}</li>)}</ul> & 
 //			          "#commitfooter" #> <ul>{commit.getFooterLines().toList.map(line => <li>{line.toString()}</li>)}</ul> & 
 			          "#downloadcommit [href]" #> "/%s/%s/%s/%s/%s.zip".format(
 			              localItem.basePathToRepository, 
@@ -132,7 +155,9 @@ trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRep
 //		      "#commitlabel" #> SHtml.text("", (str) => {commitLabel = str; JsCmds.Noop}, "default"->"Describe the key features of this project revision")&
 		      "#commitlabel" #> SHtml.ajaxText("", value => {commitLabel = value}, "placeholder"->"Describe the key features of this project revision") &
 			  "#listfiles" #>  listAllFiles(item ) &
-			  "#listcommits" #> listAllCommits(item ) &	      
+			  "#listcommits" #> listAllCommits(item ) &	
+			  "#repositorystatus" #> <ul>{update.map({case (typeOfUpdate, listOfUpdate) => <li>{typeOfUpdate+listOfUpdate.mkString("",", ","") }</li>})}</ul> & 
+
 //		      "#commitrepohidden" #> SHtml.hidden(() => commit(item, commitLabel  )) &
 		      "#commitrepo [onclick]" #> SHtml.ajaxInvoke(commitRepository(item) ) &
 		      //"#commitrepo " #> SHtml.hidden(commit(id)) &

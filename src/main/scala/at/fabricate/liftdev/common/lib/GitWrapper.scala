@@ -29,6 +29,11 @@ import scala.util.Properties
 import scala.sys.process.Process
 import org.eclipse.jgit.lib.ConfigConstants
 import org.eclipse.jgit.merge.MergeStrategy
+import org.eclipse.jgit.treewalk.WorkingTreeIterator
+import org.eclipse.jgit.api.Status
+import org.eclipse.jgit.revwalk.RevWalk
+import org.eclipse.jgit.treewalk.CanonicalTreeParser
+import org.eclipse.jgit.treewalk.AbstractTreeIterator
 
 
 class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends MappedBoolean[T](owner) { 
@@ -94,13 +99,7 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
    	  Git.init().setDirectory(getRepositoryDirectory).call()
    	  
    	  val repo = FileRepositoryBuilder.create(  getRepositoryDotGitDirectory )
-   	  val gitRepository = new Git(repo)
-   	  // TODO: DRY!!!
-   	  val config = gitRepository.getRepository().getConfig()
-   	  config.setString(ConfigConstants.CONFIG_USER_SECTION, null, ConfigConstants.CONFIG_KEY_NAME, defaultCommitterName)
-   
-   	  config.setString(ConfigConstants.CONFIG_USER_SECTION, null, ConfigConstants.CONFIG_KEY_EMAIL, defaultCommitterMail)
-   	  config.save()
+   	  val gitRepository = getGitRepositoryAndSetDefaults(repo)
    	  
    	  val commit = gitRepository.commit().setMessage(initRepoMessage).call()
    	  
@@ -224,7 +223,7 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
   // commit the repository
   def commit(message : String, committerName : String = defaultCommitterName, committerMail : String = defaultCommitterMail) = 
     withGitReopsitory[RevCommit]{
-   		git => {
+   		(git, repository) => {
 
    		  // add all files that are in the repository to be added at the commit
    		  // TODO: might not work with directories, maybe use file.getAbsolutePath() then
@@ -257,7 +256,7 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
    	
    	
    	def getAllCommits : List[RevCommit] = withGitReopsitory[List[RevCommit]]{
-   		git => git.log().all.call().iterator().toList
+   		(git, repository) => git.log().all.call().iterator().toList
    	}
    	
    	// TODO: What happens with uncommited changes ?
@@ -270,7 +269,7 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
 //   	  // other solution -> UNTESTED
    	  val revertingCommit = withGitReopsitory[RevCommit]{
    	    // how to set a commiter here ?
-   		git => git.revert().
+   		(git, repository) => git.revert().
    		include(commit). // which commit to revert
    		setStrategy(MergeStrategy.RESOLVE).
    		call()
@@ -285,7 +284,7 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
 //   	  ResetType.SOFT
 //   	  ResetType.MIXED
    	  withGitReopsitory[Ref]{
-   	  	git => git.reset().
+   	  	(git, repository) => git.reset().
    	  	setMode(ResetType.HARD).
    	  	setRef(commit.getName()).
    	  	call()
@@ -295,8 +294,59 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
    	  // idea for a solution -> UNTESTED
    	  withGitReopsitory[List[DiffEntry]]{
 
-   	  git => git.diff().setSourcePrefix(commit1.getName()).setDestinationPrefix(commit2.getName()).call().toList
+   	  (git, repository) => {
+   	    git.diff().
+   	    setOldTree(getAbstractTreeIteratorForCommit(commit2,repository)).
+   	    setNewTree(getAbstractTreeIteratorForCommit(commit1,repository)).
+   	    call().toList
+   	  }
    	}  
+   	
+   	private def getAbstractTreeIteratorForCommit(commit : RevCommit, repository : Repository) : AbstractTreeIterator = {
+//	// from the commit we can build the tree which allows us to construct the TreeParser
+	val walk = new RevWalk(repository);
+//	RevCommit commit = walk.parseCommit(ObjectId.fromString(objectId));
+	val tree = walk.parseTree(commit.getTree().getId());
+	val oldTreeParser = new CanonicalTreeParser();
+	val oldReader = repository.newObjectReader();
+	try {
+		oldTreeParser.reset(oldReader, tree.getId());
+	} finally {
+		oldReader.release();
+	}
+	walk.dispose()
+	oldTreeParser
+   	}
+   	
+//   	private def getWorkingTreeIteratorForCommit(commit : RevCommit, repository : Repository) : WorkingTreeIterator = {
+////	// from the commit we can build the tree which allows us to construct the TreeParser
+//	val walk = new RevWalk(repository);
+////	RevCommit commit = walk.parseCommit(ObjectId.fromString(objectId));
+//	val tree = walk.parseTree(commit.getTree().getId());
+//	val oldTreeParser = new CanonicalTreeParser();
+//	val oldReader = repository.newObjectReader();
+//	try {
+//		oldTreeParser.reset(oldReader, tree.getId());
+//	} finally {
+//		oldReader.release();
+//	}
+//	walk.dispose()
+//	oldTreeParser
+////	walk.
+////	tree
+//   	}
+   	
+   	def getStatus() = { // commit : RevCommit
+   	  //	Status status = new Git(repository).status().call();
+   	  
+
+   	  withGitReopsitory[Status]{
+   	  (git, repository) => git.status().
+//   	  setWorkingTreeIt(getTreeIteratorForCommit(commit, repository).asInstanceOf[WorkingTreeIterator]).
+   	  call()
+//   	  diff().setSourcePrefix(commit1.getName()).setDestinationPrefix(commit2.getName()).call().toList
+   	} 
+   	}
    	
 //   	 public static void main(String[] args) throws IOException, GitAPIException {
 //	Repository repository = CookbookHelper.openJGitCookbookRepository();
@@ -477,7 +527,7 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
 //	reader = db.getReflogReader(db.getBranch());
 //	assertTrue(reader.getLastEntry().getComment().startsWith("commit:"));	
 
-   	private def withGitReopsitory[U](op: Git => U ) : U  = {
+   	private def withGitReopsitory[U](op: (Git, Repository) => U ) : U  = {
 //      val repoWasInitialized = isRepositoryInitialized   	  
    	  // create the repository if it does not already exitst
 //   	  if (!repoWasInitialized)
@@ -500,24 +550,32 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
    	      else
    	        initializeRepository
    	        
+   	  val gitRepository = getGitRepositoryAndSetDefaults(repository)
+   	  
 //   	  println("repository: "+repository.getDirectory().getAbsolutePath())
    	        
-   	  val gitRepository : Git = new Git(repository)
-   	  val config = gitRepository.getRepository().getConfig()
-   	  config.setString(ConfigConstants.CONFIG_USER_SECTION, null, ConfigConstants.CONFIG_KEY_NAME, defaultCommitterName)
-   
-   	  config.setString(ConfigConstants.CONFIG_USER_SECTION, null, ConfigConstants.CONFIG_KEY_EMAIL, defaultCommitterMail)
-   	  config.save()
+
 //   	  gitRepository.describe().setTarget("committer").setTarget(new PersonIdent(defaultCommitterName,defaultCommitterMail))
    	  // perform an initial commit as a baseline
 //   	  if (!repoWasInitialized)
 //   	    gitRepository.commit().setMessage("Created repository with ID "+repositoryID+" !").call()
    	  try {
-   	    op(gitRepository)
+   	    op(gitRepository,repository)
    	  } finally {
    	    repository.close()
    	  }
    	}
+   	
+  private def getGitRepositoryAndSetDefaults(repository : Repository) : Git = {
+       	  val gitRepository : Git = new Git(repository)
+	   	  val config = gitRepository.getRepository().getConfig()
+	   	  config.setString(ConfigConstants.CONFIG_USER_SECTION, null, ConfigConstants.CONFIG_KEY_NAME, defaultCommitterName)
+	   
+	   	  config.setString(ConfigConstants.CONFIG_USER_SECTION, null, ConfigConstants.CONFIG_KEY_EMAIL, defaultCommitterMail)
+	   	  config.save()
+	   	  
+	   	  gitRepository
+  }
    	
    	  // open an exiting repository
   private def openExistingRepo() : Repository =  
