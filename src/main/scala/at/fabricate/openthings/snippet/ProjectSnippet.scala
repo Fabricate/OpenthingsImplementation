@@ -22,6 +22,9 @@ object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] 
   override def listTitle = "List Project"
   override def editTitle = "Edit Project"
     
+      def theUserSnippet = UserSnippet
+
+    
 //    override def asHtml(item : ItemType) : CssSel = {
 //    		println("chaining asHtml from ProjectSnippet")
 //    		

@@ -33,6 +33,7 @@ trait BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[T <: BaseEntityWi
 with BaseEntityWithTitleDescriptionAndIconSnippet[T]
 with AddCommentSnippet[T]
 with AddRatingSnippet[T]
+with AddCreatedByUserSnippet[T]
 {
    
 //  def localDispatch : DispatchIt = {    
