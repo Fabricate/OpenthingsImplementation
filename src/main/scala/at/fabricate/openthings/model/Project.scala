@@ -55,7 +55,7 @@ class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIco
   def theTagObject = Tag
   
   
-  // definitions for AddCreatedBy
+  // definitions for AddCreatedBy and maybe some others
   type TheUserType = User
   def theUserObject = User
   
