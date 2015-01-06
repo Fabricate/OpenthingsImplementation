@@ -98,7 +98,7 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
        "#projectbydesigner" #> item.createdProjects.map(project =>
          "#projectbydesignertitle *" #> project.title.asHtml &
          "#projectbydesignerdescription *" #> project.description.asHtml &
-         "#projectbydesignerlink [href]" #> ProjectSnippet.urlToEditItem(project) 
+         "#projectbydesignerlink [href]" #> ProjectSnippet.urlToViewItem(project) 
          ) &
        "#licence *"  #> "" &
        "#initiator *"  #> "" &
