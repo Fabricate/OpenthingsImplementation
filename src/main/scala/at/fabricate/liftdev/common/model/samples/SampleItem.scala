@@ -7,6 +7,7 @@ import at.fabricate.liftdev.common.model.BaseEntityWithTitleAndDescription
 import at.fabricate.liftdev.common.model.AddTagsMeta
 import at.fabricate.liftdev.common.model.BaseMetaEntity
 import at.fabricate.liftdev.common.model.BaseMetaEntityWithTitleAndDescription
+import net.liftweb.mapper.IdPK
 
 
 object SampleItem extends SampleItem with BaseMetaEntity[SampleItem] with BaseMetaEntityWithTitleAndDescription[SampleItem] with AddTagsMeta[SampleItem] {
@@ -14,11 +15,11 @@ object SampleItem extends SampleItem with BaseMetaEntity[SampleItem] with BaseMe
 }
 
 
-class SampleItem extends BaseEntity[SampleItem] with BaseEntityWithTitleAndDescription[SampleItem] with AddTags[SampleItem] {
+class SampleItem extends BaseEntity[SampleItem] with BaseEntityWithTitleAndDescription[SampleItem] with AddTags[SampleItem] with IdPK {
   def getSingleton = SampleItem
   
   // definitions for AddTag
-  type Z = SampleTag
+  type theTagType = SampleTag
   def theTagObject = SampleTag
 
 }

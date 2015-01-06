@@ -50,6 +50,12 @@ object Project extends Project with BaseMetaEntity[Project] with BaseMetaEntityW
 * @author Johannes Fischer **/
 class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIconAndCommonFields[Project,User] with AddRepository[Project] {
 
+    // definitions for AddTag
+  type theTagType = Tag
+  def theTagObject = Tag
+  
+  
+  // definitions for Comment
   override def theUserObject = User
   
   override def getCurrentUser = User.currentUser
