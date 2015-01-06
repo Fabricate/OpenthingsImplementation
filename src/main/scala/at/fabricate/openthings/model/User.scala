@@ -29,10 +29,13 @@ import at.fabricate.liftdev.common.model.FieldOwner
 import at.fabricate.liftdev.common.lib.EnumWithDescriptionAndObject
 import at.fabricate.liftdev.common.lib.MappedEnumWithDescription
 import at.fabricate.liftdev.common.model.EqualityByID
+//import net.liftweb.mapper.OneToMany.Owned
+//import net.liftweb.mapper.OneToMany.Cascade
 
 /**
  * The singleton that has methods for accessing the database
  */
+
 object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling[User] with BaseMetaEntity[User] with BaseMetaEntityWithTitleDescriptionAndIcon[User] {
   
   
@@ -75,7 +78,7 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
       <a href={ "/designer/%s".format(theUser.id.toString ) }>{ theUser.fullName }</a>
     }
     case _ => <span>User not found!</span>
-  }
+  }  
   
 //  object getProjectsByUser extends FieldOwner(this) {
 //    private def getProjectList = Project.findAll(By(Project.byUserId, fieldOwner.id))
@@ -90,7 +93,8 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
  */
 class User extends MegaProtoUser[User] with BaseEntity[User] with BaseEntityWithTitleDescriptionAndIcon[User] 
 with EqualityByID[User] 
-with ManyToMany 
+with OneToMany[Long, User] 
+with ManyToMany
 {
   def getSingleton = User // what's the "meta" server
   
@@ -108,20 +112,27 @@ with ManyToMany
   override def iconDbColumnName = "user_image"
     
   override def iconPath = "userimage"
-    
+  
+  object createdProjects extends MappedOneToMany(Project, Project.createdByUser, OrderBy(Project.primaryKeyField, Descending)) with Owned[Project]
+
+    // a link to all the created Tutorials
+//  val mappingToProjects : LongKeyedMetaMapper[Project.TheMapping] = Project.getUserMapper
+//  
+//  object createdProjects extends MappedManyToMany(mappingToProjects, mappingToProjects.byUser, mappingToProjects.createdItem, Project)
+
   
   object tools extends MappedManyToMany(UserHasTools, UserHasTools.user, UserHasTools.tool, Tool)
   
   object mailSettingsConst {
-    def pub = <span>public</span>
-    def priv = <span>private</span>
+    def PUB = <span>public</span>
+    def PRIV = <span>private</span>
   }
   	// add email settings for privacy
     object mailSettingsEnum extends EnumWithDescriptionAndObject[Elem] {
     
     
-	val pub = Value("Other users can ask me via mail!",mailSettingsConst.pub)
-	val priv = Value("I dont want to get Mails from other users!",mailSettingsConst.priv)
+	val pub = Value("Other users can ask me via mail!",mailSettingsConst.PUB)
+	val priv = Value("I dont want to get Mails from other users!",mailSettingsConst.PRIV)
 //	val average = Value("Average",wrapSpanWithClass("icon-difficulty3"))
 //	val advanced = Value("Advanced",wrapSpanWithClass("icon-difficulty4"))
 //	val expert = Value("Expert",wrapSpanWithClass("icon-difficulty5"))

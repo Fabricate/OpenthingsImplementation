@@ -21,12 +21,13 @@ with BaseEntityWithTitleDescriptionAndIcon[T]
 //with AddRepository[T]
 with AddComment[T]
 with AddRating[T]
+with AddCreatedByUser[T,U]
+with AddTags[T]
 with IdPK
 with EqualityByID[T] 
 {
   self: T =>
     
-	def theUserObject : MetaMegaProtoUser[U]
 	// TODO:
 	// add Licence Tag (one of many that are stored in a database)
     // Generalize generation of Licences, (
@@ -95,34 +96,15 @@ with EqualityByID[T]
 	// add Tag, Tool, ...
     // add field createdby, maybe (without display) also interesting for other types
   
-
-  object createdByUserId extends MappedLongForeignKey(this, theUserObject){
-
-    override def defaultValue = theUserObject.currentUser.map(_.primaryKeyField.get ) openOr(-1)
-    
-	  /**Genutzter Spaltenname in der DB-Tabelle*/
-    override def dbColumnName = "initiator"
-    
-    /**Name des Datenfeldes für CRUD-Seiten*/
-//    override def displayName = S.?("project\u0020initiator")
-    
-//    override def validations = FieldValidation.notEmpty(this) :: Nil
-    
-      
-    /**Darstellung des Feldes auf CRUD-  object createdByUser extends MappedManyToMany(self,){
-    
-  }Seiten. Anstelle der Id wird Nachname und Vorname des Autors
-     * angezeigt bzw. "k.A." für "keine Angabe", wenn es zu dieser User-Id keinen User gibt. */
-//    override def asHtml = User.getLinkToUser(get)
-    
-  }
 }
 
-trait BaseMetaEntityWithTitleDescriptionIconAndCommonFields[ModelType <: ( BaseEntityWithTitleDescriptionIconAndCommonFields[ModelType, U] with LongKeyedMapper[ModelType]), U <: MegaProtoUser[U]  ] extends BaseMetaEntity[ModelType]
+trait BaseMetaEntityWithTitleDescriptionIconAndCommonFields[ModelType <: ( BaseEntityWithTitleDescriptionIconAndCommonFields[ModelType, UserType] with LongKeyedMapper[ModelType]), UserType <: MegaProtoUser[UserType]  ] extends BaseMetaEntity[ModelType]
 with BaseMetaEntityWithTitleDescriptionAndIcon[ModelType]
 //with AddRepositoryMeta[ModelType] 
 with AddCommentMeta[ModelType] 
 with AddRatingMeta[ModelType] 
+with AddCreatedByUserMeta[ModelType,UserType]
+with AddTagsMeta[ModelType]
 {
     self: ModelType  =>
       
