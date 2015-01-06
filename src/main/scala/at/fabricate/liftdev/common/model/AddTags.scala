@@ -27,9 +27,9 @@ import net.liftweb.mapper.MetaMegaProtoUser
 trait AddTags[T <: (AddTags[T])] extends BaseEntity[T]  with OneToMany[Long, T] { // 
 	self: T =>
 	  	  
-	  type theTagType <: Tags[theTagType]
+	  type TheTagType <: GeneralTag[TheTagType]
 	  
-	  def theTagObject : TagsMeta[theTagType] //with Tags[Z]
+	  def theTagObject : GeneralTagMeta[TheTagType] //with Tags[Z]
 	        
       def getTagMapper : LongKeyedMetaMapper[TheTags] = TheTags
       

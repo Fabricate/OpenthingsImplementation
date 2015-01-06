@@ -22,7 +22,7 @@ import at.fabricate.liftdev.common.model.BaseEntity
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/
 
-object Project extends Project with BaseMetaEntity[Project] with BaseMetaEntityWithTitleDescriptionIconAndCommonFields[Project,User] with AddRepositoryMeta[Project] {
+object Project extends Project with BaseMetaEntity[Project] with BaseMetaEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepositoryMeta[Project] {
   
   
 
@@ -48,15 +48,16 @@ object Project extends Project with BaseMetaEntity[Project] with BaseMetaEntityW
 
 /**Beschreibt eine Projekt-Instanz
 * @author Johannes Fischer **/
-class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIconAndCommonFields[Project,User] with AddRepository[Project] {
+class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepository[Project] {
 
     // definitions for AddTag
-  type theTagType = Tag
+  type TheTagType = Tag
   def theTagObject = Tag
   
   
-  // definitions for Comment
-  override def theUserObject = User
+  // definitions for AddCreatedBy
+  type TheUserType = User
+  def theUserObject = User
   
   override def getCurrentUser = User.currentUser
 

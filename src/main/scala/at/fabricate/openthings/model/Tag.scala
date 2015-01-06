@@ -8,16 +8,16 @@ import at.fabricate.liftdev.common.model.AddTagsMeta
 import at.fabricate.liftdev.common.model.BaseMetaEntity
 import at.fabricate.liftdev.common.model.BaseMetaEntityWithTitleAndDescription
 import net.liftweb.mapper.ManyToMany
-import at.fabricate.liftdev.common.model.TagsMeta
-import at.fabricate.liftdev.common.model.Tags
+import at.fabricate.liftdev.common.model.GeneralTagMeta
+import at.fabricate.liftdev.common.model.GeneralTag
 
 
-object Tag extends Tag with BaseMetaEntity[Tag] with TagsMeta[Tag] {
+object Tag extends Tag with BaseMetaEntity[Tag] with GeneralTagMeta[Tag] {
   
 }
 
 
-class Tag extends BaseEntity[Tag] with Tags[Tag] 
+class Tag extends BaseEntity[Tag] with GeneralTag[Tag] 
 with ManyToMany 
 //with OneToMany[Long,SampleTag] 
 {

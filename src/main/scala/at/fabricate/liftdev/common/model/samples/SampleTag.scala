@@ -11,12 +11,12 @@ import net.liftweb.mapper.ManyToMany
 import net.liftweb.mapper.OneToMany
 
 
-object SampleTag extends SampleTag with BaseMetaEntity[SampleTag] with TagsMeta[SampleTag] {
+object SampleTag extends SampleTag with BaseMetaEntity[SampleTag] with GeneralTagMeta[SampleTag] {
   
 }
 
 
-class SampleTag extends BaseEntity[SampleTag] with Tags[SampleTag] 
+class SampleTag extends BaseEntity[SampleTag] with GeneralTag[SampleTag] 
 with ManyToMany 
 //with OneToMany[Long,SampleTag] 
 {

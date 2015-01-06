@@ -16,12 +16,12 @@ import net.liftweb.mapper.MetaMegaProtoUser
 // this is the mapper type where every higher level object inherits from
 // project and tutorial are examples for that
 
-trait BaseEntityWithTitleDescriptionIconAndCommonFields [T <: (BaseEntityWithTitleDescriptionIconAndCommonFields[T,U] with LongKeyedMapper[T]), U <: MegaProtoUser[U] ] extends BaseEntity[T]
+trait BaseEntityWithTitleDescriptionIconAndCommonFields [T <: (BaseEntityWithTitleDescriptionIconAndCommonFields[T] with LongKeyedMapper[T])] extends BaseEntity[T]
 with BaseEntityWithTitleDescriptionAndIcon[T]
 //with AddRepository[T]
 with AddComment[T]
 with AddRating[T]
-with AddCreatedByUser[T,U]
+with AddCreatedByUser[T]
 with AddTags[T]
 with IdPK
 with EqualityByID[T] 
@@ -98,12 +98,12 @@ with EqualityByID[T]
   
 }
 
-trait BaseMetaEntityWithTitleDescriptionIconAndCommonFields[ModelType <: ( BaseEntityWithTitleDescriptionIconAndCommonFields[ModelType, UserType] with LongKeyedMapper[ModelType]), UserType <: MegaProtoUser[UserType]  ] extends BaseMetaEntity[ModelType]
+trait BaseMetaEntityWithTitleDescriptionIconAndCommonFields[ModelType <: ( BaseEntityWithTitleDescriptionIconAndCommonFields[ModelType] with LongKeyedMapper[ModelType])] extends BaseMetaEntity[ModelType]
 with BaseMetaEntityWithTitleDescriptionAndIcon[ModelType]
 //with AddRepositoryMeta[ModelType] 
 with AddCommentMeta[ModelType] 
 with AddRatingMeta[ModelType] 
-with AddCreatedByUserMeta[ModelType,UserType]
+with AddCreatedByUserMeta[ModelType]
 with AddTagsMeta[ModelType]
 {
     self: ModelType  =>

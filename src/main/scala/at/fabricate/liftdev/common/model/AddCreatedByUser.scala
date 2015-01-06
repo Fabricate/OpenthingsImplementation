@@ -24,12 +24,14 @@ import net.liftweb.mapper.MappedInt
 import net.liftweb.mapper.MegaProtoUser
 import net.liftweb.mapper.MetaMegaProtoUser
 
-trait AddCreatedByUser[T <: (AddCreatedByUser[T,U]) , U <: MegaProtoUser[U]] extends BaseEntity[T]  with OneToMany[Long, T] { // 
+trait AddCreatedByUser[T <: (AddCreatedByUser[T]) ] extends BaseEntity[T]  with OneToMany[Long, T] { // 
 	self: T =>
 	  
 	  def getCurrentUser : Box[ProtoUser[_]]
 	  
-	  def theUserObject : MetaMegaProtoUser[U]
+	  type TheUserType <: MegaProtoUser[TheUserType]
+	  
+	  def theUserObject : MetaMegaProtoUser[TheUserType]
 	  
 //      type TheRatedType = T
             
@@ -58,7 +60,7 @@ trait AddCreatedByUser[T <: (AddCreatedByUser[T,U]) , U <: MegaProtoUser[U]] ext
       
 }
 
-trait AddCreatedByUserMeta[ModelType <: (AddCreatedByUser[ModelType,U]) , U <: MegaProtoUser[U] ] extends BaseMetaEntity[ModelType] {
+trait AddCreatedByUserMeta[ModelType <: (AddCreatedByUser[ModelType]) ] extends BaseMetaEntity[ModelType] {
 	self: ModelType =>
 
 }

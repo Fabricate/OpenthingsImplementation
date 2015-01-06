@@ -19,7 +19,7 @@ class SampleItem extends BaseEntity[SampleItem] with BaseEntityWithTitleAndDescr
   def getSingleton = SampleItem
   
   // definitions for AddTag
-  type theTagType = SampleTag
+  type TheTagType = SampleTag
   def theTagObject = SampleTag
 
 }
