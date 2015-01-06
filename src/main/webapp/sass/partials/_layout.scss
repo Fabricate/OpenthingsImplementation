@@ -236,13 +236,19 @@ body{
 	top: 0;
 	left: 0;
 	z-index: 9999;
-	background: rgba(255,255,255,0.97);
+	background: rgba(255,255,255,0.99);
 	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;
 }
+.loginScreen p{
+	width: 100%;
+}
+.lostpassword{
+	margin-top: 2.15em;
+}
 .loginScreen form{
 	max-width: 600px;
-	width: 100%;
+	width: 90%;
 }
 .loginScreen input, .loginScreen textarea, .loginScreen select{
 	max-width: 100%;
@@ -393,4 +399,8 @@ body{
 .questionsList .icon-messages::before{
 	position: relative;
 	top: 3px;
+}
+
+.two-col{
+	width: 50%;
 }

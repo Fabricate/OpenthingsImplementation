@@ -22,3 +22,13 @@ button{
 button:hover, .btn:hover{
 	opacity: 0.8;
 }
+input[type="submit"]{
+	color: white;
+	background-color: $brand-color;
+	cursor: pointer;
+	padding: $small-margin-padding;
+	border-radius: 1px;
+  transition: opacity 0.3s ease-in-out;
+	border: none;
+	width: auto !important;
+}

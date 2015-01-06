@@ -1,21 +1,24 @@
 <section class="loginScreen left">
 	<span class="icon-plus close-icon"></span>
 	
-		<h1>Login / Register</h1>
-		<p>If you already have an account just login.</p>
-
+	<h1>Login / Register</h1>
+	<div class="two-col left">
+		<p class="left">If you already have an account just login.</p>
 		<div data-lift="Login.login?eager_eval=true" class="left">
 			<span data-lift="embed?what=modules/_login-form">LoginForm</span>
-    		</div>
-
-		<p>Forgot your password?</p>
-
+		</div>
+		
+		<p class="left lostpassword">Forgot your password?</p>
 		<div data-lift="Login.lostPassword?eager_eval=true" class="left">
 			<span data-lift="embed?what=modules/_lost-password-form">LostPasswordForm</span>
-    		</div>
-		<p>Don't have an account yet, you can quickly register.</p>
+		</div>
+	</div>
+	
+	<div class="two-col right">
+		<p class="left">Don't have an account yet, you can quickly register.</p>
 		<div data-lift="Login.signup?eager_eval=true" class="left">
 			<span data-lift="embed?what=modules/_signup-form">SignupForm</span>
-		</div>
-
+		</div>	
+	</div>
+	
 </section>
