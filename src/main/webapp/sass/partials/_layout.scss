@@ -52,6 +52,30 @@ body{
 .projectVersions li{
 	border-top: 1px solid rgba(255,255,255, 0.5);
 	padding: 4% 0;
+	width: 100%;
+}
+.addFiles{
+	width: 100%;
+	width:100%;
+	background:rgba(255,255,255, .5);
+	padding: 3%;
+	box-sizing: border-box;
+}
+.addFiles input{
+	margin-bottom: 0.5em;
+}
+.addFiles ul li:first-child{
+	border-top: 0;
+	padding: 2% 0;
+}
+.addFiles ul li{
+	padding: 2%;
+}
+.addFiles ul li:nth-child(even){
+	background: rgba(50,50,50, .1);
+}
+.addFiles #files{
+	margin-bottom: 2em;
 }
 .versionDetails{
 	margin-top: 4%;
@@ -355,6 +379,13 @@ body{
 	transform: rotate(45deg);
 	font-size: 1.5em;
 	cursor: pointer;
+	z-index: 2;
+}
+.delete-icon{
+	transform: rotate(45deg);
+	cursor: pointer;
+	z-index: 2;
+	color: red;
 }
 .videoHeader{
 	padding: 0 !important;

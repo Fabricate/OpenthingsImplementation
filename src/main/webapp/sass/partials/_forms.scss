@@ -4,3 +4,17 @@ select, input, textarea{
 	border-radius: 1px;
 	background: none;
 }
+
+label{
+	margin: 1em 0 0.5em;
+	width: 100%;
+}
+
+#showicon{
+	border: 1px solid $lightgrey;
+}
+
+.projectVersions input{
+	float: left;
+	width: 100%;
+}

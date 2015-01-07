@@ -67,7 +67,7 @@ figure.effect-lily img {
 	max-width: none;
 	width: -webkit-calc(100% + 50px);
 	width: calc(100% + 50px);
-	opacity: 0.8;
+	opacity: 0.5;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: translate3d(-40px,0, 0);
@@ -80,7 +80,7 @@ figure.effect-lily figcaption {
 
 figure.effect-lily figcaption > div {
 	position: absolute;
-	bottom: 0;
+	bottom: 10%;
 	left: 0;
 	padding: 1em;
 	height: 50%;

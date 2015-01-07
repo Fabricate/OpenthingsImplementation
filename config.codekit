@@ -32,6 +32,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/addProject.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/addProject.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/src\/main\/webapp\/editDesigner.html": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -41,11 +50,11 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/src\/main\/webapp\/editRepository.html": {
+	"\/src\/main\/webapp\/editProject.html": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/editRepository.html",
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/editProject.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -58,6 +67,17 @@
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/js\/angular_1.2.26_googleapis.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/js\/angular_1.2.26_googleapis.min.js",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/js\/min\/angular_1.2.26_googleapis.min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
 		},
 	"\/src\/main\/webapp\/js\/app.js": {
 		"fileType": 64,
@@ -224,6 +244,17 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/src\/main\/webapp\/js\/jquery_1.8.3_googleapis.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/js\/jquery_1.8.3_googleapis.min.js",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/js\/min\/jquery_1.8.3_googleapis.min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/src\/main\/webapp\/js\/main.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -264,46 +295,84 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/src\/main\/webapp\/public\/images\/12.jpg": {
+	"\/src\/main\/webapp\/login.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/login.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/logout.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/logout.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/lost_password.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/lost_password.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/projects\/4\/repository\/Astronaut_007.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 30010,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/12.jpg",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/12.jpg",
+		"initialSize": 101360,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/Astronaut_007.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/Astronaut_007.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/src\/main\/webapp\/public\/images\/booth.jpg": {
+	"\/src\/main\/webapp\/projects\/4\/repository\/Best-Wallpapers_Pack5-7.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 59171,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/booth.jpg",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/booth.jpg",
+		"initialSize": 349066,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/Best-Wallpapers_Pack5-7.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/Best-Wallpapers_Pack5-7.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/src\/main\/webapp\/public\/images\/lamp_with_book.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 59076,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/lamp_with_book.jpg",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/lamp_with_book.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/src\/main\/webapp\/public\/images\/martin_privacy_16-9.jpg": {
+	"\/src\/main\/webapp\/projects\/4\/repository\/noimage.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 39307,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/martin_privacy_16-9.jpg",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/martin_privacy_16-9.jpg",
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/noimage.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/noimage.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/projects\/4\/repository\/noproject.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 39307,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/noproject.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/noproject.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/projects\/4\/repository\/nouser.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 39307,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/nouser.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/nouser.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -337,61 +406,6 @@
 		"initialSize": 39307,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/nouser.jpg",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/nouser.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/src\/main\/webapp\/public\/images\/partworks.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 130509,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/partworks.jpg",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/partworks.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/src\/main\/webapp\/public\/images\/project_thumbnail.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 66877,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/project_thumbnail.jpg",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/project_thumbnail.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/src\/main\/webapp\/public\/images\/project_thumbnail2.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 50346,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/project_thumbnail2.jpg",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/project_thumbnail2.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/src\/main\/webapp\/public\/images\/project_thumbnail_featured.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 37562,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/project_thumbnail_featured.jpg",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/project_thumbnail_featured.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/src\/main\/webapp\/public\/images\/shareable_energy.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 87375,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/shareable_energy.jpg",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/shareable_energy.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -454,6 +468,15 @@
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/stylesheets\/main.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/reset_password.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/reset_password.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -844,6 +867,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/sign_up.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/sign_up.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/src\/main\/webapp\/static\/designers.html": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -925,33 +957,6 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/src\/main\/webapp\/templates-hidden\/default_usermgt\/login.html": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/default_usermgt\/login.html",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/src\/main\/webapp\/templates-hidden\/default_usermgt\/lost_password.html": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/default_usermgt\/lost_password.html",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/src\/main\/webapp\/templates-hidden\/default_usermgt\/sign_up.html": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/default_usermgt\/sign_up.html",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
 	"\/src\/main\/webapp\/templates-hidden\/modules\/_account.html": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -988,6 +993,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/templates-hidden\/modules\/_change-password-form.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_change-password-form.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/src\/main\/webapp\/templates-hidden\/modules\/_comments-and-rating.html": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -1002,6 +1016,42 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_detailed-description.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/templates-hidden\/modules\/_edit-account-form.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_edit-account-form.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/templates-hidden\/modules\/_edit-account.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_edit-account.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/templates-hidden\/modules\/_edit-item-form.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_edit-item-form.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/templates-hidden\/modules\/_editproject.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_editproject.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -1024,11 +1074,11 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/src\/main\/webapp\/templates-hidden\/modules\/_list-item_mb.html": {
+	"\/src\/main\/webapp\/templates-hidden\/modules\/_login-form.html": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_list-item_mb.html",
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_login-form.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -1042,11 +1092,29 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/templates-hidden\/modules\/_logout-form.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_logout-form.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/src\/main\/webapp\/templates-hidden\/modules\/_logout.html": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_logout.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/templates-hidden\/modules\/_lost-password-form.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_lost-password-form.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -1065,15 +1133,6 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_project-and-user-header.html",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/src\/main\/webapp\/templates-hidden\/modules\/_project-and-user-header_mb.html": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_project-and-user-header_mb.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -1105,11 +1164,38 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/templates-hidden\/modules\/_project-versions_dynamic.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_project-versions_dynamic.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/templates-hidden\/modules\/_reset-password-form.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_reset-password-form.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/src\/main\/webapp\/templates-hidden\/modules\/_search.html": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_search.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/templates-hidden\/modules\/_signup-form.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_signup-form.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
