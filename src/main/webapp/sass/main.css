@@ -706,6 +706,50 @@ figure.effect-lily:hover p {
   left: 20px;
   top: 26px; }
 
+/* line 7, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/elements */
+#commentMessages span {
+  background: none repeat scroll 0 0 rgba(255, 0, 0, 0.7);
+  color: white;
+  font-size: 1.3em;
+  padding: 2%;
+  display: block; }
+
+/* line 15, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/elements */
+#commentMessages {
+  width: 100%; }
+
+/* line 19, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/elements */
+#cropContainerHeader {
+  width: 200px;
+  height: 150px;
+  position: relative;
+  /* or fixed or absolute */ }
+
+/* line 25, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/elements */
+#croppicModal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: block;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 10000; }
+
+/* line 35, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/elements */
+#yourId {
+  width: 200px;
+  height: 150px;
+  position: relative;
+  /* or fixed or absolute */ }
+
+/* line 40, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/elements */
+#cropContainerModal {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  border: 1px solid #ccc; }
+
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/typical_classes */
 .right {
   float: right; }
@@ -1113,7 +1157,7 @@ body {
   top: 0;
   left: 0;
   z-index: 9999;
-  background: rgba(255, 255, 255, 0.97);
+  background: rgba(255, 255, 255, 0.99);
   box-shadow: 0 4px 5px rgba(50, 50, 50, 0.2);
   display: none; }
 
@@ -1144,7 +1188,7 @@ body {
   top: 0;
   left: 0;
   z-index: 9999;
-  background: rgba(255, 255, 255, 0.97);
+  background: rgba(255, 255, 255, 0.99);
   box-shadow: 0 4px 5px rgba(50, 50, 50, 0.2);
   display: none; }
 

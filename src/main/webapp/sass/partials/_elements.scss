@@ -3,3 +3,38 @@
 	left: 20px;
 	top: 26px;
 }
+
+#commentMessages span{
+	background: none repeat scroll 0 0 rgba(255,0,0, .7);
+	color: white;
+	font-size: 1.3em;
+	padding: 2%;
+	display: block;
+}
+
+#commentMessages{
+	width: 100%;
+}
+
+#cropContainerHeader {
+			width: 200px;
+			height: 150px;
+			position:relative; /* or fixed or absolute */
+		}
+
+#croppicModal{
+				position:fixed;
+				width:100%;
+				height:100%;
+				top: 0;
+				left: 0;
+				display:block;
+				background:rgba(0,0,0,0.8);
+				z-index: 10000;
+			}
+#yourId {
+			width: 200px;
+			height: 150px;
+			position:relative; /* or fixed or absolute */
+		}
+#cropContainerModal{ width:100%; height:200px; position: relative; border:1px solid #ccc;}
