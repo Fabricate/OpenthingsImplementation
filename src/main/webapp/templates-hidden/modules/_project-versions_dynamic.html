@@ -9,7 +9,8 @@
 <!--				<li> Status of the repository <span id="repositorystatus">RepoStatus</span></li>-->
 				<li id="listcommits">
 					<article>
-						<h1 class="epsilon"><span id="commitdifferencecount">NumberOfDifferences</span> differences by <span id="commitcommitter">Martin Risseeuw</span></h1>
+						<h1 class="epsilon"><span id="commitdifferencecount">NumberOfDifferences</span> differences by <span id="commitcommitter">Martin Risseeuw</span> <span class="icon-eye" onclick="
+				viewDifferenceVersion();"></span></h1>
 						<p><span id="committext">I first started with creating the abstract version of the bourgie lamp with Rhinoceros (mac). I first drew the basic shape in Illustrator(image.1) after that I imported in Rhinoceros. I used the revolve command to create half of the lamps shape.</span>
 						<span id="commitdifferencedetails">ListOfDifferences</span></p> 
 						<a href"" class="btn" id="downloadcommit"><span class="icon-save"></span> Download this version</a> <button id="revertcommit">Undo changes</button>
@@ -17,47 +18,41 @@
 					</article>
 				</li>
 			</ul>
-			<section class="addFiles">
+			<section class="addFiles left">
 				<ul id="files" class="projectVersionsList">
-						<li>Files ready to commit:</li>
+						<p class="readyUpload">Files ready to commit:</p>
 						<li id="listfiles">
 							<span id="deletefile" class="icon-delete delete-icon"></span> <span id="filename"></span>
 						</li>
 				</ul>
-				<h2 class="epsilon">Upload for the project:</h2>
+				<h2 class="epsilon">Select files to upload to the project:</h2>
 				<input id="fileupload" type="file" name="files[]"  multiple>
-				<div id="progress" style="width:20em; border: 1pt solid silver; display: none">
-					<div id="progress-bar" style="background: green; height: 1em; width:0%"></div>
-				</div>	
+				<div class="uploadstatus left"></div>	
 				<input id="commitlabel" value="" type="text"></input>
 				<input id="commitrepohidden" value="" type="hidden"></input>
-				<button id="commitrepo">Commit files</button>
+				<button id="commitrepo" class="left">Commit files</button>
 			</section>
+		
+		<script src="https://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+		<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+		<script src="https://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
 
 		<script src="/js/vendor/jquery.ui.widget.js"></script>
 		<script src="/js/jquery.iframe-transport.js"></script>
 		<script src="/js/jquery.fileupload.js"></script>
-
-		<script id="uploadconfig">
+		<script src="/js/jquery.fileupload-process.js"></script>
+		<script src="/js/jquery.fileupload-image.js"></script>
+		<script>
 			$(function () {
-				$('#fileupload').fileupload({
-					dataType: 'json',
-					add: function (e,data) {
-						$('#progress-bar').css('width', '0%');
-						$('#progress').show();
-						data.submit();
-					},
-					progressall: function (e, data) {
-						var progress = parseInt(data.loaded / data.total * 100, 10) + '%';
-						$('#progress-bar').css('width', progress);
-					},
-					done: function (e, data) {
-						$.each(data.files, function (index, file) {
-							UpdateFilelist(file.name);
-						});
-						$('#progress').fadeOut();
-					}
-				});
+					$('#fileupload').fileupload({
+							add: function (e, data) {
+									data.context = $('<p/>').text('Files are being uploaded...').appendTo('.uploadstatus');
+									data.submit();
+							},
+							done: function (e, data) {
+									data.context.text('Upload finished.');
+							}
+					});
 			});
 		</script>
 </section>

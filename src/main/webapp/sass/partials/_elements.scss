@@ -3,7 +3,6 @@
 	left: 20px;
 	top: 26px;
 }
-
 #commentMessages span{
 	background: none repeat scroll 0 0 rgba(255,0,0, .7);
 	color: white;
@@ -11,30 +10,12 @@
 	padding: 2%;
 	display: block;
 }
-
 #commentMessages{
 	width: 100%;
 }
-
-#cropContainerHeader {
-			width: 200px;
-			height: 150px;
-			position:relative; /* or fixed or absolute */
-		}
-
-#croppicModal{
-				position:fixed;
-				width:100%;
-				height:100%;
-				top: 0;
-				left: 0;
-				display:block;
-				background:rgba(0,0,0,0.8);
-				z-index: 10000;
-			}
-#yourId {
-			width: 200px;
-			height: 150px;
-			position:relative; /* or fixed or absolute */
-		}
-#cropContainerModal{ width:100%; height:200px; position: relative; border:1px solid #ccc;}
+.uploadstatus p{
+	padding: 2% 6%;
+	background: rgba($brand-color, 0.6);
+	color: white;
+	margin: -0.5em 0 0.5em;
+}

@@ -57,8 +57,14 @@
 		</footer>	
 
 		<script src="/public/js/jquery.viewportchecker.js"></script>
-		<script src="/public/js/ajax-menu.js"></script>
 		<script>
+			jQuery(document).ready(function() {
+				jQuery('.preview').addClass("hidden").viewportChecker({
+						classToAdd: 'visible animated fadeIn',
+						offset: 100
+					 });
+			});
+
 			function ShowComments(){
 				$(".projectComments ul").slideToggle();
 				$(".viewcomments").addClass( "commentsopen" );
@@ -103,11 +109,14 @@
 				    scrollTop: $(".addTutorial").offset().top
 				}, 500);
 			}
+			function viewDifferenceVersion(){
+				$("#commitdifferencedetails").slideToggle();
+			}
 			function ViewDetails(){
 				$(".versionDetails").slideToggle();
 			}
 
-			function UserRating(){
+		
 				$('.rating1').hover(function() {
 					$('.rating').toggleClass('rated1'); // add class when mouseover happen
 				});		
@@ -142,7 +151,6 @@
 				$(".rating5").click(function(){
 					$(".rating").addClass("isRated5");
 				});
-			}
 		</script>
 
   </body>

@@ -59,6 +59,24 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/img_crop_to_file.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/img_crop_to_file.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/img_save_to_file.php": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/img_save_to_file.php",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/src\/main\/webapp\/index.html": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -107,6 +125,17 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/js\/cors\/jquery.xdr-transport.js",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/js\/cors\/min\/jquery.xdr-transport-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/src\/main\/webapp\/js\/crop.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/js\/crop.js",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/js\/min\/crop-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -266,6 +295,28 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/src\/main\/webapp\/js\/min\/crop-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/js\/min\/crop-min.js",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/js\/min\/min\/crop-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/src\/main\/webapp\/js\/min\/masonry-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/js\/min\/masonry-min.js",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/js\/min\/min\/masonry-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/src\/main\/webapp\/js\/vendor\/jquery.ui.widget.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -322,24 +373,13 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/src\/main\/webapp\/projects\/4\/repository\/Astronaut_007.jpg": {
+	"\/src\/main\/webapp\/projects\/3\/repository\/Astronaut_007.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 101360,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/Astronaut_007.jpg",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/Astronaut_007.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/src\/main\/webapp\/projects\/4\/repository\/Best-Wallpapers_Pack5-7.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 349066,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/Best-Wallpapers_Pack5-7.jpg",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/Best-Wallpapers_Pack5-7.jpg",
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/3\/repository\/Astronaut_007.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/3\/repository\/Astronaut_007.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -373,6 +413,17 @@
 		"initialSize": 39307,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/nouser.jpg",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/4\/repository\/nouser.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/projects\/6\/repository\/Screen_Shot_2015-01-09_at_15.57.03.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.55007e+06,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/6\/repository\/Screen_Shot_2015-01-09_at_15.57.03.png",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/6\/repository\/Screen_Shot_2015-01-09_at_15.57.03.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -443,12 +494,34 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/src\/main\/webapp\/public\/js\/masonry.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/js\/masonry.js",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/js\/min\/masonry-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/src\/main\/webapp\/public\/js\/min\/jquery-min.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/js\/min\/jquery-min.js",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/js\/min\/min\/jquery-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/src\/main\/webapp\/public\/js\/min\/masonry-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/js\/min\/masonry-min.js",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/js\/min\/min\/masonry-min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -835,6 +908,22 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/sass\/vendor\/_colorpicker.scss",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/sass\/css\/_colorpicker.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"useLibsass": 0
+		},
+	"\/src\/main\/webapp\/sass\/vendor\/_croppic.scss": {
+		"createSourceMap": 0,
+		"debugStyle": 0,
+		"decimalPrecision": 10,
+		"fileType": 4,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/sass\/vendor\/_croppic.scss",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/sass\/css\/_croppic.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
