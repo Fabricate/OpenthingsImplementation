@@ -77,7 +77,7 @@ class Boot {
     LiftRules.addToPackages("at.fabricate.openthings")
     
     LiftRules.snippetDispatch.append {
-//      case "Designer" => Designer
+      case "Search" => SearchSnippet
       case "Project" => ProjectSnippet
       case "User" => UserSnippet
       case "Login" => LoginSnippet
@@ -118,10 +118,12 @@ class Boot {
     val userRewrites = UserSnippet.generateRewrites
     
     val projectRewrites =  ProjectSnippet.generateRewrites
+    
+    val searchRewrites = SearchSnippet.generateRewrites
    
     // Set up some rewrites
     LiftRules.statelessRewrite.append (userRewrites.orElse
-//        (logonRewrites).orElse
+        (searchRewrites).orElse
         (projectRewrites) )
 //    
     // TODO : aufraumen, sauberes Menue !!!
@@ -170,7 +172,7 @@ class Boot {
 
                Menu.i("Static") / "static" / ** >> Hidden
                //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
-               ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu ::: UserSnippet.getMenu ::: Tool.menus ::: User.menus
+               ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu ::: UserSnippet.getMenu ::: SearchSnippet.getMenu ::: Tool.menus ::: User.menus
   
     LiftRules.setSiteMap(SiteMap(menu :_*))
     

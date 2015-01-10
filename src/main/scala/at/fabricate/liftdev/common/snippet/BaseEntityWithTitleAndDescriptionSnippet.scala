@@ -106,7 +106,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
    // lean pattern to get the Item from the supplied ID
    final def doWithMatchedItem(op : ItemType => ((NodeSeq) => NodeSeq) ) : ((NodeSeq) => NodeSeq) = 
     (S.param("id") openOr ID_NOT_SUPPLIED) match {
-      case TheItem.MatchItemByID(project) => op(project)
+      case TheItem.MatchItemByID(item) => op(item)
       case _ => (node => Text("Object not found!"))
     
   }
@@ -175,9 +175,9 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     	 },
     	 errors => errorAction(errors))
 
-    final def urlToViewItem(item: KeyedMapper[_,_]): String =  "/%s/%s/%s".format(itemBaseUrl, itemViewUrl, item.primaryKeyField.toString)
+    def urlToViewItem(item: KeyedMapper[_,_]): String =  "/%s/%s/%s".format(itemBaseUrl, itemViewUrl, item.primaryKeyField.toString)
    
-    final def urlToEditItem(item: KeyedMapper[_,_]): String =  "/%s/%s/%s".format(itemBaseUrl, itemEditUrl, item.primaryKeyField.toString)
+    def urlToEditItem(item: KeyedMapper[_,_]): String =  "/%s/%s/%s".format(itemBaseUrl, itemEditUrl, item.primaryKeyField.toString)
 
    // ### methods that might be overridden in subclasses ###
     	     	 
