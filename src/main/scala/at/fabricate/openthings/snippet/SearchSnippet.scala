@@ -23,14 +23,16 @@ import net.liftweb.mapper.KeyedMapper
 import net.liftweb.util._
 import net.liftweb.util.Helpers._
 import net.liftweb.util.CssSel
+import net.liftweb.http.RequestVar
 
 object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] {
 
   
-    val query = S.param(queryParam)  openOr ""
 
     
     val queryParam = "query"
+      
+    object query extends RequestVar(S.param(queryParam) openOr "") //  
       
   // will not be used hopefully
     override val TheItem = Project
@@ -73,11 +75,13 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
   override def view(xhtml : NodeSeq) : NodeSeq  =  notAvailable
   
   
-     // ### methods that will be stacked ###
-   override def localDispatch : DispatchIt = {    
+  def dispatchForm : DispatchIt = {    
     case "form" => form _ 
     case "list" => renderIt(_)
   }
+  
+     // ### methods that will be stacked ###
+   override def localDispatch : DispatchIt = dispatchForm orElse super.localDispatch
   
   override def urlToViewItem(item: KeyedMapper[_,_]) : String = item match {
     case project:Project => ProjectSnippet.urlToViewItem(project)
@@ -92,7 +96,16 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
   def form(xhtml : NodeSeq) : NodeSeq  =  {
     (
         "#searchform [action]"  #> "/%s".format(itemBaseUrl) &
-        "#easysearch [name]"  #> queryParam
+        "#easysearch [name]"  #> queryParam &
+        "#easysearch [value]"  #> query.get &
+        // customize the form elements
+        "#iconlabel" #> "" &
+        "#icon" #> "" &
+        "#difficulty" #> Project.difficulty.toForm &
+        "#licence" #> Project.licence.toForm &
+        "#save [value]" #> "search" & 
+        // insert the search string into the title box
+        "#title [value]" #> query.get
         ).apply(xhtml)
   }
   
@@ -100,11 +113,12 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
 //  val description = S.param("description")  openOr ""
 //  val description = S.param("description")  openOr ""
 
+  def addLikeCharFrontAndBack(queryParam:String) : String = "%"+queryParam+"%"
   
        // define the page
-  override def count = Project.findAll(Like(Project.title,query)).length
+  override def count = Project.findAll(Like(Project.title,addLikeCharFrontAndBack(query.get))).length
 
-  override def page = Project.findAll(Like(Project.title,query), StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage), OrderBy(Project.primaryKeyField, Descending))
+  override def page = Project.findAll(Like(Project.title,addLikeCharFrontAndBack(query.get)), StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage), OrderBy(Project.primaryKeyField, Descending))
 //      StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage), OrderBy(TheItem.primaryKeyField, Descending))
 
 //  override def pageUrl(offset: Long): String = appendParams(super.pageUrl(offset), List("your param" -> "value"))
