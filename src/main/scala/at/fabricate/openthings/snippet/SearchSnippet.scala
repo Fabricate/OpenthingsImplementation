@@ -35,6 +35,7 @@ import net.liftweb.http.SHtml
 import net.liftweb.common.Full
 import net.liftweb.common.Empty
 import net.liftweb.mapper.In
+import net.liftweb.mapper.ByList
 
 object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] {
 
@@ -150,7 +151,7 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
         "#title [name]"  #> titleParam &
         "#title [value]" #> title.get &
         "#description [name]"  #> descriptionParam &
-        "#description [value]" #> description.get
+        "#description *" #> description.get
         ).apply(xhtml)
   }
   
@@ -166,7 +167,7 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
     val query = Like(itemToQuery.title,addLikeCharFrontAndBack(title.get)) ::
     	Like(itemToQuery.description,addLikeCharFrontAndBack(description.get)) ::
 //    	By_<(itemToQuery.difficulty.asInstanceOf[MappedField[_,T]],difficulty.get) ::
-//    	In(itemToQuery.licence,licence.get) ::
+    	ByList(itemToQuery.licence,licence.get) ::
     	otherQueryParams
     	
     itemToQuery.findAll(
