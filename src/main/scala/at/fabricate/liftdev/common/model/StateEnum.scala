@@ -9,9 +9,17 @@ import scala.xml.Elem
       
       private def wrapSpanWithClass(theClass : String) : Elem = <span class={theClass}></span>
     
-	val concept = Value("concept / idea",wrapSpanWithClass("icon-state1"))
-	val early_dev = Value("early development state",wrapSpanWithClass("icon-state2"))
-	val evolved = Value("evolved (medium state)",wrapSpanWithClass("icon-state3"))
-	val late_dev = Value("late development state",wrapSpanWithClass("icon-state4"))
-	val mature = Value("mature",wrapSpanWithClass("icon-state5"))
+	val concept = Value("concept / idea / draft",wrapSpanWithClass("icon-state1"))
+	val dev_early = Value("early state of development",wrapSpanWithClass("icon-state2"))
+	val dev_advanced = Value("advanced state of development",wrapSpanWithClass("icon-state3"))
+	val evolved = Value("evolved (medium state)",wrapSpanWithClass("icon-state4"))
+	val advanced = Value("advanced",wrapSpanWithClass("icon-state5"))
+	val mature = Value("mature",wrapSpanWithClass("icon-state6"))
+	
+	val downToMatureList = mature  :: Nil
+    val downToAdvanced = advanced   :: downToMatureList
+    val downToEvolved = evolved  :: downToAdvanced
+    val downToDevAdvanced = dev_advanced     :: downToEvolved
+    val downToDevEarly = dev_early     :: downToDevAdvanced
+    val downToConcept = concept    :: downToDevEarly
 	}

@@ -15,4 +15,11 @@ import scala.xml.Elem
 	val advanced = Value("Advanced",wrapSpanWithClass("icon-difficulty4"))
 	val expert = Value("Expert",wrapSpanWithClass("icon-difficulty5"))
 	val genius = Value("Genius",wrapSpanWithClass("icon-difficulty6"))
+	
+	val upToKidsList = kids :: Nil
+    val upToStarterList = starter  :: upToKidsList
+    val upToAverageList = average  :: upToStarterList
+    val upToAdvancedList = advanced   :: upToAverageList
+    val upToExpertList = expert   :: upToAdvancedList
+    val upToGeniusList = genius   :: upToExpertList
 	}

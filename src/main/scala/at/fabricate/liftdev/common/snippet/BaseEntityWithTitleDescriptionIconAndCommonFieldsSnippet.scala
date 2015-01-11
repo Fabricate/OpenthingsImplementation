@@ -66,7 +66,8 @@ with AddCreatedByUserSnippet[T]
 //       "#icon" #> item.icon .toForm & // will go to the baseiconentitysnippet later on
 //    "#initiator *"  #> {<strong>Made by:</strong> item.de} &
     "#licence"  #> item.licence.toForm &
-    "#difficulty"  #> item.difficulty.toForm
+    "#difficulty"  #> item.difficulty.toForm&
+    "#state"  #> item.state.toForm
    ) &
         (super.toForm(item))
    }
@@ -79,7 +80,8 @@ with AddCreatedByUserSnippet[T]
 //       "#icon [src]" #> item.icon .url & // will go to the baseiconentitysnippet later on
 //    "#initiator *+"  #> {<strong>Made by:</strong> item.de} &
     "#licence *"  #> item.licence &
-    "#difficulty"  #> item.difficulty 
+    "#difficulty"  #> item.difficulty  &
+    "#state"  #> item.state 
    ) &
    (super.asHtml(item))
      

@@ -37,6 +37,7 @@ import net.liftweb.common.Empty
 import net.liftweb.mapper.In
 import net.liftweb.mapper.ByList
 import at.fabricate.liftdev.common.model.DifficultyEnum
+import at.fabricate.liftdev.common.model.StateEnum
 
 object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] {
 
@@ -49,30 +50,65 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
     val descriptionParam = "description"
     object description extends RequestVar(S.param(descriptionParam) openOr "") //  
     
-    val kidsString = "onlyKids"
-    val starterString = "upToStarter"
-    val averageString = "upToAverage"
-    val advancedString = "upToAdvanced"
-    val expertString = "upToExpert"
-    val geniusString = "upToGenius"
+    val kidsDiffString = "onlyKids"
+    val starterDiffString = "upToStarter"
+    val averageDiffString = "upToAverage"
+    val advancedDiffString = "upToAdvanced"
+    val expertDiffString = "upToExpert"
+    val geniusDiffString = "upToGenius"
     
-    val kidsList = DifficultyEnum.kids :: Nil
-    val starterList = DifficultyEnum.starter  :: kidsList
-    val averageList = DifficultyEnum.average  :: starterList
-    val advancedList = DifficultyEnum.advanced   :: averageList
-    val expertList = DifficultyEnum.expert   :: advancedList
-    val geniusList = DifficultyEnum.genius   :: expertList
        
     val difficultyParam = "difficulty"
     object difficulty extends RequestVar(S.param(difficultyParam).map(value => value match {
 //          case genius if genius == geniusString  => geniusList
-          case kids if kids == kidsString  => kidsList
-          case starter if starter == starterString  => starterList
-          case average if average == averageString  => averageList
-          case advanced if advanced == advancedString  => advancedList
-          case expert if expert == expertString  => expertList
-          case _  => geniusList
-    }) openOr(geniusList)) 
+          case kids if kids == kidsDiffString  => DifficultyEnum.upToKidsList
+          case starter if starter == starterDiffString  => DifficultyEnum.upToStarterList
+          case average if average == averageDiffString  => DifficultyEnum.upToAverageList
+          case advanced if advanced == advancedDiffString  => DifficultyEnum.upToAdvancedList
+          case expert if expert == expertDiffString  => DifficultyEnum.upToExpertList
+          case _  => DifficultyEnum.upToGeniusList
+    }) openOr(DifficultyEnum.upToGeniusList)) 
+    
+    def generateDiffSelect = 
+      <select id="difficulty" required="" name={difficultyParam}>
+    	<option value={kidsDiffString} selected={if(difficulty.get == DifficultyEnum.upToKidsList)"selected" else null}>only {DifficultyEnum.kids.description}</option>
+    	<option value={starterDiffString} selected={if(difficulty.get == DifficultyEnum.upToStarterList)"selected" else null}>up to {DifficultyEnum.starter.description}</option>
+    	<option value={averageDiffString} selected={if(difficulty.get == DifficultyEnum.upToAverageList)"selected" else null}>up to {DifficultyEnum.average.description}</option>
+    	<option value={advancedDiffString} selected={if(difficulty.get == DifficultyEnum.upToAverageList)"selected" else null}>up to {DifficultyEnum.advanced.description}</option>
+    	<option value={expertDiffString} selected={if(difficulty.get == DifficultyEnum.upToExpertList)"selected" else null}>up to {DifficultyEnum.expert.description}</option>
+    	<option value={geniusDiffString} selected={if(difficulty.get == DifficultyEnum.upToGeniusList)"selected" else null}>up to {DifficultyEnum.genius.description}</option>
+      </select>
+    
+    object difficultySelect extends RequestVar ( generateDiffSelect	)
+    
+    val matureStateString = "onlyMature"
+    val advancedStateString = "downToAdvanced"
+    val evolvedStateString = "downToEvolved"
+    val devAdvancedStateString = "downToDevAdvanced"
+    val devEarlyStateString = "downToDevEarly"
+    val conceptStateString = "downToConcept"
+       
+    val stateParam = "state"
+    object state extends RequestVar(S.param(stateParam).map(value => value match {
+          case mature if mature == matureStateString   => StateEnum.downToMatureList  
+          case advanced if advanced == advancedStateString  => StateEnum.downToAdvanced 
+          case evolved if evolved == evolvedStateString  => StateEnum.downToEvolved  
+          case devAdvanced if devAdvanced == devAdvancedStateString  => StateEnum.downToDevAdvanced 
+          case devEarly if devEarly == devEarlyStateString  => StateEnum.downToDevEarly 
+          case _  => StateEnum.downToConcept 
+    }) openOr(StateEnum.downToConcept))   
+    
+    def generateStateSelect = 
+      <select id="state" required="" name={stateParam}>
+    	<option value={matureStateString} selected={if(state.get == StateEnum.downToMatureList)"selected" else null}>only {StateEnum.mature.description}</option>
+    	<option value={advancedStateString} selected={if(state.get == StateEnum.downToAdvanced)"selected" else null}>down to {StateEnum.advanced.description}</option>
+    	<option value={evolvedStateString} selected={if(state.get == StateEnum.downToEvolved)"selected" else null}>down to {StateEnum.evolved.description}</option>
+    	<option value={devAdvancedStateString} selected={if(state.get == StateEnum.downToDevAdvanced)"selected" else null}>down to {StateEnum.dev_advanced .description}</option>
+    	<option value={devEarlyStateString} selected={if(state.get == StateEnum.downToDevEarly)"selected" else null}>down to {StateEnum.dev_early .description}</option>
+    	<option value={conceptStateString} selected={if(state.get == StateEnum.downToConcept)"selected" else null}>down to {StateEnum.concept .description}</option>
+      </select>
+    
+    object stateSelect extends RequestVar ( generateStateSelect	)
     
     val allLicenceString = "all"
     val commercialLicencesString = "com"
@@ -90,25 +126,13 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
     }) openOr(LicenceEnum.allLicences))
 //    var licence = allLicences._1
     
-    def generateDiffSelect = 
-      <select id="difficulty" required="" name={difficultyParam}>
-    	<option value={kidsString} selected={if(difficulty.get == kidsList)"selected" else null}>Only {DifficultyEnum.kids.description}</option>
-    	<option value={starterString} selected={if(difficulty.get == starterList)"selected" else null}>Up To {DifficultyEnum.starter.description}</option>
-    	<option value={averageString} selected={if(difficulty.get == averageList)"selected" else null}>Up To {DifficultyEnum.average.description}</option>
-    	<option value={advancedString} selected={if(difficulty.get == advancedList)"selected" else null}>Up To {DifficultyEnum.advanced.description}</option>
-    	<option value={expertString} selected={if(difficulty.get == expertList)"selected" else null}>Up To {DifficultyEnum.expert.description}</option>
-    	<option value={geniusString} selected={if(difficulty.get == geniusList)"selected" else null}>Up To {DifficultyEnum.genius.description}</option>
-      </select>
-    
-    object difficultySelect extends RequestVar ( generateDiffSelect	)
-    
 //    	selected="selected" 
     	
     def generateLicenceSelect =
 	  <select id="licence" required="" name={licenceParam}>
-			<option value={allLicenceString } selected={if(licence.get == LicenceEnum.allLicences )"selected" else null}>All Licences</option>
-			<option value={commercialLicencesString} selected={if(licence.get == LicenceEnum.commercialLicences  )"selected" else null}>Commercial Licences</option>
-			<option value={derivableLicencesString} selected={if(licence.get == LicenceEnum.derivableLicences  )"selected" else null}>Derivable Licences</option>
+			<option value={allLicenceString } selected={if(licence.get == LicenceEnum.allLicences )"selected" else null}>all licences</option>
+			<option value={commercialLicencesString} selected={if(licence.get == LicenceEnum.commercialLicences  )"selected" else null}>commercial licences</option>
+			<option value={derivableLicencesString} selected={if(licence.get == LicenceEnum.derivableLicences  )"selected" else null}>derivable licences</option>
 	  </select>
 			
 	object licenceSelect extends RequestVar ( generateLicenceSelect )
@@ -180,9 +204,11 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
         // customize the form elements
         "#iconlabel *" #> "" &
         "#icon" #> "" &
-        "#difficultylabel *" #> "Only projects with difficulty not more than" &
+        "#difficultylabel *" #> "projects with difficulty" &
 //        "#difficulty" #> Project.difficulty.toForm &
         "#difficulty" #> difficultySelect &
+        "#statelabel *" #> "projects with state" &
+        "#state" #> stateSelect &
 //        "#licence" #> SHtml.select(licenceSel , Empty , _ match {
 //          case commercial if commercial == commercialLicencesString  => licence.set( LicenceEnum.commercialLicences )
 //          case derivable if derivable == derivableLicencesString  => licence.set( LicenceEnum.derivableLicences )
@@ -217,6 +243,7 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
     val query = Like(itemToQuery.title,addLikeCharFrontAndBack(title.get)) ::
     	Like(itemToQuery.description,addLikeCharFrontAndBack(description.get)) ::
 //    	By_<(itemToQuery.difficulty.asInstanceOf[MappedField[_,T]],difficulty.get) ::
+    	ByList(itemToQuery.state,state.get) ::
     	ByList(itemToQuery.difficulty,difficulty.get) ::
     	ByList(itemToQuery.licence,licence.get) ::
     	otherQueryParams
