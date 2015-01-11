@@ -38,43 +38,27 @@ with EqualityByID[T]
 //    	Berkley
 //    	...
 //    )
-        object licenceEnum extends EnumWithDescriptionAndObject[Elem] {
-      
-      private def wrapLicenceLink(linkTarget : String, linkText : String, iconClasses : List[String]) : Elem = 
-      <a href={linkTarget} target="_blank">{linkText} {iconClasses.map(iClass => iconClass(iClass)) }</a>
-//      : _ *
-//      List[Elem]
+
+  
+   /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
+  object licence extends MappedEnumWithDescription[Elem,T](this,LicenceEnum)
     
-      private def iconClass(theClass : String) : Elem = <span class={theClass}></span>
-//      <a href="https://creativecommons.org/licenses/by-nc/3.0/" target="_blank">Attribution 4.0 International <span class="icon-cc"></span> <span class="icon-cc-by"></span></a>
-	val cc_by_nc_30 = Value("Creatice Commons 3.0 BY-NC",wrapLicenceLink(
-	    "https://creativecommons.org/licenses/by-nc/3.0/",
-	    "Attribution 3.0 International",
-	    List("icon-cc","icon-cc-by")
-	    ))
-	 val cc_by_nc_40 = Value("Creatice Commons 4.0 BY-NC",wrapLicenceLink(
-	    "https://creativecommons.org/licenses/by-nc/4.0/",
-	    "Attribution 4.0 International",
-	    List("icon-cc","icon-cc-by")
-	    ))
+  
+	// add a difficulty (one of many that comes from a list of string options)
+    object stateEnum extends EnumWithDescriptionAndObject[Elem] {
+      
+      private def wrapSpanWithClass(theClass : String) : Elem = <span class={theClass}></span>
+    
+	val concept = Value("concept / idea",wrapSpanWithClass("icon-state1"))
+	val early_dev = Value("early development state",wrapSpanWithClass("icon-state2"))
+	val evolved = Value("evolved (medium state)",wrapSpanWithClass("icon-state3"))
+	val late_dev = Value("late development state",wrapSpanWithClass("icon-state4"))
+	val mature = Value("mature",wrapSpanWithClass("icon-state5"))
 	}
   
    /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
-  object licence extends MappedEnumWithDescription[Elem,T](this,licenceEnum)
-    
-  	// TODO:
-//  	// maybe add a completeness / development state field
-//  		would apply to both, projects and tutorials
-//  		 * concept
-//  		 * early development state
-//  		 * evolved (medium state)
-//  		 * late development state
-//  		 * mature
-//  		 * concept
-//  		 * early development state
-//  		 * evolved (medium state)
-//  		 * late development state
-//  		 * mature
+  object state extends MappedEnumWithDescription[Elem,T](this,stateEnum)
+  
   
 	// add a difficulty (one of many that comes from a list of string options)
     object difficultyEnum extends EnumWithDescriptionAndObject[Elem] {

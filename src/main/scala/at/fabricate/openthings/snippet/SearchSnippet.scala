@@ -16,7 +16,7 @@ import net.liftweb.http.RewriteRequest
 import net.liftweb.http.ParsePath
 import net.liftweb.http.RewriteResponse
 import net.liftweb.http.S
-import net.liftweb.mapper.By
+import net.liftweb.mapper.By_<
 import net.liftweb.mapper.Like
 import net.liftweb.mapper.OrderBy
 import net.liftweb.mapper.KeyedMapper
@@ -27,6 +27,14 @@ import net.liftweb.http.RequestVar
 import at.fabricate.liftdev.common.model.BaseEntityWithTitleAndDescription
 import at.fabricate.liftdev.common.model.BaseMetaEntityWithTitleAndDescription
 import net.liftweb.mapper.QueryParam
+import at.fabricate.liftdev.common.model.BaseMetaEntityWithTitleDescriptionIconAndCommonFields
+import net.liftweb.mapper.MappedEnum
+import net.liftweb.mapper.MappedField
+import at.fabricate.liftdev.common.model.LicenceEnum
+import net.liftweb.http.SHtml
+import net.liftweb.common.Full
+import net.liftweb.common.Empty
+import net.liftweb.mapper.In
 
 object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] {
 
@@ -38,7 +46,24 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
       
     val descriptionParam = "description"
     object description extends RequestVar(S.param(descriptionParam) openOr "") //  
+       
+    val difficultyParam = "difficulty"
+    object difficulty extends RequestVar(S.param(difficultyParam).map(value => value match {
+      case AsLong(number) if number < 6 => number
+      case _ => 5
+    }).get) //  
     
+    val allLicenceString = "1"
+    val commercialLicencesString = "2"
+    val derivableLicencesString = "3"
+    val allLicences : ( String,String ) = allLicenceString -> "All Licences"
+    val commercialLicences : ( String,String ) = commercialLicencesString -> "Commercial Licences"
+    val derivableLicences : ( String,String ) = derivableLicencesString  -> "Derivable Licences"
+    val licenceSel = List(allLicences , commercialLicences , derivableLicences )
+    
+    object licence extends RequestVar(LicenceEnum.allLicences  )
+//    var licence = allLicences._1
+   
   // will not be used hopefully
     override val TheItem = Project
   override def itemBaseUrl = "search"
@@ -82,7 +107,7 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
   
   def dispatchForm : DispatchIt = {    
     case "form" => form _ 
-    case "list" => renderIt(_)
+//    case "list" => renderIt(_)
   }
   
      // ### methods that will be stacked ###
@@ -104,13 +129,28 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
         "#easysearch [name]"  #> titleParam &
         "#easysearch [value]"  #> title.get &
         // customize the form elements
-        "#iconlabel" #> "" &
+        "#iconlabel *" #> "" &
         "#icon" #> "" &
+        "#difficultylabel *" #> "Only projects with difficulty not more than" &
         "#difficulty" #> Project.difficulty.toForm &
-        "#licence" #> Project.licence.toForm &
+        "#licence" #> SHtml.select(licenceSel , Empty , _ match {
+          case commercial if commercial == commercialLicencesString  => licence.set( LicenceEnum.commercialLicences )
+          case derivable if derivable == derivableLicencesString  => licence.set( LicenceEnum.derivableLicences )
+          case _  => licence.set( LicenceEnum.allLicences )
+        }  ) &
+//            {
+//          case (licences: ( List[LicenceEnum.Value],String ) ,title:String) => licence.set(licences)
+//        }) &  
+        // do something like commercializable projects only, or derivable projects
+        // for now just remove
+//        "#licence" #> "" & 
         "#save [value]" #> "search" & 
+        "#formitem [method]" #> "get" &
         // insert the search string into the title box
-        "#title [value]" #> title.get
+        "#title [name]"  #> titleParam &
+        "#title [value]" #> title.get &
+        "#description [name]"  #> descriptionParam &
+        "#description [value]" #> description.get
         ).apply(xhtml)
   }
   
@@ -122,9 +162,11 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
   
   def getPaginationLimit[T <: BaseEntityWithTitleAndDescription[T]] : List[QueryParam[T]] = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
   
-  def queryItems[T <: BaseEntityWithTitleAndDescription[T]](itemToQuery: BaseMetaEntityWithTitleAndDescription[T] with BaseEntityWithTitleAndDescription[T], otherQueryParams : List[QueryParam[T]] = List() ) = { // , otherQueryParams = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
+  def queryItems[T <: BaseEntityWithTitleDescriptionIconAndCommonFields[T]](itemToQuery: BaseMetaEntityWithTitleDescriptionIconAndCommonFields[T] with BaseEntityWithTitleDescriptionIconAndCommonFields[T], otherQueryParams : List[QueryParam[T]] = List() ) = { // , otherQueryParams = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
     val query = Like(itemToQuery.title,addLikeCharFrontAndBack(title.get)) ::
     	Like(itemToQuery.description,addLikeCharFrontAndBack(description.get)) ::
+//    	By_<(itemToQuery.difficulty.asInstanceOf[MappedField[_,T]],difficulty.get) ::
+//    	In(itemToQuery.licence,licence.get) ::
     	otherQueryParams
     	
     itemToQuery.findAll(
