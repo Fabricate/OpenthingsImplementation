@@ -36,6 +36,7 @@ import net.liftweb.common.Full
 import net.liftweb.common.Empty
 import net.liftweb.mapper.In
 import net.liftweb.mapper.ByList
+import at.fabricate.liftdev.common.model.DifficultyEnum
 
 object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] {
 
@@ -47,23 +48,70 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
       
     val descriptionParam = "description"
     object description extends RequestVar(S.param(descriptionParam) openOr "") //  
+    
+    val kidsString = "onlyKids"
+    val starterString = "upToStarter"
+    val averageString = "upToAverage"
+    val advancedString = "upToAdvanced"
+    val expertString = "upToExpert"
+    val geniusString = "upToGenius"
+    
+    val kidsList = DifficultyEnum.kids :: Nil
+    val starterList = DifficultyEnum.starter  :: kidsList
+    val averageList = DifficultyEnum.average  :: starterList
+    val advancedList = DifficultyEnum.advanced   :: averageList
+    val expertList = DifficultyEnum.expert   :: advancedList
+    val geniusList = DifficultyEnum.genius   :: expertList
        
     val difficultyParam = "difficulty"
     object difficulty extends RequestVar(S.param(difficultyParam).map(value => value match {
-      case AsLong(number) if number < 6 => number
-      case _ => 5
-    }).get) //  
+//          case genius if genius == geniusString  => geniusList
+          case kids if kids == kidsString  => kidsList
+          case starter if starter == starterString  => starterList
+          case average if average == averageString  => averageList
+          case advanced if advanced == advancedString  => advancedList
+          case expert if expert == expertString  => expertList
+          case _  => geniusList
+    }) openOr(geniusList)) 
     
-    val allLicenceString = "1"
-    val commercialLicencesString = "2"
-    val derivableLicencesString = "3"
-    val allLicences : ( String,String ) = allLicenceString -> "All Licences"
-    val commercialLicences : ( String,String ) = commercialLicencesString -> "Commercial Licences"
-    val derivableLicences : ( String,String ) = derivableLicencesString  -> "Derivable Licences"
-    val licenceSel = List(allLicences , commercialLicences , derivableLicences )
+    val allLicenceString = "all"
+    val commercialLicencesString = "com"
+    val derivableLicencesString = "deriv"
+//    val allLicences : ( String,String ) = allLicenceString -> "All Licences"
+//    val commercialLicences : ( String,String ) = commercialLicencesString -> "Commercial Licences"
+//    val derivableLicences : ( String,String ) = derivableLicencesString  -> "Derivable Licences"
+//    val licenceSel = List(allLicences , commercialLicences , derivableLicences )
     
-    object licence extends RequestVar(LicenceEnum.allLicences  )
+    val licenceParam = "licence"
+    object licence extends RequestVar(S.param(licenceParam).map(_ match {
+          case commercial if commercial == commercialLicencesString  => LicenceEnum.commercialLicences
+          case derivable if derivable == derivableLicencesString  => LicenceEnum.derivableLicences
+          case _  => LicenceEnum.allLicences 
+    }) openOr(LicenceEnum.allLicences))
 //    var licence = allLicences._1
+    
+    def generateDiffSelect = 
+      <select id="difficulty" required="" name={difficultyParam}>
+    	<option value={kidsString} selected={if(difficulty.get == kidsList)"selected" else null}>Only {DifficultyEnum.kids.description}</option>
+    	<option value={starterString} selected={if(difficulty.get == starterList)"selected" else null}>Up To {DifficultyEnum.starter.description}</option>
+    	<option value={averageString} selected={if(difficulty.get == averageList)"selected" else null}>Up To {DifficultyEnum.average.description}</option>
+    	<option value={advancedString} selected={if(difficulty.get == advancedList)"selected" else null}>Up To {DifficultyEnum.advanced.description}</option>
+    	<option value={expertString} selected={if(difficulty.get == expertList)"selected" else null}>Up To {DifficultyEnum.expert.description}</option>
+    	<option value={geniusString} selected={if(difficulty.get == geniusList)"selected" else null}>Up To {DifficultyEnum.genius.description}</option>
+      </select>
+    
+    object difficultySelect extends RequestVar ( generateDiffSelect	)
+    
+//    	selected="selected" 
+    	
+    def generateLicenceSelect =
+	  <select id="licence" required="" name={licenceParam}>
+			<option value={allLicenceString } selected={if(licence.get == LicenceEnum.allLicences )"selected" else null}>All Licences</option>
+			<option value={commercialLicencesString} selected={if(licence.get == LicenceEnum.commercialLicences  )"selected" else null}>Commercial Licences</option>
+			<option value={derivableLicencesString} selected={if(licence.get == LicenceEnum.derivableLicences  )"selected" else null}>Derivable Licences</option>
+	  </select>
+			
+	object licenceSelect extends RequestVar ( generateLicenceSelect )
    
   // will not be used hopefully
     override val TheItem = Project
@@ -133,18 +181,20 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
         "#iconlabel *" #> "" &
         "#icon" #> "" &
         "#difficultylabel *" #> "Only projects with difficulty not more than" &
-        "#difficulty" #> Project.difficulty.toForm &
-        "#licence" #> SHtml.select(licenceSel , Empty , _ match {
-          case commercial if commercial == commercialLicencesString  => licence.set( LicenceEnum.commercialLicences )
-          case derivable if derivable == derivableLicencesString  => licence.set( LicenceEnum.derivableLicences )
-          case _  => licence.set( LicenceEnum.allLicences )
-        }  ) &
+//        "#difficulty" #> Project.difficulty.toForm &
+        "#difficulty" #> difficultySelect &
+//        "#licence" #> SHtml.select(licenceSel , Empty , _ match {
+//          case commercial if commercial == commercialLicencesString  => licence.set( LicenceEnum.commercialLicences )
+//          case derivable if derivable == derivableLicencesString  => licence.set( LicenceEnum.derivableLicences )
+//          case _  => licence.set( LicenceEnum.allLicences )
+//        }  ) &
 //            {
 //          case (licences: ( List[LicenceEnum.Value],String ) ,title:String) => licence.set(licences)
 //        }) &  
         // do something like commercializable projects only, or derivable projects
         // for now just remove
 //        "#licence" #> "" & 
+        "#licence" #> licenceSelect &
         "#save [value]" #> "search" & 
         "#formitem [method]" #> "get" &
         // insert the search string into the title box
@@ -167,6 +217,7 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
     val query = Like(itemToQuery.title,addLikeCharFrontAndBack(title.get)) ::
     	Like(itemToQuery.description,addLikeCharFrontAndBack(description.get)) ::
 //    	By_<(itemToQuery.difficulty.asInstanceOf[MappedField[_,T]],difficulty.get) ::
+    	ByList(itemToQuery.difficulty,difficulty.get) ::
     	ByList(itemToQuery.licence,licence.get) ::
     	otherQueryParams
     	

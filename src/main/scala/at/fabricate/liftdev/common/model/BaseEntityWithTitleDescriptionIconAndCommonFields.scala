@@ -44,37 +44,12 @@ with EqualityByID[T]
   object licence extends MappedEnumWithDescription[Elem,T](this,LicenceEnum)
     
   
-	// add a difficulty (one of many that comes from a list of string options)
-    object stateEnum extends EnumWithDescriptionAndObject[Elem] {
-      
-      private def wrapSpanWithClass(theClass : String) : Elem = <span class={theClass}></span>
-    
-	val concept = Value("concept / idea",wrapSpanWithClass("icon-state1"))
-	val early_dev = Value("early development state",wrapSpanWithClass("icon-state2"))
-	val evolved = Value("evolved (medium state)",wrapSpanWithClass("icon-state3"))
-	val late_dev = Value("late development state",wrapSpanWithClass("icon-state4"))
-	val mature = Value("mature",wrapSpanWithClass("icon-state5"))
-	}
+   /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
+  object state extends MappedEnumWithDescription[Elem,T](this,StateEnum)
+  
   
    /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
-  object state extends MappedEnumWithDescription[Elem,T](this,stateEnum)
-  
-  
-	// add a difficulty (one of many that comes from a list of string options)
-    object difficultyEnum extends EnumWithDescriptionAndObject[Elem] {
-      
-      private def wrapSpanWithClass(theClass : String) : Elem = <span class={theClass}></span>
-    
-	val kids = Value("Kids",wrapSpanWithClass("icon-difficulty1"))
-	val starter = Value("Starter",wrapSpanWithClass("icon-difficulty2"))
-	val average = Value("Average",wrapSpanWithClass("icon-difficulty3"))
-	val advanced = Value("Advanced",wrapSpanWithClass("icon-difficulty4"))
-	val expert = Value("Expert",wrapSpanWithClass("icon-difficulty5"))
-	val genius = Value("Genius",wrapSpanWithClass("icon-difficulty6"))
-	}
-  
-   /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
-  object difficulty extends MappedEnumWithDescription[Elem,T](this,difficultyEnum)
+  object difficulty extends MappedEnumWithDescription[Elem,T](this,DifficultyEnum)
   
 
 	// add Tag, Tool, ...
