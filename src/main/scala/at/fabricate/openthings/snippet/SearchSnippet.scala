@@ -24,16 +24,21 @@ import net.liftweb.util._
 import net.liftweb.util.Helpers._
 import net.liftweb.util.CssSel
 import net.liftweb.http.RequestVar
+import at.fabricate.liftdev.common.model.BaseEntityWithTitleAndDescription
+import at.fabricate.liftdev.common.model.BaseMetaEntityWithTitleAndDescription
+import net.liftweb.mapper.QueryParam
 
 object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] {
 
   
 
     
-    val queryParam = "query"
+    val titleParam = "title"
+    object title extends RequestVar(S.param(titleParam) openOr "") //  
       
-    object query extends RequestVar(S.param(queryParam) openOr "") //  
-      
+    val descriptionParam = "description"
+    object description extends RequestVar(S.param(descriptionParam) openOr "") //  
+    
   // will not be used hopefully
     override val TheItem = Project
   override def itemBaseUrl = "search"
@@ -96,8 +101,8 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
   def form(xhtml : NodeSeq) : NodeSeq  =  {
     (
         "#searchform [action]"  #> "/%s".format(itemBaseUrl) &
-        "#easysearch [name]"  #> queryParam &
-        "#easysearch [value]"  #> query.get &
+        "#easysearch [name]"  #> titleParam &
+        "#easysearch [value]"  #> title.get &
         // customize the form elements
         "#iconlabel" #> "" &
         "#icon" #> "" &
@@ -105,7 +110,7 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
         "#licence" #> Project.licence.toForm &
         "#save [value]" #> "search" & 
         // insert the search string into the title box
-        "#title [value]" #> query.get
+        "#title [value]" #> title.get
         ).apply(xhtml)
   }
   
@@ -115,10 +120,23 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
 
   def addLikeCharFrontAndBack(queryParam:String) : String = "%"+queryParam+"%"
   
+  def getPaginationLimit[T <: BaseEntityWithTitleAndDescription[T]] : List[QueryParam[T]] = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
+  
+  def queryItems[T <: BaseEntityWithTitleAndDescription[T]](itemToQuery: BaseMetaEntityWithTitleAndDescription[T] with BaseEntityWithTitleAndDescription[T], otherQueryParams : List[QueryParam[T]] = List() ) = { // , otherQueryParams = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
+    val query = Like(itemToQuery.title,addLikeCharFrontAndBack(title.get)) ::
+    	Like(itemToQuery.description,addLikeCharFrontAndBack(description.get)) ::
+    	otherQueryParams
+    	
+    itemToQuery.findAll(
+        query :_*
+        )
+  }
+  
        // define the page
-  override def count = Project.findAll(Like(Project.title,addLikeCharFrontAndBack(query.get))).length
+  override def count = queryItems[Project](Project).length
+//    Project.findAll(Like(Project.title,addLikeCharFrontAndBack(title.get))).length
 
-  override def page = Project.findAll(Like(Project.title,addLikeCharFrontAndBack(query.get)), StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage), OrderBy(Project.primaryKeyField, Descending))
+  override def page = queryItems[Project](Project,OrderBy(Project.primaryKeyField, Descending)::getPaginationLimit[Project])
 //      StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage), OrderBy(TheItem.primaryKeyField, Descending))
 
 //  override def pageUrl(offset: Long): String = appendParams(super.pageUrl(offset), List("your param" -> "value"))
