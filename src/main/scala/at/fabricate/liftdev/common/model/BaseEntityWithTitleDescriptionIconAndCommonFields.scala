@@ -23,6 +23,7 @@ with AddComment[T]
 with AddRating[T]
 with AddCreatedByUser[T]
 with AddTags[T]
+with AddCategories[T]
 with IdPK
 with EqualityByID[T] 
 {
@@ -64,6 +65,7 @@ with AddCommentMeta[ModelType]
 with AddRatingMeta[ModelType] 
 with AddCreatedByUserMeta[ModelType]
 with AddTagsMeta[ModelType]
+with AddCategoriesMeta[ModelType]
 {
     self: ModelType  =>
       
