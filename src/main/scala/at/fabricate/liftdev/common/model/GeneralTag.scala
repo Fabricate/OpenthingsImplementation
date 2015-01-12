@@ -9,7 +9,7 @@ trait GeneralTagMeta[ModelType <: (GeneralTag[ModelType]) ] extends BaseMetaEnti
 }
   
 
-trait GeneralTag[T <: GeneralTag[T] ] extends BaseEntity[T] with BaseEntityWithTitleAndDescription[T] with IdPK {
+trait GeneralTag[T <: GeneralTag[T] ] extends BaseEntity[T] with BaseEntityWithTitleAndDescription[T] with IdPK with EnsureUniqueTitle[T] {
   	self: T =>
 
 
