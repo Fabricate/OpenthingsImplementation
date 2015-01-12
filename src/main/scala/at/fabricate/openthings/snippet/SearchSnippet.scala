@@ -136,6 +136,15 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
 	  </select>
 			
 	object licenceSelect extends RequestVar ( generateLicenceSelect )
+	
+	override def pageUrl(offset: Long): String = appendParams(super.pageUrl(offset), List(
+	    titleParam ->(S.param(titleParam) openOr(""  )),
+	    descriptionParam ->(S.param(descriptionParam) openOr(""  )),
+	    difficultyParam->(S.param(difficultyParam) openOr(geniusDiffString  )),	    
+	    licenceParam->(S.param(licenceParam) openOr(allLicenceString )),
+	    stateParam->(S.param(stateParam) openOr(conceptStateString ))
+	    ))
+
    
   // will not be used hopefully
     override val TheItem = Project
@@ -260,6 +269,5 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
   override def page = queryItems[Project](Project,OrderBy(Project.primaryKeyField, Descending)::getPaginationLimit[Project])
 //      StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage), OrderBy(TheItem.primaryKeyField, Descending))
 
-//  override def pageUrl(offset: Long): String = appendParams(super.pageUrl(offset), List("your param" -> "value"))
   
 }
