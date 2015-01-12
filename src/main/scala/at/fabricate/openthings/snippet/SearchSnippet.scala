@@ -140,9 +140,9 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
 	override def pageUrl(offset: Long): String = appendParams(super.pageUrl(offset), List(
 	    titleParam ->(S.param(titleParam) openOr(""  )),
 	    descriptionParam ->(S.param(descriptionParam) openOr(""  )),
-	    difficultyParam->(S.param(difficultyParam) openOr(geniusDiffString  )),	    
-	    licenceParam->(S.param(licenceParam) openOr(allLicenceString )),
-	    stateParam->(S.param(stateParam) openOr(conceptStateString ))
+	    difficultyParam->(S.param(difficultyParam) openOr(geniusDiffString  )),	 
+	    stateParam->(S.param(stateParam) openOr(conceptStateString )),   
+	    licenceParam->(S.param(licenceParam) openOr(allLicenceString ))
 	    ))
 
    
