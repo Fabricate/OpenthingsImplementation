@@ -30,8 +30,8 @@
   <body>
 		<span data-lift="embed?what=modules/_navigation">Navigation</span>
 		
-		<span data-lift="embed?what=modules/_landingspage">Landingspage</span>
 		<span data-lift="embed?what=modules/_search">Search</span>
+		<span data-lift="embed?what=modules/_landingspage">Landingspage</span>
 
 
 
@@ -111,6 +111,11 @@
 				$('html, body').animate({
 				    scrollTop: $(".addTutorial").offset().top
 				}, 500);
+			}
+			function GoToProjects(){
+				$('html, body').animate({
+					scrollTop: $(".mainContent").offset().top
+				}, 500); 
 			}
 			function viewDifferenceVersion(){
 				$("#commitdifferencedetails").slideToggle();

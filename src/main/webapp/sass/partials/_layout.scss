@@ -46,7 +46,7 @@ body{
 
 .projectVersions{
 	padding: 4%;
-	background-color: rgba(white, .3);
+	background-color: rgba($brand-color, .1);
 	color: #333;
 }
 .projectVersions li{
@@ -255,7 +255,7 @@ body{
 .landingSection::after{
 	content: "";
   background: url(../images/footer_lodyas.png);
-  opacity: 0.5;
+  opacity: 0.9;
   top: 0;
   left: 0;
   bottom: 0;

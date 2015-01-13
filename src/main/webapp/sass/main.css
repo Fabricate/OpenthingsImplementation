@@ -216,10 +216,15 @@ button {
   top: -0.3em; }
 
 /* line 22, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+.oppositeBtn {
+  color: #5e198e;
+  background: white; }
+
+/* line 26, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 button:hover, .btn:hover {
   opacity: 0.8; }
 
-/* line 25, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 29, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 input[type="submit"] {
   color: white;
   background-color: #5e198e;
@@ -810,7 +815,7 @@ body {
 /* line 47, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .projectVersions {
   padding: 4%;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(94, 25, 142, 0.1);
   color: #333; }
 
 /* line 52, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
@@ -1067,7 +1072,7 @@ body {
 .landingSection::after {
   content: "";
   background: url(../images/footer_lodyas.png);
-  opacity: 0.5;
+  opacity: 0.9;
   top: 0;
   left: 0;
   bottom: 0;
