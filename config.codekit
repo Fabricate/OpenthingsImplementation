@@ -492,6 +492,39 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/src\/main\/webapp\/public\/images\/congruent_outline.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 8425,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/congruent_outline.png",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/congruent_outline.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/public\/images\/footer_lodyas.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 33702,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/footer_lodyas.png",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/footer_lodyas.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/public\/images\/header.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 41947,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/header.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/header.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/src\/main\/webapp\/public\/images\/noimage.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -521,6 +554,17 @@
 		"initialSize": 39307,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/nouser.jpg",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/nouser.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/public\/images\/small_steps.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 159,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/small_steps.png",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/small_steps.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -1223,6 +1267,15 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_footernav.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/templates-hidden\/modules\/_landingspage.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_landingspage.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
