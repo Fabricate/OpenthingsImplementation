@@ -240,13 +240,31 @@ body{
 	box-sizing: border-box;
 	border-color: $mediumgrey	;
 }
-
 .standardPage{
 	padding: 2%;
 }
 .standardPage p{
 	max-width: 25em;
 	font-size: 1.8em;
+}
+.landingSection{
+	background: rgba($brand-color, .8);
+	width: 100%;
+	padding: 4% 8%;
+}
+.branding{
+	font-size: 1.5em;
+	color: white;
+	max-width: 50%;
+}
+.signupHome{
+	max-width: 40%;
+	background: white;
+	padding: 2%;
+}
+.signupHome input{
+	width: 100%;
+	margin-bottom: 0.5em;
 }
 .editProject{
 	padding: 4%;
@@ -268,7 +286,9 @@ body{
 .postProject{
 	padding: 4%;
 	width: 100%;
-	position: absolute;
+	position: fixed;
+	height: 100%;
+	overflow-y: auto;
 	top: 0;
 	left: 0;
 	z-index: 9999;
@@ -290,11 +310,13 @@ body{
 .advancedSearch{
 	padding: 4%;
 	width: 100%;
-	position: absolute;
+	position: fixed;
+	height: 100%;
+	overflow-y: auto;
 	top: 0;
 	left: 0;
 	z-index: 9999;
-	background: rgba(255,255,255,0.99);
+	background: rgba(255,255,255,0.97);
 	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;
 }
@@ -315,11 +337,13 @@ body{
 .loginScreen{
 	padding: 4%;
 	width: 100%;
-	position: absolute;
+	position: fixed;
+	height: 100%;
+	overflow-y: auto;
 	top: 0;
 	left: 0;
 	z-index: 9999;
-	background: rgba(255,255,255,0.99);
+	background: rgba(255,255,255,0.97);
 	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;
 }
@@ -346,11 +370,13 @@ body{
 .logoutScreen{
 	padding: 4%;
 	width: 100%;
-	position: absolute;
+	position: fixed;
+	height: 100%;
+	overflow-y: auto;
 	top: 0;
 	left: 0;
 	z-index: 9999;
-	background: rgba(255,255,255,0.99);
+	background: rgba(255,255,255,0.97);
 	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;
 }
@@ -371,11 +397,13 @@ body{
 .accountScreen{
 	padding: 4%;
 	width: 100%;
-	position: absolute;
+	position: fixed;
+	height: 100%;
+	overflow-y: auto;
 	top: 0;
 	left: 0;
 	z-index: 9999;
-	background: rgba(255,255,255,0.99);
+	background: rgba(255,255,255,0.97);
 	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;
 }
@@ -415,12 +443,12 @@ body{
 	color: $defaultLinkColor;
 }
 .close-icon{
-	position: absolute;
-	top: 4%;
-	right: 4%;
-	transform: rotate(45deg);
-	font-size: 1.5em;
 	cursor: pointer;
+	font-size: 1.5em;
+	position: fixed;
+	right: 3%;
+	top: 7%;
+	transform: rotate(45deg);
 	z-index: 2;
 }
 .delete-icon{
