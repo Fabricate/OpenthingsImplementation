@@ -14,6 +14,13 @@
 			<select id="licence" required>
 				<option value="" disabled selected>Licence</option>
 			</select>
+			<select id="tags" required>
+				<option value="" disabled selected>Tags</option>
+			</select>
+			<ul>
+				<li><h2>tags <span class="icon-plus right" onclick="AddMaterial();"></span></h2></li>
+				<li class="addMaterial"><input id="newTagTitle" placeholder="Tag name" /><button id="newTagButton"><span class="icon-plus"></span> Add tag</button></li>
+			</ul>
 			<input id="itemsubmithidden" type="hidden">
 			<input id="save" value="save" type="submit">
 		</form>
