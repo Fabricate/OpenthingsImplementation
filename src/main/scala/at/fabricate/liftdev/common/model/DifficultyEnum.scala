@@ -6,15 +6,30 @@ import scala.xml.Elem
 
 	// add a difficulty (one of many that comes from a list of string options)
     object DifficultyEnum extends EnumWithDescriptionAndObject[Elem] {
-      
-      private def wrapSpanWithClass(theClass : String) : Elem = <span class={theClass}></span>
+  
+    val difficultyText = "suitable for"
+    val stage1 = "Kids"
+    val stage2 = "Starter"
+    val stage3 = "Average"
+    val stage4 = "Advanced"
+    val stage5 = "Expert"
+    val stage6 = "Genius"
     
-	val kids = Value("Kids",wrapSpanWithClass("icon-difficulty1"))
-	val starter = Value("Starter",wrapSpanWithClass("icon-difficulty2"))
-	val average = Value("Average",wrapSpanWithClass("icon-difficulty3"))
-	val advanced = Value("Advanced",wrapSpanWithClass("icon-difficulty4"))
-	val expert = Value("Expert",wrapSpanWithClass("icon-difficulty5"))
-	val genius = Value("Genius",wrapSpanWithClass("icon-difficulty6"))
+      
+      private def wrapSpanWithClass(theClass : String,theText: String) : Elem = 
+        <li class="left">
+			<span class={theClass}></span>
+			<h5>{difficultyText}</h5>
+			<h6>{theText}</h6>
+		</li>
+//      <span class={theClass}></span>
+    
+	val kids = Value(stage1,wrapSpanWithClass("icon-difficulty1",stage1))
+	val starter = Value(stage2,wrapSpanWithClass("icon-difficulty2",stage2))
+	val average = Value(stage3,wrapSpanWithClass("icon-difficulty3",stage3))
+	val advanced = Value(stage4,wrapSpanWithClass("icon-difficulty4",stage4))
+	val expert = Value(stage5,wrapSpanWithClass("icon-difficulty5",stage5))
+	val genius = Value(stage6,wrapSpanWithClass("icon-difficulty6",stage6))
 	
 	val upToKidsList = kids :: Nil
     val upToStarterList = starter  :: upToKidsList

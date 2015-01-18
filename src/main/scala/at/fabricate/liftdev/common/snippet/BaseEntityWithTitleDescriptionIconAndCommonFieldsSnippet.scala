@@ -81,9 +81,9 @@ with AddTagsSnippet[T]
    (
 //       "#icon [src]" #> item.icon .url & // will go to the baseiconentitysnippet later on
 //    "#initiator *+"  #> {<strong>Made by:</strong> item.de} &
-    "#licence *"  #> item.licence &
-    "#difficulty"  #> item.difficulty  &
-    "#state"  #> item.state 
+    "#licence *"  #> item.licence.asHtml &
+    "#difficulty"  #> item.difficulty.asHtml  &
+    "#state"  #> item.state.asHtml 
    ) &
    (super.asHtml(item))
      
