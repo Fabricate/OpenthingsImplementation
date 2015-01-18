@@ -14,13 +14,21 @@ import model.BaseEntityWithTitleAndDescription
 import net.liftweb.http.js.JsCmds.SetHtml
 import net.liftweb.common.Empty
 import at.fabricate.liftdev.common.model.AddTags
+import at.fabricate.liftdev.common.model.MatchByID
+import at.fabricate.liftdev.common.model.GeneralTag
+import at.fabricate.liftdev.common.model.GeneralTagMeta
 
 trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])] extends BaseEntityWithTitleAndDescriptionSnippet[T] {
   
-//  type LocalTheTagType = TheTagType
+  val tagItem = TheItem.asInstanceOf[AddTags[T]]
   
-  val theTagObject = TheItem.asInstanceOf[AddTags[T]].theTagObject
+  val tagToItemMapper = tagItem.getTagMapper
   
+  type LocalTheTagType = tagItem.TheTagType
+  
+  val theTagObject  = tagItem.theTagObject // TheItem.theTagObject //
+//   with MatchByID[T]
+//  : GeneralTagMeta[LocalTheTagType] with MatchByID[LocalTheTagType]
   var allTags = theTagObject.findAll.map(item => (item.primaryKeyField.toString, item.title.toString))
   
 // 	 def bindNewRatingCSS(item : ItemType) : CssSel = {
@@ -63,12 +71,21 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
   }
   
     abstract override def toForm(item : ItemType) : CssSel = {
-		 
+		 var newTagTitle = ""
 //		println("chaining asHtml from AddCommentSnippet")
 //     ("#tags" #> SHtml.multiSelect(allTags, List(), item.tags ++= loadTag(item)(_) )
-//     ("#tags" #> SHtml.multiSelect(allTags, List(), selected => selected.map(tag => loadTag(tag).map(item.tags +=  _:item.TheTags ) ))
-//         
-//         )
+     ("#tags" #> SHtml.multiSelect(allTags, List(), selected => selected.map(
+//         _ match {
+//       case item.theTagObject.
+////       theTagObject.getSingleton.MatchItemByID()
+//     }
+       tag => loadTag(tag).map(theSelectedTag => tagToItemMapper.create.taggedItem(item).theTag(theSelectedTag).save ) // +=  _:item.TheTags 
+       ),  "size"->"5") &
+       "#newTagTitle" #> SHtml.ajaxText("", tagTitle => {newTagTitle=tagTitle;JsCmds.Noop}) &
+       "#newTagButton [onclick]" #> SHtml.ajaxInvoke(() => {theTagObject.create.title(newTagTitle).save;println("created tag "+newTagTitle);JsCmds.Noop})
+//     }
+         
+         )
      // chain the css selectors 
      (super.toForm(item))
   }
