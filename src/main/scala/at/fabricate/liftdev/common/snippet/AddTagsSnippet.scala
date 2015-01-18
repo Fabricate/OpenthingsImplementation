@@ -1,7 +1,8 @@
 package at.fabricate.liftdev.common
 package snippet
 
-import net.liftweb.util.CssSel
+import net.liftweb.util._
+import net.liftweb.common._
 import net.liftweb.http.js.JsCmds
 import net.liftweb.http.js.jquery.JqJsCmds.AppendHtml
 import net.liftweb.http.SHtml
@@ -72,8 +73,12 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
   abstract override def asHtml(item : ItemType) : CssSel = {
 		 
 //		println("chaining asHtml from AddCommentSnippet")
-     ("#aTag *" #> item.tags.map(itm => itm.theTag.toString)
-         )
+     ("#aTag *" #> item.tags.map(itm => {
+//       itm.theTag.asInstanceOf[item.TheTagType].title.asHtml) //theTagObject
+       val lookupTag = item.theTagObject.findByKey(itm.theTag.get) 
+       lookupTag.map(_.title.asHtml)openOr(Text("tag does not exist")) //dmap (Text("tag does not exist"))( (_:item.TheTagType ).title.asHtml)//foundTag : item.TheTagType => foundTag
+     } )
+         ) &
      // chain the css selectors 
      (super.asHtml(item))
   }
