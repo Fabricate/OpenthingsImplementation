@@ -7,7 +7,17 @@
 	<label id="iconlabel">Upload project image</label>
 	<input id="icon" type="file" name="fileToUpload">
 	
-	<div class="cropme" style="width: 600px; height: 388px;"></div>
+	<div class="cropme" style="width: 600px; height: 388px;">
+
+	</div>
+			<script src="/js/jquery.Jcrop.js"></script>
+			<script src="/js/jquery.SimpleCropper.js"></script>
+		
+			<script>
+        // Init Simple Cropper
+        $('.cropme').simpleCropper();
+      </script>
+
 	<label id="difficultylabel"></label>
 	<select id="difficulty" required>
 		<option value="" disabled selected>Difficulty</option>
@@ -25,6 +35,44 @@
 	<input id="itemsubmithidden" type="hidden">
 	<input id="save" value="save" type="submit">
 </form>
+		<input type='file' id='fileInput' name='files[]' />
+		<canvas id='myCanvas' style='display:none;'></canvas>
+		<div id='modal'></div>
+		<div id='preview'>
+			<div class='buttons'>
+				<div class='cancel'></div>
+				<div class='ok'></div>
+			</div>
+		</div>
 </p>
+<h2>If you want, you can add another tag:</h2>
+<p>
+	<form id="addsomethingtoformitem"  class="left" data-lift="form.ajax">
+		<input id="newTagTitle" placeholder="Tag name" >
+		<button id="newTagButton">Add tag</button>
+ 	</form>
+</p>
+		<script src="https://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+		<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+		<script src="https://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
 
+		<script src="/js/vendor/jquery.ui.widget.js"></script>
+		<script src="/js/jquery.iframe-transport.js"></script>
+		<script src="/js/jquery.fileupload.js"></script>
+		<script src="/js/jquery.fileupload-process.js"></script>
+		<script src="/js/jquery.fileupload-image.js"></script>
+		<script>
+			$(function () {
+					$('#fileInput').fileupload({
+							add: function (e, data) {
+									data.context = $('<p/>').text('Files are being uploaded...').appendTo('.uploadstatus');
+									data.submit();
+							},
+							done: function (e, data) {
+									data.context.text('Upload finished.');
+									location.reload();
+							}
+					});
+			});
+		</script>
 </div>
