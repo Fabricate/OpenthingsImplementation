@@ -437,17 +437,6 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/src\/main\/webapp\/projects\/11\/repository\/580-8.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 1.02276e+06,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/11\/repository\/580-8.jpg",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/11\/repository\/580-8.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
 	"\/src\/main\/webapp\/projects\/11\/repository\/amsterdam-world-hd-wallpaper-2560x1600-9151.jpg": {
 		"fileType": 16384,
 		"ignore": 0,

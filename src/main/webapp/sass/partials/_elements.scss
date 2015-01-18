@@ -4,7 +4,7 @@
 	top: 26px;
 }
 #commentMessages span{
-	background: none repeat scroll 0 0 rgba(255,0,0, .7);
+	background: none repeat scroll 0 0 rgba($brand-color, .4);
 	color: white;
 	font-size: 1.3em;
 	padding: 2%;
@@ -19,7 +19,6 @@
 	color: white;
 	margin: -0.5em 0 0.5em;
 }
-
 i{
 	opacity: 0.5;
 }

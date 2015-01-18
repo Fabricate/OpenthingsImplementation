@@ -65,6 +65,13 @@
 				$(".projectComments ul").slideToggle();
 				$(".viewcomments").addClass( "commentsopen" );
 			}
+			function openComments(){
+				$(".projectComments ul").slideDown();
+				$(".viewcomments").addClass( "commentsopen" );
+				$('html, body').animate({
+				    scrollTop: $("#comments li:last").offset().top
+				}, 500);
+			}
 			function AddProject(){
 				$(".postProject").fadeIn();
 				$(".close-icon").click(function(){
