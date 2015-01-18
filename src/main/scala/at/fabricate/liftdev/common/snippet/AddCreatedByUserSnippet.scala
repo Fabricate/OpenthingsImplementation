@@ -99,4 +99,6 @@ trait AddCreatedByUserSnippet[T <: BaseEntityWithTitleAndDescription[T] with Add
      // chain the css selectors 
      (super.asHtml(item))
   }
+  
+  abstract override def toForm(item : ItemType) : CssSel = super.toForm(item)
 }

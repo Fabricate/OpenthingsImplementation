@@ -91,6 +91,11 @@ trait AddTagsMeta[ModelType <: (AddTags[ModelType]) ] extends BaseMetaEntity[Mod
 	self: ModelType =>
 	  	  abstract override def getItemsToSchemify : List[BaseMetaMapper] =  getTagMapper :: super.getItemsToSchemify
 
+	 
+//	def getTagMapper = getSingleton.getTagMapper
+//	
+//	def theTagObject = getSingleton.theTagObject
+	
 }
 
 //  // a link to all the created Projects

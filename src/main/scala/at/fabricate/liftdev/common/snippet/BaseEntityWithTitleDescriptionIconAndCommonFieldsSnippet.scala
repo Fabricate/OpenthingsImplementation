@@ -34,6 +34,8 @@ with BaseEntityWithTitleDescriptionAndIconSnippet[T]
 with AddCommentSnippet[T]
 with AddRatingSnippet[T]
 with AddCreatedByUserSnippet[T]
+with AddTagsSnippet[T]
+//with AddCategoriesSnippet[T]
 {
    
 //  def localDispatch : DispatchIt = {    
