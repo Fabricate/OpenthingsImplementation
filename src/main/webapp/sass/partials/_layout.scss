@@ -69,12 +69,12 @@ body{
 .addFiles{
 	width: 100%;
 	width:100%;
-	background:rgba(255,255,255, .5);
-	padding: 3%;
+	padding: 3% 0;
 	box-sizing: border-box;
 }
 .addFiles input{
 	margin-bottom: 0.5em;
+	border-color: $mediumgrey;
 }
 .addFiles ul li:first-child{
 	border-top: 0;
@@ -271,6 +271,9 @@ body{
 .branding h1{
 	font-size: 4.5em;
 }
+.branding h1 span{
+	font-size: 1.5em;
+}
 .signupHome{
 	max-width: 40%;
 	background: white;
@@ -286,7 +289,7 @@ body{
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 9999;
+	z-index: 4;
 	background: rgba(255,255,255,0.97);
 	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;
@@ -305,7 +308,7 @@ body{
 	overflow-y: auto;
 	top: 0;
 	left: 0;
-	z-index: 9999;
+	z-index: 4;
 	background: rgba(255,255,255,0.97);
 	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;
@@ -322,17 +325,19 @@ body{
 }
 
 .advancedSearch{
+	display: none;
+}
+
+.adsearchpanel{
 	padding: 4%;
+	background: rgba(255,255,255,0.97);
 	width: 100%;
-	position: fixed;
+	position: relative;
 	height: 100%;
 	overflow-y: auto;
 	top: 0;
 	left: 0;
-	z-index: 9999;
-	background: rgba(255,255,255,0.97);
-	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
-	display: none;
+	z-index: 4;
 }
 .advancedSearch form{
 	max-width: 600px;
@@ -356,7 +361,7 @@ body{
 	overflow-y: auto;
 	top: 0;
 	left: 0;
-	z-index: 9999;
+	z-index: 4;
 	background: rgba(255,255,255,0.97);
 	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;
@@ -389,7 +394,7 @@ body{
 	overflow-y: auto;
 	top: 0;
 	left: 0;
-	z-index: 9999;
+	z-index: 4;
 	background: rgba(255,255,255,0.97);
 	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;
@@ -416,7 +421,7 @@ body{
 	overflow-y: auto;
 	top: 0;
 	left: 0;
-	z-index: 9999;
+	z-index: 4;
 	background: rgba(255,255,255,0.97);
 	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;

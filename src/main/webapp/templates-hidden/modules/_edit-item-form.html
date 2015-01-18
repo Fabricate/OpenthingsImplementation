@@ -1,31 +1,30 @@
-
-		<form id="formitem" enctype="multipart/form-data" method="post" action="#" class="left">
-			<input id="title" placeholder="Title" required>
-			<textarea id="description" placeholder="Project description" rows="8" required></textarea>
-			<label id="iconlabel">Upload project image</label>
-			<input id="icon" type="file" name="fileToUpload">
-			<label id="difficultylabel"></label>
-			<select id="difficulty" required>
-				<option value="" disabled selected>Difficulty</option>
-			</select>
-			<label id="statelabel"></label>
-			<select id="state" required>
-				<option value="" disabled selected>State</option>
-			</select>
-			<label>Read more about creative commons licenses <a href="https://wiki.creativecommons.org/Frequently_Asked_Questions" target="_blank">here</a></label>
-			<select id="licence" required>
-				<option value="" disabled selected>Licence</option>
-			</select>
-			<select id="tags" size="5" multiple>
-				<option value="" disabled selected>Tags</option>
-			</select>
-			<div data-lift="form.ajax">
-				<ul>
-					<li><h2>Add a new tag <span class="icon-plus right" onclick="AddMaterial();"></span></h2></li>
-					<li class="addMaterial"><input id="newTagTitle" placeholder="Tag name" /><button id="newTagButton"><span class="icon-plus"></span> Add tag</button></li>
-				</ul>
-			</div>
-			<input id="itemsubmithidden" type="hidden">
-			<input id="save" value="save" type="submit">
-		</form>
-
+<form id="formitem" enctype="multipart/form-data" method="post" action="#" class="left">
+	<input id="title" placeholder="Title" required>
+	<textarea id="description" placeholder="Project description" rows="8" required></textarea>
+	<label id="iconlabel">Upload project image</label>
+	<input id="icon" type="file" name="fileToUpload">
+	
+	<div class="cropme" style="width: 600px; height: 388px;"></div>
+	<label id="difficultylabel"></label>
+	<select id="difficulty" required>
+		<option value="" disabled selected>Difficulty</option>
+	</select>
+	<select id="state" required>
+		<option value="" disabled selected>State</option>
+	</select>
+	<label>Read more about creative commons licenses <a href="https://wiki.creativecommons.org/Frequently_Asked_Questions" target="_blank">here</a></label>
+	<select id="licence" required>
+		<option value="" disabled selected>Licence</option>
+	</select>
+	<select id="tags" size="5" multiple>
+		<option value="" disabled selected>Tags</option>
+	</select>
+	<div data-lift="form.ajax">
+		<ul>
+			<li><h2>Add a new tag <span class="icon-plus right" onclick="AddMaterial();"></span></h2></li>
+			<li class="addMaterial"><input id="newTagTitle" placeholder="Tag name" /><button id="newTagButton"><span class="icon-plus"></span> Add tag</button></li>
+		</ul>
+	</div>
+	<input id="itemsubmithidden" type="hidden">
+	<input id="save" value="save" type="submit">
+</form>

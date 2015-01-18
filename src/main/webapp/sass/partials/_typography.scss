@@ -11,6 +11,14 @@
 html{
   font-size: 100%;
 	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	text-rendering: geometricPrecision;
+	font-smooth: always;
+
+	font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-webkit-font-smoothing: antialiased;
+	-webkit-font-smoothing: subpixel-antialiased;
 }
 body{
 	font-family: 'proxima_nova_rgregular', sans-serif;
