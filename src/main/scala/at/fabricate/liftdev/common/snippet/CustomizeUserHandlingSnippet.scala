@@ -142,16 +142,16 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
 		if (!userObject.loggedIn_?)
             userObject.customSignup{
              (user, action) =>   
-               ("#txtEmail" #> user.email.toForm.map(_ % ("placeholder"->"mail adress")) & //(user.email.toForm.map(_ % ("default"->"mail adress")) & //FocusOnLoad()
+               ("#txtEmail" #> user.email.toForm.map(_ % ("placeholder"->"E-mail")) & //(user.email.toForm.map(_ % ("default"->"mail adress")) & //FocusOnLoad()
 //  			"#txtPassword" #> user.password.toForm.toList &
   			"#txtPassword" #> S.fmapFunc({s: List[String] => user.password.setFromAny(s)}){funcName =>
-  					Full(<span><input type="password" name={funcName} value="" placeholder="password" id="txtPassword"/>
-  					<input type="password" name={funcName} value="" placeholder="repeat password" id="txtPassword"/></span>)
+  					Full(<span><input type="password" name={funcName} value="" placeholder="Password" id="txtPassword"/>
+  					<input type="password" name={funcName} value="" placeholder="Repeat password" id="txtPassword"/></span>)
 } &
 //               List(SHtml.password("", value => {user.password(value)}, "placeholder" -> "password", "id" -> "txtPassword"),
 //  			    SHtml.password("", value => {user.password(value)}, "placeholder" -> "repeat password", "id" -> "txtPassword")) &
-  			"#txtFirstName" #> user.firstName.toForm.map(_ % ("placeholder"->"first name")) &
-  			"#txtLastName" #> user.lastName.toForm.map(_ % ("placeholder"->"last name")) &
+  			"#txtFirstName" #> user.firstName.toForm.map(_ % ("placeholder"->"First name")) &
+  			"#txtLastName" #> user.lastName.toForm.map(_ % ("placeholder"->"Last name")) &
   			"#signuphidden" #> SHtml.hidden(action )&
   			"#signupform [action]" #> S.uri
 //  			"type=submit" #> loginSubmitButton(S.?("log.in"))
@@ -190,7 +190,7 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
    		  userObject.customLostPassword {
    		    action => {
    		      var mailAddress = ""
-   		      ("#email" #> SHtml.text("", mailAddress = _, "placeholder"->"your mail adress") &
+   		      ("#email" #> SHtml.text("", mailAddress = _, "placeholder"->"Your E-mail adress") &
    		      "#lostpasswordhidden" #> SHtml.hidden(() => action(mailAddress,List(resetPasswordTemlate)) ) &
   			  "#lostpasswordform [action]" #> S.uri
    		          ).apply(xhtml)
@@ -255,7 +255,7 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
 //            	 "#account" #> <span class="icon-"></span> Account  
             )(xhtml)
             	else
-            	("#login *" #> "Login / register" &
+            	("#login *" #> "Login" &
             	 "#logout" #> "" &
 //            	 "#logoutBtn [href]" #> "/%s".format(userObject.logoutPath.mkString("/")) &
             	"#account" #> ""

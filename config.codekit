@@ -282,6 +282,28 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/src\/main\/webapp\/js\/jquery.Jcrop.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/js\/jquery.Jcrop.js",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/js\/min\/jquery.Jcrop-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/src\/main\/webapp\/js\/jquery.SimpleCropper.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/js\/jquery.SimpleCropper.js",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/js\/min\/jquery.SimpleCropper-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/src\/main\/webapp\/js\/jquery_1.8.3_googleapis.min.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -382,6 +404,94 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/projects\/10\/repository\/Amsterdam-Nice-Light-Wallpaper-HD.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 400054,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/10\/repository\/Amsterdam-Nice-Light-Wallpaper-HD.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/10\/repository\/Amsterdam-Nice-Light-Wallpaper-HD.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/projects\/10\/repository\/amsterdam-world-hd-wallpaper-2560x1600-9151.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.06704e+06,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/10\/repository\/amsterdam-world-hd-wallpaper-2560x1600-9151.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/10\/repository\/amsterdam-world-hd-wallpaper-2560x1600-9151.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/projects\/10\/repository\/Best-Wallpapers_Pack5-7.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 349066,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/10\/repository\/Best-Wallpapers_Pack5-7.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/10\/repository\/Best-Wallpapers_Pack5-7.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/projects\/11\/repository\/580-8.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.02276e+06,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/11\/repository\/580-8.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/11\/repository\/580-8.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/projects\/11\/repository\/amsterdam-world-hd-wallpaper-2560x1600-9151.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.06704e+06,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/11\/repository\/amsterdam-world-hd-wallpaper-2560x1600-9151.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/11\/repository\/amsterdam-world-hd-wallpaper-2560x1600-9151.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/projects\/11\/repository\/Astronaut_007.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 101360,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/11\/repository\/Astronaut_007.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/11\/repository\/Astronaut_007.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/projects\/11\/repository\/Best-Wallpapers_Pack5-7.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 349066,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/11\/repository\/Best-Wallpapers_Pack5-7.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/11\/repository\/Best-Wallpapers_Pack5-7.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/projects\/11\/repository\/wat.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 125523,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/11\/repository\/wat.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/11\/repository\/wat.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/src\/main\/webapp\/projects\/4\/repository\/noimage.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -481,6 +591,28 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/src\/main\/webapp\/public\/images\/Cancel.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 3303,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/Cancel.png",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/Cancel.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/public\/images\/CancelRed.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 3303,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/CancelRed.png",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/CancelRed.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/src\/main\/webapp\/public\/images\/congruent_outline.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -547,6 +679,50 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/src\/main\/webapp\/public\/images\/Ok.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 3303,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/Ok.png",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/Ok.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/public\/images\/OkGreen.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 3303,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/OkGreen.png",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/OkGreen.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/public\/images\/SimpleCropperPreview.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 709613,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/SimpleCropperPreview.png",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/SimpleCropperPreview.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/public\/images\/SimpleCropperThumb.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 3872,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/SimpleCropperThumb.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/SimpleCropperThumb.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/src\/main\/webapp\/public\/images\/small_steps.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -554,6 +730,28 @@
 		"initialSize": 159,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/small_steps.png",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/small_steps.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/public\/images\/UploadDark.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2476,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/UploadDark.png",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/UploadDark.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/public\/images\/UploadLight.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2745,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/UploadLight.png",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/UploadLight.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
