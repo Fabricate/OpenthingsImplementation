@@ -48,6 +48,15 @@ trait AddIcon[T <: (AddIcon[T] with MatchByID[T]) ] extends BaseEntity[T] { //
   def baseServingPath = "serve"
     
   def iconPath = "icon"
+    
+  def maxIconWidth = 1024
+  
+  def maxIconHeight = 576
+  
+  def applyIconCropping = true
+
+  def jpegIconQuality : Float = 85 / 100.toFloat
+  
 	    
 	    
   lazy val icon : MappedBinaryImageFileUpload[T] = new MyIcon(this)
@@ -62,9 +71,17 @@ trait AddIcon[T <: (AddIcon[T] with MatchByID[T]) ] extends BaseEntity[T] { //
     
   override def baseServingPath = fieldOwner.baseServingPath
   
-  override def iconPath = fieldOwner .iconPath
+  override def imagePath = fieldOwner .iconPath
 
   override val fieldId = Some(Text("bin"+imageDbColumnName ))
+    
+  override def maxImageWidth = fieldOwner.maxIconWidth
+  
+  override def maxImageHeight = fieldOwner.maxIconHeight
+  
+  override def applyImageCropping = fieldOwner.applyIconCropping
+
+  override def jpegImageQuality : Float = fieldOwner.jpegIconQuality
 
   }
   
@@ -110,11 +127,15 @@ class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends Ma
     
   def baseServingPath = "serve"
     
-  def iconPath = "image"
+  def imagePath = "image"
     
-  val maxWidth = 792
-  val maxHeight = 445
-  val jpegQuality : Float = 85 / 100.toFloat
+  def maxImageWidth = 1024
+  
+  def maxImageHeight = 576
+  
+  def applyImageCropping = true
+
+  def jpegImageQuality : Float = 85 / 100.toFloat
   
   	        // TODO  implement later, as Crudify and Megaprotouser can not be mixed in at the same time
 	    override def displayName = imageDisplayName
@@ -129,8 +150,17 @@ class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends Ma
 	                  val inputStream = fileHolder.openOrThrowException("Image should not be Empty!").fileStream
 	                  var metaImage = ImageResizer.getImageFromStream(inputStream)
 	                  metaImage = ImageResizer.removeAlphaChannel(metaImage)
-	                  val image = ImageResizer.max(metaImage.orientation, metaImage.image, maxWidth , maxHeight )
-	                  val jpg = ImageResizer.imageToBytes(ImageOutFormat.jpeg , image, jpegQuality)
+	                  // no cropping
+//	                  val image = ImageResizer.max(metaImage.orientation, metaImage.image, maxWidth , maxHeight )
+	                  // with cropping
+//	                  val image = ImageResizer.resize(metaImage.orientation, metaImage.image, maxWidth , maxHeight )
+	                  
+	                  // combined
+	                  val image = if (applyImageCropping)
+	                	  ImageResizer.resize(metaImage.orientation, metaImage.image, maxImageWidth , maxImageHeight )
+	                	else
+	                	  ImageResizer.max(metaImage.orientation, metaImage.image, maxImageWidth , maxImageHeight )
+	                  val jpg = ImageResizer.imageToBytes(ImageOutFormat.jpeg , image, jpegImageQuality)
 	                  this.set(jpg)
 	                }
 	              case Full(FileParamHolder(_,mime,_,data))
@@ -141,7 +171,7 @@ class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends Ma
   
   def url  = {
     if (this.get != null && this.get.length > 0)
-	      	"/%s/%s/%s".format(baseServingPath,iconPath,this.fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField.get.toString)
+	      	"/%s/%s/%s".format(baseServingPath,imagePath,this.fieldOwner.asInstanceOf[LongKeyedMapper[T]].primaryKeyField.get.toString)
 	      else
 	        defaultImage
   }

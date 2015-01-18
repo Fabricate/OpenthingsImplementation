@@ -9,8 +9,8 @@ trait GeneralCategoryMeta[ModelType <: (GeneralCategory[ModelType]) ] extends Ba
 }
   
 
-trait GeneralCategory[T <: GeneralCategory[T] ] extends BaseEntity[T] with BaseEntityWithTitleAndDescription[T] with IdPK with EnsureUniqueTitle[T] {
+trait GeneralCategory[T <: GeneralCategory[T] ] extends BaseEntity[T] with BaseEntityWithTitleAndDescription[T] with IdPK with EnsureUniqueTextFields[T] {
   	self: T =>
 
-
+	override def theUniqueFields = List(title)
 }

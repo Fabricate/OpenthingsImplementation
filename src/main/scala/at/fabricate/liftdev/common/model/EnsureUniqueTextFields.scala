@@ -6,21 +6,26 @@ import net.liftweb.util.FieldError
 import scala.xml.Text
 import net.liftweb.mapper.By
 import net.liftweb.common.Empty
+import net.liftweb.mapper.MappedString
+import net.liftweb.mapper.Mapper
 
-trait EnsureUniqueTitle[T <: BaseEntityWithTitleAndDescription[T]] extends BaseEntity[T] {
+trait EnsureUniqueTextFields[T <: BaseEntity[T]] extends BaseEntity[T] {
+  // EnsureUniqueTextFields
   self: T =>
     
-  def existsNot(field: FieldIdentifier)(tool:String)  = 
-    findByTitle(tool) match {
+  def theUniqueFields : List[MappedString[T]]
+    
+  def fieldIsUnique  = 
+    theUniqueFields.map(theUniqueField => findSameAsUniqueField(theUniqueField) match {
     case Nil => List[FieldError]()
-    case someThing :: someRest  => List(FieldError(field, Text("Entry with same title already exists!")))
-
+    case someThing :: someRest  => List(FieldError(theUniqueField, Text("Entry with same text field already exists!")))
   }
+    )
   
-  def findByTitle(title : String) : List[T] = getSingleton.findAll(By(getSingleton.title,title))
+  def findSameAsUniqueField(theUniqueField : MappedString[T]) : List[T] = getSingleton.findAll(By(theUniqueField,theUniqueField.get))
   
   override def save = 
-    this.validate match {
+    this.fieldIsUnique match {
 	  			// create new object
               case Nil => super.save
 	  			// update object

@@ -71,7 +71,13 @@ class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIco
   
   override def iconDbColumnName = "project_image"
     
-  override def iconPath = "projectimage"
+  override def iconPath = "projectimage"    
+    
+  override def maxIconWidth = 1024
+  
+  override def maxIconHeight = 576
+  
+  override def applyIconCropping = true
     
     // override repository settings
 //       override def apiPath = "api"

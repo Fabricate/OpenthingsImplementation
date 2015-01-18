@@ -112,6 +112,13 @@ with ManyToMany
   override def iconDbColumnName = "user_image"
     
   override def iconPath = "userimage"
+    
+    
+  override def maxIconWidth = 1024
+  
+  override def maxIconHeight = 576
+  
+  override def applyIconCropping = true
   
   object createdProjects extends MappedOneToMany(Project, Project.createdByUser, OrderBy(Project.primaryKeyField, Descending)) with Owned[Project]
 
