@@ -34,6 +34,8 @@ import net.liftweb.common.Full
 import net.liftweb.common.Empty
 import lib.MatchString
 import model.BaseEntityWithTitleAndDescription
+import net.liftmodules.textile.TextileParser
+
 
 abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
 
@@ -247,11 +249,11 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     
 //    println("chaining asHtml from BaseEntitySnippet")
     
-     "#title *"  #> item.title &
-     "#teaser *"  #> item.teaser &
-     "#description *"  #> item.description &
-     "#created *+"  #> item.createdAt  &
-     "#updated *+"  #> item.updatedAt  &
+     "#title *"  #> item.title.asHtml &
+     "#teaser *"  #> item.teaser.asHtml &
+     "#description *"  #> TextileParser.toHtml(item.description.get) &
+     "#created *+"  #> item.createdAt.asHtml  &
+     "#updated *+"  #> item.updatedAt.asHtml  &
      "#edititem [href]" #> urlToEditItem(item) &
      "#viewitem [href]" #> urlToViewItem(item) &
      "#viewitem *" #> "View Item"

@@ -1,6 +1,8 @@
-<span id="combineTheChildrenToOneElement">
+<div id="combineTheChildrenToOneElement">
+<p>
 <form id="formitem" enctype="multipart/form-data" method="post" action="#" class="left">
 	<input id="title" placeholder="Title" required>
+	<textarea id="teaser" placeholder="Teaser" rows="4" required></textarea>
 	<textarea id="description" placeholder="Project description" rows="8" required></textarea>
 	<label id="iconlabel">Upload project image</label>
 	<input id="icon" type="file" name="fileToUpload">
@@ -23,10 +25,12 @@
 	<input id="itemsubmithidden" type="hidden">
 	<input id="save" value="save" type="submit">
 </form>
-	<form data-lift="form.ajax">
-		<ul>
-			<li><h2>Add a new tag <span class="icon-plus right" onclick="AddMaterial();"></span></h2></li>
-			<li class="addMaterial"><input id="newTagTitle" placeholder="Tag name" /><button id="newTagButton"><span class="icon-plus"></span> Add tag</button></li>
-		</ul>
+</p>
+<h2>If you want, you can add another tag:</h2>
+<p>
+	<form id="addsomethingtoformitem"  class="left" data-lift="form.ajax">
+		<input id="newTagTitle" placeholder="Tag name" >
+		<button id="newTagButton">Add tag</button>
 	</form>
-</span>
+</p>
+</div>
