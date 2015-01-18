@@ -63,7 +63,7 @@ class Boot {
     // DID THAT KILL LIFT COMPILATION???? -> Yea, this was mixing between types
     // has to be a list of BaseMetaMapper entities
     val itemsToSchemify : List[BaseMetaMapper] = Project.getItemsToSchemify ::: 
-    User.getItemsToSchemify ::: List[BaseMetaMapper](Tool, UserHasTools) 
+    User.getItemsToSchemify ::: List[BaseMetaMapper](Tool, UserHasTools, Tag) 
     Schemifier.schemify(true, Schemifier.infoF _, itemsToSchemify :_*)
         
     // initialize the Mapper instances
