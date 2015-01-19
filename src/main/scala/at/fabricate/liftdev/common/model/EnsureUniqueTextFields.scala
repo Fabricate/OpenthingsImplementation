@@ -8,8 +8,9 @@ import net.liftweb.mapper.By
 import net.liftweb.common.Empty
 import net.liftweb.mapper.MappedString
 import net.liftweb.mapper.Mapper
+import net.liftweb.mapper.KeyedMapper
 
-trait EnsureUniqueTextFields[T <: BaseEntity[T]] extends BaseEntity[T] {
+trait EnsureUniqueTextFields[T <: KeyedMapper[_,T]] extends Mapper[T] {
   // EnsureUniqueTextFields
   self: T =>
     
