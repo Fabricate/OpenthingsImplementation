@@ -1,23 +1,10 @@
 <div id="combineTheChildrenToOneElement">
-<p>
-<form id="formitem" enctype="multipart/form-data" method="post" action="#" class="left">
+<form id="formitem" enctype="multipart/form-data" method="post" action="#">
 	<input id="title" placeholder="Title" required>
-	<textarea id="teaser" placeholder="Teaser" rows="4" required></textarea>
+	<textarea id="teaser" placeholder="Short desciption max 140 characters" rows="2" required></textarea>
 	<textarea id="description" placeholder="Project description" rows="8" required></textarea>
 	<label id="iconlabel">Upload project image</label>
 	<input id="icon" type="file" name="fileToUpload">
-	
-	<div class="cropme" style="width: 600px; height: 388px;">
-
-	</div>
-			<script src="/js/jquery.Jcrop.js"></script>
-			<script src="/js/jquery.SimpleCropper.js"></script>
-		
-			<script>
-        // Init Simple Cropper
-        $('.cropme').simpleCropper();
-      </script>
-
 	<label id="difficultylabel"></label>
 	<select id="difficulty" required>
 		<option value="" disabled selected>Difficulty</option>
@@ -25,7 +12,7 @@
 	<select id="state" required>
 		<option value="" disabled selected>State</option>
 	</select>
-	<label>Read more about creative commons licenses <a href="https://wiki.creativecommons.org/Frequently_Asked_Questions" target="_blank">here</a></label>
+	<label>Need help choosing a license? Click <a href="https://creativecommons.org/choose/" target="_blank">here</a></label>
 	<select id="licence" required>
 		<option value="" disabled selected>Licence</option>
 	</select>
@@ -35,6 +22,7 @@
 	<input id="itemsubmithidden" type="hidden">
 	<input id="save" value="save" type="submit">
 </form>
+<!--
 		<input type='file' id='fileInput' name='files[]' />
 		<canvas id='myCanvas' style='display:none;'></canvas>
 		<div id='modal'></div>
@@ -44,14 +32,14 @@
 				<div class='ok'></div>
 			</div>
 		</div>
-</p>
-<h2>If you want, you can add another tag:</h2>
-<p>
-	<form id="addsomethingtoformitem"  class="left" data-lift="form.ajax">
-		<input id="newTagTitle" placeholder="Tag name" >
-		<button id="newTagButton">Add tag</button>
- 	</form>
-</p>
+-->
+	<div class="addTags">
+		<form id="addsomethingtoformitem"  class="tagform left" data-lift="form.ajax">
+			<p>If you want, you can add another tag:</p>
+			<input id="newTagTitle" placeholder="Tag name" >
+			<button id="newTagButton"><span class="icon-plus"></span> Add tag</button>
+		</form>
+	</div>
 		<script src="/js/load-image.all.min.js"></script>
 		<!-- The Canvas to Blob plugin is included for image resizing functionality -->
 		<script src="/js/canvas-to-blob.min.js"></script>

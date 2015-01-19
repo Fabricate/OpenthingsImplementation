@@ -40,7 +40,7 @@ import scala.xml.Elem
           title = title + "-" + lastVal.toUpperCase
           icons = "icon-cc-"+lastVal :: icons
         }
-      var licence = Value("Creatice Commons %s %s".format(versionShort,title),wrapLicenceLink(
+      var licence = Value("Creative Commons %s %s".format(versionShort,title),wrapLicenceLink(
 	    "https://creativecommons.org/licenses/%s/%s/".format(link,versionShort),
 	    "Attribution %s".format(versionLong),
 	    icons.reverse

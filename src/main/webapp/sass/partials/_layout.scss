@@ -269,7 +269,7 @@ body{
 	max-width: 50%;
 }
 .branding h1{
-	font-size: 4.5em;
+	font-size: 4em;
 }
 .branding h1 span{
 	font-size: 1.5em;
@@ -294,11 +294,19 @@ body{
 	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;
 }
+.editProject form{
+	max-width: 600px;
+	width: 100%;
+}
 .editProject input, .editProject textarea, .editProject select{
 	max-width: 100%;
 	width: 100%;
 	margin-bottom: 1em;
 	@include box-sizing(border-box);
+}
+.editprojecticon{
+	font-size: 0.875em;
+	cursor: pointer;
 }
 .postProject{
 	padding: 4%;

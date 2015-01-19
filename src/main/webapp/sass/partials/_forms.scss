@@ -18,3 +18,20 @@ label{
 	float: left;
 	width: 100%;
 }
+
+.contactform{
+	max-width: 600px;
+}
+
+.contactform input, .contactform textarea, .contactform select{
+	width: 100%;
+	border-color: $mediumgrey;
+	margin-bottom: .5em;
+}
+
+.addTags input{
+	max-width: 60% !important;
+}
+#editUserForm img{
+	max-width: 100%;
+}

@@ -76,7 +76,7 @@ figure.effect-lily figcaption {
 
 figure.effect-lily figcaption > div {
 	position: absolute;
-	bottom: 10%;
+	bottom: 20%;
 	left: 0;
 	padding: 1em;
 	height: 50%;
@@ -97,7 +97,7 @@ figure.effect-lily h2 {
 
 figure.effect-lily p {
 	color: rgba(255,255,255,1);
-	font-size: 1em;
+	font-size: .875em;
 	opacity: 0;
 	-webkit-transition: opacity 0.2s, -webkit-transform 0.35s;
 	transition: opacity 0.2s, transform 0.35s;
