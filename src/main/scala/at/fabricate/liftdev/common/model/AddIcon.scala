@@ -15,6 +15,7 @@ import scala.xml.Text
 import scala.xml.UnprefixedAttribute
 import scala.xml.Null
 import lib.MatchString
+import java.awt.image.BufferedImage
 
 trait AddIcon[T <: (AddIcon[T] with MatchByID[T]) ] extends BaseEntity[T] { // 
   // [T <: Mapper[T] ]s
@@ -118,7 +119,15 @@ trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with MatchByID[ModelType]) ]
 
 class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends MappedBinary[T](fieldOwner) {
 	    
+  
+  val ALIGN_CENTER=0
+  
+  val ALIGN_TOP_OR_LEFT=1
     
+  val ALIGN_BOTTOM_OR_RIGHT=2
+  
+  
+  
   def defaultImage = "/public/images/noimage.jpg"
     
   def imageDisplayName = S.?("image")
@@ -134,6 +143,8 @@ class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends Ma
   def maxImageHeight = 576
   
   def applyImageCropping = true
+  
+  def alignCroppedImage = ALIGN_CENTER
 
   def jpegImageQuality : Float = 85 / 100.toFloat
   
@@ -141,27 +152,76 @@ class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends Ma
 	    override def displayName = imageDisplayName
 	    	  /**Genutzter Spaltenname in der DB-Tabelle*/
 	    override def dbColumnName = imageDbColumnName
+	    
+	      /**
+   * Crop the image to fit the given width and height
+   * Will preserve the aspect ratio of the original and than center crop the larger dimension.
+   * A image of (200w,240h) squared to (100) will first resize to (100w,120h) and then take then crop
+   * 10 pixels from the top and bottom of the image to produce (100w,100h)
+   */
+  private def crop(orientation:Box[ImageOrientation.Value], originalImage:BufferedImage, imageWidth:Int , imageHeight:Int):BufferedImage = {
+    
+      val height = originalImage.getHeight
+      val width = originalImage.getWidth
+      val ratio:Double = width.doubleValue/height
+      
+      val targetRatio:Double = imageWidth.doubleValue/imageHeight
+      //just enter the limiting value that is needed there, 
+      // ImageResizer.max will preserve the aspect ratio and will scale to the bounding box
+      val (scaledWidth, scaledHeight) = if (ratio < targetRatio) {
+        (imageWidth, (imageHeight.doubleValue/ratio*targetRatio).toInt)
+        // should be (imageWidth,height)
+      } else {
+        ((imageWidth.doubleValue/targetRatio*ratio).toInt,imageHeight)
+        // should be (width, imageHeight)
+      }      
+    val image = {
+      ImageResizer.max(orientation, originalImage, scaledWidth, scaledHeight)
+    }
+    
+    def heightDiff:Int = (image.getHeight-imageHeight)
+    def widthDiff:Int = (image.getWidth-imageWidth)
+    
+    val (left,top,right,bottom) = alignCroppedImage match {
+      case ALIGN_CENTER => (widthDiff/2,heightDiff/2, scaledWidth-(widthDiff/2),scaledHeight-(heightDiff/2))
+      case ALIGN_TOP_OR_LEFT  => (0,0, scaledWidth,scaledHeight)
+      case ALIGN_BOTTOM_OR_RIGHT  => (widthDiff,heightDiff, scaledWidth,scaledHeight)
+ 
+    
+    }
+    
+
+    if (image.getHeight > imageHeight) {
+      image.getSubimage(0,top, image.getWidth, imageHeight)
+    } else if (image.getWidth > imageWidth) {
+      image.getSubimage(left,0, imageWidth, image.getHeight)
+    } else image
+  }
+  
+  private def processImage(fileHolder: Box[FileParamHolder]) : Array[Byte] = {
+    	              val inputStream = fileHolder.openOrThrowException("Image should not be Empty!").fileStream
+	                  var metaImage = ImageResizer.getImageFromStream(inputStream)
+	                  metaImage = ImageResizer.removeAlphaChannel(metaImage)
+	                  // no cropping, no scaling
+//	                  val image = ImageResizer.max(metaImage.orientation, metaImage.image, maxWidth , maxHeight )
+	                  // no cropping but scaling
+//	                  val image = ImageResizer.resize(metaImage.orientation, metaImage.image, maxWidth , maxHeight )
+	                  
+	                  // combined
+	                  val image = if (applyImageCropping)
+	                	  crop(metaImage.orientation, metaImage.image, maxImageWidth , maxImageHeight )
+	                	else
+	                	  ImageResizer.max(metaImage.orientation, metaImage.image, maxImageWidth , maxImageHeight )
+	                  ImageResizer.imageToBytes(ImageOutFormat.jpeg , image, jpegImageQuality)
+	                  
+  }
   
   def setFromUpload(fileHolder: Box[FileParamHolder]) = 
 	      fileHolder match {
 	              case Full(FileParamHolder(_,null,_,_)) => S.error("Sorry - this does not look like an image!")
 	              case Full(FileParamHolder(_,mime,_,data))
 	                if mime.startsWith("image/") => 	{
-	                  val inputStream = fileHolder.openOrThrowException("Image should not be Empty!").fileStream
-	                  var metaImage = ImageResizer.getImageFromStream(inputStream)
-	                  metaImage = ImageResizer.removeAlphaChannel(metaImage)
-	                  // no cropping
-//	                  val image = ImageResizer.max(metaImage.orientation, metaImage.image, maxWidth , maxHeight )
-	                  // with cropping
-//	                  val image = ImageResizer.resize(metaImage.orientation, metaImage.image, maxWidth , maxHeight )
-	                  
-	                  // combined
-	                  val image = if (applyImageCropping)
-	                	  ImageResizer.resize(metaImage.orientation, metaImage.image, maxImageWidth , maxImageHeight )
-	                	else
-	                	  ImageResizer.max(metaImage.orientation, metaImage.image, maxImageWidth , maxImageHeight )
-	                  val jpg = ImageResizer.imageToBytes(ImageOutFormat.jpeg , image, jpegImageQuality)
-	                  this.set(jpg)
+	                	this.set(processImage(fileHolder))
 	                }
 	              case Full(FileParamHolder(_,mime,_,data))
 	                if ! mime.startsWith("image/") =>  S.error("Sorry - this does not look like an image!")
