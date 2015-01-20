@@ -25,7 +25,6 @@ import at.fabricate.liftdev.common.model.BaseMetaEntityWithTitleDescriptionAndIc
 import at.fabricate.liftdev.common.model.CustomizeUserHandling
 import at.fabricate.liftdev.common.model.BaseEntity
 import at.fabricate.liftdev.common.model.BaseEntityWithTitleDescriptionAndIcon
-import at.fabricate.liftdev.common.model.FieldOwner
 import at.fabricate.liftdev.common.lib.EnumWithDescriptionAndObject
 import at.fabricate.liftdev.common.lib.MappedEnumWithDescription
 import at.fabricate.liftdev.common.model.EqualityByID

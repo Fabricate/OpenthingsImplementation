@@ -176,6 +176,7 @@ class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends Ma
         // should be (width, imageHeight)
       }      
     val image = {
+      // resize should also do the trick!
       ImageResizer.max(orientation, originalImage, scaledWidth, scaledHeight)
     }
     
@@ -243,26 +244,3 @@ class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends Ma
 	  
 	  override def _toForm: Box[Elem] = Full(SHtml.fileUpload(fu=>setFromUpload(Full(fu)))) //fu=>setFromUpload(Full(fu)) setFromUpload(Full(fu))))
 }
-
-  class ObjectById[T <: KeyedMetaMapper[Long,T]](obj : T) extends FieldOwner[T](obj) { 
-    //self: T =>
-    def unapply(in: String): Option[T] = 
-      fieldOwner.find( // As[LongKeyedMetaMapper[TheType]]
-    		    By(fieldOwner.primaryKeyField, 
-    		        in.toInt ))
-  }
-
-abstract class FieldOwner[V](fldOwnr: V){
-  def fieldOwner : V = fldOwnr
-  def fieldOwnerAs[U] : U = fldOwnr.asInstanceOf[U]
-}
-/*
-object TImageBase [V <: WithImageMeta[V]] (withImage : V){
-    	def unapply(in: String): Option[V] =
-    		withImage.find(By(withImage.id, in.toInt ))
-  }
-  * 
-  
-    	def unapply(in: String): Option[U] =
-    		this.find(By(this.primaryKeyField, in.toInt ))
-  */
