@@ -18,7 +18,7 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
   self: T =>
     
 	object title extends MappedString(this, 30)
-	object teaser extends MappedString(this, 150)
+	object teaser extends MappedTextarea(this, 150)
 	object description extends MappedTextarea(this, 2000)
 	
 	// TODO:

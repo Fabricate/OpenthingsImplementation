@@ -29,6 +29,8 @@ trait EnsureUniqueTextFields[T <: KeyedMapper[_,T]] extends Mapper[T] {
     println("checking unique for field "+theUniqueField.dbColumnName+" with value "+theUniqueField.get)
     println("got nrofresults: "+getSingleton.findAll(By(theUniqueField,theUniqueField.get)).length)
     getSingleton.findAll(By(theUniqueField,theUniqueField.get))
+    // then theUniqueField is a member of another table that is linked - maybe we want that behavior?
+    //theUniqueField.fieldOwner.getSingleton.findAll(By(theUniqueField,theUniqueField.get))
   }
   
   override def validate = this.fieldsAreUnique ::: super.validate
