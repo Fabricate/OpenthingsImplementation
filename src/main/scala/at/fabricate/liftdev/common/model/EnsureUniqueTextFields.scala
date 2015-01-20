@@ -16,21 +16,30 @@ trait EnsureUniqueTextFields[T <: KeyedMapper[_,T]] extends Mapper[T] {
     
   def theUniqueFields : List[MappedString[T]]
     
-  def fieldIsUnique  = 
-    theUniqueFields.map(theUniqueField => findSameAsUniqueField(theUniqueField) match {
+  def fieldsAreUnique : List[FieldError] = 
+    theUniqueFields.flatMap(theUniqueField => findSameAsUniqueField(theUniqueField) match {
     case Nil => List[FieldError]()
+    // update that object
+    case someThing :: Nil if (this.primaryKeyField != Empty && this.primaryKeyField.get == someThing.primaryKeyField.get) => List[FieldError]() 
     case someThing :: someRest  => List(FieldError(theUniqueField, Text("Entry with same text field already exists!")))
   }
     )
   
-  def findSameAsUniqueField(theUniqueField : MappedString[T]) : List[T] = getSingleton.findAll(By(theUniqueField,theUniqueField.get))
+  def findSameAsUniqueField(theUniqueField : MappedString[T]) : List[T] = {
+    println("checking unique for field "+theUniqueField.dbColumnName+" with value "+theUniqueField.get)
+    println("got nrofresults: "+getSingleton.findAll(By(theUniqueField,theUniqueField.get)).length)
+    getSingleton.findAll(By(theUniqueField,theUniqueField.get))
+  }
   
+  override def validate = this.fieldsAreUnique ::: super.validate
+  
+  // make sure that fields are always checked on save!
   override def save = 
-    this.fieldIsUnique match {
+    this.validate match {
 	  			// create new object
               case Nil => super.save
 	  			// update object
-              case _ if (this.primaryKeyField != Empty ) => super.save
+              //case _ if (this.primaryKeyField != Empty ) => super.save
 	  			// no new object with same name!
               case _ => {
                 println("same object already exists - no saving performed!")
