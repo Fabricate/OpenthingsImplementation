@@ -21,9 +21,11 @@ import at.fabricate.liftdev.common.model.GeneralTagMeta
 import net.liftweb.http.js.JsCmd
 import at.fabricate.liftdev.common.model.AddTagsMeta
 import at.fabricate.openthings.model.Project
+import net.liftweb.http.RequestVar
 
 trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])] extends BaseEntityWithTitleAndDescriptionSnippet[T] {
   
+  object selectedTags extends RequestVar("")
 //  val tagItem = TheItem.asInstanceOf[AddTags[T]]
 //  
 //  type LocalTheTagType = tagItem.TheTagType
@@ -91,67 +93,94 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
      (super.toForm(item))
     }
       def localToForm(item : ItemType) : CssSel = {
-		 var newTagTitle = ""
+//		 var newTagTitle = ""
 //		println("chaining asHtml from AddCommentSnippet")
 //     ("#tags" #> SHtml.multiSelect(allTags, List(), item.tags ++= loadTag(item)(_) )
 		def loadTag(localItem: ItemType)( id : String)  = localItem.theTagObject.findByKey(id.toLong)
+		def loadTagFromTitle(localItem: ItemType)( title : String)  = localItem.theTagObject.findAll().filter(_.title == title)
 		
 		//val theTagObject = item.theTagObject
 		val formerTags = item.tags.map(tagMapping => loadTag(item)(tagMapping.theTag.toString)map(_.title.get) openTheBox )//loadTag(tagMapping.taggedItem))
-		var selectedTags : String = ""
+		//var selectedTags : String = ""
 		
-		def getAllTags(localItem: ItemType) : List[(String,String)] = localItem.theTagObject.findAll.map(item => (item.primaryKeyField.toString, item.title.toString))
+		val allTags = item.theTagObject.findAll.map(theItem => (theItem.title.toString))
  
 
 		   
-		def createNewTag(localItem: ItemType)() : JsCmd = {
-		   println("created tag "+newTagTitle)
-		   localItem.theTagObject.create.title(newTagTitle).save
-		   JsCmds.Noop
-		 }
-		def submitSelectedTagsList(localItem: ItemType)(selectedTags : List[String]) : JsCmd = {
-		  println("received tag-list"+selectedTags.mkString(","))
-		  selectedTags.map(
-		      stringTag => loadTag(localItem)(stringTag).map(theSelectedTag => localItem.getTagMapper.create.taggedItem(localItem).theTag(theSelectedTag).save )
-		      )
-		  JsCmds.Noop
-		}
+//		def createNewTag(localItem: ItemType)() : JsCmd = {
+//		   println("created tag "+newTagTitle)
+//		   localItem.theTagObject.create.title(newTagTitle).save
+//		   JsCmds.Noop
+//		 }
+//		
+//		def submitSelectedTagsList(localItem: ItemType)(selectedTags : List[String]) : JsCmd = {
+//		  println("received tag-list"+selectedTags.mkString(","))
+//		  selectedTags.map(
+//		      stringTag => loadTag(localItem)(stringTag).map(theSelectedTag => localItem.getTagMapper.create.taggedItem(localItem).theTag(theSelectedTag).save )
+//		      )
+//		  JsCmds.Noop
+//		}
 		
 		def submitSelectedTags(localItem: ItemType, selectedTags : String)() : JsCmd = {
-		  val localFormerTags = item.tags.map(tagMapping => loadTag(item)(tagMapping.theTag.toString)map(_.title.get) openTheBox )//loadTag(tagMapping.taggedItem))
+		  val localFormerTags = localItem.tags.map(tagMapping => loadTag(localItem)(tagMapping.theTag.toString)map(_.title.get) openTheBox )//loadTag(tagMapping.taggedItem))
 		  val selectedTagsList =  selectedTags.split(",").map(_.trim)
 		  val addTags = selectedTagsList.filter(!localFormerTags.contains(_))
 		  val removeTags = localFormerTags.filter(!selectedTagsList.contains(_))
 		  
+		  
+		  println("received: "+selectedTags)
+		  
+		  println("oldTags: "+localFormerTags.mkString(","))
+		  println("addTags: "+addTags.mkString(","))
+		  println("removeTags: "+removeTags.mkString(","))
 		  // remove tags
 		  //println("received tag-list"+selectedTags.mkString(","))
 		  removeTags.map(
-		      stringTag => item.tags.filterNot(_.theTag.get == loadTag(localItem)(stringTag).map(_.id).openOr(-1))
+		      stringTag => {
+		        val tagToRemove = loadTagFromTitle(localItem)(stringTag)
+		        //tagToRemove.head.
+		        val tagID = tagToRemove match {
+		          case theTag::Nil => theTag.id.get
+		          case _ => -1
+		        }
+		        //localItem.tags.filterNot(_.theTag.get == tagID)
+		        localItem.tags.find(_.theTag.get == tagID).get.delete_!
+		        localItem.tags.save
+		        localItem.save
+		      }
 		      )
 		  addTags.map(
 		      stringTag => {
-		        val theSelectedTag = loadTag(localItem)(stringTag) openOr(localItem.theTagObject.create.title(stringTag) )
-		        theSelectedTag.save
-		        localItem.getTagMapper.create.taggedItem(localItem).theTag(theSelectedTag).save
+		        if (stringTag != null && stringTag.length>1){
+			        val theSelectedTag = loadTagFromTitle(localItem)(stringTag) match {
+			          case theTag :: Nil => theTag
+			          case _ => (localItem.theTagObject.create.title(stringTag) )
+			        }
+			        theSelectedTag.save
+			        localItem.getTagMapper.create.taggedItem(localItem).theTag(theSelectedTag).save
+		        }
 		      }
 		  )
 		  JsCmds.Noop
 		}
 		   
-     ("#tags" #> SHtml.text(formerTags.mkString(","), submittedTags => selectedTags = submittedTags) &
-      "#tagshidden" #> SHtml.hidden(submitSelectedTags(item, selectedTags)) &
-     //SHtml.multiSelect(getAllTags(item), List(),submitSelectedTags(item),  "size"->"5") &
-//         selected => selected.map(
-//         _ match {
-//       case item.theTagObject.
-////       theTagObject.getSingleton.MatchItemByID()
-//     }
-//       tag => loadTag(tag).map(theSelectedTag => tagToItemMapper.create.taggedItem(item).theTag(theSelectedTag).save ) // +=  _:item.TheTags 
-//       ),  "size"->"5") &
-       "#newTagTitle" #> SHtml.ajaxText("", tagTitle => {newTagTitle=tagTitle;JsCmds.Noop}) &
-       "#newTagButton [onclick]" #> SHtml.ajaxInvoke(createNewTag(item))
-//     }
-         
-         )  
+     ("#tags" #> SHtml.text(formerTags.mkString("",",",""), submittedTags => {println("rec: "+submittedTags);submitSelectedTags(item,submittedTags)()}) &
+       "#listAllTags" #>  allTags.mkString(", "))
+      //"#tagshidden" #> SHtml.hidden(submitSelectedTags(item, selectedTags.get)) )
+      
+//      &
+//     //SHtml.multiSelect(getAllTags(item), List(),submitSelectedTags(item),  "size"->"5") &
+////         selected => selected.map(
+////         _ match {
+////       case item.theTagObject.
+//////       theTagObject.getSingleton.MatchItemByID()
+////     }
+////       tag => loadTag(tag).map(theSelectedTag => tagToItemMapper.create.taggedItem(item).theTag(theSelectedTag).save ) // +=  _:item.TheTags 
+////       ),  "size"->"5") &
+//       "#newTagTitle" #> SHtml.ajaxText("", tagTitle => {newTagTitle=tagTitle;JsCmds.Noop}) &
+//       "#newTagButton [onclick]" #> SHtml.ajaxInvoke(createNewTag(item))
+////     }
+//         
+//         )  
   }
 }
