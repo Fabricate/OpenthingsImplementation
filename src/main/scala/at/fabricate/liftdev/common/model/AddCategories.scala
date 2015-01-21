@@ -74,7 +74,7 @@ with Cascade[TheCategories]
 	}
 	
 	object TheCategories  extends TheCategories with LongKeyedMetaMapper[TheCategories]{
-	  	  override def dbTableName =  self.getSingleton.dbTableName+"_tags"
+	  	  override def dbTableName =  self.getSingleton.dbTableName+"_category"
 	  	  
 	  	  // Bugfix for the compilation issue
 	  	  // solution by https://groups.google.com/forum/#!msg/liftweb/XYiKeS_wgjQ/KBEcrRZxF4cJ

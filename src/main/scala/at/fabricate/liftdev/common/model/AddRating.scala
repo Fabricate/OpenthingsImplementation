@@ -52,7 +52,7 @@ with Cascade[TheRating]
 	}
 	
 	object TheRating  extends TheRating with LongKeyedMetaMapper[TheRating]{
-	  	  override def dbTableName =  self.getSingleton.dbTableName+"_ratings"
+	  	  override def dbTableName =  self.getSingleton.dbTableName+"_rating"
 	  	  
 	  	  // Bugfix for the compilation issue
 	  	  // solution by https://groups.google.com/forum/#!msg/liftweb/XYiKeS_wgjQ/KBEcrRZxF4cJ

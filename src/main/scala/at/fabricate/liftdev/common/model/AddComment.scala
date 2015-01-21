@@ -53,7 +53,7 @@ with Cascade[TheComment]
 	}
 	
 	object TheComment  extends TheComment with LongKeyedMetaMapper[TheComment]{
-	  	  override def dbTableName =  self.getSingleton.dbTableName+"_comments"
+	  	  override def dbTableName =  self.getSingleton.dbTableName+"_comment"
 	  	  
 	  	  // Bugfix for the compilation issue
 	  	  // solution by https://groups.google.com/forum/#!msg/liftweb/XYiKeS_wgjQ/KBEcrRZxF4cJ
