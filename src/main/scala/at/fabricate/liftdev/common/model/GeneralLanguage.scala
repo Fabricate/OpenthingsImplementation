@@ -53,6 +53,8 @@ trait GeneralLanguage[T <: GeneralLanguage[T] with KeyedMapper[String,T]] extend
     object languageNameInTheLanguage extends MappedString(this, 500 )
     object languageNameInternational extends MappedString(this, 500 )
 
+    type TheUniqueTextType = T
+    
 	override def theUniqueFields = List(langCode,languageNameInEnglish)
 //      self.langCode.asInstanceOf[MappedField[String,T] with IndexedField[String]]
 }

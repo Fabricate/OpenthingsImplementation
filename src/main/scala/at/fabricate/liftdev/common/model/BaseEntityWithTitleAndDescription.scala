@@ -12,6 +12,7 @@ import net.liftweb.mapper.MappedLongForeignKey
 import net.liftweb.mapper.Ascending
 import net.liftweb.mapper.MappedLocale
 import net.liftweb.mapper.BaseMetaMapper
+import java.util.Locale
 
 // This is the basic database entity 
 // every db object should inherit from that
@@ -26,10 +27,14 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
     val teaserLength = 150
     val descriptionLength = 2000
     
-	object title extends MappedString(this, titleLength)
-	object teaser extends MappedTextarea(this, teaserLength)
-	object description extends MappedTextarea(this, descriptionLength)
-	
+//	object title extends MappedString(this, titleLength)
+//	object teaser extends MappedTextarea(this, teaserLength)
+//	object description extends MappedTextarea(this, descriptionLength)
+    
+//    def getTranslationByLocale(locale: Locale) = translations.find(_.localeField == locale)
+//	def title(locale) = getLocale.title
+    
+    
 	// TODO:
 	// add Licence Tag (one of many that are stored in a database)
 	// add a difficulty (one of many that comes from a list of string options)

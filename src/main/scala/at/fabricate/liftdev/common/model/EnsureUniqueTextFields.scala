@@ -14,7 +14,9 @@ trait EnsureUniqueTextFields[T <: KeyedMapper[_,T]] extends Mapper[T] {
   // EnsureUniqueTextFields
   self: T =>
     
-  def theUniqueFields : List[MappedString[T]]
+  type TheUniqueTextType <: BaseEntity[TheUniqueTextType] //with MappedForeignKey[_]
+    
+  def theUniqueFields : List[MappedString[TheUniqueTextType]]
     
   def fieldsAreUnique : List[FieldError] = 
     theUniqueFields.flatMap(theUniqueField => findSameAsUniqueField(theUniqueField) match {
@@ -25,12 +27,12 @@ trait EnsureUniqueTextFields[T <: KeyedMapper[_,T]] extends Mapper[T] {
   }
     )
   
-  def findSameAsUniqueField(theUniqueField : MappedString[T]) : List[T] = {
+  def findSameAsUniqueField(theUniqueField : MappedString[TheUniqueTextType]) : List[TheUniqueTextType] = {
     println("checking unique for field "+theUniqueField.dbColumnName+" with value "+theUniqueField.get)
-    println("got nrofresults: "+getSingleton.findAll(By(theUniqueField,theUniqueField.get)).length)
-    getSingleton.findAll(By(theUniqueField,theUniqueField.get))
+//    println("got nrofresults: "+getSingleton.findAll(By(theUniqueField,theUniqueField.get)).length)
+//    getSingleton.findAll(By(theUniqueField,theUniqueField.get))
     // then theUniqueField is a member of another table that is linked - maybe we want that behavior?
-    //theUniqueField.fieldOwner.getSingleton.findAll(By(theUniqueField,theUniqueField.get))
+    theUniqueField.fieldOwner.getSingleton.findAll(By(theUniqueField,theUniqueField.get))
   }
   
   override def validate = this.fieldsAreUnique ::: super.validate

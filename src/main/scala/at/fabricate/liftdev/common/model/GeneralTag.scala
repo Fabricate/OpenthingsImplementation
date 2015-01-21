@@ -12,5 +12,7 @@ trait GeneralTagMeta[ModelType <: (GeneralTag[ModelType]) ] extends BaseMetaEnti
 trait GeneralTag[T <: GeneralTag[T] ] extends BaseEntity[T] with BaseEntityWithTitleAndDescription[T] with IdPK with EnsureUniqueTextFields[T] {
   	self: T =>
 
-	override def theUniqueFields = List(title)
+	 override type TheUniqueTextType = TheTranslation
+
+	override def theUniqueFields = List(TheTranslation.title)
 }
