@@ -11,6 +11,19 @@ $icon-height: 1.875em;
 $big-icon-width: 2.5em;
 $big-icon-height: 2.5em;
 
+$tiny: 50%;
+$small: 62.5%;
+$smaler: 75%;
+
+$larger: 112.5%;
+$large: 125%;
+$massive: 200%;
+
+$golden: 162%;
+$platinum: 256%;
+
+$box: 40em;
+
 @mixin box-sizing($box-sizing) {
   -webkit-box-sizing: $box-sizing;
      -moz-box-sizing: $box-sizing;

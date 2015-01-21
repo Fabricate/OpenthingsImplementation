@@ -41,6 +41,18 @@ table {
 div, section, nav {
   position: relative; }
 
+/* line 36, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/modules/colors */
+* {
+  line-height: 1; }
+
+/* line 40, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/modules/colors */
+h1 {
+  line-height: 1.2; }
+
+/* line 44, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/modules/colors */
+p {
+  line-height: 1.5; }
+
 /* Standard Animation styles */
 /* line 3, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/modules/animation */
 .animated {

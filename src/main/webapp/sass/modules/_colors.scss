@@ -8,3 +8,47 @@ $lightgrey: rgb(237,235,235);
 $mediumgrey: rgb(102,102,102);
 $darkgrey: rgb(50,50,50);
 $defaultLinkColor: #17BA9B;
+
+
+$canvas: white;
+
+$canvas-vivid: white;
+$canvas-hard: white;
+$canvas-soft: #eee;
+$canvas-dim: #ddd;
+
+$content: #000;
+$content-hard: ;
+	
+	
+	
+$feature: blue; // widget, 'special canvas'
+
+$primary: navy; // main branding
+$secondary: purple; // secondary branding
+
+
+$glow: rgba(255,255,255,.6);
+
+$shade: rgba(0,0,0,.4);
+
+
+* {
+line-height: 1;
+}
+
+h1 {
+	line-height: 1.2;
+}
+
+p {
+	line-height: 1.5;
+}
+
+
+$span: 2em;
+
+
+
+$edge: .2em;
+
