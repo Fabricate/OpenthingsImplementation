@@ -79,20 +79,29 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
        lookupTag.map(_.title.asHtml)openOr(Text("tag does not exist")) //dmap (Text("tag does not exist"))( (_:item.TheTagType ).title.asHtml)//foundTag : item.TheTagType => foundTag
      } )
          ) &
+         // add the onsite editing stuff
+         this.localToForm(item) &
      // chain the css selectors 
      (super.asHtml(item))
   }
   
     abstract override def toForm(item : ItemType) : CssSel = {
+      this.localToForm(item)  &
+     // chain the css selectors 
+     (super.toForm(item))
+    }
+      def localToForm(item : ItemType) : CssSel = {
 		 var newTagTitle = ""
 //		println("chaining asHtml from AddCommentSnippet")
 //     ("#tags" #> SHtml.multiSelect(allTags, List(), item.tags ++= loadTag(item)(_) )
+		def loadTag(localItem: ItemType)( id : String)  = localItem.theTagObject.findByKey(id.toLong)
 		
 		//val theTagObject = item.theTagObject
+		val formerTags = item.tags.map(tagMapping => loadTag(item)(tagMapping.theTag.toString)map(_.title.get) openTheBox )//loadTag(tagMapping.taggedItem))
+		var selectedTags : String = ""
 		
-		def getAllTags(localItem: ItemType) = localItem.theTagObject.findAll.map(item => (item.primaryKeyField.toString, item.title.toString))
-
-		def loadTag(localItem: ItemType)( id : String)  = localItem.theTagObject.findByKey(id.toLong)
+		def getAllTags(localItem: ItemType) : List[(String,String)] = localItem.theTagObject.findAll.map(item => (item.primaryKeyField.toString, item.title.toString))
+ 
 
 		   
 		def createNewTag(localItem: ItemType)() : JsCmd = {
@@ -100,15 +109,38 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
 		   localItem.theTagObject.create.title(newTagTitle).save
 		   JsCmds.Noop
 		 }
-		def submitSelectedTags(localItem: ItemType)(selectedTags : List[String]) : JsCmd = {
+		def submitSelectedTagsList(localItem: ItemType)(selectedTags : List[String]) : JsCmd = {
 		  println("received tag-list"+selectedTags.mkString(","))
 		  selectedTags.map(
 		      stringTag => loadTag(localItem)(stringTag).map(theSelectedTag => localItem.getTagMapper.create.taggedItem(localItem).theTag(theSelectedTag).save )
 		      )
 		  JsCmds.Noop
 		}
+		
+		def submitSelectedTags(localItem: ItemType, selectedTags : String)() : JsCmd = {
+		  val localFormerTags = item.tags.map(tagMapping => loadTag(item)(tagMapping.theTag.toString)map(_.title.get) openTheBox )//loadTag(tagMapping.taggedItem))
+		  val selectedTagsList =  selectedTags.split(",").map(_.trim)
+		  val addTags = selectedTagsList.filter(!localFormerTags.contains(_))
+		  val removeTags = localFormerTags.filter(!selectedTagsList.contains(_))
+		  
+		  // remove tags
+		  //println("received tag-list"+selectedTags.mkString(","))
+		  removeTags.map(
+		      stringTag => item.tags.filterNot(_.theTag.get == loadTag(localItem)(stringTag).map(_.id).openOr(-1))
+		      )
+		  addTags.map(
+		      stringTag => {
+		        val theSelectedTag = loadTag(localItem)(stringTag) openOr(localItem.theTagObject.create.title(stringTag) )
+		        theSelectedTag.save
+		        localItem.getTagMapper.create.taggedItem(localItem).theTag(theSelectedTag).save
+		      }
+		  )
+		  JsCmds.Noop
+		}
 		   
-     ("#tags" #> SHtml.multiSelect(getAllTags(item), List(),submitSelectedTags(item),  "size"->"5") &
+     ("#tags" #> SHtml.text(formerTags.mkString(","), submittedTags => selectedTags = submittedTags) &
+      "#tagshidden" #> SHtml.hidden(submitSelectedTags(item, selectedTags)) &
+     //SHtml.multiSelect(getAllTags(item), List(),submitSelectedTags(item),  "size"->"5") &
 //         selected => selected.map(
 //         _ match {
 //       case item.theTagObject.
@@ -120,8 +152,6 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
        "#newTagButton [onclick]" #> SHtml.ajaxInvoke(createNewTag(item))
 //     }
          
-         )  &
-     // chain the css selectors 
-     (super.toForm(item))
+         )  
   }
 }

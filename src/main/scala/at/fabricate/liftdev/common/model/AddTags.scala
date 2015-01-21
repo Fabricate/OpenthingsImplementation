@@ -33,6 +33,9 @@ trait AddTags[T <: (AddTags[T])] extends BaseEntity[T]  with OneToMany[Long, T] 
 	        
       def getTagMapper : LongKeyedMetaMapper[TheTags] = TheTags
       
+      
+	def getSingleton : AddTagsMeta[T]
+	  
 //        object createdByUser extends MappedLongForeignKey(this, theUserObject){
 //
 //    override def defaultValue = theUserObject.currentUser.map(_.primaryKeyField.get ) openOr(-1)
