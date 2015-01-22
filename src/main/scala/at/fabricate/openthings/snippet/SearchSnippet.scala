@@ -249,8 +249,12 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
   def getPaginationLimit[T <: BaseEntityWithTitleAndDescription[T]] : List[QueryParam[T]] = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
   
   def queryItems[T <: BaseEntityWithTitleDescriptionIconAndCommonFields[T]](itemToQuery: BaseMetaEntityWithTitleDescriptionIconAndCommonFields[T] with BaseEntityWithTitleDescriptionIconAndCommonFields[T], otherQueryParams : List[QueryParam[T]] = List() ) = { // , otherQueryParams = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
-    val query = Like(itemToQuery.title,addLikeCharFrontAndBack(title.get)) ::
-    	Like(itemToQuery.description,addLikeCharFrontAndBack(description.get)) ::
+    val query = 
+    	// TODO: this has to be joined later on to get it working again!!!
+//      (S.locale)
+        //Like(itemToQuery.title,addLikeCharFrontAndBack(title.get)) ::
+    	//Like(itemToQuery.description(S.locale),addLikeCharFrontAndBack(description.get)) ::
+    	
 //    	By_<(itemToQuery.difficulty.asInstanceOf[MappedField[_,T]],difficulty.get) ::
     	ByList(itemToQuery.state,state.get) ::
     	ByList(itemToQuery.difficulty,difficulty.get) ::

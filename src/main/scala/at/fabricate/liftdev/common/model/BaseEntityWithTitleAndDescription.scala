@@ -13,6 +13,9 @@ import net.liftweb.mapper.Ascending
 import net.liftweb.mapper.MappedLocale
 import net.liftweb.mapper.BaseMetaMapper
 import java.util.Locale
+import net.liftweb.common.Full
+import net.liftweb.common.Box
+import net.liftweb.common.Full
 
 // This is the basic database entity 
 // every db object should inherit from that
@@ -23,6 +26,8 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
 {
   self: T =>
     
+    def defaultLocales : List[String] = List(defaultTranslation.get)
+    
     val titleLength = 30
     val teaserLength = 150
     val descriptionLength = 2000
@@ -31,8 +36,24 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
 //	object teaser extends MappedTextarea(this, teaserLength)
 //	object description extends MappedTextarea(this, descriptionLength)
     
-//    def getTranslationByLocale(locale: Locale) = translations.find(_.localeField == locale)
-//	def title(locale) = getLocale.title
+    def getTranslationByLocale(locale: Locale) : Box[TheTranslation] = translations.find(_.localeField == locale) 
+    
+    def getTranslationOrDefault(locale: Locale) : TheTranslation = getTranslationByLocale(locale)
+    match {
+      case Full(translation) => translation
+      case _ if (translations.length > 0) => translations.head // improve that: 1. userDefault (set in defaultLocalse as first item), then itemDefault, then first in translation list
+      case _ => TheTranslation.create.translatedItem(self).language(defaultTranslation.get).saveMe
+    }
+    
+    def title(locale:Locale) = getTranslationOrDefault(locale).title
+    def teaser(locale:Locale) = getTranslationOrDefault(locale).teaser
+    def description(locale:Locale) = getTranslationOrDefault(locale).description
+    
+    object defaultTranslation extends MappedLocale(this) {
+      //override def dbNotNull_? = true
+      //override def defaultValue = "en"
+    }
+    
     
     
 	// TODO:
@@ -51,7 +72,7 @@ with Cascade[TheTranslation]
 
 	  //def getItemsToSchemify = List(TheComment, T)
       
-      class TheTranslation extends LongKeyedMapper[TheTranslation] with IdPK {
+      class TheTranslation extends BaseEntity[TheTranslation] with LongKeyedMapper[TheTranslation] with IdPK {
     	  def getSingleton = TheTranslation
 	    	  
 	      object translatedItem extends MappedLongForeignKey(this,self.getSingleton)
@@ -75,7 +96,7 @@ with Cascade[TheTranslation]
 		  
 	}
 	
-	object TheTranslation  extends TheTranslation with LongKeyedMetaMapper[TheTranslation]{
+	object TheTranslation  extends TheTranslation with BaseMetaEntity[TheTranslation] with LongKeyedMetaMapper[TheTranslation]{
 	  	  override def dbTableName =  self.getSingleton.dbTableName+"_translation"
 	  	  
 	  	  // Bugfix for the compilation issue

@@ -22,6 +22,7 @@ import net.liftweb.http.js.JsCmd
 import at.fabricate.liftdev.common.model.AddTagsMeta
 import at.fabricate.openthings.model.Project
 import net.liftweb.http.RequestVar
+import net.liftweb.http.S
 
 trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])] extends BaseEntityWithTitleAndDescriptionSnippet[T] {
   
@@ -78,7 +79,7 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
      ("#aTag *" #> item.tags.map(itm => {
 //       itm.theTag.asInstanceOf[item.TheTagType].title.asHtml) //theTagObject
        val lookupTag = item.theTagObject.findByKey(itm.theTag.get) 
-       lookupTag.map(_.title.asHtml)openOr(Text("tag does not exist")) //dmap (Text("tag does not exist"))( (_:item.TheTagType ).title.asHtml)//foundTag : item.TheTagType => foundTag
+       lookupTag.map(_.title(S.locale).asHtml)openOr(Text("tag does not exist")) //dmap (Text("tag does not exist"))( (_:item.TheTagType ).title.asHtml)//foundTag : item.TheTagType => foundTag
      } )
          ) &
          // add the onsite editing stuff
@@ -96,14 +97,16 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
 //		 var newTagTitle = ""
 //		println("chaining asHtml from AddCommentSnippet")
 //     ("#tags" #> SHtml.multiSelect(allTags, List(), item.tags ++= loadTag(item)(_) )
+        val locale = S.locale
+        
 		def loadTag(localItem: ItemType)( id : String)  = localItem.theTagObject.findByKey(id.toLong)
-		def loadTagFromTitle(localItem: ItemType)( title : String)  = localItem.theTagObject.findAll().filter(_.title == title)
+		def loadTagFromTitle(localItem: ItemType)( title : String)  = localItem.theTagObject.findAll().filter(_.title(locale) == title)
 		
 		//val theTagObject = item.theTagObject
-		val formerTags = item.tags.map(tagMapping => loadTag(item)(tagMapping.theTag.toString)map(_.title.get) openTheBox )//loadTag(tagMapping.taggedItem))
+		val formerTags = item.tags.map(tagMapping => loadTag(item)(tagMapping.theTag.toString)map(_.title(locale).get) openTheBox )//loadTag(tagMapping.taggedItem))
 		//var selectedTags : String = ""
 		
-		val allTags = item.theTagObject.findAll.map(theItem => (theItem.title.toString))
+		val allTags = item.theTagObject.findAll.map(theItem => (theItem.title(locale).toString))
  
 
 		   
@@ -122,7 +125,7 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
 //		}
 		
 		def submitSelectedTags(localItem: ItemType, selectedTags : String)() : JsCmd = {
-		  val localFormerTags = localItem.tags.map(tagMapping => loadTag(localItem)(tagMapping.theTag.toString)map(_.title.get) openTheBox )//loadTag(tagMapping.taggedItem))
+		  val localFormerTags = localItem.tags.map(tagMapping => loadTag(localItem)(tagMapping.theTag.toString)map(_.title(S.locale).get) openTheBox )//loadTag(tagMapping.taggedItem))
 		  val selectedTagsList =  selectedTags.split(",").map(_.trim)
 		  val addTags = selectedTagsList.filter(!localFormerTags.contains(_))
 		  val removeTags = localFormerTags.filter(!selectedTagsList.contains(_))
@@ -154,7 +157,11 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
 		        if (stringTag != null && stringTag.length>1){
 			        val theSelectedTag = loadTagFromTitle(localItem)(stringTag) match {
 			          case theTag :: Nil => theTag
-			          case _ => (localItem.theTagObject.create.title(stringTag) )
+			          case _ => {
+			              val newTag = localItem.theTagObject.create
+			              newTag.title(S.locale)(stringTag)
+			              newTag
+			          }
 			        }
 			        theSelectedTag.save
 			        localItem.getTagMapper.create.taggedItem(localItem).theTag(theSelectedTag).save

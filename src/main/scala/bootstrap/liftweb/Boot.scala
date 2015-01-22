@@ -19,6 +19,7 @@ import at.fabricate.openthings.lib.AccessControl
 import javax.mail.Authenticator
 import javax.mail.PasswordAuthentication
 import javax.mail.internet.MimeMessage
+import at.fabricate.liftdev.common.lib.UrlLocalizer
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -49,6 +50,9 @@ class Boot {
     			new PasswordAuthentication(user,pass)
     }
     
+    // initialize the localizer
+    UrlLocalizer.init() 
+    
 //    // just do something else if a mail wants to be sent
 //    Mailer.devModeSend.default.set( (m: MimeMessage) =>
 //    	println("Would have sent: "+m.getContent)
@@ -63,7 +67,7 @@ class Boot {
     // DID THAT KILL LIFT COMPILATION???? -> Yea, this was mixing between types
     // has to be a list of BaseMetaMapper entities
     val itemsToSchemify : List[BaseMetaMapper] = Project.getItemsToSchemify ::: 
-    User.getItemsToSchemify ::: List[BaseMetaMapper](Tool, UserHasTools, Tag) 
+    User.getItemsToSchemify ::: Tag.getItemsToSchemify ::: List[BaseMetaMapper](Tool, UserHasTools) 
     Schemifier.schemify(true, Schemifier.infoF _, itemsToSchemify :_*)
         
     // initialize the Mapper instances

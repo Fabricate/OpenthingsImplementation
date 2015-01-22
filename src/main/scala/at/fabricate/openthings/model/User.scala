@@ -54,11 +54,11 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
 			       
   // define the order fields will appear in forms and output
   override def fieldOrder = List(id, icon, firstName, lastName, email,
-  locale, timezone, password, description)
+  locale, timezone, password)//, description)
   
   // define the order fields will appear in the edit page
   override def editFields = List(icon, firstName, lastName, email,
-  locale, timezone, description) 
+  locale, timezone)//, description) 
 
   // comment this line out to require email validations
 //  override def skipEmailValidation = true

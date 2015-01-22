@@ -15,7 +15,7 @@ import net.liftweb.util._
 import net.liftweb.common._
 
 
-trait GeneralLanguageMeta[ModelType <: GeneralLanguage[ModelType] with KeyedMapper[String,ModelType] ] extends KeyedMetaMapper[String,ModelType] {
+trait GeneralLanguageMeta[ModelType <: GeneralLanguage[ModelType] with KeyedMapper[String,ModelType]  with BaseEntity[ModelType]] extends KeyedMetaMapper[String,ModelType] {
 	self: ModelType  => 
 //  with KeyedMapper[U, ModelType]
     
@@ -25,7 +25,7 @@ trait GeneralLanguageMeta[ModelType <: GeneralLanguage[ModelType] with KeyedMapp
 }
   
 
-trait GeneralLanguage[T <: GeneralLanguage[T] with KeyedMapper[String,T]] extends KeyedMapper[String,T] with EnsureUniqueTextFields[T] with BaseKeyedMapper {
+trait GeneralLanguage[T <: GeneralLanguage[T] with KeyedMapper[String,T] with BaseEntity[T]] extends KeyedMapper[String,T] with EnsureUniqueTextFields[T] with BaseKeyedMapper {
   	//self: KeyedMapper[String,T] =>
 //  : MappedField[String,T] with IndexedField[String] 
 //  with MetaMapper[A] with KeyedMapper[Type, A]
@@ -38,7 +38,7 @@ trait GeneralLanguage[T <: GeneralLanguage[T] with KeyedMapper[String,T]] extend
 	
 //    override 
 	// keeps making troubles
-    override def primaryKeyField = this.langCode
+    //override def primaryKeyField = this.langCode
 //     : MappedField[String,T] with IndexedField[String]
 //    : MappedField[String,T] with IndexedField[String] 
 //    .asInstanceOf[MappedField[U,T] with IndexedField[U]]

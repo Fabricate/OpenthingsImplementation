@@ -35,6 +35,7 @@ import net.liftweb.common.Empty
 import lib.MatchString
 import model.BaseEntityWithTitleAndDescription
 import net.liftmodules.textile.TextileParser
+import sun.util.locale.provider.LocaleDataMetaInfo
 
 
 abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
@@ -177,9 +178,9 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     	 },
     	 errors => errorAction(errors))
 
-    def urlToViewItem(item: KeyedMapper[_,_]): String =  "/%s/%s/%s".format(itemBaseUrl, itemViewUrl, item.primaryKeyField.toString)
+    def urlToViewItem(item: KeyedMapper[_,_]): String =  "/%s/%s/%s/%s".format(S.locale, itemBaseUrl, itemViewUrl, item.primaryKeyField.toString)
    
-    def urlToEditItem(item: KeyedMapper[_,_]): String =  "/%s/%s/%s".format(itemBaseUrl, itemEditUrl, item.primaryKeyField.toString)
+    def urlToEditItem(item: KeyedMapper[_,_]): String =  "/%s/%s/%s/%s".format(S.locale, itemBaseUrl, itemEditUrl, item.primaryKeyField.toString)
 
    // ### methods that might be overridden in subclasses ###
     	     	 
@@ -224,6 +225,10 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     case "paginate" => paginate _
     case "paginatecss" => paginatecss(_)
   }
+  
+  
+//   final def getLocaleForItem(item : ItemType ) : String = 
+//    (S.param("lang") openOr(item.defaultTranslation.get)) 
    
      // internal helper fields that will be chained to create the complete css selector
   //   subclasses will implement that methodes with abstract override
@@ -232,9 +237,11 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
   
 //      println("chaining toForm from BaseEntitySnippet")
     
-     "#title"  #> item.title.toForm &
-     "#teaser"  #> item.teaser.toForm &
-     "#description"  #> item.description.toForm &
+    //item.translations.head.language.get
+     val locale = S.locale
+     "#title"  #> item.title(locale).toForm &
+     "#teaser"  #> item.teaser(locale).toForm &
+     "#description"  #> item.description(locale).toForm &
      "#formitem [action]" #> urlToEditItem(item) &
      "#itemsubmithidden" #> SHtml.hidden(() => saveAndRedirectToNewInstance(saveAndDisplayMessages(_,_:()=>Unit,_:List[FieldError]=>Unit, "itemMessages") , item))
 
@@ -249,9 +256,12 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     
 //    println("chaining asHtml from BaseEntitySnippet")
     
-     "#title *"  #> item.title.asHtml &
-     "#teaser *"  #> item.teaser.asHtml &
-     "#description *"  #> TextileParser.toHtml(item.description.get) &
+     val locale = S.locale
+     //"#translations" #> item.translations.map(_.title.asHtml) &
+     //"#language" #> locale.toString() & //LocaleDataMetaInfo.getSupportedLocaleString(locale)
+     "#title *"  #> item.title(locale).asHtml &
+     "#teaser *"  #> item.teaser(locale).asHtml &
+     "#description *"  #> TextileParser.toHtml(item.description(locale).get) &
      "#created *+"  #> item.createdAt.asHtml  &
      "#updated *+"  #> item.updatedAt.asHtml  &
      "#edititem [href]" #> urlToEditItem(item) &

@@ -65,7 +65,7 @@ with Cascade[TheCategories]
 
 	  //def getItemsToSchemify = List(TheComment, T)
       
-      class TheCategories extends LongKeyedMapper[TheCategories] with IdPK {
+      class TheCategories extends BaseEntity[TheCategories] with LongKeyedMapper[TheCategories] with IdPK {
     	  def getSingleton = TheCategories
 	    	  
 	      object categorizedItem extends MappedLongForeignKey(this,self.getSingleton)
@@ -73,7 +73,7 @@ with Cascade[TheCategories]
 		  
 	}
 	
-	object TheCategories  extends TheCategories with LongKeyedMetaMapper[TheCategories]{
+	object TheCategories  extends TheCategories with BaseMetaEntity[TheCategories] with LongKeyedMetaMapper[TheCategories]{
 	  	  override def dbTableName =  self.getSingleton.dbTableName+"_category"
 	  	  
 	  	  // Bugfix for the compilation issue
