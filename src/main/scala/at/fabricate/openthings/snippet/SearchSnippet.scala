@@ -38,6 +38,9 @@ import net.liftweb.mapper.In
 import net.liftweb.mapper.ByList
 import at.fabricate.liftdev.common.model.DifficultyEnum
 import at.fabricate.liftdev.common.model.StateEnum
+import net.liftweb.mapper.By
+import net.liftweb.mapper.IHaveValidatedThisSQL
+import net.liftweb.mapper.BySql
 
 object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] {
 
@@ -254,13 +257,42 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
 //      (S.locale)
         //Like(itemToQuery.title,addLikeCharFrontAndBack(title.get)) ::
     	//Like(itemToQuery.description(S.locale),addLikeCharFrontAndBack(description.get)) ::
-    	
+//      itemToQuery.translations.find(
+//    	    By(itemToQuery.TheTranslation.language,S.locale.toString)
 //    	By_<(itemToQuery.difficulty.asInstanceOf[MappedField[_,T]],difficulty.get) ::
     	ByList(itemToQuery.state,state.get) ::
     	ByList(itemToQuery.difficulty,difficulty.get) ::
     	ByList(itemToQuery.licence,licence.get) ::
+    	//Like[T](itemToQuery.TheTranslation.title,addLikeCharFrontAndBack(title.get)) ::
+//    	BySql[T]("? = ?.? AND ?.? LIKE ?",
+//    	    IHaveValidatedThisSQL("Johannes Fischer","22-01-2015"),
+//    	    itemToQuery.id.dbColumnName,
+//    	    itemToQuery.TheTranslation.dbTableName,
+//    	    itemToQuery.TheTranslation.translatedItem.dbColumnName,
+//    	    itemToQuery.TheTranslation.dbTableName,
+//    	    itemToQuery.TheTranslation.title.dbColumnName,
+//    	    addLikeCharFrontAndBack(title.get)
+//    	    ) ::
+//    	BySql[T]("? = ?.? AND ?.? LIKE ?",
+//    	    IHaveValidatedThisSQL("Johannes Fischer","22-01-2015"),
+//    	    itemToQuery.id.dbColumnName,
+//    	    itemToQuery.TheTranslation.dbTableName,
+//    	    itemToQuery.TheTranslation.translatedItem.dbColumnName,
+//    	    itemToQuery.TheTranslation.dbTableName,
+//    	    itemToQuery.TheTranslation.description.dbColumnName,
+//    	    addLikeCharFrontAndBack(description.get)
+//    	    ) ::    	
     	otherQueryParams
     	
+    // quickfix to search in the translation table as well
+    val translationQuery = 
+      Like(itemToQuery.TheTranslation.title,addLikeCharFrontAndBack(title.get)) ::
+      Like(itemToQuery.TheTranslation.description,addLikeCharFrontAndBack(description.get)) ::
+      Nil
+      
+    itemToQuery.TheTranslation.findAll(
+        translationQuery :_*
+    	).map(_.translatedItem.obj).filter({case Full(foundItem) => true ; case _ => false}).map(_.open_!) :::      
     itemToQuery.findAll(
         query :_*
         )

@@ -95,10 +95,12 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
        "#title *" #> "%s %s".format(item.firstName, item.lastName ) &    
        "#personalwebsite [href]" #> item.personalWebsite.get &
        "#listtools" #> listTools _ &
-       "#projectbydesigner" #> item.createdProjects.map(project =>
-         "#projectbydesignertitle *" #> project.title(S.locale).asHtml &
-         "#projectbydesignerdescription *" #> project.description(S.locale).asHtml &
-         "#projectbydesignerlink [href]" #> ProjectSnippet.urlToViewItem(project) 
+       "#projectbydesigner" #> item.createdProjects.map(project => {
+         val translation = project.getTranslationForLocales(List(S.locale), project.translations.head)
+         "#projectbydesignertitle *" #> translation.title.asHtml &
+         "#projectbydesignerdescription *" #> translation.description.asHtml &
+         "#projectbydesignerlink [href]" #> ProjectSnippet.urlToViewItem(project,translation.language.isAsLocale) 
+       }
          ) &
        "#licence *"  #> "" &
        "#initiator *"  #> "" &

@@ -16,6 +16,7 @@ import java.util.Locale
 import net.liftweb.common.Full
 import net.liftweb.common.Box
 import net.liftweb.common.Full
+import net.liftweb.common.Empty
 
 // This is the basic database entity 
 // every db object should inherit from that
@@ -26,33 +27,52 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
 {
   self: T =>
     
-    def defaultLocales : List[String] = List(defaultTranslation.get)
+//    def defaultLocales : List[Locale] = List(defaultTranslation)
     
-    val titleLength = 30
+    val titleLength = 60
     val teaserLength = 150
     val descriptionLength = 2000
+    val prettyURLLength = 30
     
 //	object title extends MappedString(this, titleLength)
 //	object teaser extends MappedTextarea(this, teaserLength)
 //	object description extends MappedTextarea(this, descriptionLength)
     
-    def getTranslationByLocale(locale: Locale) : Box[TheTranslation] = translations.find(_.localeField == locale) 
+    def getTranslationForLocale(locale: Locale) : Box[TheTranslation] = translations.find(_.localeField == locale) 
     
-    def getTranslationOrDefault(locale: Locale) : TheTranslation = getTranslationByLocale(locale)
+    def getTranslationForLocales(locales : List[Locale], default : TheTranslation) : TheTranslation = //getTranslationForLocale()
+    	locales match {
+      case Nil => default
+      case locale :: Nil if getTranslationForLocale(locale) != Empty => getTranslationForLocale(locale).open_!
+      case locale :: Nil => default
+      case locale :: otherLocales if getTranslationForLocale(locale) != Empty => getTranslationForLocale(locale).open_!
+      case locale :: otherLocales => getTranslationForLocales(otherLocales,default)
+    }
+    
+//    match {
+//      case Full(translation) => Full(translation)
+//      case _ => getTranslationForLocale( // improve that: 1. userDefault (set in defaultLocalse as first item), then itemDefault, then first in translation list
+//      case _ => TheTranslation.create.translatedItem(self).language(defaultTranslation.get).saveMe
+//    }
+//    
+    
+//  // only tags is using them atm, TODO: remove as quick as you can
+    def getTranslationOrDefaultOrCreate(locale: Locale) : TheTranslation = getTranslationForLocale(locale)
     match {
       case Full(translation) => translation
       case _ if (translations.length > 0) => translations.head // improve that: 1. userDefault (set in defaultLocalse as first item), then itemDefault, then first in translation list
       case _ => TheTranslation.create.translatedItem(self).language(defaultTranslation.get).saveMe
     }
-    
-    def title(locale:Locale) = getTranslationOrDefault(locale).title
-    def teaser(locale:Locale) = getTranslationOrDefault(locale).teaser
-    def description(locale:Locale) = getTranslationOrDefault(locale).description
+    def title(locale:Locale) = getTranslationOrDefaultOrCreate(locale).title
+    def teaser(locale:Locale) = getTranslationOrDefaultOrCreate(locale).teaser
+    def description(locale:Locale) = getTranslationOrDefaultOrCreate(locale).description
     
     object defaultTranslation extends MappedLocale(this) {
       //override def dbNotNull_? = true
       //override def defaultValue = "en"
     }
+    
+    // TODO: remove all above this line as soon as possible!
     
     
     
@@ -72,7 +92,7 @@ with Cascade[TheTranslation]
 
 	  //def getItemsToSchemify = List(TheComment, T)
       
-      class TheTranslation extends BaseEntity[TheTranslation] with LongKeyedMapper[TheTranslation] with IdPK {
+      class TheTranslation extends BaseEntity[TheTranslation] with LongKeyedMapper[TheTranslation] with IdPK with EnsureUniqueTextFields[TheTranslation]  {
     	  def getSingleton = TheTranslation
 	    	  
 	      object translatedItem extends MappedLongForeignKey(this,self.getSingleton)
@@ -83,6 +103,14 @@ with Cascade[TheTranslation]
     	  object teaser extends MappedTextarea(this, teaserLength)
     	  object description extends MappedTextarea(this, descriptionLength)
     	  
+    	  //TODO: implement that one fully!
+    	  //object prettyURL extends MappedString(this, prettyURLLength)
+    	  
+    	  
+    	   override type TheUniqueTextType = TheTranslation
+
+    	   override def theUniqueFields = List(language) //, prettyURL)
+    	  
 //	  	  object title extends MappedString(this, 80){    	    
 //    	    override def validations = FieldValidation.minLength(this,5) _ :: Nil
 //    	  }
@@ -91,7 +119,7 @@ with Cascade[TheTranslation]
 //    	    override def defaultValue = getCurrentUser.map(user => "%s %s".format(user.firstName, user.lastName )) openOr("")
 //    	  }
 //		  object comment extends MappedString(this, 140){		    
-//    	    override def validations = FieldValidation.minLength(this,10) _ :: Nil
+//    	    override def validations = FieldValidation.minLength(this,10)) _ :: Nil
 //		  }
 		  
 	}

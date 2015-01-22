@@ -76,11 +76,17 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
   abstract override def asHtml(item : ItemType) : CssSel = {
 		 
 //		println("chaining asHtml from AddCommentSnippet")
-     ("#aTag *" #> item.tags.map(itm => {
-//       itm.theTag.asInstanceOf[item.TheTagType].title.asHtml) //theTagObject
-       val lookupTag = item.theTagObject.findByKey(itm.theTag.get) 
-       lookupTag.map(_.title(S.locale).asHtml)openOr(Text("tag does not exist")) //dmap (Text("tag does not exist"))( (_:item.TheTagType ).title.asHtml)//foundTag : item.TheTagType => foundTag
-     } )
+     ("#aTag *" #> item.tags.map(tagmapping => {
+       val singleTag = tagmapping.theTag.obj.open_!
+       val translation = singleTag.getTranslationForLocales(List(S.locale),singleTag.translations.head)
+       <span>{translation.title.get +"(%s)".format(translation.language.isAsLocale.getDisplayLanguage)}</span> 
+     })
+//         itm => {
+////       itm.theTag.asInstanceOf[item.TheTagType].title.asHtml) //theTagObject
+//       
+//       val lookupTag = item.theTagObject.findByKey(itm.theTag.get) 
+//       lookupTag.map(_.title(S.locale).asHtml)openOr(Text("tag does not exist")) //dmap (Text("tag does not exist"))( (_:item.TheTagType ).title.asHtml)//foundTag : item.TheTagType => foundTag
+//     } )
          ) &
          // add the onsite editing stuff
          this.localToForm(item) &

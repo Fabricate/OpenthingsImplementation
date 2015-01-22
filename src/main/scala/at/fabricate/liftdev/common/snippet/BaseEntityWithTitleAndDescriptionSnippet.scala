@@ -36,6 +36,7 @@ import lib.MatchString
 import model.BaseEntityWithTitleAndDescription
 import net.liftmodules.textile.TextileParser
 import sun.util.locale.provider.LocaleDataMetaInfo
+import java.util.Locale
 
 
 abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
@@ -178,10 +179,14 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     	 },
     	 errors => errorAction(errors))
 
-    def urlToViewItem(item: KeyedMapper[_,_]): String =  "/%s/%s/%s/%s".format(S.locale, itemBaseUrl, itemViewUrl, item.primaryKeyField.toString)
+    def urlToViewItem(item: KeyedMapper[_,_], locale : Locale): String =  "/%s/%s/%s/%s".format(locale.toString, itemBaseUrl, itemViewUrl, item.primaryKeyField.toString)
    
-    def urlToEditItem(item: KeyedMapper[_,_]): String =  "/%s/%s/%s/%s".format(S.locale, itemBaseUrl, itemEditUrl, item.primaryKeyField.toString)
+    def urlToEditItem(item: KeyedMapper[_,_], locale : Locale): String =  "/%s/%s/%s/%s".format(locale.toString, itemBaseUrl, itemEditUrl, item.primaryKeyField.toString)
 
+    def urlToViewItem(item: KeyedMapper[_,_]): String =  urlToViewItem(item,S.locale)
+   
+    def urlToEditItem(item: KeyedMapper[_,_]): String =  urlToEditItem(item,S.locale)
+    
    // ### methods that might be overridden in subclasses ###
     	     	 
    // Problem with User: User Item with negative ID matches to the actual user (or is that just because the field was null?)
@@ -194,7 +199,12 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
    ("#item" #> page.map(item => asHtml(item) ) 
        ).apply(in)
 
-  def create(xhtml: NodeSeq) : NodeSeq  = toForm(TheItem.create)(xhtml)
+  def create(xhtml: NodeSeq) : NodeSeq  = toForm({
+    val newItem = TheItem.create
+    newItem.translations += newItem.TheTranslation.create.translatedItem(newItem)
+    newItem
+    })(xhtml)
+  
   
 	
   def edit(xhtml: NodeSeq) : NodeSeq  =  { 
@@ -238,10 +248,16 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 //      println("chaining toForm from BaseEntitySnippet")
     
     //item.translations.head.language.get
-     val locale = S.locale
-     "#title"  #> item.title(locale).toForm &
-     "#teaser"  #> item.teaser(locale).toForm &
-     "#description"  #> item.description(locale).toForm &
+    
+    //this is the locale the user wanted to have/get/see
+     val locale = S.locale 
+     // default behaviour, as only one locale exisits atm!
+     val translation : item.TheTranslation = item.getTranslationForLocales(List(S.locale), item.translations.head)
+     
+     "#title"  #> translation.title.toForm &
+     "#teaser"  #> translation.teaser.toForm &
+     "#description"  #> translation.description.toForm &
+     "#language"  #> translation.language.toForm &
      "#formitem [action]" #> urlToEditItem(item) &
      "#itemsubmithidden" #> SHtml.hidden(() => saveAndRedirectToNewInstance(saveAndDisplayMessages(_,_:()=>Unit,_:List[FieldError]=>Unit, "itemMessages") , item))
 
@@ -257,11 +273,14 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 //    println("chaining asHtml from BaseEntitySnippet")
     
      val locale = S.locale
+     
+     val translation : item.TheTranslation = item.getTranslationForLocales(List(S.locale), item.translations.head)
+
      //"#translations" #> item.translations.map(_.title.asHtml) &
      //"#language" #> locale.toString() & //LocaleDataMetaInfo.getSupportedLocaleString(locale)
-     "#title *"  #> item.title(locale).asHtml &
-     "#teaser *"  #> item.teaser(locale).asHtml &
-     "#description *"  #> TextileParser.toHtml(item.description(locale).get) &
+     "#title *"  #> translation.title.asHtml &
+     "#teaser *"  #> translation.teaser.asHtml &
+     "#description *"  #> TextileParser.toHtml(translation.description.get) &
      "#created *+"  #> item.createdAt.asHtml  &
      "#updated *+"  #> item.updatedAt.asHtml  &
      "#edititem [href]" #> urlToEditItem(item) &
