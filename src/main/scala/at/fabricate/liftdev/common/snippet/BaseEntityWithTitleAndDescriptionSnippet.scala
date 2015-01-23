@@ -179,9 +179,9 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     	 },
     	 errors => errorAction(errors))
 
-    def urlToViewItem(item: KeyedMapper[_,_], locale : Locale): String =  "/%s/%s/%s/%s".format(locale.toString, itemBaseUrl, itemViewUrl, item.primaryKeyField.toString)
+    def urlToViewItem(item: KeyedMapper[_,_], locale : Locale): String =  "/%s/%s/%s/%s".format(locale.getLanguage, itemBaseUrl, itemViewUrl, item.primaryKeyField.toString)
    
-    def urlToEditItem(item: KeyedMapper[_,_], locale : Locale): String =  "/%s/%s/%s/%s".format(locale.toString, itemBaseUrl, itemEditUrl, item.primaryKeyField.toString)
+    def urlToEditItem(item: KeyedMapper[_,_], locale : Locale): String =  "/%s/%s/%s/%s".format(locale.getLanguage, itemBaseUrl, itemEditUrl, item.primaryKeyField.toString)
 
     def urlToViewItem(item: KeyedMapper[_,_]): String =  urlToViewItem(item,S.locale)
    
@@ -252,7 +252,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     //this is the locale the user wanted to have/get/see
      val locale = S.locale 
      // default behaviour, as only one locale exisits atm!
-     val translation : item.TheTranslation = item.getTranslationForLocales(List(S.locale), item.translations.head)
+     val translation : item.TheTranslation = getTranslationForItem(item)
      
      "#title"  #> translation.title.toForm &
      "#teaser"  #> translation.teaser.toForm &
@@ -268,16 +268,43 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 //     "#viewitem *" #> "View Item"
   }
   
+  def getTranslationForItem(item : ItemType) = item.getTranslationForLocales(List(S.locale), item.translations.head)
+  
+  def getShortInfoForItem(item : ItemType)(translation : item.TheTranslation = getTranslationForItem(item)) = {
+     //val translation : item.TheTranslation = getTranslationForItem(item)
+     if (translation.language.isAsLocale == S.locale)
+       Text(translation.title)
+     else
+       Text(translation.title.get +" (%s)".format(translation.language.isAsLocale.getDisplayLanguage))
+  }
+    
+//out.println( GERMANY.getCountry() );         // DE
+//out.println( GERMANY.getLanguage() );        // de
+//out.println( GERMANY.getVariant() );         //
+//out.println( GERMANY.getDisplayCountry() );  // Deutschland
+//out.println( GERMANY.getDisplayLanguage() ); // Deutsch
+//out.println( GERMANY.getDisplayName()  );    // Deutsch (Deutschland)
+//out.println( GERMANY.getDisplayVariant() );  //
+//out.println( GERMANY.getISO3Country() );     // DEU
+//out.println( GERMANY.getISO3Language() );    // deu
+  
+  
+  // TODO: write that code!
+    def getShortInfoAndLinkToItem(item : ItemType)(translation : item.TheTranslation = getTranslationForItem(item)) = 
+    		<a href={urlToViewItem(item,translation.language.isAsLocale)} >{getShortInfoForItem(item)(translation)}</a>
+
+  
   def asHtml(item : ItemType) : CssSel = {
     
 //    println("chaining asHtml from BaseEntitySnippet")
     
      val locale = S.locale
      
-     val translation : item.TheTranslation = item.getTranslationForLocales(List(S.locale), item.translations.head)
+     val translation : item.TheTranslation = getTranslationForItem(item)
 
-     //"#translations" #> item.translations.map(_.title.asHtml) &
-     //"#language" #> locale.toString() & //LocaleDataMetaInfo.getSupportedLocaleString(locale)
+     "#translations *" #> item.translations.map(itemTranslation => getShortInfoAndLinkToItem(item)(itemTranslation)) &
+     "#language *" #> translation.language.isAsLocale.getDisplayLanguage & //LocaleDataMetaInfo.getSupportedLocaleString(locale)
+     "#shortinfo" #> getShortInfoForItem(item)(translation)  &
      "#title *"  #> translation.title.asHtml &
      "#teaser *"  #> translation.teaser.asHtml &
      "#description *"  #> TextileParser.toHtml(translation.description.get) &

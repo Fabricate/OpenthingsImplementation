@@ -97,7 +97,7 @@ with Cascade[TheTranslation]
 	    	  
 	      object translatedItem extends MappedLongForeignKey(this,self.getSingleton)
     	  
-    	  object language extends MappedLocale(this)
+    	  object language extends MappedLocale(this)//Language(this)
     	  
     	  object title extends MappedString(this, titleLength)
     	  object teaser extends MappedTextarea(this, teaserLength)

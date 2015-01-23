@@ -15,7 +15,7 @@ object UrlLocalizer {
    * What are the available locales?
    */
   val locales: Map[String, Locale] =
-    Map(Locale.getAvailableLocales.map(l => l.toString -> l) :_*)
+    Map(Locale.getAvailableLocales.map(l => l.getLanguage -> l) :_*)
 
   object currentLocale extends RequestVar(Locale.getDefault)
 
