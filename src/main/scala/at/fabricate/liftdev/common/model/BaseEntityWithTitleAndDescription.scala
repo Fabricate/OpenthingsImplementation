@@ -17,6 +17,9 @@ import net.liftweb.common.Full
 import net.liftweb.common.Box
 import net.liftweb.common.Full
 import net.liftweb.common.Empty
+import net.liftweb.mapper.OrderBy
+import net.liftweb.mapper.LongMappedMapper
+import net.liftweb.mapper.By
 
 // This is the basic database entity 
 // every db object should inherit from that
@@ -38,6 +41,7 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
 //	object teaser extends MappedTextarea(this, teaserLength)
 //	object description extends MappedTextarea(this, descriptionLength)
     
+    // USE WITH CAUTION !!!
     def getTranslationForLocale(locale: Locale) : Box[TheTranslation] = translations.find(_.localeField == locale) 
     
     def getTranslationForLocales(locales : List[Locale], default : TheTranslation) : TheTranslation = //getTranslationForLocale()
@@ -60,17 +64,28 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
     def getTranslationOrDefaultOrCreate(locale: Locale) : TheTranslation = getTranslationForLocale(locale)
     match {
       case Full(translation) => translation
-      case _ if (translations.length > 0) => translations.head // improve that: 1. userDefault (set in defaultLocalse as first item), then itemDefault, then first in translation list
-      case _ => TheTranslation.create.translatedItem(self).language(defaultTranslation.get).saveMe
+      case _ => defaultTranslation.getObjectOrHead
+//      case _ if (translations.length > 0) => translations.head // improve that: 1. userDefault (set in defaultLocalse as first item), then itemDefault, then first in translation list
+//      case _ => TheTranslation.create.translatedItem(self).language(defaultTranslation.get).saveMe
     }
     def title(locale:Locale) = getTranslationOrDefaultOrCreate(locale).title
     def teaser(locale:Locale) = getTranslationOrDefaultOrCreate(locale).teaser
     def description(locale:Locale) = getTranslationOrDefaultOrCreate(locale).description
     
-    object defaultTranslation extends MappedLocale(this) {
-      //override def dbNotNull_? = true
-      //override def defaultValue = "en"
-    }
+    object defaultTranslation extends LongMappedMapper(this, TheTranslation){
+    	override def validSelectValues =
+    			Full(TheTranslation.findMap(
+    					By(TheTranslation.translatedItem,self.primaryKeyField),
+    					OrderBy(TheTranslation.id, Ascending)){
+    					case t: TheTranslation => Full(t.id.get -> "%s (%s)".format(t.title,t.language.isAsLocale.getDisplayLanguage))
+    			})
+    	override def dbNotNull_? = true
+    	def getObjectOrHead : self.TheTranslation = obj.getOrElse(self.translations.head)
+    } 
+//    {
+//      //override def dbNotNull_? = true
+//      //override def defaultValue = "en"
+//    }
     
     // TODO: remove all above this line as soon as possible!
     
