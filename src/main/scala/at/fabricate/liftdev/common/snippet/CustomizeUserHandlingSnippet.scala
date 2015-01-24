@@ -42,7 +42,6 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
     case "login" => login _
     case "logout" => logout _
     case "edit" => edit _
-    case "account" => account _
     case "signup" => signup _
     case "changePassword" => changePassword _
     case "lostPassword" => lostPassword _
@@ -245,21 +244,6 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
       		}
             	else
             	  notLoggedInMessage
-  }
-    def account(xhtml: NodeSeq): NodeSeq = {
-      		// does that make sense?
-      		if (userObject.loggedIn_? )
-            	("#login" #> "" &
-            	 "#login *" #> "Logout" //&
-//            	 "#logoutBtn [href]" #> "/%s".format(userObject.logoutPath.mkString("/")) &
-//            	 "#account" #> <span class="icon-"></span> Account  
-            )(xhtml)
-            	else
-            	("#login *" #> "Login" &
-            	 "#logout" #> "" &
-//            	 "#logoutBtn [href]" #> "/%s".format(userObject.logoutPath.mkString("/")) &
-            	"#account" #> ""
-            )(xhtml)
   }
   
 }
