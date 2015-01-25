@@ -209,8 +209,8 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
        ).apply(in)
 
   def create(xhtml: NodeSeq) : NodeSeq  = toForm({
-    val newItem = TheItem.create
-    newItem.translations += newItem.TheTranslationMeta.create.translatedItem(newItem)
+    val newItem = TheItem.createNewEntity(contentLanguage.get)
+    //newItem.translations += newItem.TheTranslationMeta.create.translatedItem(newItem)
     newItem
     })(xhtml)
   

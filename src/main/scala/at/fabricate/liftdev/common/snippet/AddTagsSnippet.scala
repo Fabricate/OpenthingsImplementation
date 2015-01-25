@@ -168,20 +168,9 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
 	        }
           } 
         
-        def addTag(localItem:ItemType)(name:String) : JsCmd = {
-          println("addTag with name "+name)
-          val tagMapper = localItem.getTagMapper 
-          // create a new tag object
-          val newTag = localItem.theTagObject.createNewEntity(contentLanguage.get)
-//          // create a new translation with the actual content language and the name supplied
-//          val translation = newTag.TheTranslationMeta.create.language(contentLanguage.get.toString)
-//          // append the new translation to the translations
-//          newTag.translations += translation
-//          // make this translation the default
-//          newTag.defaultTranslation(translation)
-          // create a link between the item and the new tag
-          newTag.defaultTranslation.obj.map(_.title(name).saveMe)
-          tagMapper.create.taggedItem(localItem).theTag(newTag.saveMe).saveMe          
+        def addTag(localItem:ItemType)(tagName:String) : JsCmd = {
+          println("addTag with name "+tagName)
+          val newTag = localItem.addNewTagToItem(contentLanguage.get, tagName)     
           JsCmds.Noop
         }
         

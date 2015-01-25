@@ -180,10 +180,11 @@ trait BaseMetaEntityWithTitleAndDescription[ModelType <: ( BaseEntityWithTitleAn
 {
     self: ModelType  =>
       	  	  abstract override def getItemsToSchemify : List[BaseMetaMapper] =  getTranslationMapper :: super.getItemsToSchemify
-	def createNewEntity(language : Locale) : ModelType = {
+	def createNewEntity(language : Locale,title : String = null, teaser : String = null, description: String = null) : ModelType = {
 	      val newItem = this.create
           // create a new translation with the submitted language
           val translation = newItem.TheTranslationMeta.create.language(language.toString).saveMe
+          translation.title(title).teaser(teaser).description(description).save
           // append the new translation to the translations
           newItem.translations += translation
           // make this translation the default

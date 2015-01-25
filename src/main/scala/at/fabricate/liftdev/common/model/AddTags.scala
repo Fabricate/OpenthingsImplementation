@@ -24,6 +24,7 @@ import net.liftweb.mapper.MappedInt
 import net.liftweb.mapper.MegaProtoUser
 import net.liftweb.mapper.MetaMegaProtoUser
 import net.liftweb.common.Empty
+import java.util.Locale
 
 trait AddTags[T <: (AddTags[T])] extends BaseEntity[T]  with OneToMany[Long, T] { // 
 	self: T =>
@@ -105,7 +106,23 @@ with Cascade[TheTags]
 	              tagBox => tagBox.open_!).
 	              // convert to a list again
 	              toList
-       
+	              
+	  def addNewTagToItem(language: Locale, tagName:String, tagTeaser : String=null, tagDescription:String = null) : TheTagType = {
+	    val newTag = theTagObject.createNewEntity(language, title=tagName, teaser=tagTeaser,description=tagDescription)
+          
+          // create a link between the item and the new tag
+          TheTags.create.taggedItem(this).theTag(newTag).saveMe  	    
+	    newTag
+	  }
+//                 val newTag = localItem.theTagObject
+////          // create a new translation with the actual content language and the name supplied
+////          val translation = newTag.TheTranslationMeta.create.language(contentLanguage.get.toString)
+////          // append the new translation to the translations
+////          newTag.translations += translation
+////          // make this translation the default
+////          newTag.defaultTranslation(translation)
+//          //newTag.defaultTranslation.obj.map(_.title(name).saveMe)
+
 }
 
 trait AddTagsMeta[ModelType <: (AddTags[ModelType]) ] extends BaseMetaEntity[ModelType] {
