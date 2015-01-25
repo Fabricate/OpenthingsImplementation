@@ -41,6 +41,10 @@ import at.fabricate.liftdev.common.model.StateEnum
 import net.liftweb.mapper.By
 import net.liftweb.mapper.IHaveValidatedThisSQL
 import net.liftweb.mapper.BySql
+import net.liftweb.mapper.InRaw
+import java.util.Locale
+import net.liftweb.common.Box
+import scala.util.Sorting
 
 object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] {
 
@@ -73,7 +77,7 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
     }) openOr(DifficultyEnum.upToGeniusList)) 
     
     def generateDiffSelect = 
-      <select id="difficulty" required="" name={difficultyParam}>
+      <select id="difficulty" name={difficultyParam}>
     	<option value={kidsDiffString} selected={if(difficulty.get == DifficultyEnum.upToKidsList)"selected" else null}>only {DifficultyEnum.kids.description}</option>
     	<option value={starterDiffString} selected={if(difficulty.get == DifficultyEnum.upToStarterList)"selected" else null}>up to {DifficultyEnum.starter.description}</option>
     	<option value={averageDiffString} selected={if(difficulty.get == DifficultyEnum.upToAverageList)"selected" else null}>up to {DifficultyEnum.average.description}</option>
@@ -102,7 +106,7 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
     }) openOr(StateEnum.downToConcept))   
     
     def generateStateSelect = 
-      <select id="state" required="" name={stateParam}>
+      <select id="state" name={stateParam}>
     	<option value={matureStateString} selected={if(state.get == StateEnum.downToMatureList)"selected" else null}>only {StateEnum.mature.description}</option>
     	<option value={advancedStateString} selected={if(state.get == StateEnum.downToAdvanced)"selected" else null}>down to {StateEnum.advanced.description}</option>
     	<option value={evolvedStateString} selected={if(state.get == StateEnum.downToEvolved)"selected" else null}>down to {StateEnum.evolved.description}</option>
@@ -132,7 +136,7 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
 //    	selected="selected" 
     	
     def generateLicenceSelect =
-	  <select id="licence" required="" name={licenceParam}>
+	  <select id="licence" name={licenceParam}>
 			<option value={allLicenceString } selected={if(licence.get == LicenceEnum.allLicences )"selected" else null}>all licences</option>
 			<option value={commercialLicencesString} selected={if(licence.get == LicenceEnum.commercialLicences  )"selected" else null}>commercial licences</option>
 			<option value={derivableLicencesString} selected={if(licence.get == LicenceEnum.derivableLicences  )"selected" else null}>derivable licences</option>
@@ -140,12 +144,45 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
 			
 	object licenceSelect extends RequestVar ( generateLicenceSelect )
 	
+	def searchableLanguages : List[(String,Locale)] = Sorting.stableSort(
+	  			Locale.getISOLanguages.toList.map(l => l -> new Locale(l)),
+	  			(e1: Tuple2[String, Locale], e2: Tuple2[String, Locale]) => e1._2.getDisplayLanguage < e2._2.getDisplayLanguage ).toList
+	  //Locale.getISOLanguages().toList
+	  			
+	def findInSearchableLanguages(selectedLanguage : String) : Option[Tuple2[String,Locale]] = searchableLanguages.find({ case ((language:String,locale:Locale)) => language == selectedLanguage})
+	  
+	  
+	val allLanguageString = "*" // else "%"
+	val languageParam = "language"
+
+	object languageToSearchFor extends RequestVar[String](S.param(languageParam) match {
+	  case Full(selectedLanguage) => {
+	    findInSearchableLanguages(selectedLanguage).map(_._1).getOrElse(allLanguageString)
+	  }
+	  case _ => allLanguageString
+	} 
+    ) 
+	
+	//(value => searchableLanguages.find(_ == value)
+    //openOr(" ")) 
+    
+	val generateLanguageSelect = 
+	  <select id="language" name={languageParam}>
+			<option value={allLanguageString}>all languages</option>
+			{
+			  searchableLanguages.map(locale => <option value={locale._1 } selected={if(languageToSearchFor.get == locale._1  )"selected" else null}>{ locale._2.getDisplayLanguage() }</option>)
+			}
+	  </select>
+			
+	object languageSelect extends RequestVar ( generateLanguageSelect )
+	
 	override def pageUrl(offset: Long): String = appendParams(super.pageUrl(offset), List(
 	    titleParam ->(S.param(titleParam) openOr(""  )),
 	    descriptionParam ->(S.param(descriptionParam) openOr(""  )),
 	    difficultyParam->(S.param(difficultyParam) openOr(geniusDiffString  )),	 
 	    stateParam->(S.param(stateParam) openOr(conceptStateString )),   
-	    licenceParam->(S.param(licenceParam) openOr(allLicenceString ))
+	    licenceParam->(S.param(licenceParam) openOr(allLicenceString )),   
+	    languageParam->(S.param(languageParam) openOr(allLanguageString ))
 	    ))
 
    
@@ -198,13 +235,25 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
      // ### methods that will be stacked ###
    override def localDispatch : DispatchIt = dispatchForm orElse super.localDispatch
   
-  override def urlToViewItem(item: KeyedMapper[_,_]) : String = item match {
-    case project:Project => ProjectSnippet.urlToViewItem(project)
+  override def urlToViewItem(item: KeyedMapper[_,_], locale : Locale ) : String = item match {
+    //case project : Project if (language.get != " ") => ProjectSnippet.urlToViewItem(project, new Locale(language.get))
+    case project : Project => {
+    		findInSearchableLanguages(languageToSearchFor.get) match {
+		      case Some((lang:String,locale:Locale)) => ProjectSnippet.urlToViewItem(project, locale)
+		      case _ => ProjectSnippet.urlToViewItem(project,locale)
+		    }  		
+    }
     case _ => "#"
   }
   
-  override def urlToEditItem(item: KeyedMapper[_,_]) : String = item match {
-    case project:Project => ProjectSnippet.urlToEditItem(project)
+  override def urlToEditItem(item: KeyedMapper[_,_], locale : Locale) : String = item match {
+    //case project : Project if language.get != " " => ProjectSnippet.urlToEditItem(project, new Locale(language.get))
+    case project : Project => { 
+    		findInSearchableLanguages(languageToSearchFor.get) match {
+		      case Some((lang:String,locale:Locale)) => ProjectSnippet.urlToEditItem(project, locale)
+		      case None => ProjectSnippet.urlToEditItem(project,locale)
+		    }
+    }
     case _ => "#"
   }
   
@@ -232,13 +281,21 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
         // do something like commercializable projects only, or derivable projects
         // for now just remove
 //        "#licence" #> "" & 
+        "* [required]" #> (None: Option[String]) &
+        "#licencelabel" #> (None: Option[String]) &
         "#licence" #> licenceSelect &
         "#save [value]" #> "search" & 
         "#formitem [method]" #> "get" &
+        "#formitem [action]" #> itemBaseUrl &
         // insert the search string into the title box
         "#title [name]"  #> titleParam &
         "#title [value]" #> title.get &
         "#description [name]"  #> descriptionParam &
+        "#description *" #> description.get &
+        "#language"  #> languageSelect &
+        "#languagelabel" #> (None: Option[String]) &
+        "#defaultlanguage" #> (None: Option[String]) &
+        "#defaultlanguagelabel" #> (None: Option[String]) &
         "#description *" #> description.get
         ).apply(xhtml)
   }
@@ -247,52 +304,31 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
 //  val description = S.param("description")  openOr ""
 //  val description = S.param("description")  openOr ""
 
-  def addLikeCharFrontAndBack(queryParam:String) : String = "%"+queryParam+"%"
+  def addLikeCharFrontAndBack(queryParam:String) : String = "%"+queryParam.replaceAll("\\*", "%")+"%"
+//  {
+//    val queryString = "%"+queryParam.replaceAll("\\*", "%")+"%"
+//    println( queryString )
+//    queryString
+//  }
   
   def getPaginationLimit[T <: BaseEntityWithTitleAndDescription[T]] : List[QueryParam[T]] = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
   
   def queryItems[T <: BaseEntityWithTitleDescriptionIconAndCommonFields[T]](itemToQuery: BaseMetaEntityWithTitleDescriptionIconAndCommonFields[T] with BaseEntityWithTitleDescriptionIconAndCommonFields[T], otherQueryParams : List[QueryParam[T]] = List() ) = { // , otherQueryParams = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
     val query = 
-    	// TODO: this has to be joined later on to get it working again!!!
-//      (S.locale)
-        //Like(itemToQuery.title,addLikeCharFrontAndBack(title.get)) ::
-    	//Like(itemToQuery.description(S.locale),addLikeCharFrontAndBack(description.get)) ::
-//      itemToQuery.translations.find(
-//    	    By(itemToQuery.TheTranslation.language,S.locale.toString)
-//    	By_<(itemToQuery.difficulty.asInstanceOf[MappedField[_,T]],difficulty.get) ::
+
+//        In(itemToQuery.primaryKeyField,itemToQuery.TheTranslation.translatedItem, (
+//            Like(itemToQuery.TheTranslation.title,addLikeCharFrontAndBack(title.get)),            
+//            Like(itemToQuery.TheTranslation.description,addLikeCharFrontAndBack(description.get)),            
+//            Like(itemToQuery.TheTranslation.language,addLikeCharFrontAndBack(language.get))
+//                )) ::
+        In(itemToQuery.primaryKeyField,itemToQuery.TheTranslation.translatedItem,Like(itemToQuery.TheTranslation.title,addLikeCharFrontAndBack(title.get))) ::
+        In(itemToQuery.primaryKeyField,itemToQuery.TheTranslation.translatedItem,Like(itemToQuery.TheTranslation.description,addLikeCharFrontAndBack(description.get))) ::
+        In(itemToQuery.primaryKeyField,itemToQuery.TheTranslation.translatedItem,Like(itemToQuery.TheTranslation.language,addLikeCharFrontAndBack(languageToSearchFor.get))) ::
     	ByList(itemToQuery.state,state.get) ::
     	ByList(itemToQuery.difficulty,difficulty.get) ::
     	ByList(itemToQuery.licence,licence.get) ::
-    	//Like[T](itemToQuery.TheTranslation.title,addLikeCharFrontAndBack(title.get)) ::
-//    	BySql[T]("? = ?.? AND ?.? LIKE ?",
-//    	    IHaveValidatedThisSQL("Johannes Fischer","22-01-2015"),
-//    	    itemToQuery.id.dbColumnName,
-//    	    itemToQuery.TheTranslation.dbTableName,
-//    	    itemToQuery.TheTranslation.translatedItem.dbColumnName,
-//    	    itemToQuery.TheTranslation.dbTableName,
-//    	    itemToQuery.TheTranslation.title.dbColumnName,
-//    	    addLikeCharFrontAndBack(title.get)
-//    	    ) ::
-//    	BySql[T]("? = ?.? AND ?.? LIKE ?",
-//    	    IHaveValidatedThisSQL("Johannes Fischer","22-01-2015"),
-//    	    itemToQuery.id.dbColumnName,
-//    	    itemToQuery.TheTranslation.dbTableName,
-//    	    itemToQuery.TheTranslation.translatedItem.dbColumnName,
-//    	    itemToQuery.TheTranslation.dbTableName,
-//    	    itemToQuery.TheTranslation.description.dbColumnName,
-//    	    addLikeCharFrontAndBack(description.get)
-//    	    ) ::    	
     	otherQueryParams
     	
-    // quickfix to search in the translation table as well
-    val translationQuery = 
-      Like(itemToQuery.TheTranslation.title,addLikeCharFrontAndBack(title.get)) ::
-      Like(itemToQuery.TheTranslation.description,addLikeCharFrontAndBack(description.get)) ::
-      Nil
-      
-    itemToQuery.TheTranslation.findAll(
-        translationQuery :_*
-    	).map(_.translatedItem.obj).filter({case Full(foundItem) => true ; case _ => false}).map(_.open_!) :::      
     itemToQuery.findAll(
         query :_*
         )

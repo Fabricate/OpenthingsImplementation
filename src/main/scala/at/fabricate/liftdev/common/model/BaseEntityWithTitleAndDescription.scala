@@ -103,6 +103,7 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
 	
 	  object translations extends MappedOneToMany(TheTranslation, TheTranslation.translatedItem) with Owned[TheTranslation]
 with Cascade[TheTranslation]
+	
 //	, OrderBy(TheTranslation.primaryKeyField, Ascending)
 
 	  //def getItemsToSchemify = List(TheComment, T)
