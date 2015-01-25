@@ -14,5 +14,5 @@ trait GeneralTag[T <: GeneralTag[T] ] extends BaseEntity[T] with BaseEntityWithT
 
 	 override type TheUniqueTextType = TheTranslation
 
-	override def theUniqueFields = List(TheTranslation.title)
+	override def theUniqueFields = List(TheTranslationMeta.title)
 }

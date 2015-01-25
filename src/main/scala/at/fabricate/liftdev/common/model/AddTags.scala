@@ -23,11 +23,16 @@ import net.liftweb.common.Box
 import net.liftweb.mapper.MappedInt
 import net.liftweb.mapper.MegaProtoUser
 import net.liftweb.mapper.MetaMegaProtoUser
+import net.liftweb.common.Empty
 
 trait AddTags[T <: (AddTags[T])] extends BaseEntity[T]  with OneToMany[Long, T] { // 
 	self: T =>
 	  	  
 	  type TheTagType <: GeneralTag[TheTagType]
+	  
+	  type TheTagTranslation = TheGenericTranslation
+//	  = TheTagType.TheTranslation
+	  //<: BaseEntityWithTitleAndDescription[TheTagType].TheTranslation
 	  
 	  def theTagObject : GeneralTagMeta[TheTagType] //with Tags[Z]
 	        
@@ -56,6 +61,7 @@ trait AddTags[T <: (AddTags[T])] extends BaseEntity[T]  with OneToMany[Long, T] 
 ////    override def asHtml = User.getLinkToUser(get)
 //    
 //  }
+
 	        
 	  object tags extends MappedOneToMany(TheTags, TheTags.taggedItem, OrderBy(TheTags.primaryKeyField, Ascending))  with Owned[TheTags]
 with Cascade[TheTags]
@@ -87,7 +93,19 @@ with Cascade[TheTags]
 	  	  override def getSingleton = this
 	}
 
-      
+      // some helpers for tags
+	  def getAllAvailableTags : List[TheTagType] = theTagObject.findAll
+	  
+	  def getAllTagsForThisItem : List[TheTagType] = this.tags.map(
+	      // load the connected theTag object
+	      _.theTag.obj).filter(
+	          // filter out all empty boxes
+	          _ != Empty).map(
+	              // open the boxes now that only full boxes are available (hopefully now failure)
+	              tagBox => tagBox.open_!).
+	              // convert to a list again
+	              toList
+       
 }
 
 trait AddTagsMeta[ModelType <: (AddTags[ModelType]) ] extends BaseMetaEntity[ModelType] {

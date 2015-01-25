@@ -23,8 +23,22 @@ import at.fabricate.liftdev.common.model.AddTagsMeta
 import at.fabricate.openthings.model.Project
 import net.liftweb.http.RequestVar
 import net.liftweb.http.S
+import at.fabricate.liftdev.common.model.GeneralTag
+import at.fabricate.liftdev.common.model.TheGenericTranslation
+import at.fabricate.liftdev.common.lib.UrlLocalizer
+import java.util.Locale
+import net.liftweb.mapper.By
+
 
 trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])] extends BaseEntityWithTitleAndDescriptionSnippet[T] {
+  
+  //type ItemType <: ItemType with AddTags[ItemType]
+  
+  //type ItemTypeWitTags = ItemType with GeneralTag[ItemType]
+  
+  val contentLanguage : RequestVar[Locale]
+  
+  
   
   object selectedTags extends RequestVar("")
 //  val tagItem = TheItem.asInstanceOf[AddTags[T]]
@@ -74,25 +88,58 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
 
   
   abstract override def asHtml(item : ItemType) : CssSel = {
+		 //type TagsForThisItem = item.TheTagType.TheTranslation
 		 
+	
 //		println("chaining asHtml from AddCommentSnippet")
-     ("#aTag *" #> item.tags.map(tagmapping => {
-       val singleTag = tagmapping.theTag.obj.open_!
-       val translation = singleTag.getTranslationForLocales(List(S.locale),singleTag.translations.head)
-       <span>{translation.title.get +"(%s)".format(translation.language.isAsLocale.getDisplayLanguage)}</span> 
-     })
+     ("#singletag *" #> item.getAllTagsForThisItem.map(
+       _.doDefaultWithTranslationFor(UrlLocalizer.contentLocale)
+    		 )
+     	) &
+         // add the onsite editing stuff
+         this.localToForm(item) &
+     // chain the css selectors 
+     (super.asHtml(item))
+  }
+  
+//           
+//             //val tagTranslation : item.TheTagTranslation = 
+//               getTranslationForItem(singleTag) match {
+//                 case Full(tagTranslation) =>
+//                   
+//                   //, tagTranslation.language.isAsLocale.getDisplayLanguage
+//                   // Translation not found
+//                 case Empty => item.defaultTranslation.obj.map(translation => <span>{"%s (%s)".format(translation.title.get, translation.language.isAsLocale.getDisplayLanguage)}</span>).openOr()
+//                    //.openOr(singleTag.defaultTranslation.obj.open_!)
+//               }
+//           	}
+//     item.tags.map(
+//       // load the connected tag object
+//       _.theTag.obj
+//     	).toList.map({
+//           // find the needed translation or use the default translation
+//     	  case Full(singleTag) => {
+//             //val tagTranslation : item.TheTagTranslation = 
+//               getTranslationForItem(singleTag) match {
+//                 case Full(tagTranslation) =>
+//                   <span>{"%s".format(tagTranslation.title.get)}</span>
+//                   //, tagTranslation.language.isAsLocale.getDisplayLanguage
+//                   // Translation not found
+//                 case Empty => item.defaultTranslation.obj.map(translation => <span>{"%s (%s)".format(translation.title.get, translation.language.isAsLocale.getDisplayLanguage)}</span>).openOr(Text("Tag not found"))
+//                    //.openOr(singleTag.defaultTranslation.obj.open_!)
+//               }
+//           	}
+//     	})
+  //       val singleTag = tagmapping.theTag.obj.open_!
+//       val translation = singleTag.getTranslationForLocales(List(S.locale),singleTag.translations.head)
+//       <span>{translation.title.get +"(%s)".format(translation.language.isAsLocale.getDisplayLanguage)}</span> 
+//     })
 //         itm => {
 ////       itm.theTag.asInstanceOf[item.TheTagType].title.asHtml) //theTagObject
 //       
 //       val lookupTag = item.theTagObject.findByKey(itm.theTag.get) 
 //       lookupTag.map(_.title(S.locale).asHtml)openOr(Text("tag does not exist")) //dmap (Text("tag does not exist"))( (_:item.TheTagType ).title.asHtml)//foundTag : item.TheTagType => foundTag
 //     } )
-         ) &
-         // add the onsite editing stuff
-         this.localToForm(item) &
-     // chain the css selectors 
-     (super.asHtml(item))
-  }
   
     abstract override def toForm(item : ItemType) : CssSel = {
       this.localToForm(item)  &
@@ -100,6 +147,30 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
      (super.toForm(item))
     }
       def localToForm(item : ItemType) : CssSel = {
+        val allTags = item.getAllAvailableTags
+        val selectedTags = item.getAllTagsForThisItem
+        
+        def tagSelected(localItem:ItemType)(singleTag:localItem.TheTagType)(selected:Boolean) = {
+	        val tagMapper = localItem.getTagMapper
+	          selected match {
+	              case true => {
+	                localItem.tags += tagMapper.create.taggedItem(localItem).theTag(singleTag).saveMe
+	                JsCmds.Noop
+	              }
+	              case false => {
+	                tagMapper.find(By(localItem.TheTags.taggedItem,localItem),
+	                    By(localItem.TheTags.theTag,singleTag)).map(localItem.tags -= _)
+	                JsCmds.Noop
+	              }
+	        }
+          } 
+        "#selectsingletag *" #> allTags.map(singleTag =>
+            "#taglabel *" #> singleTag.doDefaultWithTranslationFor(contentLanguage) &
+            "#tagselect" #> SHtml.ajaxCheckbox(selectedTags.contains(singleTag),tagSelected(item)(singleTag) ) 
+            )
+      }
+        
+      def oldLocalToForm(item: ItemType) : CssSel = {
 //		 var newTagTitle = ""
 //		println("chaining asHtml from AddCommentSnippet")
 //     ("#tags" #> SHtml.multiSelect(allTags, List(), item.tags ++= loadTag(item)(_) )

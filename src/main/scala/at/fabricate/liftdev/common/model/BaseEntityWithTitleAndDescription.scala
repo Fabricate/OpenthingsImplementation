@@ -72,11 +72,11 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
     def teaser(locale:Locale) = getTranslationOrDefaultOrCreate(locale).teaser
     def description(locale:Locale) = getTranslationOrDefaultOrCreate(locale).description
     
-    object defaultTranslation extends LongMappedMapper(this, TheTranslation){
+    object defaultTranslation extends LongMappedMapper(this, TheTranslationMeta){
     	override def validSelectValues =
-    			Full(TheTranslation.findMap(
-    					By(TheTranslation.translatedItem,self.primaryKeyField),
-    					OrderBy(TheTranslation.id, Ascending)){
+    			Full(TheTranslationMeta.findMap(
+    					By(TheTranslationMeta.translatedItem,self.primaryKeyField),
+    					OrderBy(TheTranslationMeta.id, Ascending)){
     					case t: TheTranslation => Full(t.id.get -> "%s (%s)".format(t.title,t.language.isAsLocale.getDisplayLanguage))
     			})
     	override def dbNotNull_? = true
@@ -99,48 +99,41 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
 	// TOD: Clean up that mess!
 	// getItemsToSchemify comes from the AddComment trait
 	
-	def getTranslationMapper : LongKeyedMetaMapper[_] = TheTranslation
+	def getTranslationMapper : LongKeyedMetaMapper[_] = TheTranslationMeta
 	
-	  object translations extends MappedOneToMany(TheTranslation, TheTranslation.translatedItem) with Owned[TheTranslation]
+	  object translations extends MappedOneToMany(TheTranslationMeta, TheTranslationMeta.translatedItem) with Owned[TheTranslation]
 with Cascade[TheTranslation]
 	
 //	, OrderBy(TheTranslation.primaryKeyField, Ascending)
 
 	  //def getItemsToSchemify = List(TheComment, T)
       
-      class TheTranslation extends BaseEntity[TheTranslation] with LongKeyedMapper[TheTranslation] with IdPK with EnsureUniqueTextFields[TheTranslation]  {
-    	  def getSingleton = TheTranslation
-	    	  
-	      object translatedItem extends MappedLongForeignKey(this,self.getSingleton)
+	class TheTranslation extends BaseEntity[TheTranslation] with LongKeyedMapper[TheTranslation] with IdPK with EnsureUniqueTextFields[TheTranslation] with TheGenericTranslation {
     	  
+		  type TheTranslationType = TheTranslation
+		  type TheTranslatedItem = T
+	  
+    	  def getSingleton = TheTranslationMeta
+    	  
+    	  object translatedItem extends MappedLongForeignKey(this,self.getSingleton)
+
     	  object language extends MappedLocale(this)//Language(this)
     	  
     	  object title extends MappedString(this, titleLength)
     	  object teaser extends MappedTextarea(this, teaserLength)
     	  object description extends MappedTextarea(this, descriptionLength)
     	  
-    	  //TODO: implement that one fully!
-    	  //object prettyURL extends MappedString(this, prettyURLLength)
-    	  
-    	  
-    	   override type TheUniqueTextType = TheTranslation
+    	  override type TheUniqueTextType = TheTranslation
 
-    	   override def theUniqueFields = List(language) //, prettyURL)
-    	  
-//	  	  object title extends MappedString(this, 80){    	    
-//    	    override def validations = FieldValidation.minLength(this,5) _ :: Nil
-//    	  }
-//		  object author extends MappedString(this, 40){
-//    	    override def validations = FieldValidation.minLength(this,3) _ :: Nil
-//    	    override def defaultValue = getCurrentUser.map(user => "%s %s".format(user.firstName, user.lastName )) openOr("")
-//    	  }
-//		  object comment extends MappedString(this, 140){		    
-//    	    override def validations = FieldValidation.minLength(this,10)) _ :: Nil
-//		  }
-		  
+    	  override def theUniqueFields = List(language) //, prettyURL)
+//		  val metaItemToTranslate = self //.getSingleton
+//		  val titleLength = self.titleLength
+//		  val teaserLength = self.teaserLength 
+//		  val descriptionLength =self.descriptionLength 
 	}
+
 	
-	object TheTranslation  extends TheTranslation with BaseMetaEntity[TheTranslation] with LongKeyedMetaMapper[TheTranslation]{
+	object TheTranslationMeta  extends TheTranslation with BaseMetaEntity[TheTranslation] with LongKeyedMetaMapper[TheTranslation] {
 	  	  override def dbTableName =  self.getSingleton.dbTableName+"_translation"
 	  	  
 	  	  // Bugfix for the compilation issue
@@ -150,6 +143,24 @@ with Cascade[TheTranslation]
 	  	  // Hint by David Pollak on https://groups.google.com/forum/#!topic/liftweb/Rkz06yng-P8
 	  	  override def getSingleton = this
 	}
+	
+	def doWithTranslationFor[V](languageExpected:Locale)(foundAction : TheGenericTranslation => V)(defaultTranslationAction : TheGenericTranslation => V)(notFound : V) : V = 
+	  getTranslationForItem(languageExpected) match {
+                 case Full(translationFound) => foundAction(translationFound)
+                 case Empty => this.defaultTranslation.obj match {
+                   case Full(defaultTranslationFound) => defaultTranslationAction(defaultTranslationFound)
+                   case Empty => notFound
+                 }
+	  }
+	
+	def doDefaultWithTranslationFor(expectedLanguage:Locale) : String = doWithTranslationFor(expectedLanguage)(
+           translationFound => "%s".format(translationFound.title.get)
+           )(
+           defaultTranslation => "%s (no translation found, using %s)".format(defaultTranslation.title.get,defaultTranslation.language.isAsLocale.getDisplayLanguage)
+           )("No translation information for this item found")
+	
+	def getTranslationForItem(language : Locale) : Box[TheGenericTranslation] = this.translations.find(_.language.isAsLocale.getLanguage() == language.getLanguage())
+
 }
 
 trait BaseMetaEntityWithTitleAndDescription[ModelType <: ( BaseEntityWithTitleAndDescription[ModelType]) ] extends BaseMetaEntity[ModelType] with CreatedUpdated

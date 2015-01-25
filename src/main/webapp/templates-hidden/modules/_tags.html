@@ -1,66 +1,16 @@
 <section class="bom left">
-	<ul>
-		<li id="aTag">1220 x 1440MM x 20MM MDF plate</li>
+	<ul id="listtags">
+		<li id="singletag">Tag</li>
 	</ul>
-	<script src="/js/jquery.tagsinput.js" type="text/javascript"></script>
-
-	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/themes/start/jquery-ui.css" />
-
-	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js'></script>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-	<script type="text/javascript">
-
-		function onAddTag(tag) {
-			alert("Added a tag: " + tag);
-		}
-		function onRemoveTag(tag) {
-			alert("Removed a tag: " + tag);
-		}
-
-		function onChangeTag(input,tag) {
-			alert("Changed a tag: " + tag);
-		}
-
-		$(function() {
-
-			$('#tags').tagsInput({width:'auto'});
-//			$('#tags_2').tagsInput({
-//				width: 'auto',
-//				onChange: function(elem, elem_tags)
-//				{
-//					var languages = ['php','ruby','javascript'];
-//					$('.tag', elem_tags).each(function()
-//					{
-//						if($(this).text().search(new RegExp('\\b(' + languages.join('|') + ')\\b')) >= 0)
-//							$(this).css('background-color', 'yellow');
-//					});
-//				}
-//			});
-//			$('#tags_3').tagsInput({
-//				width: 'auto',
-//
-//				//autocomplete_url:'test/fake_plaintext_endpoint.html' //jquery.autocomplete (not jquery ui)
-//				autocomplete_url:'test/fake_json_endpoint.html' // jquery ui autocomplete requires a json endpoint
-//			});
-//	
-//
-// Uncomment this line to see the callback functions in action
-//			$('input.tags').tagsInput({onAddTag:onAddTag,onRemoveTag:onRemoveTag,onChange: onChangeTag});		
-
-// Uncomment this line to see an input with no interface for adding new tags.
-//			$('input.tags').tagsInput({interactive:false});
-		});
-
-	</script>
-	<div>
-		<h2>All available Tags</h2>
-		<span id="listAllTags"></span>
-	</div>
 	<form data-lift="form.ajax">
-		<div class="tagsinput">
-			<input id="tags" class="tags" value="foo,bar,baz" />
+		<ul id="selecttags" size="5" multiple>
+			<li id="selectsingletag"><input type="checkbox" id="tagselect"><lable id="taglabel">TagName</label></li>
+		</ul>
+		<div class="newtag">
+			<input id="newtagname" value="" placeholder="enter new tag" />
 		</div>
 		<input type="hidden" id="tagshidden" />
-		<input type="submit" class="btn" />
+		<input value="create new tag" type="submit" class="btn" />
 	</form>
+
 </section>

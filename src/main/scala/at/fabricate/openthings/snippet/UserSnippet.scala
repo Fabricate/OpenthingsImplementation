@@ -20,6 +20,7 @@ import model.Tool
 import net.liftweb.http.js.JsCmds
 import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet
 import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionAndIconSnippet
+import at.fabricate.liftdev.common.lib.UrlLocalizer
 
 object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with BaseEntityWithTitleDescriptionAndIconSnippet[User]  {
   
@@ -35,6 +36,10 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
   override def viewTitle = "View Designer"
   override def listTitle = "List Designer"
   override def editTitle = "Edit Designer"
+    
+    
+      
+      val contentLanguage = UrlLocalizer.contentLocale
     
    private def bindToolsCSS(toolname : String, checkbox: NodeSeq) = 
 	      ":checkbox" #>  checkbox &

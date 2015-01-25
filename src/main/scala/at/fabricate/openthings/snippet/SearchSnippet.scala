@@ -45,11 +45,14 @@ import net.liftweb.mapper.InRaw
 import java.util.Locale
 import net.liftweb.common.Box
 import scala.util.Sorting
+import at.fabricate.liftdev.common.lib.UrlLocalizer
 
 object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] {
 
   
 
+      
+      val contentLanguage = UrlLocalizer.contentLocale
     
     val titleParam = "title"
     object title extends RequestVar(S.param(titleParam) openOr "") //  
@@ -321,9 +324,9 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
 //            Like(itemToQuery.TheTranslation.description,addLikeCharFrontAndBack(description.get)),            
 //            Like(itemToQuery.TheTranslation.language,addLikeCharFrontAndBack(language.get))
 //                )) ::
-        In(itemToQuery.primaryKeyField,itemToQuery.TheTranslation.translatedItem,Like(itemToQuery.TheTranslation.title,addLikeCharFrontAndBack(title.get))) ::
-        In(itemToQuery.primaryKeyField,itemToQuery.TheTranslation.translatedItem,Like(itemToQuery.TheTranslation.description,addLikeCharFrontAndBack(description.get))) ::
-        In(itemToQuery.primaryKeyField,itemToQuery.TheTranslation.translatedItem,Like(itemToQuery.TheTranslation.language,addLikeCharFrontAndBack(languageToSearchFor.get))) ::
+        In(itemToQuery.primaryKeyField,itemToQuery.TheTranslationMeta.translatedItem,Like(itemToQuery.TheTranslationMeta.title,addLikeCharFrontAndBack(title.get))) ::
+        In(itemToQuery.primaryKeyField,itemToQuery.TheTranslationMeta.translatedItem,Like(itemToQuery.TheTranslationMeta.description,addLikeCharFrontAndBack(description.get))) ::
+        In(itemToQuery.primaryKeyField,itemToQuery.TheTranslationMeta.translatedItem,Like(itemToQuery.TheTranslationMeta.language,addLikeCharFrontAndBack(languageToSearchFor.get))) ::
     	ByList(itemToQuery.state,state.get) ::
     	ByList(itemToQuery.difficulty,difficulty.get) ::
     	ByList(itemToQuery.licence,licence.get) ::

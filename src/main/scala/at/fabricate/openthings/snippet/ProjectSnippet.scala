@@ -6,6 +6,7 @@ import net.liftweb.util.CssSel
 import at.fabricate.liftdev.common.snippet.AddRepositorySnippet
 import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet
 import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet
+import at.fabricate.liftdev.common.lib.UrlLocalizer
 
 object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] with AddRepositorySnippet[Project]  {
   
@@ -23,7 +24,9 @@ object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] 
   override def editTitle = "Edit Project"
     
       def theUserSnippet = UserSnippet
+      
 
+      val contentLanguage = UrlLocalizer.contentLocale
     
 //    override def asHtml(item : ItemType) : CssSel = {
 //    		println("chaining asHtml from ProjectSnippet")

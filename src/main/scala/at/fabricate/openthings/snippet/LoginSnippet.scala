@@ -7,6 +7,7 @@ import scala.xml.NodeSeq
 import net.liftweb.common._
 import net.liftweb.util._
 import net.liftweb.util.Helpers._
+import at.fabricate.liftdev.common.lib.UrlLocalizer
 
 object LoginSnippet extends CustomizeUserHandlingSnippet[User](User,UserSnippet){
 
@@ -14,7 +15,11 @@ object LoginSnippet extends CustomizeUserHandlingSnippet[User](User,UserSnippet)
     override def logoutTitle = "Custom Logout"      
     override def signUpTitle = "Custom Sign up"          
     override def lostPasswordTitle = "Custom Lost password"      
-    override def resetPasswordTitle = "Custom Reset password"      
+    override def resetPasswordTitle = "Custom Reset password" 
+      
+   
+      
+      val contentLanguage = UrlLocalizer.contentLocale
 
     def localDispatch : DispatchIt = {      
     	case "account" => account _

@@ -40,6 +40,8 @@ import java.util.Locale
 import at.fabricate.liftdev.common.lib.UrlLocalizer
 import net.liftweb.http.RedirectResponse
 import net.liftweb.common.Box
+import at.fabricate.liftdev.common.model.TheGenericTranslation
+import net.liftweb.http.RequestVar
 
 
 abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
@@ -80,6 +82,10 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
   object MatchList extends MatchString(itemListUrl)
 
   object MatchEdit extends MatchString(itemEditUrl)
+     
+     
+  
+  val contentLanguage : RequestVar[Locale]
   
 
    //### methods that are fix ###
@@ -204,7 +210,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 
   def create(xhtml: NodeSeq) : NodeSeq  = toForm({
     val newItem = TheItem.create
-    newItem.translations += newItem.TheTranslation.create.translatedItem(newItem)
+    newItem.translations += newItem.TheTranslationMeta.create.translatedItem(newItem)
     newItem
     })(xhtml)
   
@@ -220,7 +226,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     doWithMatchedItem{
       item => {
         //val locale = UrlLocalizer.getContentLocale
-        if (getTranslationForItem(item)!=Empty)
+        if (item.getTranslationForItem(contentLanguage)!=Empty)
         	asHtml(item)
         else S.redirectTo(urlToViewItem(item,item.defaultTranslation.getObjectOrHead.language.isAsLocale))
       }
@@ -260,8 +266,8 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     //this is the locale the user wanted to have/get/see
      val locale = S.locale 
      // default behaviour, as only one locale exisits atm!
-     val translation : item.TheTranslation = getTranslationForItem(item).
-     	openOr(item.TheTranslation.create.translatedItem(item).language(UrlLocalizer.getContentLocale.toString).saveMe)
+     val translation : TheGenericTranslation = item.getTranslationForItem(contentLanguage).
+     	openOr(item.TheTranslationMeta.create.translatedItem(item).language(UrlLocalizer.getContentLocale.toString).saveMe)
      
      "#title"  #> translation.title.toForm &
      "#teaser"  #> translation.teaser.toForm &
@@ -277,18 +283,17 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 //     "#viewitem [href]" #> urlToViewItem(item) &
 //     "#viewitem *" #> "View Item"
   }
-  
-  def getTranslationForItem(item : ItemType) : Box[item.TheTranslation] = item.translations.find(_.language.isAsLocale.getLanguage() == UrlLocalizer.getContentLocale.getLanguage())
-  
+    
 		  //item.getTranslationForLocales(List(UrlLocalizer.getContentLocale), item.translations.head)
   
-  def getShortInfoForItem(item : ItemType)(translation : item.TheTranslation ) = {
-     //val translation : item.TheTranslation = getTranslationForItem(item)
-     if (translation.language.isAsLocale == UrlLocalizer.getContentLocale)
-       Text(translation.title.get)
-     else
-       Text(translation.title.get +" (%s)".format(translation.language.isAsLocale.getDisplayLanguage))
-  }
+//  def getShortInfoForItem(item : ItemType)(translation : item.TheTranslation ) = {
+//     //val translation : item.TheTranslation = getTranslationForItem(item)
+//     if (translation.language.isAsLocale == UrlLocalizer.getContentLocale)
+//       Text(translation.title.get)
+//     else
+//       Text(translation.title.get +" (%s)".format(translation.language.isAsLocale.getDisplayLanguage))
+//  }
+  def getShortInfoForItem(item : ItemType) = item.doDefaultWithTranslationFor(contentLanguage)
     
 //out.println( GERMANY.getCountry() );         // DE
 //out.println( GERMANY.getLanguage() );        // de
@@ -302,8 +307,13 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
   
   
   // TODO: write that code!
-    def getShortInfoAndLinkToItem(item : ItemType)(translation : item.TheTranslation) = 
-    		<a href={urlToViewItem(item,translation.language.isAsLocale)} >{getShortInfoForItem(item)(translation)}</a>
+    def getShortInfoAndLinkToItem(item : ItemType) = //(translation : TheGenericTranslation) = 
+      item.doWithTranslationFor(contentLanguage)(
+          foundTranslation => <a href={urlToViewItem(item,foundTranslation.language.isAsLocale)} >{foundTranslation.title.get}</a>
+          )(
+              defaultTranslation => <a href={urlToViewItem(item,defaultTranslation.language.isAsLocale)} >{"%s (%s)".format(defaultTranslation.title.get,defaultTranslation.language.get)}</a>
+              )(<span>no translation found</span>)
+//    		<a href={urlToViewItem(item,translation.language.isAsLocale)} >{item.doDefaultWithTranslationFor(contentLanguage)}</a>
 
   
   def asHtml(item : ItemType) : CssSel = {
@@ -312,12 +322,12 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     
      val locale = S.locale
      
-     val translationBox = getTranslationForItem(item)
+     val translationBox = item.getTranslationForItem(contentLanguage)
      translationBox match {
        case Full(translation) => {
-         "#translations *" #> item.translations.map(itemTranslation => getShortInfoAndLinkToItem(item)(itemTranslation)) &
+         "#translations *" #> item.translations.map(itemTranslation => getShortInfoAndLinkToItem(item)) &
 	     "#language *" #> translation.language.isAsLocale.getDisplayLanguage & //LocaleDataMetaInfo.getSupportedLocaleString(locale)
-	     "#shortinfo" #> getShortInfoForItem(item)(translation)  &
+	     "#shortinfo" #> getShortInfoForItem(item)  &
 	     "#title *"  #> translation.title.asHtml &
 	     "#teaser *"  #> translation.teaser.asHtml &
 	     "#description *"  #> TextileParser.toHtml(translation.description.get) &
@@ -330,9 +340,9 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
        case Empty => {
          // not the wanted content found!
          val translation = item.defaultTranslation.getObjectOrHead // could be extended to use the users default maybe?
-         "#translations *" #> item.translations.map(itemTranslation => getShortInfoAndLinkToItem(item)(itemTranslation)) &
+         "#translations *" #> item.translations.map(itemTranslation => getShortInfoAndLinkToItem(item)) &
 	     "#language *" #> translation.language.isAsLocale.getDisplayLanguage & //LocaleDataMetaInfo.getSupportedLocaleString(locale)
-	     "#shortinfo" #> getShortInfoForItem(item)(translation)  &
+	     "#shortinfo" #> getShortInfoForItem(item)  &
 	     "#created *+"  #> item.createdAt.asHtml  &
 	     "#updated *+"  #> item.updatedAt.asHtml  &
 	     "#edititem [href]" #> urlToEditItem(item,translation.language.isAsLocale) &
