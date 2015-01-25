@@ -49,12 +49,16 @@ trait GeneralLanguage[T <: GeneralLanguage[T] with KeyedMapper[String,T] with Ba
 	    override def dbNotNull_? = true
 //    override def dbColumnName="str_cd"
     }
-    object languageNameInEnglish extends MappedString(this, 500 )
+    object languageNameInEnglish extends MappedString(this, 500 ){
+      override def validations = List(ensureFieldIsUnique(this) _)
+    }
     object languageNameInTheLanguage extends MappedString(this, 500 )
     object languageNameInternational extends MappedString(this, 500 )
 
     type TheUniqueTextType = T
     
-	override def theUniqueFields = List(langCode,languageNameInEnglish)
+	//override def theUniqueFields = List(langCode,languageNameInEnglish)
+    	//override def theUniqueFields = List(TheTranslationMeta.title)
+//  	 override val titleValidations = List(ensureFieldIsUnique(languageNameInEnglish) _ )
 //      self.langCode.asInstanceOf[MappedField[String,T] with IndexedField[String]]
 }

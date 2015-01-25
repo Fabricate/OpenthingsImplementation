@@ -21,6 +21,7 @@ import net.liftweb.http.js.JsCmds
 import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet
 import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionAndIconSnippet
 import at.fabricate.liftdev.common.lib.UrlLocalizer
+import at.fabricate.liftdev.common.model.TheGenericTranslation
 
 object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with BaseEntityWithTitleDescriptionAndIconSnippet[User]  {
   
@@ -101,12 +102,22 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
        "#personalwebsite [href]" #> item.personalWebsite.get &
        "#listtools" #> listTools _ &
        "#projectbydesigner" #> item.createdProjects.map(project => {
-         val translation = project.getTranslationForLocales(List(S.locale), project.translations.head)
-         "#projectbydesignertitle *" #> translation.title.asHtml &
-         "#projectbydesignerdescription *" #> translation.description.asHtml &
-         "#projectbydesignerlink [href]" #> ProjectSnippet.urlToViewItem(project,translation.language.isAsLocale) 
-       }
-         ) &
+         project.doWithTranslationFor(contentLanguage.get)( translation  =>
+                   "#projectbydesignertitle *" #> translation.title.asHtml &
+                   "#projectbydesignerdescription *" #> translation.description.asHtml &
+                   "#projectbydesignerlink [href]" #> ProjectSnippet.urlToViewItem(project,translation.language.isAsLocale) 
+        		 )( defaultTranslation =>
+                   "#projectbydesignertitle *" #> defaultTranslation.title.asHtml &
+                   "#projectbydesignerdescription *" #> defaultTranslation.description.asHtml &
+                   "#projectbydesignerlink [href]" #> ProjectSnippet.urlToViewItem(project,defaultTranslation.language.isAsLocale)    
+        		   )(
+        		    // delete everything if we can not find a translation - maybe do something else instead
+        		    "#projectbydesignertitle" #> "" &
+                   "#projectbydesignerdescription" #> "" &
+                   "#projectbydesignerlink" #> ""    
+        				   )
+       }) &
+         //         val translation = project.getTranslationForLocales(List(S.locale), project.translations.head)
        "#licence *"  #> "" &
        "#initiator *"  #> "" &
         "#difficulty"  #>  ""

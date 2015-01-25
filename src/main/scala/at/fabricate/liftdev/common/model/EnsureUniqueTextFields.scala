@@ -16,26 +16,32 @@ trait EnsureUniqueTextFields[T <: KeyedMapper[_,T]] extends Mapper[T] {
     
   type TheUniqueTextType <: BaseEntity[TheUniqueTextType] //with MappedForeignKey[_]
     
-  def theUniqueFields : List[MappedString[TheUniqueTextType]]
-    
-  def fieldsAreUnique : List[FieldError] = 
-    theUniqueFields.flatMap(theUniqueField => findSameAsUniqueField(theUniqueField) match {
-    case Nil => List[FieldError]()
-    // update that object
-    case someThing :: Nil if (this.primaryKeyField != Empty && this.primaryKeyField.get == someThing.primaryKeyField.get) => List[FieldError]() 
-    case someThing :: someRest  => List(FieldError(theUniqueField, Text("Entry with same text field already exists!")))
-  }
-    )
+  //def theUniqueFields : List[MappedString[TheUniqueTextType]]
+    //def theUniqueField : MappedString[TheUniqueTextType]
   
-  def findSameAsUniqueField(theUniqueField : MappedString[TheUniqueTextType]) : List[TheUniqueTextType] = {
-    println("checking unique for field "+theUniqueField.dbColumnName+" with value "+theUniqueField.get)
+//  def fieldsAreUnique : List[FieldError] = 
+//    theUniqueFields.flatMap(theUniqueField => findSameAsUniqueField(theUniqueField) match {
+//    case Nil => List[FieldError]()
+//    // update that object
+//    case someThing :: Nil if (this.primaryKeyField != Empty && this.primaryKeyField.get == someThing.primaryKeyField.get) => List[FieldError]() 
+//    case someThing :: someRest  => List(FieldError(theUniqueField, Text("Entry with same text field already exists!")))
+//  }
+//    )
+  
+  def ensureFieldIsUnique(theUniqueField : MappedString[TheUniqueTextType])(value : String) : List[FieldError] = {
+    println("checking unique for field "+theUniqueField.dbColumnName+" with value "+value)
 //    println("got nrofresults: "+getSingleton.findAll(By(theUniqueField,theUniqueField.get)).length)
 //    getSingleton.findAll(By(theUniqueField,theUniqueField.get))
     // then theUniqueField is a member of another table that is linked - maybe we want that behavior?
-    theUniqueField.fieldOwner.getSingleton.findAll(By(theUniqueField,theUniqueField.get))
+    theUniqueField.fieldOwner.getSingleton.findAll(By(theUniqueField,value)) match {
+		    case Nil => List[FieldError]()
+		    // update that object
+		    case someThing :: Nil if (this.primaryKeyField != Empty && this.primaryKeyField.get == someThing.primaryKeyField.get) => List[FieldError]() 
+		    case someThing :: someRest  => List(FieldError(theUniqueField, Text("Entry with same text field already exists!")))
+		    }
   }
   
-  override def validate = this.fieldsAreUnique ::: super.validate
+  //override def validate = this.fieldsAreUnique ::: super.validate
   
   // make sure that fields are always checked on save!
   override def save = 

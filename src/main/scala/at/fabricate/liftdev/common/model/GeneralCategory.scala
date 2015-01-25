@@ -14,5 +14,6 @@ trait GeneralCategory[T <: GeneralCategory[T] ] extends BaseEntity[T] with BaseE
   	  
   	 override type TheUniqueTextType = TheTranslation
 
-	override def theUniqueFields = List(TheTranslationMeta.title)
+	//override def theUniqueFields = List(TheTranslationMeta.title)
+  	 override val titleValidations = List(ensureFieldIsUnique(TheTranslationMeta.title) _ )
 }
