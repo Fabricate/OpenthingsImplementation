@@ -43,6 +43,7 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
     case "logout" => logout _
     case "edit" => edit _
     case "signup" => signup _
+    case "validateUser" => validateUser _
     case "changePassword" => changePassword _
     case "lostPassword" => lostPassword _
     case "resetPassword" => resetPassword _
@@ -62,12 +63,14 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
 
     def resetPasswordTitle = "Reset password"      
     def resetPasswordTemlate = "reset_password"
-      
-
-    def allTemplates : List[String] = List(loginTemlate,logoutTemlate,signUpTemlate,lostPasswordTemlate,resetPasswordTemlate)
     
-    def loggedInMessage : NodeSeq = Text("You are already logged in!")
-    def notLoggedInMessage : NodeSeq = Text("You are not logged in!")
+    def validateUserTitle = "Validate"      
+    def validateUserTemlate = "validate_user" 
+
+    def allTemplates : List[String] = List(loginTemlate,logoutTemlate,signUpTemlate,lostPasswordTemlate,resetPasswordTemlate,validateUserTemlate)
+    
+    def loggedInMessage : NodeSeq = Text("ERROR - You are already logged in!")
+    def notLoggedInMessage : NodeSeq = Text("ERROR - You are not logged in!")
 
 
 //    object MatchLogin extends MatchPath(niceLoginwUrl)
@@ -77,8 +80,13 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
                Menu.i(signUpTitle) / signUpTemlate ,
                Menu.i(logoutTitle) / logoutTemlate  >> Hidden ,
                Menu.i(lostPasswordTitle) / lostPasswordTemlate ,
-               Menu.i(resetPasswordTitle) / resetPasswordTemlate / * >> Hidden 
+               Menu.i(resetPasswordTitle) / resetPasswordTemlate / * >> Hidden // ,
+//               Menu.i(validateUserTitle) / validateUserTemlate / * >> Hidden
      )
+//     Hidden ::
+//    Template(() => wrapIt(validateUser(snarfLastItem))) ::
+//    If(notLoggedIn_? _, S.?("logout.first")) ::
+//    Nil
      
 //    def userMgtLoginUrl = userObject.loginPath 
 //      
@@ -114,6 +122,20 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
     	  defaultRedirectLocation
     	else
     	  S.uri
+    	  
+  def validateUser(xhtml : NodeSeq): NodeSeq = {
+    	  userObject.customValidateUser(snarfLastItem)
+    	}
+//    	  findUserByUniqueId(id) match {
+//    case Full(user) if !user.validated_? =>
+//      user.setValidated(true).resetUniqueId().save
+//      logUserIn(user, () => {
+//        S.notice(S.?("account.validated"))
+//        S.redirectTo(homePage)
+//      })
+//
+//    case _ => S.error(S.?("invalid.validation.link")); S.redirectTo(homePage)
+//  }
   /**
    * This is the part of the snippet that creates the form elements and connects the client side components to
    * server side handlers.

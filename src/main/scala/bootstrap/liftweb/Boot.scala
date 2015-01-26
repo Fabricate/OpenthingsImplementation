@@ -171,13 +171,14 @@ class Boot {
 
                Menu.i("Page not found!") / "404"  >> Hidden,
                
-
-
+               // TODO: double definition, dont do that here
+               //Menu.i("Validate") / "validate_user" / * >> Hidden,
 
                Menu.i("Static") / "static" / ** >> Hidden
                //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
-               ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu ::: UserSnippet.getMenu ::: SearchSnippet.getMenu ::: Tool.menus ::: User.menus
-  
+               ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu  ::: UserSnippet.getMenu ::: SearchSnippet.getMenu ::: Tool.menus
+//               ::: User.menus
+//
     LiftRules.setSiteMap(SiteMap(menu :_*))
     
     
