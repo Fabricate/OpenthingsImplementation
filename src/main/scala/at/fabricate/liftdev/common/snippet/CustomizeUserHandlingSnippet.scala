@@ -73,15 +73,14 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
     def notLoggedInMessage : NodeSeq = Text("ERROR - You are not logged in!")
 
 
-//    object MatchLogin extends MatchPath(niceLoginwUrl)
     def getMenu = 
        List[Menu](
                Menu.i(loginTitle) / loginTemlate ,
                Menu.i(signUpTitle) / signUpTemlate ,
                Menu.i(logoutTitle) / logoutTemlate  >> Hidden ,
                Menu.i(lostPasswordTitle) / lostPasswordTemlate ,
-               Menu.i(resetPasswordTitle) / resetPasswordTemlate / * >> Hidden // ,
-//               Menu.i(validateUserTitle) / validateUserTemlate / * >> Hidden
+               Menu.i(resetPasswordTitle) / resetPasswordTemlate  >> Hidden ,
+               Menu.i(validateUserTitle) / validateUserTemlate  >> Hidden
      )
 //     Hidden ::
 //    Template(() => wrapIt(validateUser(snarfLastItem))) ::
@@ -98,17 +97,22 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
 //      
 //    def userMgtResetPasswordUrl =      userObject.passwordResetPath 
      
-//  def generateRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
-//      case RewriteRequest(ParsePath(MatchLogin(loginPath), _, _, _), _, _) =>
-//	      RewriteResponse(userMgtLoginUrl)
-//      case RewriteRequest(ParsePath(List("logout"), _, _, _), _, _) =>
-//	      RewriteResponse(userMgtLogoutUrl)
-	      
-//      case RewriteRequest(ParsePath(List("sign_up"), _, _, _), _, _) =>
-//	      RewriteResponse(userMgtSignUpUrl)
-//      case RewriteRequest(ParsePath(List("lost_password"), _, _, _), _, _) =>
-//	      RewriteResponse(userMgtLostPasswordUrl)	  	   
-//    }
+     object requestedID extends RequestVar[String]("")
+     
+      object MatchResetPassword extends MatchString(resetPasswordTemlate)
+      object MatchValidateUser extends MatchString(validateUserTemlate)
+
+
+	  def generateRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
+	      case RewriteRequest(ParsePath(MatchResetPassword(resetPath):: anID :: Nil, _, _, _), _, _) => { 
+	        requestedID.set(anID)
+	        RewriteResponse(resetPath :: Nil)
+	      }
+	      case RewriteRequest(ParsePath(MatchValidateUser(validatePath):: anID :: Nil, _, _, _), _, _) =>{ 
+	        requestedID.set(anID)
+		      RewriteResponse(validatePath :: Nil)	  	  
+	      }
+	    }
 
   // code from ProtoUser.scala (not exactly sure but assume from the proto package)
   def snarfLastItem: String =
@@ -124,7 +128,7 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
     	  S.uri
     	  
   def validateUser(xhtml : NodeSeq): NodeSeq = {
-    	  userObject.customValidateUser(snarfLastItem)
+    	  userObject.customValidateUser(requestedID.get)
     	}
 //    	  findUserByUniqueId(id) match {
 //    case Full(user) if !user.validated_? =>
@@ -161,7 +165,7 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
   def signup(xhtml: NodeSeq): NodeSeq = {
     
 		if (!userObject.loggedIn_?)
-            userObject.customSignup{
+            userObject.customSignup({
              (user, action) =>   
                ("#txtEmail" #> user.email.toForm.map(_ % ("placeholder"->"E-mail")) & //(user.email.toForm.map(_ % ("default"->"mail adress")) & //FocusOnLoad()
 //  			"#txtPassword" #> user.password.toForm.toList &
@@ -177,7 +181,7 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
   			"#signupform [action]" #> S.uri
 //  			"type=submit" #> loginSubmitButton(S.?("log.in"))
   			).apply(xhtml)
-            }
+            },List(validateUserTemlate))
 		else
 		  loggedInMessage
 //              	 def innerSignup = {
@@ -212,7 +216,7 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
    		    action => {
    		      var mailAddress = ""
    		      ("#email" #> SHtml.text("", mailAddress = _, "placeholder"->"Your E-mail adress") &
-   		      "#lostpasswordhidden" #> SHtml.hidden(() => action(mailAddress,List(resetPasswordTemlate)) ) &
+   		      "#lostpasswordhidden" #> SHtml.hidden(() => action(mailAddress,List(validateUserTemlate),List(resetPasswordTemlate)) ) &
   			  "#lostpasswordform [action]" #> S.uri
    		          ).apply(xhtml)
    		    }
@@ -224,13 +228,13 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
 
     def resetPassword(xhtml: NodeSeq): NodeSeq =
    		if (!userObject.loggedIn_? )
-   		  userObject.customPasswordReset{
+   		  userObject.customPasswordReset({
    		    user => 
    		      ("#reset-password" #> SHtml.password_*("", { p: List[String] => 
    		        user.password.setList(p) } ) &
    		        "#resetpasswordform [action]" #> S.uri
    		      	).apply(xhtml)
-   		}   
+   		}, requestedID.get)   
     	else
           loggedInMessage
   
