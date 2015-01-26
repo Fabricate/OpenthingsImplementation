@@ -42,6 +42,8 @@ import net.liftweb.http.RedirectResponse
 import net.liftweb.common.Box
 import at.fabricate.liftdev.common.model.TheGenericTranslation
 import net.liftweb.http.RequestVar
+import net.liftweb.http.SessionVar
+import net.liftweb.mapper.LongKeyedMapper
 
 
 abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
@@ -85,8 +87,13 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      
      
   
-  val contentLanguage : RequestVar[Locale]
-  
+  val contentLanguage : RequestVar[Locale]  
+     
+  object unsavedContent extends SessionVar[Box[ItemType]](Empty){
+       override protected def onShutdown(session: CleanUpParam): Unit = {
+    		   println("shutdown session for sessionvar executed")
+       }
+     }
 
    //### methods that are fix ###
    final def dispatch : DispatchIt = localDispatch // orElse super.dispatch
@@ -123,12 +130,16 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
       case _ => (node => Text("Object not found!"))
     
   }
+   
+   def doSave[T <: Mapper[T]](item : T) : Any = {
+     item.save
+   }
   
    // some handy saving methodes
-   final def save[T](item : Mapper[_], successAction : () => T, errorAction : List[FieldError] => T) : T = 
+   final def save[T,U <: Mapper[U]](item : U, successAction : () => T, errorAction : List[FieldError] => T) : T = 
             item.validate match {
               case Nil => {
-	            item.save	        	
+	            doSave(item)	        	
 	        	successAction()
               }
               case errors => {
@@ -139,12 +150,12 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
    // TODO:
    // for a more detailed error message have a look at
    // https://groups.google.com/forum/#!topic/liftweb/4LCWldUaUVA
-   final def saveAndDisplayAjaxMessages(item : Mapper[_], 
+   final def saveAndDisplayAjaxMessages[T <: Mapper[T]](item : T, 
        successAction : () => JsCmd = () => JsCmds.Noop, 
        errorAction : List[FieldError] => JsCmd = errors => JsCmds.Noop, 
        idToDisplayMessages : String, 
        successMessage : String  = "Saved changes!", errorMessage: String  = "Error saving item!") : JsCmd =
-		   save[JsCmd](item,
+		   save[JsCmd,T](item,
 		    () => {
 		      // TODO: maybe decide which one to use?
 		      // S.xxx or DisplayMessage
@@ -162,12 +173,12 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
                 }
 		     )
 
-	final def saveAndDisplayMessages(item : Mapper[_], 
+	final def saveAndDisplayMessages[T <: Mapper[T]](item : T, 
        successAction : () => Unit = () => Unit, 
        errorAction : List[FieldError] => Unit = errors => Unit, 
        idToDisplayMessages : String, 
        successMessage : String  = "Saved changes!", errorMessage: String  = "Error saving item!") : Unit =
-		   save[Unit](item,
+		   save[Unit,T](item,
 		    () => {
 			   S.notice(successMessage)
 			   successAction()
@@ -179,7 +190,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
                 }
 		     )
    
-   final def saveAndRedirectToNewInstance[T](saveOp : ( Mapper[_], () => T,  List[FieldError] => T) => T, item : KeyedMapper[_,_], 
+   final def saveAndRedirectToNewInstance[T, U <: LongKeyedMapper[U]](saveOp : ( U, () => T,  List[FieldError] => T) => T, item : U, 
        successAction : () => T = () => (), 
        errorAction : List[FieldError] => T = (errors : List[FieldError]) => ()) : T = 
      saveOp(item, () => {
@@ -207,12 +218,28 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     // later user asHtml
    ("#item" #> page.map(item => asHtml(item) ) 
        ).apply(in)
+       
+  def loadItemFromSessionOrCreate : ItemType = 
+    unsavedContent.get.openOr({
+    	val newItem = TheItem.createNewEntity(contentLanguage.get)
+	     unsavedContent.set(Full(newItem))
+	    newItem
+    })
+//     if (unsavedContent.get.isEmpty){
+//	     val newItem = TheItem.createNewEntity(contentLanguage.get)
+//	    //newItem.translations += newItem.TheTranslationMeta.create.translatedItem(newItem)
+//	     unsavedContent.set(Full(newItem))
+//	    newItem
+//    } else {
+//    	unsavedContent.get.get
+//    }
 
-  def create(xhtml: NodeSeq) : NodeSeq  = toForm({
-    val newItem = TheItem.createNewEntity(contentLanguage.get)
-    //newItem.translations += newItem.TheTranslationMeta.create.translatedItem(newItem)
-    newItem
-    })(xhtml)
+  def create(xhtml: NodeSeq) : NodeSeq  = 
+    	(
+    	toForm(loadItemFromSessionOrCreate) &
+		  "#defaultlanguage"  #> "" &
+		  "#defaultlanguagelabel"  #> ""
+    	).apply(xhtml)
   
   
 	
@@ -275,7 +302,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      "#language"  #> translation.language.toForm &
      "#defaultlanguage"  #> item.defaultTranslation.toForm &
      "#formitem [action]" #> urlToEditItem(item) &
-     "#itemsubmithidden" #> SHtml.hidden(() => saveAndRedirectToNewInstance(saveAndDisplayMessages(_,_:()=>Unit,_:List[FieldError]=>Unit, "itemMessages") , item))
+     "#itemsubmithidden" #> SHtml.hidden(() => saveAndRedirectToNewInstance(saveAndDisplayMessages(_:ItemType,_:()=>Unit,_:List[FieldError]=>Unit, "itemMessages") , item))
 
 //     "#created *"  #> item.createdAt  &
 //     "#updated *"  #> item.updatedAt  &
@@ -325,12 +352,16 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      val translationBox = item.getTranslationForItem(contentLanguage)
      translationBox match {
        case Full(translation) => {
+         val description = translation.description.get match {
+           case null => NodeSeq.Empty 
+           case _ => TextileParser.toHtml(translation.description.get)
+         }
          "#translations *" #> item.translations.map(itemTranslation => getShortInfoAndLinkToItem(item)) &
 	     "#language *" #> translation.language.isAsLocale.getDisplayLanguage & //LocaleDataMetaInfo.getSupportedLocaleString(locale)
 	     "#shortinfo" #> getShortInfoForItem(item)  &
 	     "#title *"  #> translation.title.asHtml &
 	     "#teaser *"  #> translation.teaser.asHtml &
-	     "#description *"  #> TextileParser.toHtml(translation.description.get) &
+	     "#description *"  #> description &
 	     "#created *+"  #> item.createdAt.asHtml  &
 	     "#updated *+"  #> item.updatedAt.asHtml  &
 	     "#edititem [href]" #> urlToEditItem(item,translation.language.isAsLocale) &

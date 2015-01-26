@@ -183,11 +183,11 @@ trait BaseMetaEntityWithTitleAndDescription[ModelType <: ( BaseEntityWithTitleAn
 	def createNewEntity(language : Locale,title : String = null, teaser : String = null, description: String = null) : ModelType = {
 	      val newItem = this.create
           // create a new translation with the submitted language
-          val translation = newItem.TheTranslationMeta.create.language(language.toString).saveMe
-          translation.title(title).teaser(teaser).description(description).save
+          val translation = newItem.TheTranslationMeta.create.language(language.toString)//.saveMe
+          translation.title(title).teaser(teaser).description(description)//.save
           // append the new translation to the translations
           newItem.translations += translation
           // make this translation the default
-          newItem.defaultTranslation(translation).saveMe
+          newItem.defaultTranslation(translation)//.saveMe
 	}
 }

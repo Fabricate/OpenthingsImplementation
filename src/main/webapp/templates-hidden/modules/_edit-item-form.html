@@ -24,9 +24,7 @@
 	<select id="defaultlanguage" required>
 		<option value="" disabled selected>DefaultLanguage</option>
 	</select>
-	<select id="tags" size="5" multiple>
-		<option value="" disabled selected>Tags</option>
-	</select>
+
 	<input id="itemsubmithidden" type="hidden">
 	<input id="save" value="save" type="submit">
 </form>
@@ -41,58 +39,4 @@
 			</div>
 		</div>
 -->
-	<div class="addTags">
-		<form id="addsomethingtoformitem"  class="tagform left" data-lift="form.ajax">
-			<p>If you want, you can add another tag:</p>
-			<input id="newTagTitle" placeholder="Tag name" >
-			<button id="newTagButton"><span class="icon-plus"></span> Add tag</button>
-		</form>
-	</div>
-		<script src="/js/load-image.all.min.js"></script>
-		<!-- The Canvas to Blob plugin is included for image resizing functionality -->
-		<script src="/js/canvas-to-blob.min.js"></script>
-
-		<script src="/js/vendor/jquery.ui.widget.js"></script>
-		<script src="/js/jquery.iframe-transport.js"></script>
-		<script src="/js/jquery.fileupload.js"></script>
-		<script src="/js/jquery.fileupload-process.js"></script>
-		<script src="/js/jquery.fileupload-image.js"></script>
-		<script>
-			$(function () {
-					$('#fileInput').fileupload({
-						    //disableImageResize: /Android(?!.*Chrome)|Opera/
-							//.test(window.navigator && navigator.userAgent),
-							dataType: 'json',
-							disableImageResize: false,
-						    	imageMaxWidth: 600,
-						    	imageMaxHeight: 388,
-						    	imageCrop: true, // Force cropped images
-							process: [
-							 {
-							     action: 'load',
-							     fileTypes: /^image\/(gif|jpeg|png)$/,
-							     maxFileSize: 20000000 // 20MB
-							 },
-							 {
-							     action: 'resize',
-							     maxWidth: 600,
-							     maxHeight: 388,
-							     minWidth: 600,
-							     minHeight: 388,
-							     imageCrop: true
-							 },
-							 {
-							     action: 'save'
-							 }],
-							add: function (e, data) {
-									data.context = $('<p/>').text('Files are being uploaded...').appendTo('.uploadstatus');
-									data.submit();
-							},
-							done: function (e, data) {
-									data.context.text('Upload finished.');
-									location.reload();
-							}
-					});
-			});
-		</script>
 </div>

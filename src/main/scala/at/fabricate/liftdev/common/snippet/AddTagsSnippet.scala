@@ -170,7 +170,8 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
         
         def addTag(localItem:ItemType)(tagName:String) : JsCmd = {
           println("addTag with name "+tagName)
-          val newTag = localItem.addNewTagToItem(contentLanguage.get, tagName)     
+          val newTag = localItem.addNewTagToItem(contentLanguage.get, tagName)  
+          newTag.save
           JsCmds.Noop
         }
         

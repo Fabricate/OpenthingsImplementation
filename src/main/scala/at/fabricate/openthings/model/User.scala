@@ -28,6 +28,7 @@ import at.fabricate.liftdev.common.model.BaseEntityWithTitleDescriptionAndIcon
 import at.fabricate.liftdev.common.lib.EnumWithDescriptionAndObject
 import at.fabricate.liftdev.common.lib.MappedEnumWithDescription
 import at.fabricate.liftdev.common.model.EqualityByID
+import at.fabricate.openthings.snippet.ProjectSnippet
 //import net.liftweb.mapper.OneToMany.Owned
 //import net.liftweb.mapper.OneToMany.Cascade
 
@@ -85,6 +86,15 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
 //      
 //    def short : Elem = <ul>{ getProjectList.map(project => <li>{ project.title }</li>) }</ul>
 //  }
+  def canEditContent : Boolean = loggedIn_?
+  
+  override def capturePreLoginState() = {
+    val savedContents = ProjectSnippet.unsavedContent.get // cartContents is the SessionVar
+    
+    () => {
+      ProjectSnippet.unsavedContent.set(savedContents)
+    }
+  }
 }
 
 /**

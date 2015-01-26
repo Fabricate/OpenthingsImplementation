@@ -7,8 +7,11 @@ import at.fabricate.liftdev.common.snippet.AddRepositorySnippet
 import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet
 import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet
 import at.fabricate.liftdev.common.lib.UrlLocalizer
+import scala.xml.NodeSeq
+import at.fabricate.liftdev.common.snippet.LazyLoginForSave
+import at.fabricate.openthings.model.User
 
-object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] with AddRepositorySnippet[Project]  {
+object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] with AddRepositorySnippet[Project] with LazyLoginForSave[Project]  {
   
   override val TheItem = Project
   override def itemBaseUrl = "project"
@@ -23,8 +26,15 @@ object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] 
   override def listTitle = "List Project"
   override def editTitle = "Edit Project"
     
+    // configuration for lazy login
+      def checkIfUserCanSave = User.canEditContent
+      val loginLocation = "/"+LoginSnippet.loginTemlate // "/"+
+    
       def theUserSnippet = UserSnippet
       
+//     override def create(xhtml: NodeSeq) : NodeSeq  = create(xhtml)  &
+//     	"#" #> 
+
 
       val contentLanguage = UrlLocalizer.contentLocale
     
