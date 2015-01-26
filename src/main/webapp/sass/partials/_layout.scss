@@ -37,6 +37,10 @@ body{
 .projectHeader{
 	background-color: $darkgrey;
 }
+.projectHeader select{
+	padding: .3em;
+	color: white;
+}
 .projectHeader p{
 	max-width: 800px;
 }
@@ -528,7 +532,7 @@ body{
 	font-size: 1.125em;
 }
 .creativeCommons a{
-	color: white;
+	color: $brand-color;
 }
 .questionsList li{
 	padding: 2% 4%;
