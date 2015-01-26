@@ -5,12 +5,13 @@
 			<li class="left"><a href="/designer/list">Designers</a></li>
 	</ul>
 	<a href="#addproject" class="shareDesignBtn right" onClick="AddProject();"><span class="icon-plus"></span> Share</a>
-	
-	<select class="right">
-		<option disabled selected>Select language</option>
-		<option>English</option>
-		<option>Dutch</option>
-	</select>
+	<div class="select-style languageSelect right">
+		<select>
+			<option disabled selected>Select language</option>
+			<option>English</option>
+			<option>Dutch</option>
+		</select>
+	</div>
 	<div  placeholder="Upload image" data-lift="Login.account">
 		<a href="#login" id="login" class="loginBtn right" onClick="LoginScreen();">Login</a>
 		<a href="#logout" id="logout" class="loginBtn right" onClick="LogoutScreen();">Logout</a>
