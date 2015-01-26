@@ -62,7 +62,7 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
   locale, timezone)//, description) 
 
   // comment this line out to require email validations
-  override def skipEmailValidation = true
+//  override def skipEmailValidation = true
   
   // just an idea for different signup process
   override def signupFields = firstName :: lastName :: email :: password :: Nil 
@@ -86,8 +86,13 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
 //      
 //    def short : Elem = <ul>{ getProjectList.map(project => <li>{ project.title }</li>) }</ul>
 //  }
-  def canEditContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_?
   
+  // some basic user rights management
+  def canEditContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.get.permission == permissionsEnum.user 
+  def canModerateContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.get.permission == permissionsEnum.moderator 
+  def canAdministerContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.get.permission == permissionsEnum.administrator 
+  
+  // save the content of a session before the user gets logged in!
   override def capturePreLoginState() = {
     val savedContents = ProjectSnippet.unsavedContent.get // cartContents is the SessionVar
     
@@ -95,6 +100,7 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
       ProjectSnippet.unsavedContent.set(savedContents)
     }
   }
+  
 }
 
 /**
@@ -128,6 +134,18 @@ with ManyToMany
   override def maxIconHeight = 576
   
   override def applyIconCropping = true
+  
+  object permissionsEnum extends Enumeration{
+    val banned = Value(0,"Banned")
+    val user = Value(1,"User")
+    val moderator = Value(2,"Moderator")
+    val administrator = Value(3,"Administrator")
+  }
+  
+  object permission extends MappedEnum(this,permissionsEnum){
+    override  def defaultValue = permissionsEnum.user 
+    override def dbNotNull_? = true
+  }
   
   object createdProjects extends MappedOneToMany(Project, Project.createdByUser, OrderBy(Project.primaryKeyField, Descending)) with Owned[Project]
 
