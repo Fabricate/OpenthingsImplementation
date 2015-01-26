@@ -62,7 +62,7 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
   locale, timezone)//, description) 
 
   // comment this line out to require email validations
-//  override def skipEmailValidation = true
+  override def skipEmailValidation = true
   
   // just an idea for different signup process
   override def signupFields = firstName :: lastName :: email :: password :: Nil 

@@ -179,7 +179,7 @@ class Boot {
                ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu  ::: UserSnippet.getMenu ::: SearchSnippet.getMenu ::: Tool.menus
 //               ::: User.menus
 //
-    LiftRules.setSiteMap(SiteMap(menu :_*))
+//    LiftRules.setSiteMap(SiteMap(menu :_*))
     
     
     // make the messages disappear after some time
