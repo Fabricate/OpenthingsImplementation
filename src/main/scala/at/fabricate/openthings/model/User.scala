@@ -86,7 +86,7 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
 //      
 //    def short : Elem = <ul>{ getProjectList.map(project => <li>{ project.title }</li>) }</ul>
 //  }
-  def canEditContent : Boolean = loggedIn_?
+  def canEditContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_?
   
   override def capturePreLoginState() = {
     val savedContents = ProjectSnippet.unsavedContent.get // cartContents is the SessionVar

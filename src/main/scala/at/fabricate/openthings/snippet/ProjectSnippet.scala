@@ -10,6 +10,7 @@ import at.fabricate.liftdev.common.lib.UrlLocalizer
 import scala.xml.NodeSeq
 import at.fabricate.liftdev.common.snippet.LazyLoginForSave
 import at.fabricate.openthings.model.User
+import net.liftweb.mapper.Mapper
 
 object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] with AddRepositorySnippet[Project] with LazyLoginForSave[Project]  {
   
@@ -27,8 +28,12 @@ object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] 
   override def editTitle = "Edit Project"
     
     // configuration for lazy login
-      def checkIfUserCanSave = User.canEditContent
+      def checkIfUserCanSave[T <: Mapper[T]](item : T) = User.canEditContent(item)
+      //val theUser = User
       val loginLocation = "/"+LoginSnippet.loginTemlate // "/"+
+      
+      
+      //override val getActualUser = () => User.currentUser.get
     
       def theUserSnippet = UserSnippet
       
