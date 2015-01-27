@@ -169,16 +169,17 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
 		if (!userObject.loggedIn_?)
             userObject.customSignup({
              (user, action) =>   
-               ("#txtEmail" #> user.email.toForm.map(_ % ("placeholder"->"E-mail")) & //(user.email.toForm.map(_ % ("default"->"mail adress")) & //FocusOnLoad()
+               ("#txtEmail" #> user.email.toForm & //(user.email.toForm.map(_ % ("default"->"mail adress")) & //FocusOnLoad()
 //  			"#txtPassword" #> user.password.toForm.toList &
   			"#txtPassword" #> S.fmapFunc({s: List[String] => user.password.setFromAny(s)}){funcName =>
   					Full(<span><input type="password" name={funcName} value="" placeholder="Password" id="txtPassword"/>
-  					<input type="password" name={funcName} value="" placeholder="Repeat password" id="txtPassword"/></span>)
+  					<input type="password" name={funcName} value="" placeholder="Repeat Password" id="txtPassword"/></span>)
 } &
 //               List(SHtml.password("", value => {user.password(value)}, "placeholder" -> "password", "id" -> "txtPassword"),
 //  			    SHtml.password("", value => {user.password(value)}, "placeholder" -> "repeat password", "id" -> "txtPassword")) &
-  			"#txtFirstName" #> user.firstName.toForm.map(_ % ("placeholder"->"First name")) &
-  			"#txtLastName" #> user.lastName.toForm.map(_ % ("placeholder"->"Last name")) &
+  			"#txtFirstName" #> user.firstName.toForm &
+  			"#txtLastName" #> user.lastName.toForm &
+  			"#nickName" #> user.defaultTranslation.obj.get.title.toForm &
   			"#signuphidden" #> SHtml.hidden(action )&
   			"#signupform [action]" #> S.uri
 //  			"type=submit" #> loginSubmitButton(S.?("log.in"))

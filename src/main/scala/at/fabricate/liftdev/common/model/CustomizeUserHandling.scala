@@ -16,7 +16,7 @@ import net.liftweb.common.Empty
 import net.liftweb.util.Helpers._
 import net.liftweb.util.Mailer.MailBodyType
 
-trait CustomizeUserHandling[T <: MegaProtoUser[T]] extends MetaMegaProtoUser[T]  {
+trait CustomizeUserHandling[T <: MegaProtoUser[T] with BaseEntityWithTitleAndDescription[T]] extends MetaMegaProtoUser[T]  {
   self: T =>
     
     
@@ -135,6 +135,7 @@ trait CustomizeUserHandling[T <: MegaProtoUser[T]] extends MetaMegaProtoUser[T] 
    */
   def customActionsAfterSignup(theUser: TheUserType, customValidationPath : List[String], func: () => Nothing): Nothing = {
     theUser.setValidated(skipEmailValidation).resetUniqueId()
+    theUser.defaultTranslation.obj.get.save
     theUser.save
     if (!skipEmailValidation) {
       customSendValidationEmail(theUser, customValidationPath)
