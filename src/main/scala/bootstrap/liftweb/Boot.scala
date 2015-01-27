@@ -104,6 +104,7 @@ class Boot {
 //	      RewriteResponse("viewDesigner" :: Nil, Map("id" -> urlDecode(designerID)))
 //    }
     
+//    val logonRewrites = Login.generateRewrites
     
 //    val projectRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
 //      	case RewriteRequest(ParsePath(List("project", "index"), _, _, _), _, _) =>
@@ -123,14 +124,11 @@ class Boot {
     val projectRewrites =  ProjectSnippet.generateRewrites
     
     val searchRewrites = SearchSnippet.generateRewrites
-       
-    val loginRewrites = LoginSnippet.generateRewrites
-
+   
     // Set up some rewrites
     LiftRules.statelessRewrite.append (userRewrites.orElse
         (searchRewrites).orElse
-        (projectRewrites).orElse
-        (loginRewrites) )
+        (projectRewrites) )
 //    
     // TODO : aufraumen, sauberes Menue !!!
     /*
@@ -173,14 +171,13 @@ class Boot {
 
                Menu.i("Page not found!") / "404"  >> Hidden,
                
-               // TODO: double definition, dont do that here
-               //Menu.i("Validate") / "validate_user" / * >> Hidden,
+
+
 
                Menu.i("Static") / "static" / ** >> Hidden
                //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
-               ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu  ::: UserSnippet.getMenu ::: SearchSnippet.getMenu ::: Tool.menus
-//               ::: User.menus
-//
+               ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu ::: UserSnippet.getMenu ::: SearchSnippet.getMenu ::: Tool.menus ::: User.menus
+  
     LiftRules.setSiteMap(SiteMap(menu :_*))
     
     
