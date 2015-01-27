@@ -31,18 +31,11 @@ body{
 	background-color: $darkgrey;
 	color: white;
 }
-.mainContent .projectHeader .select-style{
-	padding: 5px 45px 5px 10px;
-}
 .landingPage .mainContent{
 	padding-bottom: 2%;
 }
 .projectHeader{
 	background-color: $darkgrey;
-}
-.projectHeader select{
-	padding: .3em;
-	color: white;
 }
 .projectHeader p{
 	max-width: 800px;
@@ -535,7 +528,7 @@ body{
 	font-size: 1.125em;
 }
 .creativeCommons a{
-	color: $brand-color;
+	color: white;
 }
 .questionsList li{
 	padding: 2% 4%;

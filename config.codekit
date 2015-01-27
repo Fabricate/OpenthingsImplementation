@@ -315,28 +315,6 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/src\/main\/webapp\/js\/jquery.tagsinput.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/js\/jquery.tagsinput.js",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/js\/min\/jquery.tagsinput-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/src\/main\/webapp\/js\/jquery.tagsinput.min.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/js\/jquery.tagsinput.min.js",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/js\/min\/jquery.tagsinput.min-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
 	"\/src\/main\/webapp\/js\/jquery_1.8.3_googleapis.min.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -543,17 +521,6 @@
 		"initialSize": 63019,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/17\/repository\/tinus.jpg",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/17\/repository\/tinus.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
-	"\/src\/main\/webapp\/projects\/20\/repository\/DSC_0193.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 6.47638e+06,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/20\/repository\/DSC_0193.jpg",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/20\/repository\/DSC_0193.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -893,15 +860,6 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/stylesheets\/animate.css",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/src\/main\/webapp\/public\/stylesheets\/jquery.tagsinput.css": {
-		"fileType": 16,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/stylesheets\/jquery.tagsinput.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
