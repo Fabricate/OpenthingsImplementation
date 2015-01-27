@@ -29,6 +29,7 @@ import at.fabricate.liftdev.common.lib.EnumWithDescriptionAndObject
 import at.fabricate.liftdev.common.lib.MappedEnumWithDescription
 import at.fabricate.liftdev.common.model.EqualityByID
 import at.fabricate.openthings.snippet.ProjectSnippet
+import java.util.Locale
 //import net.liftweb.mapper.OneToMany.Owned
 //import net.liftweb.mapper.OneToMany.Cascade
 
@@ -101,6 +102,9 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
     }
   }
   
+  // applying create will crash the system - this is the first thing to set
+  override def createNewUserInstance = createNewEntity(Locale.ENGLISH)
+
 }
 
 /**
@@ -127,6 +131,7 @@ with ManyToMany
   override def iconDbColumnName = "user_image"
     
   override def iconPath = "userimage"
+    
     
     
   override def maxIconWidth = 1024

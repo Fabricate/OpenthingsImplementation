@@ -20,12 +20,14 @@ import net.liftweb.mapper.MegaProtoUser
 import net.liftweb.mapper.MetaMegaProtoUser
 import model.CustomizeUserHandling
 import model.BaseEntityWithTitleAndDescription
+import at.fabricate.liftdev.common.model.BaseMetaEntityWithTitleAndDescription
+import at.fabricate.liftdev.common.lib.UrlLocalizer
 
 
 /**
  * Snippet object that configures template-login and connects it to Login.auth
  */
-class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitleAndDescription[T]](userObject : MetaMegaProtoUser[T] with CustomizeUserHandling[T], userSnippet : BaseEntityWithTitleAndDescriptionSnippet[T]) extends DispatchSnippet {
+class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitleAndDescription[T]](userObject : MetaMegaProtoUser[T] with CustomizeUserHandling[T] with BaseMetaEntityWithTitleAndDescription[T], userSnippet : BaseEntityWithTitleAndDescriptionSnippet[T]) extends DispatchSnippet {
 //  private object user extends RequestVar("")
 //  private object pass extends RequestVar("")
 
@@ -181,7 +183,7 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
   			"#signupform [action]" #> S.uri
 //  			"type=submit" #> loginSubmitButton(S.?("log.in"))
   			).apply(xhtml)
-            },List(validateUserTemlate))
+            },List(validateUserTemlate),()=>userObject.createNewEntity(UrlLocalizer.contentLocale))
 		else
 		  loggedInMessage
 //              	 def innerSignup = {

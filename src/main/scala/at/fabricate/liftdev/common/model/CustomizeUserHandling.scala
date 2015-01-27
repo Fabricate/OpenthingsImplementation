@@ -113,8 +113,8 @@ trait CustomizeUserHandling[T <: MegaProtoUser[T]] extends MetaMegaProtoUser[T] 
 	    case _ => S.error(S.?("password.link.invalid")); S.redirectTo(homePage)
 	  }       
 	  
-   def customSignup(selector : (T, () => Unit ) => NodeSeq, customValidationPath : List[String], defaultRedirectLocation : String = homePage) = {
-	  val theUser: TheUserType = mutateUserOnSignup(createNewUserInstance())
+   def customSignup(selector : (T, () => Unit ) => NodeSeq, customValidationPath : List[String], createUserInstance : () => TheUserType = createNewUserInstance,defaultRedirectLocation : String = homePage) = {
+	  val theUser: TheUserType = mutateUserOnSignup(createUserInstance())
 	  val theName = signUpPath.mkString("")
 	  def testSignup() {
 	  	validateSignup(theUser) match {
