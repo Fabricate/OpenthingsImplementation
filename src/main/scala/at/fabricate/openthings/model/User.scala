@@ -144,7 +144,7 @@ with ManyToMany
   
   object permission extends MappedEnum(this,permissionsEnum){
     override  def defaultValue = permissionsEnum.user 
-    override def dbNotNull_? = true
+    //override def dbNotNull_? = true
   }
   
   object createdProjects extends MappedOneToMany(Project, Project.createdByUser, OrderBy(Project.primaryKeyField, Descending)) with Owned[Project]

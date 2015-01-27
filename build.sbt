@@ -15,6 +15,9 @@ seq(webSettings :_*)
 
 unmanagedResourceDirectories in Test <+= (baseDirectory) { _ / "src/main/webapp" }
 
+classpathTypes ~= (_ + "openthings")
+
+
 scalacOptions ++= Seq("-deprecation", "-unchecked")
 
 libraryDependencies ++= {
