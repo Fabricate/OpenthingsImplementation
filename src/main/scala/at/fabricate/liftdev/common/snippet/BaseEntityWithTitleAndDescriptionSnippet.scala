@@ -35,7 +35,7 @@ import net.liftweb.common.Empty
 import lib.MatchString
 import model.BaseEntityWithTitleAndDescription
 import net.liftmodules.textile.TextileParser
-import sun.util.locale.provider.LocaleDataMetaInfo
+//import sun.util.locale.provider.LocaleDataMetaInfo
 import java.util.Locale
 import at.fabricate.liftdev.common.lib.UrlLocalizer
 import net.liftweb.http.RedirectResponse
