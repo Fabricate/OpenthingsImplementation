@@ -43,10 +43,19 @@
 .mainNavigation li a:hover{
 	background-color: white;
 }
-
 .mainNavigation a{
 	line-height: 3.6em;
 }
+.mainNavigation .languageSelect{
+	margin: 15px 15px 0 0;
+	font-size: 0.875em;
+}
+//.mainNavigation select{
+//	border: 1px solid $mediumgrey;
+//	padding: .5em;
+//	margin: .5em;
+//	font-size: 1em;
+//}
 .loginBtn{
 	margin-right: 1.4em;
 }
