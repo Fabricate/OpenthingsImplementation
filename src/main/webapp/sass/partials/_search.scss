@@ -21,3 +21,19 @@
 	padding: 0 $small-margin-padding;
 	margin: 0 0 0 $tiny-margin-padding;
 }
+.searchContent .searchForm{
+	background-color: white;
+	padding: 4%;
+}
+.searchContent .searchForm #teaser, .searchContent .searchForm #description{
+	display: none;
+}
+.searchForm {
+	width: 100%;
+}
+.searchContent .searchForm  input, .searchContent .searchForm  select{
+	float: left;
+	margin: 0 1% 0.5em 0;
+	max-height: 3.45em;
+	width: 17%;
+}

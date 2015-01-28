@@ -1123,9 +1123,9 @@ body {
   padding: 6%; }
 
 /* line 253, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
-.standardPage p {
-  max-width: 25em;
-  font-size: 1.8em; }
+.standardPage {
+  max-width: 50em;
+  font-size: 1.2em; }
 
 /* line 257, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
 .landingSection {
@@ -1597,6 +1597,26 @@ body {
   height: 3.125em;
   padding: 0 0.9375em;
   margin: 0 0 0 0.3125em; }
+
+/* line 24, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/search */
+.searchContent .searchForm {
+  background-color: white;
+  padding: 4%; }
+
+/* line 28, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/search */
+.searchContent .searchForm #teaser, .searchContent .searchForm #description {
+  display: none; }
+
+/* line 31, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/search */
+.searchForm {
+  width: 100%; }
+
+/* line 34, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/search */
+.searchContent .searchForm input, .searchContent .searchForm select {
+  float: left;
+  margin: 0 1% 0.5em 0;
+  max-height: 3.45em;
+  width: 17%; }
 
 /* 
     Author     : Tomaz Dragar
