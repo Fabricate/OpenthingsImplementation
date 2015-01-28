@@ -1,7 +1,7 @@
 .projectDetails, .userDetails{
 	padding: $medium-percentage;
 	background-color: rgba(white, .9);
-	color: #333;
+	color: $darkgrey;
 	text-align: center;
 }
 .projectDetails li span, .userDetails li span{

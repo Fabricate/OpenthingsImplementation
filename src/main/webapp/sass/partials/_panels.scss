@@ -16,16 +16,15 @@
 	top: 0;
 	left: 0;
 	z-index: 4;
-	background: rgba(255,255,255,0.97);
+	background: rgba(white,0.97);
 	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;
 }
-
 .loginScreen p{
 	width: 100%;
 }
 .panel button, .panel input[type="submit"]{
-	margin-bottom: 2em;
+	margin-bottom: $medium-percentage;
 }
 .close-icon{
 	cursor: pointer;

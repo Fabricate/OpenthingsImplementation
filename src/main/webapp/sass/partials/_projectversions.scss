@@ -1,7 +1,7 @@
 .projectVersions{
 	padding: $medium-percentage;
 	background-color: rgba($brand-color, .1);
-	color: #333;
+	color: $darkgrey;
 }
 .projectVersions li{
 	border-top: 1px solid rgba(255,255,255, 0.5);
@@ -49,7 +49,7 @@
 }
 .versionDetails li{
 	background: rgba($brand-color, 0.1);
-	padding: 1% $small-percentage;
+	padding: $tiny-percentage $small-percentage;
 }
 .versionDetails li:nth-child(odd){
 	background: rgba($brand-color, 0.15);
@@ -57,7 +57,7 @@
 .userProjectVersions{
 	padding: $medium-percentage;
 	background-color: rgba(white, .3);
-	color: #333;
+	color: $darkgrey;
 }
 .userProjectVersions li{
 	border-top: 1px solid rgba(255,255,255, 0.5);
