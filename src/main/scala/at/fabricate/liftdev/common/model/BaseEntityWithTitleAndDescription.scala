@@ -174,12 +174,18 @@ with Cascade[TheTranslation]
 	def getTranslationForItem(language : Locale) : Box[TheGenericTranslation] = this.translations.find(_.language.isAsLocale.getLanguage() == language.getLanguage())
 
 
+    // special save for MySQL - enforces saving of translation before the entity can be saved 
+    abstract override def save = {
+      defaultTranslation.obj.map(_.save)
+      super.save
+    }
 }
 
 trait BaseMetaEntityWithTitleAndDescription[ModelType <: ( BaseEntityWithTitleAndDescription[ModelType]) ] extends BaseMetaEntity[ModelType] with CreatedUpdated
 {
     self: ModelType  =>
       	  	  abstract override def getItemsToSchemify : List[BaseMetaMapper] =  getTranslationMapper :: super.getItemsToSchemify
+	// some handy and secure create and save methodes
 	def createNewEntity(language : Locale,title : String = null, teaser : String = null, description: String = null) : ModelType = {
 	      val newItem = this.create
           // create a new translation with the submitted language
@@ -190,9 +196,4 @@ trait BaseMetaEntityWithTitleAndDescription[ModelType <: ( BaseEntityWithTitleAn
           // make this translation the default
           newItem.defaultTranslation(translation)//.saveMe
 	}
-    // special save for MySQL - enforces saving of translation before the entity can be saved 
-    abstract override def save = {
-      defaultTranslation.obj.map(_.save)
-      super.save
-    }
 }
