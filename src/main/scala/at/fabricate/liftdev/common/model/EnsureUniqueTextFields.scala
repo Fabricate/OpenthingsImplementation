@@ -9,8 +9,9 @@ import net.liftweb.common.Empty
 import net.liftweb.mapper.MappedString
 import net.liftweb.mapper.Mapper
 import net.liftweb.mapper.KeyedMapper
+import net.liftweb.mapper.LongKeyedMapper
 
-trait EnsureUniqueTextFields[T <: KeyedMapper[_,T]] extends Mapper[T] {
+trait EnsureUniqueTextFields[T <: EnsureUniqueTextFields[T]] extends BaseEntity[T] {
   // EnsureUniqueTextFields
   self: T =>
     
@@ -44,8 +45,8 @@ trait EnsureUniqueTextFields[T <: KeyedMapper[_,T]] extends Mapper[T] {
   //override def validate = this.fieldsAreUnique ::: super.validate
   
   // make sure that fields are always checked on save!
-  override def save = 
-    this.validate match {
+  abstract override def save = 
+    self.validate match {
 	  			// create new object
               case Nil => super.save
 	  			// update object

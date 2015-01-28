@@ -190,4 +190,9 @@ trait BaseMetaEntityWithTitleAndDescription[ModelType <: ( BaseEntityWithTitleAn
           // make this translation the default
           newItem.defaultTranslation(translation)//.saveMe
 	}
+    // special save for MySQL - enforces saving of translation before the entity can be saved 
+    abstract override def save = {
+      defaultTranslation.obj.map(_.save)
+      super.save
+    }
 }
