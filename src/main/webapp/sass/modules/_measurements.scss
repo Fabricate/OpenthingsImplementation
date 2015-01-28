@@ -1,9 +1,17 @@
-$tiny-margin-padding: 0.3125em;
-$xsmall-margin-padding: 0.625em;
-$small-margin-padding: 0.9375em;
-$smedium-margin-padding: 1.25em;
-$medium-margin-padding: 1.875em;
-$big-margin-padding: 3.125em;
+$tiny-em: .3125em;
+$xsmall-em: .625em;
+$small-em: .9375em;
+$smedium-em: 1.25em;
+$medium-em: 1.875em;
+$big-em: 3.125em;
+
+$tiny-percentage: 1%;
+$xsmall-percentage: 2%;
+$small-percentage: 4%;
+$smedium-percentage: 6%;
+$medium-percentage: 8%;
+$big-percentage: 10%;
+
 
 $icon-width: 1.875em;
 $icon-height: 1.875em;
@@ -19,7 +27,7 @@ $larger: 112.5%;
 $large: 125%;
 $massive: 200%;
 
-$golden: 162%;
+$golden: 16$xsmall-percentage;
 $platinum: 256%;
 
 $box: 40em;

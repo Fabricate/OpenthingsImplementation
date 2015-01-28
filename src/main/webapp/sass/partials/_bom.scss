@@ -1,5 +1,5 @@
 .bom{
-	padding: 4%;
+	padding: $small-percentage;
 	background-color: rgba(white, .3);
 	color: #333;
 }
@@ -14,5 +14,5 @@
 	width: 44%;
 }
 .addMaterial button{
-	margin-left: 0.5em;
+	margin-left: $xsmall-em;
 }

@@ -11,108 +11,29 @@ body{
  	width: 50%;
  }
 .listView{
-	padding-bottom: 2%;
+	padding-bottom: $xsmall-percentage;
 }
 .col-2{
 	width: 50%;
 }
-.mainContent .preview{
-	margin: 2% 0 0 2%;
-	width: 22.5%;
+.two-col{
+	width: 50%;
 }
-.mainContent li header{
-	padding: $tiny-margin-padding $small-margin-padding ;
+.mainContent .preview{
+	margin: $xsmall-percentage 0 0 $xsmall-percentage;
+	width: 22.5%;
 }
 .mainContent li a{
 	color: $darkgrey;
 }
 .mainContent .projectHeader div{
-	padding: 4%;
+	padding: $small-percentage;
 	background-color: $darkgrey;
 	color: white;
-}
-.mainContent .projectHeader .select-style{
-	padding: 5px 45px 5px 10px;
-}
-.landingPage .mainContent{
-	padding-bottom: 2%;
-}
-.projectHeader{
-	background-color: $darkgrey;
-}
-.projectHeader select{
-	padding: .3em;
-	color: white;
-}
-.projectHeader p{
-	max-width: 800px;
-}
-.projectHeader a{
-	color: lightblue
 }
 .editprojecticon{
 	font-size: 0.875em;
 	cursor: pointer;
-}
-
-.advancedSearch{
-	display: none;
-}
-
-.adsearchpanel{
-	padding: 4%;
-	background: rgba(255,255,255,0.97);
-	width: 100%;
-	position: relative;
-	height: 100%;
-	overflow-y: auto;
-	top: 0;
-	left: 0;
-	z-index: 4;
-}
-.advancedSearch form{
-	max-width: 600px;
-	width: 90%;
-}
-.advancedSearch input, .advancedSearch textarea, .advancedSearch select{
-	max-width: 100%;
-	width: 100%;
-	margin-bottom: 1em;
-	@include box-sizing(border-box);
-}
-.advancedSearch button{
-	margin-bottom: 4em;
-}
-.rating span{
-	padding: 0 0.1em;
-	cursor: pointer;
-}
-.rating span:hover{
-	color: $defaultLinkColor;
-}
-.isRated1 span:nth-child(-n+1), .rated1 span:nth-child(-n+1){
-	color: $defaultLinkColor;
-}
-.isRated2 span:nth-child(-n+2), .rated2 span:nth-child(-n+2){
-	color: $defaultLinkColor;
-}
-.isRated3 span:nth-child(-n+3), .rated3 span:nth-child(-n+3){
-	color: $defaultLinkColor;
-}
-.isRated4 span:nth-child(-n+4), .rated4 span:nth-child(-n+4){
-	color: $defaultLinkColor;
-}
-.isRated5 span:nth-child(-n+5), .rated5 span:nth-child(-n+5){
-	color: $defaultLinkColor;
-}
-.close-icon{
-	cursor: pointer;
-	font-size: 1.5em;
-	position: fixed;
-	right: 3%;
-	top: 7%;
-	transform: rotate(45deg);
-	z-index: 2;
 }
 .delete-icon{
 	transform: rotate(45deg);
@@ -120,59 +41,13 @@ body{
 	z-index: 2;
 	color: red;
 }
-.videoHeader{
-	padding: 0 !important;
-}
-.videoWrapper {
-	position: relative;
-	width: 100% !important;
-	padding-bottom: 56.25% !important; /* 16:9 */
-	padding-top: 25px !important;
-	height: 0;
-}
-.videoWrapper iframe {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
 .addTutorial{
 	background: white;
-	padding: 4%;
+	padding: $small-percentage;
 	display: none;
-}
-.addTutorial form{
-	max-width: 600px;
-	width: 100%;
-}
-.addTutorial input, .addTutorial textarea, .addTutorial select{
-	max-width: 100%;
-	width: 100%;
-	margin-bottom: 1em;
-	@include box-sizing(border-box);
 }
 .step{
 	padding-top: 2em;
 	margin-top: 2em;
 	border-top: 1px solid $lightgrey;
-}
-.questionsList li{
-	padding: 2% 4%;
-	width: 100%;
-	background: rgba(white, .2);
-}
-.questionsList li:nth-child(odd){
-	background: rgba(white, .4);
-}
-.questionsList li .gamma{
-	margin-bottom: 0;
-}
-.questionsList .icon-messages::before{
-	position: relative;
-	top: 3px;
-}
-
-.two-col{
-	width: 50%;
 }

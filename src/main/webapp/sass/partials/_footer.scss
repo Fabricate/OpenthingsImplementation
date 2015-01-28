@@ -1,10 +1,10 @@
 .mainFooter{
-	padding: 0 2%;
+	padding: 0 $xsmall-percentage;
 }
 .mainFooter p{
 	font-size: 0.875em;
 	color: $mediumgrey;
-	margin-top: 0.5em;
+	margin-top: $xsmall-em;
 	line-height: 3em;
 	margin-bottom: 0;
 }
@@ -15,7 +15,7 @@
 }
 .footerNav section{
 	width: 21%;
-	margin: 2%;
+	margin: $xsmall-percentage;
 }
 .footerNav li{
 	line-height: 1.5em;

@@ -5,10 +5,10 @@
 .panel input, .panel textarea, .panel select{
 	max-width: 100%;
 	width: 100%;
-	margin-bottom: 1em;
+	margin-bottom: $xsmall-em;
 }
 .panel{
-	padding: 4%;
+	padding: $small-percentage;
 	width: 100%;
 	position: fixed;
 	height: 100%;
@@ -26,4 +26,13 @@
 }
 .panel button, .panel input[type="submit"]{
 	margin-bottom: 2em;
+}
+.close-icon{
+	cursor: pointer;
+	font-size: 1.5em;
+	position: fixed;
+	right: 3%;
+	top: 7%;
+	transform: rotate(45deg);
+	z-index: 2;
 }

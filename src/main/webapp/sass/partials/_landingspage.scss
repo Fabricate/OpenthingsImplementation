@@ -1,3 +1,8 @@
+.landingSection{
+	width: 100%;
+	padding: $small-percentage $medium-percentage;
+	background-color: rgba($brand-color, .3);
+}
 .landingSection::after{
 	content: "";
   background: url(../images/footer_lodyas.png);
@@ -11,7 +16,7 @@
 }
 .branding{
 	color: white;
-	padding: 6% 0;
+	padding: $medium-percentage 0;
 	max-width: 50%;
 }
 .branding h1{
@@ -23,9 +28,9 @@
 .signupHome{
 	max-width: 40%;
 	background: white;
-	padding: 2%;
+	padding: $xsmall-percentage;
 }
 .signupHome input{
 	width: 100%;
-	margin-bottom: 0.5em;
+	margin-bottom: $xsmall-em;
 }

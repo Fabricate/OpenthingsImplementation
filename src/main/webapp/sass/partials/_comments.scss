@@ -1,9 +1,9 @@
 .projectComments{
-	padding: 4%;
+	padding: $medium-percentage;
 	background-color: white;
 }
 #commenttitle{
-	margin-bottom: 0.5em;
+	margin-bottom: $xsmall-em;
 }
 .projectComments header{
 	background-color: white;
@@ -25,17 +25,17 @@
 }
 .comment{
 	border-top: 1px solid $lightgrey;
-	padding: 4% 0 0 0;
+	padding: $small-percentage 0 0 0;
 }
 .commentInput{
 	background: white;
 }
 .commentInput form{
 	border-top: 1px solid $lightgrey;
-	padding-top: 4%;
+	padding-top: $small-percentage;
 }
 .commentInput input, .commentInput textarea{
-	margin-bottom: 1em;
+	margin-bottom: $xsmall-em;
 	max-width: 100%;
 	box-sizing: border-box;
 }

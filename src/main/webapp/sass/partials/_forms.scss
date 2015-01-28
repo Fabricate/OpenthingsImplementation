@@ -20,7 +20,7 @@ select, input, textarea{
 .contactform input, .contactform textarea, .contactform select{
 	width: 100%;
 	border-color: $mediumgrey;
-	margin-bottom: .5em;
+	margin-bottom: $xsmall-em;
 }
 
 .addTags input{
