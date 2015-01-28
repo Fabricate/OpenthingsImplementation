@@ -785,6 +785,17 @@ figure.effect-lily:hover p {
 .select-style select:focus {
   outline: none; }
 
+/* line 44, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/elements */
+.lazyLoginScreen form {
+  max-width: 600px;
+  width: 80%; }
+
+/* line 48, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/elements */
+.lazyLoginScreen input, .lazyLoginScreen textarea, .lazyLoginScreen select {
+  max-width: 100%;
+  width: 100%;
+  margin-bottom: 0.625em; }
+
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/typical_classes */
 .right {
   float: right; }
@@ -1227,14 +1238,19 @@ body {
   background: rgba(255, 255, 255, 0.4);
   width: 100%; }
 
-/* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/standardpage */
+/* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/pages */
 .standardPage {
   padding: 8%; }
 
-/* line 4, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/standardpage */
+/* line 4, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/pages */
 .standardPage {
   max-width: 50em;
   font-size: 1.2em; }
+
+/* line 8, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/pages */
+.lazyLoginScreen {
+  padding: 8%;
+  background: white; }
 
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/landingspage */
 .landingSection {

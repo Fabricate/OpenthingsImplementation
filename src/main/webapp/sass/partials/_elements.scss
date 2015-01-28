@@ -40,3 +40,13 @@
 .select-style select:focus {
     outline: none;
 }
+
+.lazyLoginScreen form{
+	max-width: 600px;
+	width: 80%;
+}
+.lazyLoginScreen input, .lazyLoginScreen textarea, .lazyLoginScreen select{
+	max-width: 100%;
+	width: 100%;
+	margin-bottom: $xsmall-em;
+}
