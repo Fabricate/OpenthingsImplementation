@@ -50,56 +50,9 @@ body{
 .projectHeader a{
 	color: lightblue
 }
-.detailedDescription{
-	padding: 4%;
-}
-.editProject{
-	padding: 4%;
-	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 4;
-	background: rgba(255,255,255,0.97);
-	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
-	display: none;
-}
-.editProject form{
-	max-width: 600px;
-	width: 100%;
-}
-.editProject input, .editProject textarea, .editProject select{
-	max-width: 100%;
-	width: 100%;
-	margin-bottom: 1em;
-	@include box-sizing(border-box);
-}
 .editprojecticon{
 	font-size: 0.875em;
 	cursor: pointer;
-}
-.postProject{
-	padding: 4%;
-	width: 100%;
-	position: fixed;
-	height: 100%;
-	overflow-y: auto;
-	top: 0;
-	left: 0;
-	z-index: 4;
-	background: rgba(255,255,255,0.97);
-	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
-	display: none;
-}
-.postProject form{
-	max-width: 600px;
-	width: 100%;
-}
-.postProject input, .postProject textarea, .postProject select{
-	max-width: 100%;
-	width: 100%;
-	margin-bottom: 1em;
-	@include box-sizing(border-box);
 }
 
 .advancedSearch{
@@ -128,93 +81,6 @@ body{
 	@include box-sizing(border-box);
 }
 .advancedSearch button{
-	margin-bottom: 4em;
-}
-
-.loginScreen{
-	padding: 4%;
-	width: 100%;
-	position: fixed;
-	height: 100%;
-	overflow-y: auto;
-	top: 0;
-	left: 0;
-	z-index: 4;
-	background: rgba(255,255,255,0.97);
-	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
-	display: none;
-}
-.loginScreen p{
-	width: 100%;
-}
-//.lostpassword{
-//	margin-top: 2.15em;
-//}
-.loginScreen form{
-	max-width: 600px;
-	width: 90%;
-}
-.loginScreen input, .loginScreen textarea, .loginScreen select{
-	max-width: 100%;
-	width: 100%;
-	margin-bottom: 1em;
-	@include box-sizing(border-box);
-}
-.loginScreen button{
-	margin-bottom: 4em;
-}
-
-.logoutScreen{
-	padding: 4%;
-	width: 100%;
-	position: fixed;
-	height: 100%;
-	overflow-y: auto;
-	top: 0;
-	left: 0;
-	z-index: 99999;
-	background: rgba(255,255,255,0.97);
-	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
-	display: none;
-}
-.logoutScreen form{
-	max-width: 600px;
-	width: 100%;
-}
-.logoutScreen input, .logoutScreen textarea, .logoutScreen select{
-	max-width: 100%;
-	width: 100%;
-	margin-bottom: 1em;
-	@include box-sizing(border-box);
-}
-.logoutScreen button{
-	margin-bottom: 4em;
-}
-
-.accountScreen{
-	padding: 4%;
-	width: 100%;
-	position: fixed;
-	height: 100%;
-	overflow-y: auto;
-	top: 0;
-	left: 0;
-	z-index: 4;
-	background: rgba(255,255,255,0.97);
-	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
-	display: none;
-}
-.accountScreen form{
-	max-width: 600px;
-	width: 100%;
-}
-.accountScreen input, .accountScreen textarea, .accountScreen select{
-	max-width: 100%;
-	width: 100%;
-	margin-bottom: 1em;
-	@include box-sizing(border-box);
-}
-.accountScreen button{
 	margin-bottom: 4em;
 }
 .rating span{
@@ -290,15 +156,6 @@ body{
 	padding-top: 2em;
 	margin-top: 2em;
 	border-top: 1px solid $lightgrey;
-}
-.creativeCommons{
-	position: absolute;
-	bottom: 0;
-	box-sizing: border-box;
-	font-size: 1.125em;
-}
-.creativeCommons a{
-	color: $brand-color;
 }
 .questionsList li{
 	padding: 2% 4%;

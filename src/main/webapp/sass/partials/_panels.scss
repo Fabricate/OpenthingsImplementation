@@ -1,0 +1,29 @@
+.panel form{
+	max-width: 600px;
+	width: 100%;
+}
+.panel input, .panel textarea, .panel select{
+	max-width: 100%;
+	width: 100%;
+	margin-bottom: 1em;
+}
+.panel{
+	padding: 4%;
+	width: 100%;
+	position: fixed;
+	height: 100%;
+	overflow-y: auto;
+	top: 0;
+	left: 0;
+	z-index: 4;
+	background: rgba(255,255,255,0.97);
+	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
+	display: none;
+}
+
+.loginScreen p{
+	width: 100%;
+}
+.panel button, .panel input[type="submit"]{
+	margin-bottom: 2em;
+}
