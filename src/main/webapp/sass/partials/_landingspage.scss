@@ -1,0 +1,31 @@
+.landingSection::after{
+	content: "";
+  background: url(../images/footer_lodyas.png);
+  opacity: 0.9;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1; 
+}
+.branding{
+	color: white;
+	padding: 6% 0;
+	max-width: 50%;
+}
+.branding h1{
+	font-size: 4em;
+}
+.branding h1 span{
+	font-size: 1.5em;
+}
+.signupHome{
+	max-width: 40%;
+	background: white;
+	padding: 2%;
+}
+.signupHome input{
+	width: 100%;
+	margin-bottom: 0.5em;
+}

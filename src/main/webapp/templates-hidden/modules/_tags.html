@@ -1,16 +1,18 @@
-<section class="tags left">
+<section class="tags tagsSection left">
+	<h2>Add tags to the project</h2>
 	<ul id="listtags">
 		<li id="singletag">Tag</li>
 	</ul>
 	<form data-lift="form.ajax">
 		<ul id="selecttags">
-			<li id="selectsingletag"><input type="checkbox" id="tagselect"><lable id="taglabel">TagName</label></li>
+			<li id="selectsingletag"><input type="checkbox" id="tagselect"><label id="taglabel">TagName</label></li>
 		</ul>
-		<div class="newtag">
-			<input id="newtagname" value="" placeholder="enter new tag" />
+		<div class="newtag left">
+			<input id="newtagname" value="" placeholder="Add new tag" />
 		</div>
 		<input type="hidden" id="tagshidden" />
-		<input value="create new tag" type="submit" class="btn" />
+<!--		<input value="Add" type="submit" class="btn" />-->
+		<button type="submit"><span class="icon-plus"></span> Add</button>
 	</form>
 
 </section>

@@ -1,0 +1,49 @@
+.tagsSection{
+	background: rgba(255,255,255, .75);
+	padding: 4%;
+	width: 100%;
+}
+#selecttags{
+	padding: 2% 0;
+	margin-bottom: 2%;
+	float: left;
+}
+#selecttags label{
+	margin-left: .5em;
+	text-transform: capitalize;
+}
+#selecttags input[type="checkbox"]{
+	width: 20px;
+	height: 20px;
+}
+#selecttags li{
+	margin-bottom: .5em;
+	font-size: 1.2em;
+	color: white;
+	padding: .5em 1em;
+	border-radius: 4px;
+	margin-right: .5em;
+	background: rgba($brand-color, .75);
+	display: inline;
+	float: left;
+}
+#listtags{
+	padding: 0 0 3% 0;
+	display: none;
+}
+#listtags li{
+	display: inline-block;
+	padding: .5em;
+	color: white;
+	background: rgba($brand-color, .5);
+	border-radius: 10px;
+	margin-right: .5em;
+	font-size: 1.2em;
+}
+#newtagname{
+	width: 100%;
+}
+.newtag{
+	margin-bottom: .5em;
+	width: 100%;
+}

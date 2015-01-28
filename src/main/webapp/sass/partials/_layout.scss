@@ -10,11 +10,11 @@ body{
 .mainContent .projectHeader img, .mainContent .projectHeader div{
  	width: 50%;
  }
+.listView{
+	padding-bottom: 2%;
+}
 .col-2{
 	width: 50%;
-}
-.overviewPage{
-	padding-bottom: 2%;
 }
 .mainContent .preview{
 	margin: 2% 0 0 2%;
@@ -50,245 +50,8 @@ body{
 .projectHeader a{
 	color: lightblue
 }
-
-.projectVersions{
-	padding: 4%;
-	background-color: rgba($brand-color, .1);
-	color: #333;
-}
-.projectVersions li{
-	border-top: 1px solid rgba(255,255,255, 0.5);
-	padding: 4% 0;
-	width: 100%;
-}
-
-#commitdifferencedetails{
- display: none;
-}
-#commitdifferencedetails li{
-	padding: 2%;
-	background: rgba($brand-color, .1);
-}
-
-#commitdifferencedetails li:nth-child(even){
-	background: rgba($brand-color, .2);
-}
-.addFiles{
-	width: 100%;
-	width:100%;
-	padding: 3% 0;
-	box-sizing: border-box;
-}
-.addFiles input{
-	margin-bottom: 0.5em;
-	border-color: $mediumgrey;
-}
-.addFiles ul li:first-child{
-	border-top: 0;
-	padding: 2% 0;
-}
-.addFiles ul li{
-	padding: 2%;
-}
-.addFiles ul li:nth-child(even){
-	background: rgba(50,50,50, .1);
-}
-.addFiles #files{
-	margin-bottom: 2em;
-}
-.versionDetails{
-	margin-top: 4%;
-}
-.versionDetails{
-	display: none;
-}
-.versionDetails li{
-	background: rgba($brand-color, 0.1);
-	padding: 1% 4%;
-}
-.versionDetails li:nth-child(odd){
-	background: rgba($brand-color, 0.15);
-}
-
-.userProjectVersions{
-	padding: 4%;
-	background-color: rgba(white, .3);
-	color: #333;
-}
-.userProjectVersions li{
-	border-top: 1px solid rgba(255,255,255, 0.5);
-	padding: 4% 0;
-}
-.projectDetails{
-	padding: 4%;
-	background-color: rgba(white, .6);
-	color: #333;
-	text-align: center;
-}
-.projectDetails li span{
-	font-size: 3em;	
-}
-.projectDetails li h5{
-	margin-top: 1em;
-	margin-bottom: 0;
-}
-.projectDetails li h6{
-	margin-bottom: 0;
-}
-.projectDetails li{
-	margin: 0 2% 0 0;
-	width: 22.5%;
-}
-.projectDetails li:last-child{
-	margin: 0 0 0 0;
-}
-.bom{
-	padding: 4%;
-	background-color: rgba(white, .3);
-	color: #333;
-}
-.bom li{
-	padding: 1% 0;
-	border-bottom: white 1px solid;
-}
-.addMaterial{
-	display: none;
-}
-.addMaterial input{
-	width: 44%;
-}
-.addMaterial button{
-	margin-left: 0.5em;
-}
-.userDetails{
-	padding: 4%;
-	background-color: rgba(white, .6);
-	color: #333;
-	text-align: center;
-	border-bottom: #ddd solid 1px;
-}
-.userDetails li span{
-	font-size: 3em;	
-}
-.userDetails li h5{
-	margin-top: 1em;
-	margin-bottom: 0;
-}
-.userDetails li h6{
-	margin-bottom: 0;
-}
-.userDetails li{
-	margin: 0 2% 0 0;
-	width: 22.5%;
-}
-.userDetails li:last-child{
-	margin: 0 0 0 0;
-}
-
 .detailedDescription{
 	padding: 4%;
-}
-.projectComments{
-	padding: 4%;
-	background-color: white;
-}
-#commenttitle{
-	margin-bottom: 0.5em;
-}
-.projectComments header{
-	background-color: white;
-	width: 100%;
-}
-.projectComments div{
-	width: 50%;
-}
-.projectComments ul{
-	background: white;
-	display: none;
-}
-
-.viewcomments{
-	text-align: right;
-	cursor: pointer;
-}
-.projectComments span{
-	margin-right: 0.1em;
-}
-.comment{
-	border-top: 1px solid $lightgrey;
-	padding: 4% 0 0 0;
-}
-.commentInput{
-	background: white;
-}
-.commentInput form{
-	border-top: 1px solid $lightgrey;
-	padding-top: 4%;
-}
-.commentInput input, .commentInput textarea{
-	margin-bottom: 1em;
-	max-width: 100%;
-	box-sizing: border-box;
-}
-
-.projectUpdate{
-	padding: 4%;
-	background: rgba($brand-color, 0.02);
-	@include box-sizing(border-box);
-}
-
-.projectUpdate form{
-	width: 100%;
-}
-.projectUpdate input, .projectUpdate textarea{
-	margin-bottom: 1em;
-	max-width: 100%;
-	width: 100%;
-	box-sizing: border-box;
-	border-color: $mediumgrey	;
-}
-.standardPage{
-	padding: 6%;
-}
-.standardPage{
-	max-width: 50em;
-	font-size: 1.2em;
-}
-.landingSection{
-	width: 100%;
-	padding: 4% 8%;
-	background-color: rgba($brand-color, .3);
-}
-.landingSection::after{
-	content: "";
-  background: url(../images/footer_lodyas.png);
-  opacity: 0.9;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1; 
-}
-.branding{
-	color: white;
-	padding: 6% 0;
-	max-width: 50%;
-}
-.branding h1{
-	font-size: 4em;
-}
-.branding h1 span{
-	font-size: 1.5em;
-}
-.signupHome{
-	max-width: 40%;
-	background: white;
-	padding: 2%;
-}
-.signupHome input{
-	width: 100%;
-	margin-bottom: 0.5em;
 }
 .editProject{
 	padding: 4%;
@@ -409,7 +172,7 @@ body{
 	overflow-y: auto;
 	top: 0;
 	left: 0;
-	z-index: 4;
+	z-index: 99999;
 	background: rgba(255,255,255,0.97);
 	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;

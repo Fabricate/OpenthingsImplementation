@@ -1,0 +1,18 @@
+.bom{
+	padding: 4%;
+	background-color: rgba(white, .3);
+	color: #333;
+}
+.bom li{
+	padding: 1% 0;
+	border-bottom: white 1px solid;
+}
+.addMaterial{
+	display: none;
+}
+.addMaterial input{
+	width: 44%;
+}
+.addMaterial button{
+	margin-left: 0.5em;
+}
