@@ -9,8 +9,7 @@
 <!--				<li> Status of the repository <span id="repositorystatus">RepoStatus</span></li>-->
 				<li id="listcommits">
 					<article>
-						<h1 class="epsilon"><span id="commitdifferencecount">NumberOfDifferences</span> differences by <span id="commitcommitter">Martin Risseeuw</span> <span class="icon-eye" onclick="
-				viewDifferenceVersion();"></span></h1>
+						<h1 class="epsilon"><span id="commitdifferencecount">NumberOfDifferences</span> differences by <span id="commitcommitter">Martin Risseeuw</span> <span class="icon-eye"></span></h1>
 						<p><span id="committext">I first started with creating the abstract version of the bourgie lamp with Rhinoceros (mac). I first drew the basic shape in Illustrator(image.1) after that I imported in Rhinoceros. I used the revolve command to create half of the lamps shape.</span>
 						<span id="commitdifferencedetails">ListOfDifferences</span></p> 
 						<a href"" class="btn" id="downloadcommit"><span class="icon-save"></span> Download this version</a> <button id="revertcommit">Undo changes</button>
@@ -57,5 +56,17 @@
 			});
 
 			$( "#commits li:last" ).remove();
+			$('#commits ul').each(function(i) {
+				i = i++;
+				$(this).addClass('commitdifferencedetails-' + i);		
+			});
+			$('#commits li h1 span').each(function(i) {
+				i = i++;
+				$(this).addClass('opendetails-' + i);
+				$('.opendetails-' + i).click(function() {
+					$('.commitdifferencedetails-' + i).slideToggle();
+				});
+			});
+
 		</script>
 </section>

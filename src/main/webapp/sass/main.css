@@ -1072,7 +1072,7 @@ body {
   width: 100%; }
 
 /* line 11, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/projectversions */
-#commitdifferencedetails {
+.projectVersionsList ul {
   display: none; }
 
 /* line 14, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/projectversions */
@@ -1142,7 +1142,7 @@ body {
   padding: 4% 0; }
 
 /* line 66, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/projectversions */
-#listcommits .icon-eye {
+.projectVersionsList .icon-eye {
   cursor: pointer; }
 
 /* line 70, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/projectversions */

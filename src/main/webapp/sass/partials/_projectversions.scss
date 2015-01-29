@@ -8,7 +8,7 @@
 	padding: $small-percentage 0;
 	width: 100%;
 }
-#commitdifferencedetails{
+.projectVersionsList ul{
  display: none;
 }
 #commitdifferencedetails li{
@@ -63,7 +63,7 @@
 	border-top: 1px solid rgba(255,255,255, 0.5);
 	padding: $small-percentage 0;
 }
-#listcommits .icon-eye{
+.projectVersionsList .icon-eye{
 	cursor: pointer;
 }
 
