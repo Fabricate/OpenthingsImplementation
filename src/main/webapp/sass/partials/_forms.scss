@@ -4,6 +4,9 @@ select, input, textarea{
 	border-radius: 1px;
 	background: none;
 }
+input[type="checkbox"]{
+	padding: $tiny-em;
+}
 #showicon{
 	border: 1px solid $lightgrey;
 }
