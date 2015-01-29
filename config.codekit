@@ -448,6 +448,28 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/projects\/2\/repository\/Astronaut_007.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 101360,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/2\/repository\/Astronaut_007.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/2\/repository\/Astronaut_007.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/projects\/2\/repository\/wat.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 125523,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/2\/repository\/wat.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/2\/repository\/wat.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/src\/main\/webapp\/public\/images\/Cancel.png": {
 		"fileType": 32768,
 		"ignore": 0,
