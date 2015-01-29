@@ -1250,6 +1250,11 @@ body {
   padding: 8%;
   background: white; }
 
+/* line 12, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/pages */
+.standardPage ul {
+  list-style: square;
+  padding-left: 6%; }
+
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/landingspage */
 .landingSection {
   width: 100%;
