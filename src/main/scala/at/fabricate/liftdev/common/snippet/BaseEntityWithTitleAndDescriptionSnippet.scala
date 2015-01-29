@@ -35,7 +35,6 @@ import net.liftweb.common.Empty
 import lib.MatchString
 import model.BaseEntityWithTitleAndDescription
 import net.liftmodules.textile.TextileParser
-//import sun.util.locale.provider.LocaleDataMetaInfo
 import java.util.Locale
 import at.fabricate.liftdev.common.lib.UrlLocalizer
 import net.liftweb.http.RedirectResponse
@@ -44,6 +43,8 @@ import at.fabricate.liftdev.common.model.TheGenericTranslation
 import net.liftweb.http.RequestVar
 import net.liftweb.http.SessionVar
 import net.liftweb.mapper.LongKeyedMapper
+import net.liftweb.http.js.JsCmds.SetHtml
+import scala.xml.Elem
 
 
 abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
@@ -294,12 +295,29 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      val locale = S.locale 
      // default behaviour, as only one locale exisits atm!
      val translation : TheGenericTranslation = item.getTranslationForItem(contentLanguage).
-     	openOr(item.TheTranslationMeta.create.translatedItem(item).language(UrlLocalizer.getContentLocale.toString).saveMe)
+     	openOr(item.getNewTranslation)
+     	    //TheTranslationMeta.create.translatedItem(item).language(UrlLocalizer.getContentLocale.toString).saveMe)
      
+    def elem2NodeSeq(element : Box[Elem]) : NodeSeq = {
+       element match {
+         case Full(anElement) => NodeSeq.fromSeq(List(anElement))//anElement.
+         case _ => NodeSeq.Empty 
+       }
+     }
+     	
+     def createNewTranslationForItem(localItem : ItemType)() : JsCmd = {
+       val newtranslation = localItem.getNewTranslation
+       SetHtml("title",elem2NodeSeq(newtranslation.title.toForm)) & 
+       SetHtml("teaser",elem2NodeSeq(newtranslation.teaser.toForm)) & 
+       SetHtml("description",elem2NodeSeq(newtranslation.description.toForm)) & 
+       SetHtml("language",elem2NodeSeq(newtranslation.language.toForm))
+     }
+     	
      "#title"  #> translation.title.toForm &
      "#teaser"  #> translation.teaser.toForm &
      "#description"  #> translation.description.toForm &
      "#language"  #> translation.language.toForm &
+     "#newlanguage"  #> SHtml.a(Text("create new translation"),createNewTranslationForItem(item),  "id"->"newlanguage") &//translation.language.toForm &
      "#defaultlanguage"  #> item.defaultTranslation.toForm &
      "#formitem [action]" #> urlToEditItem(item) &
      "#itemsubmithidden" #> SHtml.hidden(() => saveAndRedirectToNewInstance(saveAndDisplayMessages(_:ItemType,_:()=>Unit,_:List[FieldError]=>Unit, "itemMessages") , item))
@@ -334,18 +352,33 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
   
   
   // TODO: write that code!
+  
+  def ensureMinimumLenghOfElement(element : String, length: Int, before : String = "", behind : String = "") : String = {
+    if (element == null ) "%s %s %s".format(before, "no title available", behind)
+    else if (element.length() < length) "%s %s %s".format(before, element, behind)
+    else element
+  }
+  
     def getShortInfoAndLinkToItem(item : ItemType) = //(translation : TheGenericTranslation) = 
       item.doWithTranslationFor(contentLanguage)(
-          foundTranslation => <a href={urlToViewItem(item,foundTranslation.language.isAsLocale)} >{foundTranslation.title.get}</a>
+          foundTranslation => <a href={urlToViewItem(item,foundTranslation.language.isAsLocale)} >{ensureMinimumLenghOfElement(foundTranslation.title.get, 10, "Title: ")}</a>
           )(
-              defaultTranslation => <a href={urlToViewItem(item,defaultTranslation.language.isAsLocale)} >{"%s (%s)".format(defaultTranslation.title.get,defaultTranslation.language.get)}</a>
+              defaultTranslation => <a href={urlToViewItem(item,defaultTranslation.language.isAsLocale)} >{"%s (%s)".format(ensureMinimumLenghOfElement(defaultTranslation.title.get, 10, "Title: "),defaultTranslation.language.get)}</a>
               )(<span>no translation found</span>)
 //    		<a href={urlToViewItem(item,translation.language.isAsLocale)} >{item.doDefaultWithTranslationFor(contentLanguage)}</a>
 
+    def getLinksToAllTranslations(localItem : ItemType) = {
+      localItem.translations.map(itemTranslation => 
+//        if (localItem.defaultTranslation.obj.map(_.id == itemTranslation.id).openOr(false))
+//        	<a href={urlToViewItem(localItem,itemTranslation.language.isAsLocale)} >{ensureMinimumLenghOfElement(itemTranslation.title.asHtml, 10, "Title: ")}</a>
+//        	else 
+        	  <a href={urlToViewItem(localItem,itemTranslation.language.isAsLocale)} >{itemTranslation.title.asHtml;" (%s)".format(itemTranslation.language.get)}</a>
+        	  )
+    }
   
   def asHtml(item : ItemType) : CssSel = {
     
-//    println("chaining asHtml from BaseEntitySnippet")
+//    println("chaining asHtml from BaseEntitySnippet")	at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet.ensureMinimumLenghOfElement(BaseEntityWithTitleAndDescriptionSnippet.scala:357)
     
      val locale = S.locale
      
@@ -356,7 +389,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
            case null => NodeSeq.Empty 
            case _ => TextileParser.toHtml(translation.description.get)
          }
-         "#translations *" #> item.translations.map(itemTranslation => getShortInfoAndLinkToItem(item)) &
+         "#translations *" #> getLinksToAllTranslations(item) &
 	     "#language *" #> translation.language.isAsLocale.getDisplayLanguage & //LocaleDataMetaInfo.getSupportedLocaleString(locale)
 	     "#shortinfo" #> getShortInfoForItem(item)  &
 	     "#title *"  #> translation.title.asHtml &
@@ -368,7 +401,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 	     "#viewitem [href]" #> urlToViewItem(item,translation.language.isAsLocale) &
 	     "#viewitem *" #> "View Item"
        }
-       case Empty => {
+       case _ => {
          // not the wanted content found!
          val translation = item.defaultTranslation.getObjectOrHead // could be extended to use the users default maybe?
          "#translations *" #> item.translations.map(itemTranslation => getShortInfoAndLinkToItem(item)) &

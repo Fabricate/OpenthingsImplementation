@@ -151,7 +151,7 @@ with Cascade[TheTranslation]
 	  	  // Hint by David Pollak on https://groups.google.com/forum/#!topic/liftweb/Rkz06yng-P8
 	  	  override def getSingleton = this
 	}
-	
+	// some convenience methodes to do things in 3 different states (although state notFound might not occur because of notNull)
 	def doWithTranslationFor[V](languageExpected:Locale)(foundAction : TheGenericTranslation => V)(defaultTranslationAction : TheGenericTranslation => V)(notFound : V) : V = 
 	  getTranslationForItem(languageExpected) match {
                  case Full(translationFound) => foundAction(translationFound)
@@ -173,10 +173,17 @@ with Cascade[TheTranslation]
 	
 	def getTranslationForItem(language : Locale) : Box[TheGenericTranslation] = this.translations.find(_.language.isAsLocale.getLanguage() == language.getLanguage())
 
+	def getNewTranslation() : TheGenericTranslation = {
+//	  val translation = 
+	    this.TheTranslationMeta.create.language(language.toString).translatedItem(this)
+	}
 
     // special save for MySQL - enforces saving of translation before the entity can be saved 
     abstract override def save = {
-      defaultTranslation.obj.map(_.save)
+      // save the default translation
+      this.defaultTranslation.obj.map(_.save)
+      // save all the other translations
+      this.translations.map(_.save)
       super.save
     }
 }
@@ -190,7 +197,7 @@ trait BaseMetaEntityWithTitleAndDescription[ModelType <: ( BaseEntityWithTitleAn
 	      val newItem = this.create
           // create a new translation with the submitted language
           val translation = newItem.TheTranslationMeta.create.language(language.toString)//.saveMe
-          translation.title(title).teaser(teaser).description(description)//.save
+          translation.title(title).teaser(teaser).description(description).translatedItem(newItem)//.save
           // append the new translation to the translations
           newItem.translations += translation
           // make this translation the default
