@@ -620,6 +620,48 @@ input[type="submit"] {
 .icon-world:before {
   content: "\e650"; }
 
+/* line 271, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+.icon-logo:before {
+  content: "\e62d";
+  -webkit-animation: scrollLogo 5s;
+  /* Chrome, Safari, Opera */
+  animation: scrollLogo 5s; }
+
+@-webkit-keyframes scrollLogo {
+  /* line 278, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+  0% {
+    content: "\e62d"; }
+
+  /* line 279, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+  25% {
+    content: "\e649"; }
+
+  /* line 280, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+  50% {
+    content: "\e647"; }
+
+  /* line 281, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+  100% {
+    content: "\e642"; } }
+
+/* Standard syntax */
+@keyframes scrollLogo {
+  /* line 286, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+  0% {
+    content: "\e62d"; }
+
+  /* line 287, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+  25% {
+    content: "\e649"; }
+
+  /* line 288, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+  50% {
+    content: "\e647"; }
+
+  /* line 289, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/icons */
+  100% {
+    content: "\e642"; } }
+
 /* Common style */
 /* line 2, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 .mainContent figure {
