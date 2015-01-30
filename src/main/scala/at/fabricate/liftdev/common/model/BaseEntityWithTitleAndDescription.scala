@@ -122,7 +122,16 @@ with Cascade[TheTranslation]
     	  
     	  object translatedItem extends MappedLongForeignKey(this,self.getSingleton)
 
-    	  object language extends MappedLocale(this)//Language(this)
+    	  object language extends MappedLocale(this) 
+//		  {
+//		    //Language(this)
+//		    override def validSelectValues =
+//    			Full(TheTranslationMeta.findMap(
+//    					By(TheTranslationMeta.translatedItem,self.primaryKeyField),
+//    					OrderBy(TheTranslationMeta.id, Ascending)){
+//    					case t: TheTranslation => Full(t.id.get -> "%s (%s)".format(t.title,t.language.isAsLocale.getDisplayLanguage))
+//    			})
+//		  }
     	  
     	  object title extends MappedString(this, titleLength){
 		    override def validations = titleValidations 
@@ -173,9 +182,10 @@ with Cascade[TheTranslation]
 	
 	def getTranslationForItem(language : Locale) : Box[TheGenericTranslation] = this.translations.find(_.language.isAsLocale.getLanguage() == language.getLanguage())
 
-	def getNewTranslation() : TheGenericTranslation = {
-//	  val translation = 
-	    this.TheTranslationMeta.create.language(language.toString).translatedItem(this)
+	def getNewTranslation() : TheTranslation = {
+	  val translation = this.TheTranslationMeta.create.language(language.toString).translatedItem(this)
+	  this.translations += translation
+	  translation
 	}
 
     // special save for MySQL - enforces saving of translation before the entity can be saved 

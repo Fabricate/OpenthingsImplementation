@@ -45,6 +45,7 @@ import net.liftweb.http.SessionVar
 import net.liftweb.mapper.LongKeyedMapper
 import net.liftweb.http.js.JsCmds.SetHtml
 import scala.xml.Elem
+import net.liftweb.http.js.JsCmds.Replace
 
 
 abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
@@ -294,7 +295,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     //this is the locale the user wanted to have/get/see
      val locale = S.locale 
      // default behaviour, as only one locale exisits atm!
-     val translation : TheGenericTranslation = item.getTranslationForItem(contentLanguage).
+     var translation : TheGenericTranslation = item.getTranslationForItem(contentLanguage).
      	openOr(item.getNewTranslation)
      	    //TheTranslationMeta.create.translatedItem(item).language(UrlLocalizer.getContentLocale.toString).saveMe)
      
@@ -306,11 +307,12 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      }
      	
      def createNewTranslationForItem(localItem : ItemType)() : JsCmd = {
-       val newtranslation = localItem.getNewTranslation
-       SetHtml("title",elem2NodeSeq(newtranslation.title.toForm)) & 
-       SetHtml("teaser",elem2NodeSeq(newtranslation.teaser.toForm)) & 
-       SetHtml("description",elem2NodeSeq(newtranslation.description.toForm)) & 
-       SetHtml("language",elem2NodeSeq(newtranslation.language.toForm))
+       translation = localItem.getNewTranslation
+       println("new translation created")
+       Replace("title",elem2NodeSeq(translation.title.toForm)) & 
+       Replace("teaser",elem2NodeSeq(translation.teaser.toForm)) & 
+       Replace("description",elem2NodeSeq(translation.description.toForm)) & 
+       Replace("language",elem2NodeSeq(translation.language.toForm))
      }
      	
      "#title"  #> translation.title.toForm &
@@ -320,7 +322,10 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      "#newlanguage"  #> SHtml.a(Text("create new translation"),createNewTranslationForItem(item),  "id"->"newlanguage") &//translation.language.toForm &
      "#defaultlanguage"  #> item.defaultTranslation.toForm &
      "#formitem [action]" #> urlToEditItem(item) &
-     "#itemsubmithidden" #> SHtml.hidden(() => saveAndRedirectToNewInstance(saveAndDisplayMessages(_:ItemType,_:()=>Unit,_:List[FieldError]=>Unit, "itemMessages") , item))
+     "#itemsubmithidden" #> SHtml.hidden(() => {
+       //translation.save
+       saveAndRedirectToNewInstance(saveAndDisplayMessages(_:ItemType,_:()=>Unit,_:List[FieldError]=>Unit, "itemMessages") , item)
+     })
 
 //     "#created *"  #> item.createdAt  &
 //     "#updated *"  #> item.updatedAt  &
@@ -372,7 +377,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 //        if (localItem.defaultTranslation.obj.map(_.id == itemTranslation.id).openOr(false))
 //        	<a href={urlToViewItem(localItem,itemTranslation.language.isAsLocale)} >{ensureMinimumLenghOfElement(itemTranslation.title.asHtml, 10, "Title: ")}</a>
 //        	else 
-        	  <a href={urlToViewItem(localItem,itemTranslation.language.isAsLocale)} >{itemTranslation.title.asHtml;" (%s)".format(itemTranslation.language.get)}</a>
+        	  <a href={urlToViewItem(localItem,itemTranslation.language.isAsLocale)} >{ itemTranslation.title.asString;" (%s)".format(itemTranslation.language.isAsLocale.getDisplayLanguage())}</a>
         	  )
     }
   
