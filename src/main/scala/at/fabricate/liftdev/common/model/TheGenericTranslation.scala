@@ -10,6 +10,7 @@ import net.liftweb.mapper.MappedLocale
 import net.liftweb.mapper.MappedString
 import net.liftweb.mapper.MappedTextarea
 import net.liftweb.mapper.KeyedMapper
+import at.fabricate.liftdev.common.lib.MappedLanguage
 
 //     trait TheGenericTranslation[TheTranslatedItem <: Mapper[TheTranslatedItem],
 //                                 TheTranslation <: TheGenericTranslation[TheTranslatedItem,TheTranslation]] 
@@ -27,7 +28,7 @@ import net.liftweb.mapper.KeyedMapper
 	    	  
 	      val translatedItem : MappedLongForeignKey[TheTranslationType,TheTranslatedItem] // extends MappedLongForeignKey(this,metaItemToTranslate)
     	  
-		  val language : MappedLocale[TheTranslationType]
+		  val language : MappedLanguage[TheTranslationType]
     	  val title : MappedString[TheTranslationType]
     	  val teaser : MappedTextarea[TheTranslationType]
     	  val description : MappedTextarea[TheTranslationType]

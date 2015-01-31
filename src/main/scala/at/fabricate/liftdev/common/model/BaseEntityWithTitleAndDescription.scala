@@ -21,6 +21,7 @@ import net.liftweb.mapper.OrderBy
 import net.liftweb.mapper.LongMappedMapper
 import net.liftweb.mapper.By
 import net.liftweb.util.FieldError
+import at.fabricate.liftdev.common.lib.MappedLanguage
 
 // This is the basic database entity 
 // every db object should inherit from that
@@ -122,7 +123,7 @@ with Cascade[TheTranslation]
     	  
     	  object translatedItem extends MappedLongForeignKey(this,self.getSingleton)
 
-    	  object language extends MappedLocale(this) 
+    	  object language extends MappedLanguage(this)//Locale(this) 
 //		  {
 //		    //Language(this)
 //		    override def validSelectValues =
