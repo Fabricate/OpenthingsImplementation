@@ -296,7 +296,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      val locale = S.locale 
      // default behaviour, as only one locale exisits atm!
      var translation : TheGenericTranslation = item.getTranslationForItem(contentLanguage).
-     	openOr(item.getNewTranslation)
+     	openOr(item.getNewTranslation(UrlLocalizer.sessionSiteLocale))
      	    //TheTranslationMeta.create.translatedItem(item).language(UrlLocalizer.getContentLocale.toString).saveMe)
      
     def elem2NodeSeq(element : Box[Elem]) : NodeSeq = {
@@ -307,7 +307,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      }
      	
      def createNewTranslationForItem(localItem : ItemType)() : JsCmd = {
-       translation = localItem.getNewTranslation
+       translation = localItem.getNewTranslation(UrlLocalizer.sessionSiteLocale)
        println("new translation created")
        Replace("title",elem2NodeSeq(translation.title.toForm)) & 
        Replace("teaser",elem2NodeSeq(translation.teaser.toForm)) & 

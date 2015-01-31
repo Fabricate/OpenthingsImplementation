@@ -182,7 +182,7 @@ with Cascade[TheTranslation]
 	
 	def getTranslationForItem(language : Locale) : Box[TheGenericTranslation] = this.translations.find(_.language.isAsLocale.getLanguage() == language.getLanguage())
 
-	def getNewTranslation() : TheTranslation = {
+	def getNewTranslation(language : Locale) : TheTranslation = {
 	  val translation = this.TheTranslationMeta.create.language(language.toString).translatedItem(this)
 	  this.translations += translation
 	  translation
