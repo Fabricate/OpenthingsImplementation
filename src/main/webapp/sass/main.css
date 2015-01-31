@@ -230,6 +230,10 @@ input[type="checkbox"] {
 #editUserForm img {
   max-width: 100%; }
 
+/* line 36, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/forms */
+.mce-panel {
+  margin-bottom: 0.9375em !important; }
+
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 button {
   color: white;
