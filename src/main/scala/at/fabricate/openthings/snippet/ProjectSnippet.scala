@@ -11,6 +11,9 @@ import scala.xml.NodeSeq
 import at.fabricate.liftdev.common.snippet.LazyLoginForSave
 import at.fabricate.openthings.model.User
 import net.liftweb.mapper.Mapper
+import net.liftweb.util._
+import net.liftweb.common._
+import net.liftweb.util.Helpers._
 
 object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] with AddRepositorySnippet[Project] with LazyLoginForSave[Project]  {
   
@@ -49,6 +52,11 @@ object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] 
 ////    		println("finished cssselector: "+super.asHtml(item).toString)
 //    		
 //    		super.asHtml(item)
-//  }
 
+   override def asHtml(item : ItemType) : CssSel = { 
+   (   
+       "#personalwebsite" #> "" 
+   ) &
+   (super.asHtml(item))
+  }
 }

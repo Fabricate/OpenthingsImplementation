@@ -36,7 +36,6 @@ import lib.MatchString
 import model.BaseEntityWithTitleAndDescription
 import net.liftmodules.textile.TextileParser
 import java.util.Locale
-import at.fabricate.liftdev.common.lib.UrlLocalizer
 import net.liftweb.http.RedirectResponse
 import net.liftweb.common.Box
 import at.fabricate.liftdev.common.model.TheGenericTranslation
@@ -296,7 +295,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      val locale = S.locale 
      // default behaviour, as only one locale exisits atm!
      var translation : TheGenericTranslation = item.getTranslationForItem(contentLanguage).
-     	openOr(item.getNewTranslation(UrlLocalizer.sessionSiteLocale))
+     	openOr(item.getNewTranslation(contentLanguage))
      	    //TheTranslationMeta.create.translatedItem(item).language(UrlLocalizer.getContentLocale.toString).saveMe)
      
     def elem2NodeSeq(element : Box[Elem]) : NodeSeq = {
@@ -307,7 +306,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      }
      	
      def createNewTranslationForItem(localItem : ItemType)() : JsCmd = {
-       translation = localItem.getNewTranslation(UrlLocalizer.sessionSiteLocale)
+       translation = localItem.getNewTranslation(Locale.getDefault())
        println("new translation created")
        Replace("title",elem2NodeSeq(translation.title.toForm)) & 
        Replace("teaser",elem2NodeSeq(translation.teaser.toForm)) & 
@@ -398,7 +397,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 	     "#language *" #> translation.language.isAsLocale.getDisplayLanguage & //LocaleDataMetaInfo.getSupportedLocaleString(locale)
 	     "#shortinfo" #> getShortInfoForItem(item)  &
 	     "#title *"  #> translation.title.asHtml &
-	     "#teaser *"  #> translation.teaser.asHtml &
+	     "#teaser *"  #> translation.teaser.get &
 	     "#description *"  #> description &
 	     "#created *+"  #> item.createdAt.asHtml  &
 	     "#updated *+"  #> item.updatedAt.asHtml  &

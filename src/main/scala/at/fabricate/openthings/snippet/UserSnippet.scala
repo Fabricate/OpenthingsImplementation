@@ -98,7 +98,11 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
            		)                         
              //  )
    (
-       "#title *" #> "%s %s".format(item.firstName, item.lastName ) &    
+//       "#title *" #> (item.defaultTranslation.obj match {
+//         case Full(aTranslation) => aTranslation.title.get
+//         case _ => "no title available"
+//       } ) &
+       //"#title *" #> "%s %s".format(item.firstName, item.lastName ) &    
        "#personalwebsite [href]" #> item.personalWebsite.get &
        "#listtools" #> listTools _ &
        "#projectbydesigner" #> item.createdProjects.map(project => {
