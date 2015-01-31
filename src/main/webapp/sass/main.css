@@ -1187,7 +1187,12 @@ body {
 .projectVersionsList .icon-eye {
   cursor: pointer; }
 
-/* line 70, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/projectversions */
+/* line 69, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/projectversions */
+#repositoryMessages {
+  background: rgba(94, 25, 142, 0.5);
+  padding: 0.9375em 8%; }
+
+/* line 73, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/projectversions */
 #revertcommit, #resetcommit {
   display: none; }
 
