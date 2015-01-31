@@ -230,6 +230,10 @@ input[type="checkbox"] {
 #editUserForm img {
   max-width: 100%; }
 
+/* line 36, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/forms */
+.mce-panel {
+  margin-bottom: 0.9375em !important; }
+
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 button {
   color: white;
@@ -1187,7 +1191,12 @@ body {
 .projectVersionsList .icon-eye {
   cursor: pointer; }
 
-/* line 70, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/projectversions */
+/* line 69, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/projectversions */
+#repositoryMessages {
+  background: rgba(94, 25, 142, 0.5);
+  padding: 0.9375em 8%; }
+
+/* line 73, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/projectversions */
 #revertcommit, #resetcommit {
   display: none; }
 

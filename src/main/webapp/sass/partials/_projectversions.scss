@@ -66,7 +66,10 @@
 .projectVersionsList .icon-eye{
 	cursor: pointer;
 }
-
+#repositoryMessages{
+	background: rgba($brand-color, .5);
+	padding: $small-em $medium-percentage;
+}
 #revertcommit, #resetcommit{
 	display: none;
 }
