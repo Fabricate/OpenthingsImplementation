@@ -26,8 +26,6 @@ object LoginSnippet extends CustomizeUserHandlingSnippet[User](User,UserSnippet)
       
       val contentLanguage = UrlLocalizer.contentLocale
       
-      val allLanguages = Locale.getISOLanguages().toList.map(new Locale(_))
-
     def localDispatch : DispatchIt = {      
     	case "account" => account _
     	case "language" => language _
@@ -39,9 +37,9 @@ object LoginSnippet extends CustomizeUserHandlingSnippet[User](User,UserSnippet)
 //      ajaxSelect(AjaxForm.states.map(s => (s, s)), Full(state), { s =>
 //      state = s; After(200, replace(state)) })
     	("#selectLanguage" #> SHtml.ajaxSelect(
-    	    allLanguages.map(lang => SelectableOption( lang.getDisplayLanguage, lang.getDisplayLanguage) ),
-    	    Full(UrlLocalizer.contentLocale.get.getDisplayLanguage),
-    	    {s => UrlLocalizer.contentLocale.set(new Locale(s));JsCmds.Noop}
+    	    UrlLocalizer.allLanguages.map(lang => SelectableOption( lang.getDisplayLanguage, lang.getDisplayLanguage) ),
+    	    Full(UrlLocalizer.sessionSiteLocale.get.getDisplayLanguage),
+    	    {s => UrlLocalizer.allLanguages.find(_.getDisplayLanguage == s).map(UrlLocalizer.sessionSiteLocale.set(_));JsCmds.Noop}
     	    )).apply(xhtml)
     }
       

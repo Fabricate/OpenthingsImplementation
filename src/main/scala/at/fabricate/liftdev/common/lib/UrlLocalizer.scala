@@ -20,7 +20,7 @@ object UrlLocalizer {
 //      override protected def __nameSalt = randomString(20)
 //  }
   // will go to the requestLocale once it is set
-  object sessionSiteLocale extends SessionVar[Box[Locale]](Empty)
+  object sessionSiteLocale extends SessionVar(Locale.getDefault)
   
   // will be used to display content in different
   object contentLocale extends RequestVar(Locale.getDefault)
@@ -35,6 +35,8 @@ object UrlLocalizer {
   val locales: Map[String, Locale] =
     Map(Locale.getAvailableLocales.map(l => l.getLanguage -> l) :_*)
 
+
+  val allLanguages = Locale.getISOLanguages().toList.map(new Locale(_))
 
   /**
    * Extract the locale
@@ -57,7 +59,7 @@ object UrlLocalizer {
     }
     
   def getSiteLocale : Locale = 
-    if ( sessionSiteLocale.set_? ) sessionSiteLocale.get.openOr(defaultLocale )
+    if ( sessionSiteLocale.set_? ) sessionSiteLocale.get
     else defaultLocale
     
   def calcLocaleFromURL(in: Box[HTTPRequest]): Locale = getContentLocale
@@ -67,7 +69,7 @@ object UrlLocalizer {
 
   def calcLocaleFromRequest(request: Box[HTTPRequest]) : Locale =
 //      requestLocale(request.hashCode, (
-    if ( sessionSiteLocale.set_? ) sessionSiteLocale.get.openOr(defaultLocale )
+    if ( sessionSiteLocale.set_? ) sessionSiteLocale.get
     else {
       val requestLocale = 
       (for {
@@ -78,7 +80,12 @@ object UrlLocalizer {
         case Array(lang, country) => new Locale(lang, country)
       })
       //.openOr(defaultLocale)
-      sessionSiteLocale.set(requestLocale).openOr(defaultLocale )
+      //sessionSiteLocale.set().openOr(defaultLocale )
+//      sessionSiteLocale.get
+      requestLocale match {
+        case Full(aLocale) => sessionSiteLocale.set(aLocale); aLocale
+        case _ => Locale.getDefault
+      }
     }
       //end loxalization block
   /**
