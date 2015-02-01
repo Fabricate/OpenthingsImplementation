@@ -86,7 +86,9 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
     			})
     	override def dbNotNull_? = true
     	def getObjectOrHead : self.TheTranslation = obj.getOrElse(self.translations.head)
-    } 
+    }
+    
+    object translationToSave extends LongMappedMapper(this, TheTranslationMeta)
 //    {
 //      //override def dbNotNull_? = true
 //      //override def defaultValue = "en"
@@ -181,11 +183,12 @@ with Cascade[TheTranslation]
            defaultTranslation => shortTitleDefaultTranslationFound.format(defaultTranslation.title.get,defaultTranslation.language.isAsLocale.getDisplayLanguage)
            )(noTranslationFound)
 	
-	def getTranslationForItem(language : Locale) : Box[TheGenericTranslation] = this.translations.find(_.language.isAsLocale.getLanguage() == language.getLanguage())
+	def getTranslationForItem(language : Locale) : Box[TheTranslation] = this.translations.find(_.language.isAsLocale.getLanguage() == language.getLanguage())
 
 	def getNewTranslation(language : Locale) : TheTranslation = {
 	  val translation = this.TheTranslationMeta.create.language(language.toString).translatedItem(this)
-	  this.translations += translation
+	  //this.translations += translation
+	  this.translationToSave(translation)
 	  translation
 	}
 
@@ -193,8 +196,15 @@ with Cascade[TheTranslation]
     abstract override def save = {
       // save the default translation
       this.defaultTranslation.obj.map(_.save)
+      // save the unsaved translation
+      this.translationToSave.obj.map(aTranslation => {
+        aTranslation.save
+        if (this.translations.find(_.id == aTranslation.id)==Empty)
+          this.translations += aTranslation
+      }
+          )
       // save all the other translations
-      this.translations.map(_.save)
+      //this.translations.map(_.save)
       super.save
     }
 }

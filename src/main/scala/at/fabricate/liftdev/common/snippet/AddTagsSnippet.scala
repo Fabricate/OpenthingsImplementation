@@ -28,6 +28,7 @@ import at.fabricate.liftdev.common.model.TheGenericTranslation
 import at.fabricate.liftdev.common.lib.UrlLocalizer
 import java.util.Locale
 import net.liftweb.mapper.By
+import net.liftweb.http.js.JsCmds.SetHtml
 
 
 trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])] extends BaseEntityWithTitleAndDescriptionSnippet[T] {
@@ -38,9 +39,19 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
   
   val contentLanguage : RequestVar[Locale]
   
+    var selectTagsTemplate : NodeSeq = NodeSeq.Empty
+    var listTagsTemplate : NodeSeq = NodeSeq.Empty 
+    var selectSingleTagTemplate : NodeSeq = NodeSeq.Empty 
   
+  abstract override def view(xhtml: NodeSeq) :  NodeSeq  =  {
+    // get just the comment section
+    listTagsTemplate = ("#listtags ^^" #> "str").apply(xhtml)    
+    selectTagsTemplate = ("#selecttags ^^" #> "str").apply(xhtml)    
+    selectSingleTagTemplate = ("#selectsingletag ^^" #> "str").apply(xhtml)
+    super.view(xhtml)
+  }
   
-  object selectedTags extends RequestVar("")
+  //object selectedTags extends RequestVar("")
 //  val tagItem = TheItem.asInstanceOf[AddTags[T]]
 //  
 //  type LocalTheTagType = tagItem.TheTagType
@@ -86,16 +97,19 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
 //  def loadTags(item : ItemType)( ids : List[String]) : List[item.TheTags] = ids.map(id => item.theTagObject.findByKey(id.toLong).get)
 //  def loadTag( id : String)  = theTagObject.findByKey(id.toLong)
 
+  def listAllTagsForItem(localItem : ItemType) : CssSel = 
+    ("#singletag *" #> localItem.getAllTagsForThisItem.map(
+       _.doDefaultWithTranslationFor(UrlLocalizer.contentLocale)
+    		 )
+    		 )
   
   abstract override def asHtml(item : ItemType) : CssSel = {
 		 //type TagsForThisItem = item.TheTagType.TheTranslation
 		 
 	
 //		println("chaining asHtml from AddCommentSnippet")
-     ("#singletag *" #> item.getAllTagsForThisItem.map(
-       _.doDefaultWithTranslationFor(UrlLocalizer.contentLocale)
-    		 )
-     	) &
+     
+     	listAllTagsForItem(item) &
          // add the onsite editing stuff
          this.localToForm(item) &
      // chain the css selectors 
@@ -147,15 +161,14 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
      (super.toForm(item))
     }
       def localToForm(item : ItemType) : CssSel = {
-        val allTags = item.getAllAvailableTags
-        val selectedTags = item.getAllTagsForThisItem
+        //val allTags = item.getAllAvailableTags
+        //val selectedTags = item.getAllTagsForThisItem
         
         def tagSelected(localItem:ItemType)(singleTag:localItem.TheTagType)(selected:Boolean) : JsCmd = {
 	        val tagMapper = localItem.getTagMapper
 	          selected match {
 	              case true => {
 	                localItem.tags += tagMapper.create.taggedItem(localItem).theTag(singleTag).saveMe
-	                JsCmds.Noop
 	              }
 	              case false => {
 	                tagMapper.find(By(localItem.TheTags.taggedItem,localItem),
@@ -163,22 +176,33 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
 	                      localItem.tags -= tagMappingFound
 	                      tagMappingFound.delete_!
 	                    })
-	                JsCmds.Noop
 	              }
 	        }
+	        SetHtml("listtags",listAllTagsForItem(item).apply(listTagsTemplate ))
           } 
         
         def addTag(localItem:ItemType)(tagName:String) : JsCmd = {
           println("addTag with name "+tagName)
           val newTag = localItem.addNewTagToItem(contentLanguage.get, tagName)  
           newTag.save
-          JsCmds.Noop
+          //JsCmds.Noop
+          //SetHtml("selecttags",listAllTags.apply(selectTagTemplate ))
+					AppendHtml("selecttags", listATag(localItem)(newTag).apply(selectSingleTagTemplate)) &
+					 // clear the form
+					JsCmds.SetValById("newtagname", "")
         }
         
-        "#selectsingletag *" #> allTags.map(singleTag =>
+        def listATag(localItem : ItemType)(singleTag : localItem.TheTagType) :CssSel = {
+          (
             "#taglabel *" #> singleTag.doDefaultWithTranslationFor(contentLanguage) &
-            "#tagselect" #> SHtml.ajaxCheckbox(selectedTags.contains(singleTag),tagSelected(item)(singleTag) ) 
-            ) &
+            "#tagselect" #> SHtml.ajaxCheckbox(localItem.getAllTagsForThisItem.contains(singleTag),tagSelected(localItem)(singleTag) ) 
+            )        
+        }
+        
+        def listAllTags(localItem : ItemType) : CssSel = "#selectsingletag *" #> localItem.getAllAvailableTags.map(aTag => listATag(localItem)(aTag))
+        
+
+        "#selecttags *" #> listAllTags(item) &
         "#newtagname" #> SHtml.text("", addTag(item)) 
       }
         

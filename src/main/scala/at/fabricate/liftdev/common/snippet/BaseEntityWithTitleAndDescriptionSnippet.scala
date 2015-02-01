@@ -55,6 +55,8 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      type ItemType = T
     
      val TheItem : BaseMetaEntityWithTitleAndDescription[T] with MatchByID[T]
+//     val TheItem : BaseMetaEntityWithTitleAndDescription[T] with MatchByID[T]
+
     
 //    val TheItem = ItemType .getSingleton
     
@@ -91,6 +93,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      
   
   val contentLanguage : RequestVar[Locale]  
+     
      
   object unsavedContent extends SessionVar[Box[ItemType]](Empty){
        override protected def onShutdown(session: CleanUpParam): Unit = {
@@ -224,7 +227,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
        
   def loadItemFromSessionOrCreate : ItemType = 
     unsavedContent.get.openOr({
-    	val newItem = TheItem.createNewEntity(contentLanguage.get)
+    	val newItem = TheItem.createNewEntity(Locale.ENGLISH)
 	     unsavedContent.set(Full(newItem))
 	    newItem
     })
@@ -288,7 +291,8 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
   //   subclasses will implement that methodes with abstract override
   // this is the selector does nothing hopefully
   def toForm(item : ItemType) : CssSel = {
-  
+    object translation extends RequestVar[Box[item.TheTranslation]](Empty)
+
 //      println("chaining toForm from BaseEntitySnippet")
     
     //item.translations.head.language.get
@@ -296,8 +300,10 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     //this is the locale the user wanted to have/get/see
      val locale = S.locale 
      // default behaviour, as only one locale exisits atm!
-     var translation : TheGenericTranslation = item.getTranslationForItem(contentLanguage).
+     val theTranslation = item.getTranslationForItem(contentLanguage).
      	openOr(item.getNewTranslation(contentLanguage))
+     
+     translation.set(Full(theTranslation))
      	    //TheTranslationMeta.create.translatedItem(item).language(UrlLocalizer.getContentLocale.toString).saveMe)
      
     def elem2NodeSeq(element : Box[Elem]) : NodeSeq = {
@@ -308,23 +314,39 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      }
      	
      def createNewTranslationForItem(localItem : ItemType)() : JsCmd = {
-       translation = localItem.getNewTranslation(Locale.getDefault())
-       println("new translation created")
-       Replace("title",elem2NodeSeq(translation.title.toForm)) & 
-       Replace("teaser",elem2NodeSeq(translation.teaser.toForm)) & 
-       Replace("description",elem2NodeSeq(translation.description.toForm)) & 
-       Replace("language",elem2NodeSeq(translation.language.toForm))
+       val newTranslation = localItem.getNewTranslation(Locale.ENGLISH)
+       translation.set(Full(newTranslation.asInstanceOf[item.TheTranslation]))
+       println("new translation created with language "+newTranslation.language.get)
+       Replace("title",elem2NodeSeq(newTranslation.title.toForm)) & 
+       Replace("teaser",elem2NodeSeq(newTranslation.teaser.toForm.map(_ % new UnprefixedAttribute("rows","3", Null)))) & 
+       Replace("description",elem2NodeSeq(newTranslation.description.toForm)) & 
+       Replace("language",elem2NodeSeq(newTranslation.language.toForm))
      }
+//     localItem.TheTranslation
+//     def addTranslationAndSaveItem(localItem : ItemType)( translation : localItem.TheTranslation)() : JsCmd = {
+//       localItem.translations += translation
+//       saveAndRedirectToNewInstance(saveAndDisplayMessages(_:ItemType,_:()=>Unit,_:List[FieldError]=>Unit, "itemMessages") , localItem)
+//       JsCmds.Noop
+//     }
      	
-     "#title"  #> translation.title.toForm &
-     "#teaser"  #> (translation.teaser.toForm.map(_ % new UnprefixedAttribute("rows","3", Null))) &
-     "#description"  #> translation.description.toForm &
-     "#language"  #> translation.language.toForm &
+     "#title"  #> theTranslation.title.toForm &
+     "#teaser"  #> (theTranslation.teaser.toForm.map(_ % new UnprefixedAttribute("rows","3", Null))) &
+     "#description"  #> theTranslation.description.toForm &
+     "#language"  #> theTranslation.language.toForm &
      "#newlanguage"  #> SHtml.a(Text("create new translation"),createNewTranslationForItem(item),  "id"->"newlanguage") &//translation.language.toForm &
      "#defaultlanguage"  #> item.defaultTranslation.toForm &
      "#formitem [action]" #> urlToEditItem(item) &
      "#itemsubmithidden" #> SHtml.hidden(() => {
        //translation.save
+       val unsavedTranslation = translation.get match {
+         case Full(aTranslation) => aTranslation
+         case _ => {
+           println("translation in request var was empty!")
+           item.getNewTranslation(Locale.ENGLISH)
+         }
+       }
+       item.translationToSave(unsavedTranslation)
+//       saveAndDisplayAjaxMessages(unsavedTranslation, addTranslationAndSaveItem(item)(unsavedTranslation), errors => errors.map(error => displayMessageAndHide("itemMessages", error.toString , "errorMessage")).reduce(_ & _), "itemMessages")
        saveAndRedirectToNewInstance(saveAndDisplayMessages(_:ItemType,_:()=>Unit,_:List[FieldError]=>Unit, "itemMessages") , item)
      })
 
@@ -378,7 +400,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 //        if (localItem.defaultTranslation.obj.map(_.id == itemTranslation.id).openOr(false))
 //        	<a href={urlToViewItem(localItem,itemTranslation.language.isAsLocale)} >{ensureMinimumLenghOfElement(itemTranslation.title.asHtml, 10, "Title: ")}</a>
 //        	else 
-        	  <a href={urlToViewItem(localItem,itemTranslation.language.isAsLocale)} >{ itemTranslation.title.asString;" (%s)".format(itemTranslation.language.isAsLocale.getDisplayLanguage())}</a>
+        	  <a href={urlToViewItem(localItem,itemTranslation.language.isAsLocale)} >{"%s (%s)".format(itemTranslation.title, itemTranslation.language.isAsLocale.getDisplayLanguage())}</a>
         	  )
     }
   
