@@ -106,10 +106,25 @@
 			function AddMaterial(){
 				$(".addMaterial").slideToggle();
 			}
-			$('.editProjectBtn').click(function(){
-				$(".editPage").fadeIn();
-				$(".editProjectBtn").html("Stop editing");
-				$('.editProjectBtn').removeClass('editProjectBtn').addClass('stopEditing');
+//			$('.editProjectBtn').click(function(){
+//				$(".editPage").fadeToggle();
+//				$('.editProjectBtn').toggleClass('editOn');
+//				
+//			});
+
+			$(document).ready(function() {
+					$(".editProjectBtn").click(function() {
+							var $this = $(this);
+							$(".editPage").fadeToggle("fast")
+
+							$this.toggleClass("editOn");
+
+							if ($this.hasClass("editOn")) {
+									$this.html("<span class='icon-pencil editprojecticon'></span> Stop editing");
+							} else {
+									$this.html("<span class='icon-pencil editprojecticon'></span> Work on project");
+							}
+					});
 			});
 			
 			function AdvancedSearch(){
