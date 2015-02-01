@@ -1049,8 +1049,8 @@ body {
 .searchContent .searchForm input, .searchContent .searchForm select {
   float: left;
   margin: 0 1% 0.625em 0;
-  max-height: 3.45em;
-  width: 17%; }
+  max-height: 3.4em;
+  width: 30%; }
 
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/tags */
 .tagsSection {
@@ -1448,9 +1448,10 @@ body {
 
 /* line 11, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/project */
 .projectHeader p {
-  max-width: 800px; }
+  max-width: 800px;
+  margin-bottom: 0.9375em; }
 
-/* line 14, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/project */
+/* line 15, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/project */
 .projectHeader a {
   color: lightblue; }
 
