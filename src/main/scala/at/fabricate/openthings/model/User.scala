@@ -95,10 +95,26 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
   
   // save the content of a session before the user gets logged in!
   override def capturePreLoginState() = {
-    val savedContents = ProjectSnippet.unsavedContent.get // cartContents is the SessionVar
+    val unsavedContents = ProjectSnippet.unsavedContent.get // cartContents is the SessionVar
     
     () => {
-      ProjectSnippet.unsavedContent.set(savedContents)
+      //ProjectSnippet.unsavedContent.set(unsavedContents)
+      // just save it here
+      unsavedContents.map(content => {
+        //if project.
+        content match {
+          case aproject : Project => {
+            if (aproject.createdByUser.get > -1)
+              aproject.save
+            else
+              currentUser.map(aUser => {
+                aproject.createdByUser(aUser).save;println("project saved after login")
+              })
+          }
+          case _ => println("unsaved content cannot be casted to a project!")
+        }
+      }
+        )
     }
   }
   
