@@ -45,6 +45,8 @@ import net.liftweb.mapper.LongKeyedMapper
 import net.liftweb.http.js.JsCmds.SetHtml
 import scala.xml.Elem
 import net.liftweb.http.js.JsCmds.Replace
+import scala.xml.UnprefixedAttribute
+import scala.xml.Null
 
 
 abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
@@ -315,7 +317,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      }
      	
      "#title"  #> translation.title.toForm &
-     "#teaser"  #> translation.teaser.toForm &
+     "#teaser"  #> (translation.teaser.toForm.map(_ % new UnprefixedAttribute("rows","3", Null))) &
      "#description"  #> translation.description.toForm &
      "#language"  #> translation.language.toForm &
      "#newlanguage"  #> SHtml.a(Text("create new translation"),createNewTranslationForItem(item),  "id"->"newlanguage") &//translation.language.toForm &
