@@ -149,6 +149,20 @@ class GitWrapper[T <: (AddRepository[T] with MatchByID[T]) ](owner : T) extends 
    				// for example ../../../ 
    				// and then the file is stored somewhere else!
    				// or deleted
+   	
+   	// check if there are changes in the repo!
+//   def canCommitRepository : Boolean = {
+//       DiffFormatter formatter = new DiffFormatter( System.out );
+//    formatter.setRepository( git.getRepository() );
+//    AbstractTreeIterator commitTreeIterator = prepareTreeParser( git.getRepository(),  Constants.HEAD );
+//    FileTreeIterator workTreeIterator = new FileTreeIterator( git.getRepository() );
+//    List<DiffEntry> diffEntries = formatter.scan( commitTreeIterator, workTreeIterator );
+//
+//    for( DiffEntry entry : diffEntries ) {
+//      System.out.println( "Entry: " + entry + ", from: " + entry.getOldId() + ", to: " + entry.getNewId() );
+//      formatter.format( entry );
+//    }			
+//   			}
    				
   def deleteFileFromRepository(file : File) =   {
    			  file.delete()
