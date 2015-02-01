@@ -106,6 +106,12 @@
 			function AddMaterial(){
 				$(".addMaterial").slideToggle();
 			}
+			$('.editProjectBtn').click(function(){
+				$(".editPage").fadeIn();
+				$(".editProjectBtn").html("Stop editing");
+				$('.editProjectBtn').removeClass('editProjectBtn').addClass('stopEditing');
+			});
+			
 			function AdvancedSearch(){
 				$(".advancedSearch").slideToggle();
 				$(".close-icon").click(function(){

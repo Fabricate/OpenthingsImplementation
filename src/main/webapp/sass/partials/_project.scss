@@ -10,7 +10,17 @@
 }
 .projectHeader p{
 	max-width: 800px;
+	margin-bottom: $small-em
 }
 .projectHeader a{
 	color: lightblue
+}
+.editProjectBtn, .stopEditing{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: 1;
+}
+.editPage{
+	display: none;
 }
