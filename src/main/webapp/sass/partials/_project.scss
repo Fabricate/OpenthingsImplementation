@@ -10,8 +10,13 @@
 }
 .projectHeader p{
 	max-width: 800px;
-	margin-bottom: $small-em;
+	margin-bottom: $small-em
 }
 .projectHeader a{
 	color: lightblue
+}
+.editProjectBtn{
+	position: absolute;
+	bottom: 0;
+	right: 0;
 }
