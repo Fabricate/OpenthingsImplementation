@@ -1459,7 +1459,8 @@ body {
 .editProjectBtn {
   position: absolute;
   bottom: 0;
-  right: 0; }
+  right: 0;
+  z-index: 999; }
 
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/video */
 .videoHeader {
