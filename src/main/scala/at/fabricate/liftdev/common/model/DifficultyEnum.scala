@@ -24,12 +24,12 @@ import scala.xml.Elem
 		</li>
 //      <span class={theClass}></span>
     
-	val kids = Value(stage1,wrapSpanWithClass("icon-difficulty1",stage1))
-	val starter = Value(stage2,wrapSpanWithClass("icon-difficulty2",stage2))
-	val average = Value(stage3,wrapSpanWithClass("icon-difficulty3",stage3))
-	val advanced = Value(stage4,wrapSpanWithClass("icon-difficulty4",stage4))
-	val expert = Value(stage5,wrapSpanWithClass("icon-difficulty5",stage5))
-	val genius = Value(stage6,wrapSpanWithClass("icon-difficulty6",stage6))
+	val kids = Value(stage1,wrapSpanWithClass("icon-indication-bar0",stage1))
+	val starter = Value(stage2,wrapSpanWithClass("icon-indication-bar1",stage2))
+	val average = Value(stage3,wrapSpanWithClass("icon-indication-bar2",stage3))
+	val advanced = Value(stage4,wrapSpanWithClass("icon-indication-bar3",stage4))
+	val expert = Value(stage5,wrapSpanWithClass("icon-indication-bar4",stage5))
+	val genius = Value(stage6,wrapSpanWithClass("icon-indication-bar5",stage6))
 	
 	val upToKidsList = kids :: Nil
     val upToStarterList = starter  :: upToKidsList
