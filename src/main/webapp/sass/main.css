@@ -222,15 +222,15 @@ input[type="checkbox"] {
   border-color: #666666;
   margin-bottom: 0.625em; }
 
-/* line 29, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/forms */
+/* line 28, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/forms */
 .addTags input {
   max-width: 60% !important; }
 
-/* line 32, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/forms */
+/* line 31, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/forms */
 #editUserForm img {
   max-width: 100%; }
 
-/* line 36, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/forms */
+/* line 35, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/forms */
 .mce-panel {
   margin-bottom: 0.9375em !important; }
 
@@ -1084,15 +1084,15 @@ body {
 /* line 27, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/tags */
 #listtags {
   padding: 0 0 3% 0;
-  display: none; }
+  margin-bottom: 1.875em; }
 
 /* line 31, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/tags */
 #listtags li {
   display: inline-block;
   padding: 0.625em;
   color: white;
-  background: rgba(94, 25, 142, 0.5);
-  border-radius: 10px;
+  background: rgba(94, 25, 142, 0.75);
+  border-radius: 4px;
   margin-right: 0.625em;
   font-size: 1.2em; }
 
@@ -1190,11 +1190,6 @@ body {
 /* line 66, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/projectversions */
 .projectVersionsList .icon-eye {
   cursor: pointer; }
-
-/* line 69, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/projectversions */
-#repositoryMessages {
-  background: rgba(94, 25, 142, 0.5);
-  padding: 0.9375em 8%; }
 
 /* line 73, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/projectversions */
 #revertcommit, #resetcommit {
@@ -1456,11 +1451,15 @@ body {
   color: lightblue; }
 
 /* line 18, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/project */
-.editProjectBtn {
+.editProjectBtn, .stopEditing {
   position: absolute;
   bottom: 0;
   right: 0;
-  z-index: 999; }
+  z-index: 1; }
+
+/* line 24, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/project */
+.editPage {
+  display: none; }
 
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/video */
 .videoHeader {

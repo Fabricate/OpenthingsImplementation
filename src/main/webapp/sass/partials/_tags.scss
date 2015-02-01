@@ -26,14 +26,14 @@
 }
 #listtags{
 	padding: 0 0 3% 0;
-	display: none;
+	margin-bottom: $medium-em;
 }
 #listtags li{
 	display: inline-block;
 	padding: $xsmall-em;
 	color: white;
-	background: rgba($brand-color, .5);
-	border-radius: 10px;
+	background: rgba($brand-color, .75);
+	border-radius: 4px;
 	margin-right: $xsmall-em;
 	font-size: 1.2em;
 }

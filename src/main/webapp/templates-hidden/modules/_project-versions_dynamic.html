@@ -14,20 +14,22 @@
 					</article>
 				</li>
 			</ul>
-			<section class="addFiles left">
-				<ul id="files" class="projectVersionsList">
-						<p class="readyUpload">Files ready to commit:</p>
-						<li id="listfiles">
-							<span id="deletefile" class="icon-delete delete-icon"></span> <span id="filename"></span>
-						</li>
-				</ul>
-				<h2 class="epsilon">Select files to upload to the project:</h2>
-				<input id="fileupload" type="file" name="files[]"  multiple>
-				<div class="uploadstatus left"></div>	
-				<input id="commitlabel" value="" type="text"></input>
-				<input id="commitrepohidden" value="" type="hidden"></input>
-				<button id="commitrepo" class="left">Commit files</button>
-			</section>
+			<div class="editPage">
+				<section class="addFiles left">
+					<ul id="files" class="projectVersionsList">
+							<p class="readyUpload">Files ready to commit:</p>
+							<li id="listfiles">
+								<span id="deletefile" class="icon-delete delete-icon"></span> <span id="filename"></span>
+							</li>
+					</ul>
+					<h2 class="epsilon">Select files to upload to the project:</h2>
+					<input id="fileupload" type="file" name="files[]"  multiple>
+					<div class="uploadstatus left"></div>	
+					<input id="commitlabel" value="" type="text"></input>
+					<input id="commitrepohidden" value="" type="hidden"></input>
+					<button id="commitrepo" class="left">Commit files</button>
+				</section>
+			</div>
 	<section id="repositoryMessages" class="left"></section>
 	<lift:with-resource-id>
 		<script src="/js/load-image.all.min.js"></script>
