@@ -42,7 +42,7 @@
 		<script src="/js/jquery.fileupload-process.js"></script>
 		<script src="/js/jquery.fileupload-image.js"></script>
 	</lift:with-resource-id>
-		<script>
+		<script id="uploadconfig">
 			$(function () {
 					$('#fileupload').fileupload({
 							add: function (e, data) {
@@ -50,6 +50,9 @@
 									data.submit();
 							},
 							done: function (e, data) {
+									$.each(data.files, function (index, file) {
+										UpdateFilelist(file.name);
+									});
 									data.context.text('Upload finished.');
 							}
 					});
