@@ -51,14 +51,16 @@ object LoginSnippet extends CustomizeUserHandlingSnippet[User](User,UserSnippet)
             	 //"#login *" #> "Logout" //&
 //            	 "#logoutBtn [href]" #> "/%s".format(userObject.logoutPath.mkString("/")) &
 //            	 "#account" #> <span class="icon-"></span> Account  
-            	  "#landingsection" #> ""
+            	  "#landingsection" #> "" &
+            	  "#onlinestatus [class]" #> "loggedIn"
             )(xhtml)
             	else
             	(
             	 //"#login *" #> "Login" &
             	 "#logout" #> "" &
 //            	 "#logoutBtn [href]" #> "/%s".format(userObject.logoutPath.mkString("/")) &
-            	"#account" #> ""
+            	"#account" #> ""&
+            	  "#onlinestatus [class]" #> "notLoggedIn"
             )(xhtml)
   }
 }
