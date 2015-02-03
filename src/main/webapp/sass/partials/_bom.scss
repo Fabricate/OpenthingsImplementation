@@ -1,18 +1,19 @@
-.bom{
+.needHelp{
 	padding: $small-percentage;
 	background-color: rgba(white, .3);
 	color: $darkgrey;
+	width: 100%;
 }
-.bom li{
+.needHelp li{
 	padding: $tiny-percentage 0;
 	border-bottom: white 1px solid;
 }
-.addMaterial{
+.addHelp{
 	display: none;
 }
-.addMaterial input{
+.addHelp input{
 	width: 44%;
 }
-.addMaterial button{
+.addHelp button{
 	margin-left: $xsmall-em;
 }
