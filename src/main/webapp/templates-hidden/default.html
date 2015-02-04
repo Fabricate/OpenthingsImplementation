@@ -28,7 +28,7 @@
   /* ]]> */
   </style>
   </head>
-  <body>
+  <body data-lift="Login.account" id="onlinestatus">
 		<span data-lift="embed?what=modules/_navigation">Navigation</span>
 		<span data-lift="embed?what=modules/_search">Search</span>
 <!--		<span data-lift="embed?what=modules/_advancedsearch">Advanced search</span>-->
@@ -189,11 +189,17 @@
 			$(".designerView .editprojecticon").remove();
 			$(".designerView .editProjectBtn").remove();
 			$(".languageSelect").remove();
+			$(".notLoggedIn .commentInput").remove();
+			$(".notLoggedIn #newrating").remove();
+			$(".notLoggedIn .editProjectBtn").remove();
 
-//			if( $('.viewcomments').length )         // use this if you are using class to check
-//			{
-//					 alert('alert dit');
-//			}
+
+			if( $('.comment').length )         // use this if you are using class to check
+			{
+			}
+			else{
+				$(".viewcomments").remove();
+			}
 		</script>
   </body>
 </html>
