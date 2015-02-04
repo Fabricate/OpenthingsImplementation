@@ -98,10 +98,10 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
 //  def loadTag( id : String)  = theTagObject.findByKey(id.toLong)
 
   def listAllTagsForItem(localItem : ItemType) : CssSel = 
-    ("#singletag *" #> localItem.getAllTagsForThisItem.map(
-       _.doDefaultWithTranslationFor(UrlLocalizer.contentLocale)
-    		 )
-    		 )
+    localItem.getAllTagsForThisItem match {
+      case Nil => ("#singletag" #> (None: Option[String]) )
+      case alist => ("#singletag *" #> alist.map( _.doDefaultWithTranslationFor(UrlLocalizer.contentLocale)))
+    }
   
   abstract override def asHtml(item : ItemType) : CssSel = {
 		 //type TagsForThisItem = item.TheTagType.TheTranslation
