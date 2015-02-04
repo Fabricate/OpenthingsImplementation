@@ -105,10 +105,11 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
         content match {
           case aproject : Project => {
             if (aproject.createdByUser.get > -1)
-              aproject.save
+              ProjectSnippet.unsavedContent.set(Full(aproject))
             else
               currentUser.map(aUser => {
-                aproject.createdByUser(aUser).save;println("project saved after login")
+                ProjectSnippet.unsavedContent.set(Full(aproject.createdByUser(aUser)))
+                //println("project saved after login")
               })
           }
           case _ => println("unsaved content cannot be casted to a project!")

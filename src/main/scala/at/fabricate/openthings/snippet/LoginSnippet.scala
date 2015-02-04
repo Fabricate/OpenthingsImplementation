@@ -60,7 +60,9 @@ object LoginSnippet extends CustomizeUserHandlingSnippet[User](User,UserSnippet)
             	 "#logout" #> "" &
 //            	 "#logoutBtn [href]" #> "/%s".format(userObject.logoutPath.mkString("/")) &
             	"#account" #> ""&
-            	  "#onlinestatus [class]" #> "notLoggedIn"
+            	  "#onlinestatus [class]" #> "notLoggedIn"&
+            	  "#addproject [onClick]" #> "LoginScreen();"
+            	
             )(xhtml)
   }
 }
