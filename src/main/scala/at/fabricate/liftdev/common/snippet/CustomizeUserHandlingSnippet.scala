@@ -153,8 +153,8 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
 //    logger.debug("[Login.login] enter.")
 		if (!userObject.loggedIn_?)
             userObject.customLogin{
-  			("#email" #> <input type="text" name="username" placeholder="your mail address"/> & //FocusOnLoad()
-  			"#password" #> <input type="password" name="password" placeholder="your password"/> &
+  			("#email" #> <input type="text" name="username" placeholder="Your mail address"/> & //FocusOnLoad()
+  			"#password" #> <input type="password" name="password" placeholder="Your password"/> &
   			"#loginform [action]" #> S.uri
 //  			"type=submit" #> loginSubmitButton(S.?("log.in"))
   			).apply(xhtml)

@@ -118,7 +118,7 @@
 					$(".editProjectBtn").click(function() {
 							var $this = $(this);
 							$(".editPage").fadeToggle("fast")
-
+							$(".projectVersions").fadeToggle("fast")
 							$this.toggleClass("editOn");
 
 							if ($this.hasClass("editOn")) {
@@ -200,6 +200,15 @@
 			else{
 				$(".viewcomments").remove();
 			}
+			
+			if( $('#commits li').length )         // use this if you are using class to check
+			{
+				$(".projectVersions").show();
+			}
+			else{
+				$(".projectVersions").hide();
+			}
+			
 		</script>
   </body>
 </html>
