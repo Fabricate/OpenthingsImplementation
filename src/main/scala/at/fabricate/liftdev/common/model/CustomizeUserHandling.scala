@@ -96,7 +96,7 @@ trait CustomizeUserHandling[T <: MegaProtoUser[T] with BaseEntityWithTitleAndDes
     }
   } 
   
-  def customPasswordReset(selector : T => NodeSeq, userid : String, defaultRedirectLocation : String = homePage) =
+  def customPasswordReset(selector : (T, ()=>Unit ) => NodeSeq, userid : String, defaultRedirectLocation : String = homePage) =
 	  findUserByUniqueId(userid) match {
 	    case Full(user) =>
 	      def finishSet() {
@@ -109,7 +109,7 @@ trait CustomizeUserHandling[T <: MegaProtoUser[T] with BaseEntityWithTitleAndDes
 	        }
 	      }
 	      
-	      selector(user)
+	      selector(user,finishSet)
 	    case _ => S.error(S.?("password.link.invalid")); S.redirectTo(homePage)
 	  }       
 	  

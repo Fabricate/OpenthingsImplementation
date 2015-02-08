@@ -219,7 +219,7 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
    		    action => {
    		      var mailAddress = ""
    		      ("#email" #> SHtml.text("", mailAddress = _, "placeholder"->"Your E-mail adress") &
-   		      "#lostpasswordhidden" #> SHtml.hidden(() => action(mailAddress,List(validateUserTemlate),List(resetPasswordTemlate)) ) &
+   		      "#lostpasswordhidden" #> SHtml.hidden(() => action(mailAddress,List(resetPasswordTemlate),List(validateUserTemlate)) ) &
   			  "#lostpasswordform [action]" #> S.uri
    		          ).apply(xhtml)
    		    }
@@ -232,9 +232,12 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
     def resetPassword(xhtml: NodeSeq): NodeSeq =
    		if (!userObject.loggedIn_? )
    		  userObject.customPasswordReset({
-   		    user => 
-   		      ("#reset-password" #> SHtml.password_*("", { p: List[String] => 
-   		        user.password.setList(p) } ) &
+   		    (user, finish ) => 
+   		      val passwordInput = SHtml.password_*("", LFuncHolder(s => user.password.setList(s) ))
+   		      ("#reset-password" #> passwordInput &
+//   		      SHtml.password_*("", { p: List[String] => 
+//   		        user.password.setList(p) } ) &
+   		        "#resetpasswordhidden" #> SHtml.hidden( finish ) &
    		        "#resetpasswordform [action]" #> S.uri
    		      	).apply(xhtml)
    		}, requestedID.get)   
