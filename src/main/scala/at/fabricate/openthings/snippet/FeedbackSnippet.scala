@@ -55,7 +55,7 @@ object FeedbackSnippet  extends DispatchSnippet {
 //	      }
 //	    }
      
-    val recipients = List("openthingsteam@gmail.com")
+    val recipients = List("openthingsteam@gmail.com","hello@martinr.nl")
      
     def sendPlainMail(from : String, replyTo : String, subject : String, to : List[String], content : String) = 
             to.map(recipient => Mailer.sendMail(From(from),Subject(subject), To(recipient), PlainMailBodyType(content), ReplyTo(replyTo))
