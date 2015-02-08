@@ -3,11 +3,15 @@
 			<div>
 				<h1>Contact us</h1>
 				<p>If you want to ask us a question you can fill in the form and we try to reply as soon as possible.</p>
+				<div data-lift="Feedback.mail">
 				<form class="contactform">
-					<input placeholder="E-mail" name="e-mail" type="email">
-					<textarea placeholder="Your message" name="message" rows="10"></textarea>
+					<input id="from" placeholder="E-mail" type="email">
+					<input id="subject" placeholder="Subject" type="text">
+					<textarea id="message" placeholder="Your message" name="message" rows="10"></textarea>
+					<input id="mailaction" type="hidden">
 					<button type="submit"><span class="icon-messages"></span> Send message</button>
 				</form>
+				</div>
 			</div>
     </section>
 </div>

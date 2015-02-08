@@ -85,6 +85,7 @@ class Boot {
       case "Project" => ProjectSnippet
       case "User" => UserSnippet
       case "Login" => LoginSnippet
+      case "Feedback" => FeedbackSnippet
     }
     
     //LiftRules.dispatch.append(ImageLogic.matcher)
@@ -178,7 +179,9 @@ class Boot {
 
                Menu.i("Static") / "static" / ** >> Hidden
                //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
-               ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu  ::: UserSnippet.getMenu ::: SearchSnippet.getMenu ::: Tool.menus
+               ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu  ::: 
+               UserSnippet.getMenu ::: SearchSnippet.getMenu ::: Tool.menus :::
+               FeedbackSnippet.getMenu
 //               ::: User.menus
 //
     LiftRules.setSiteMap(SiteMap(menu :_*))
