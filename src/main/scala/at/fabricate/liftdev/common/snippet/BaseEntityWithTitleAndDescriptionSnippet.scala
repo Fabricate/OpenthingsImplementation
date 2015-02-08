@@ -301,7 +301,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      val locale = S.locale 
      // default behaviour, as only one locale exisits atm!
      val theTranslation = item.getTranslationForItem(contentLanguage).
-     	openOr(item.getNewTranslation(contentLanguage))
+     	openOr(item.theEmptyTranslation )
      
      translation.set(Full(theTranslation))
      	    //TheTranslationMeta.create.translatedItem(item).language(UrlLocalizer.getContentLocale.toString).saveMe)
@@ -333,7 +333,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      "#teaser"  #> (theTranslation.teaser.toForm.map(_ % new UnprefixedAttribute("rows","3", Null))) &
      "#description"  #> theTranslation.description.toForm &
      "#language"  #> theTranslation.language.toForm &
-     "#newlanguage"  #> SHtml.a(Text("create new translation"),createNewTranslationForItem(item),  "id"->"newlanguage") &//translation.language.toForm &
+     "#newlanguage"  #> SHtml.a(Text("create new translation"),  "id"->"newlanguage")(createNewTranslationForItem(item)) &//translation.language.toForm &
      "#defaultlanguage"  #> item.defaultTranslation.toForm &
      "#formitem [action]" #> urlToEditItem(item) &
      "#itemsubmithidden" #> SHtml.hidden(() => {

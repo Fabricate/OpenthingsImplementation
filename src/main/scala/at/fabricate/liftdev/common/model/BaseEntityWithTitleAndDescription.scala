@@ -191,6 +191,8 @@ with Cascade[TheTranslation]
 	  this.translationToSave(translation)
 	  translation
 	}
+	
+	lazy val theEmptyTranslation = this.TheTranslationMeta.create.language("en_EN").translatedItem(this).title("NO TRANSLATION FOUND").description("NO TRANSLATION FOUND").teaser("NO TRANSLATION FOUND")
 
     // special save for MySQL - enforces saving of translation before the entity can be saved 
     abstract override def save = {
