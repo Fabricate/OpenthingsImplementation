@@ -447,8 +447,15 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 //     }
      // dummy fallback translation behavior
          val translation = item.defaultTranslation.getObjectOrHead // could be extended to use the users default maybe?
+         val description = translation.description.get match {
+           case null => NodeSeq.Empty 
+           case _ => TextileParser.toHtml(translation.description.get)
+         }
          "#translations *" #> item.translations.map(itemTranslation => getShortInfoAndLinkToItem(item)) &
-	     "#language *" #> translation.language.isAsLocale.getDisplayLanguage & //LocaleDataMetaInfo.getSupportedLocaleString(locale)
+	     "#language *" #> translation.language.isAsLocale.getDisplayLanguage & //LocaleDataMetaInfo.getSupportedLocaleString(locale)     
+	     "#title *"  #> translation.title.asHtml &
+	     "#teaser *"  #> translation.teaser.get &
+	     "#description *"  #> description &
 	     "#shortinfo" #> getShortInfoForItem(item)  &
 	     "#created *+"  #> item.createdAt.asHtml  &
 	     "#updated *+"  #> item.updatedAt.asHtml  &
