@@ -13,6 +13,7 @@ import net.liftweb.http.SHtml
 import java.util.Locale
 import net.liftweb.http.js.JsCmds
 import net.liftweb.http.SHtml.SelectableOption
+import net.liftweb.http.S
 
 object LoginSnippet extends CustomizeUserHandlingSnippet[User](User,UserSnippet){
 
@@ -38,8 +39,8 @@ object LoginSnippet extends CustomizeUserHandlingSnippet[User](User,UserSnippet)
 //      state = s; After(200, replace(state)) })
     	("#selectLanguage" #> SHtml.ajaxSelect(
     	    UrlLocalizer.allLanguages.map(lang => SelectableOption( lang.getDisplayLanguage, lang.getDisplayLanguage) ),
-    	    Full(UrlLocalizer.sessionSiteLocale.get.getDisplayLanguage),
-    	    {s => UrlLocalizer.allLanguages.find(_.getDisplayLanguage == s).map(UrlLocalizer.sessionSiteLocale.set(_));JsCmds.Noop}
+    	    Full(UrlLocalizer.getSiteLocale.getDisplayLanguage),
+    	    {s => UrlLocalizer.setSiteLocale(UrlLocalizer.allLanguages.find(_.getDisplayLanguage == s));JsCmds.Noop}
     	    )).apply(xhtml)
     }
       

@@ -19,15 +19,16 @@ object UrlLocalizer {
 //  object requestLocale extends RequestMemoize[Int, Locale] {
 //      override protected def __nameSalt = randomString(20)
 //  }
-  // will go to the requestLocale once it is set
-  object sessionSiteLocale extends SessionVar(Locale.getDefault)
-  
-  // will be used to display content in different
-  object contentLocale extends RequestVar(Locale.getDefault)
-
   
   // will be used if we can find no locale!
   val defaultLocale = Locale.ENGLISH
+
+  // will go to the requestLocale once it is set
+  @volatile 
+  object sessionSiteLocale extends SessionVar[Box[Locale]](Empty)
+  
+  // will be used to display content in different
+  object contentLocale extends RequestVar(defaultLocale)
 
   /**
    * What are the available locales?
@@ -57,10 +58,13 @@ object UrlLocalizer {
       //println("locale not set - using default!")
       defaultLocale 
     }
+  
+  def setSiteLocale(aLocale : Box[Locale]) = sessionSiteLocale.set(aLocale)
     
   def getSiteLocale : Locale = 
-    if ( sessionSiteLocale.set_? ) sessionSiteLocale.get
-    else defaultLocale
+//    if ( sessionSiteLocale.set_? ) sessionSiteLocale.get
+//    else defaultLocale
+    sessionSiteLocale.openOr(defaultLocale )
     
   def calcLocaleFromURL(in: Box[HTTPRequest]): Locale = getContentLocale
   
@@ -68,14 +72,23 @@ object UrlLocalizer {
 //    else oldLocalizeFunc(in)
 
   def calcLocaleFromRequest(request: Box[HTTPRequest]) : Locale =
-//      requestLocale(request.hashCode, (
-    if ( sessionSiteLocale.set_? ) sessionSiteLocale.get
-    else {
+////      requestLocale(request.hashCode, (
+//    if ( sessionSiteLocale.set_? ) {
+//      println("using session locale "+sessionSiteLocale.get.getDisplayLanguage())
+//      // stack overflow -> a good sign ;-)!
+//      //println("S.locale "+S.locale)
+//      sessionSiteLocale.get
+//    }
+//    else 
+    // dummy
+//    Locale.ENGLISH
+    sessionSiteLocale.openOr {
       val requestLocale = 
       (for {
-        r <- request
-        p <- tryo(r.param("hl").head.split(Array('_', '-')))
-      } yield p match {
+//        r <- request
+//        p <- tryo(r.param("hl").head.split(Array('_', '-')))
+        listOfLanguages <- tryo(S.getRequestHeader("Accept-Language").get.split(Array(',')).toList.map(_.split(Array('_', '-'))))
+      } yield listOfLanguages.map {
         case Array(lang) => new Locale(lang)
         case Array(lang, country) => new Locale(lang, country)
       })
@@ -83,8 +96,16 @@ object UrlLocalizer {
       //sessionSiteLocale.set().openOr(defaultLocale )
 //      sessionSiteLocale.get
       requestLocale match {
-        case Full(aLocale) => sessionSiteLocale.set(aLocale); aLocale
-        case _ => Locale.getDefault
+        case Full(aListOfLocales) => {
+          val useLocale = aListOfLocales.head
+          println("requested locales: "+aListOfLocales.mkString(","))
+          println("use locale: "+useLocale.getDisplayLanguage(useLocale))
+          setSiteLocale(Full(useLocale)); useLocale
+        }
+        case _ => {
+          println("no locale in request")
+          Locale.getDefault
+        }
       }
     }
       //end loxalization block
@@ -93,8 +114,9 @@ object UrlLocalizer {
    */
   def init() {
     // hook into Lift
-    LiftRules.localeCalculator = calcLocaleFromRequest
+    LiftRules.localeCalculator = calcLocaleFromRequest _
      // calcLocaleFromURL
+    
 
     // rewrite requests with a locale at the head
     // of the path
