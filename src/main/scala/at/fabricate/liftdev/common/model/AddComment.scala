@@ -20,11 +20,17 @@ import net.liftweb.mapper.MappedForeignKey
 import net.liftweb.mapper.BaseMetaMapper
 import net.liftweb.mapper.ProtoUser
 import net.liftweb.common.Box
+import net.liftweb.mapper.MetaMegaProtoUser
+import net.liftweb.mapper.MegaProtoUser
 
 trait AddComment[T <: (AddComment[T]) ] extends BaseEntity[T]  with OneToMany[Long, T] { // 
 	self: T =>
 	  
-	  def getCurrentUser : Box[ProtoUser[_]]
+	  type TheUserType <: MegaProtoUser[TheUserType] with BaseEntityWithTitleAndDescription[TheUserType]
+	  
+	  def theUserObject : MetaMegaProtoUser[TheUserType] with BaseMetaEntityWithTitleAndDescription[TheUserType]
+
+	  def getCurrentUser : Box[ProtoUser[TheUserType]]
 	  
       type TheCommentedType = T
       
@@ -42,10 +48,14 @@ with Cascade[TheComment]
 	  	  object title extends MappedString(this, 80){    	    
     	    override def validations = FieldValidation.minLength(this,5) _ :: Nil
     	  }
-		  object author extends MappedString(this, 40){
-    	    override def validations = FieldValidation.minLength(this,3) _ :: Nil
-    	    override def defaultValue = getCurrentUser.map(user => "%s %s".format(user.firstName, user.lastName )) openOr("")
+//		  object author extends MappedString(this, 40){
+//    	    override def validations = FieldValidation.minLength(this,3) _ :: Nil
+//    	    override def defaultValue = getCurrentUser.map(user => "%s %s".format(user.firstName, user.lastName )) openOr("")
+//    	  }
+    	  object author extends MappedLongForeignKey(this,theUserObject){
+    	    override def defaultValue = getCurrentUser.map(_.id.get).openOr(-1)
     	  }
+    	  
 		  object comment extends MappedString(this, 140){		    
     	    override def validations = FieldValidation.minLength(this,10) _ :: Nil
 		  }

@@ -27,7 +27,7 @@ import net.liftweb.mapper.MetaMegaProtoUser
 trait AddCreatedByUser[T <: (AddCreatedByUser[T]) ] extends BaseEntity[T]  with OneToMany[Long, T] { // 
 	self: T =>
 	  
-	  def getCurrentUser : Box[ProtoUser[_]]
+	  def getCurrentUser : Box[ProtoUser[TheUserType]]
 	  
 	  type TheUserType <: MegaProtoUser[TheUserType] with BaseEntityWithTitleAndDescription[TheUserType]
 	  

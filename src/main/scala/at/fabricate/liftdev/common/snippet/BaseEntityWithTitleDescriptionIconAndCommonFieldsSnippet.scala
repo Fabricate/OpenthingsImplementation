@@ -70,7 +70,7 @@ with AddTagsSnippet[T]
 //       "#icon" #> item.icon .toForm & // will go to the baseiconentitysnippet later on
 //    "#initiator *"  #> {<strong>Made by:</strong> item.de} &
     "#licence"  #> item.licence.toForm &
-    "#difficulty"  #> item.difficulty.toForm&
+    "#difficulty"  #> item.difficulty.toForm &
     "#state"  #> item.state.toForm
    ) &
         (super.toForm(item))

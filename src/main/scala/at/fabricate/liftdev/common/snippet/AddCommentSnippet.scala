@@ -34,13 +34,13 @@ trait AddCommentSnippet[T <: BaseEntityWithTitleAndDescription[T] with AddCommen
 		 
     	 def bindCommentCSS(comment: item.TheComment) : CssSel= 
 		     "#commenttitle *" #> comment.title.asHtml &
-		     "#commentauthor *" #> "Posted by: %s".format(comment.author.asHtml) &     
+		     "#commentauthor *" #> "Posted by: %s".format(comment.author.obj.map(_.defaultTranslation.getObjectOrHead.title).openOr("no author")) &     
 		     "#commentmessage *" #> comment.comment.asHtml
 		   
     	 def bindNewCommentCSS : CssSel= 
-		     "#newcomtitle" #> SHtml.text(newComment.title.get, value => {newComment.title.set(value);JsCmds.Noop}, "placeholder"->"Title" )&
-		     "#newcomauthor" #> SHtml.text(newComment.author.get, value => {newComment.author.set(value);JsCmds.Noop}, "placeholder"->"Name"  )&     
-		     "#newcommessage" #> SHtml.textarea(newComment.comment.get, value => {newComment.comment.set(value);JsCmds.Noop}, "placeholder"->"Your comment" ) & // rows="6"
+		     "#newcomtitle" #> SHtml.text(newComment.title.get, value => {newComment.title.set(value);JsCmds.Noop} )& //, "placeholder"->"Title"
+//		     "#newcomauthor" #> SHtml.text(newComment.author.get, value => {newComment.author.set(value);JsCmds.Noop}, "placeholder"->"Name"  )&     
+		     "#newcommessage" #> SHtml.textarea(newComment.comment.get, value => {newComment.comment.set(value);JsCmds.Noop} ) & // rows="6" , "placeholder"->"Your comment"
 		     "#newcomsubmithidden" #> SHtml.hidden(() => {
 		       saveAndDisplayAjaxMessages(newComment, 
 		           () => {
