@@ -193,19 +193,11 @@
 			$(".notLoggedIn .editProjectBtn").remove();
 
 
-			if( $('.comment').length )         // use this if you are using class to check
+			if( $('.comment').length && $('.userProjectVersions li').length)         // use this if you are using class to check
 			{
 			}
 			else{
 				$(".viewcomments").remove();
-			}
-			
-			if( $('#commits li').length )         // use this if you are using class to check
-			{
-				$(".projectVersionsList").show();
-			}
-			else{
-				$(".projectVersionsList").hide();
 			}
 			
 		</script>
