@@ -100,7 +100,10 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
   def listAllTagsForItem(localItem : ItemType) : CssSel = 
     localItem.getAllTagsForThisItem match {
       case Nil => ("#singletag" #> (None: Option[String]) )
-      case alist => ("#singletag *" #> alist.map( _.doDefaultWithTranslationFor(UrlLocalizer.contentLocale)))
+      //case alist => ("#singletag *" #> alist.map( _.doDefaultWithTranslationFor(UrlLocalizer.contentLocale)))
+      // dummy for now
+      case alist => ("#singletag *" #> alist.map( _.defaultTranslation.getObjectOrHead.title.get))
+
     }
   
   abstract override def asHtml(item : ItemType) : CssSel = {
@@ -194,7 +197,9 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
         
         def listATag(localItem : ItemType)(singleTag : localItem.TheTagType) :CssSel = {
           (
-            "#taglabel *" #> singleTag.doDefaultWithTranslationFor(contentLanguage) &
+            //"#taglabel *" #> singleTag.doDefaultWithTranslationFor(contentLanguage) &
+              // dummy for now
+            "#taglabel *" #> singleTag.defaultTranslation.getObjectOrHead.title.get &
             "#tagselect" #> SHtml.ajaxCheckbox(localItem.getAllTagsForThisItem.contains(singleTag),tagSelected(localItem)(singleTag) ) 
             )        
         }

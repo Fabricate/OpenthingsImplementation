@@ -300,8 +300,11 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     //this is the locale the user wanted to have/get/see
      val locale = S.locale 
      // default behaviour, as only one locale exisits atm!
-     val theTranslation = item.getTranslationForItem(contentLanguage).
-     	openOr(item.theEmptyTranslation )
+//     val theTranslation = item.getTranslationForItem(contentLanguage).
+//     	openOr(item.getNewTranslation(contentLanguage) )
+     
+     // fallback behavior     
+     val theTranslation = item.defaultTranslation.getObjectOrHead
      
      translation.set(Full(theTranslation))
      	    //TheTranslationMeta.create.translatedItem(item).language(UrlLocalizer.getContentLocale.toString).saveMe)
@@ -410,27 +413,39 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     
      val locale = S.locale
      
-     val translationBox = item.getTranslationForItem(contentLanguage)
-     translationBox match {
-       case Full(translation) => {
-         val description = translation.description.get match {
-           case null => NodeSeq.Empty 
-           case _ => TextileParser.toHtml(translation.description.get)
-         }
-         "#translations *" #> getLinksToAllTranslations(item) &
-	     "#language *" #> translation.language.isAsLocale.getDisplayLanguage & //LocaleDataMetaInfo.getSupportedLocaleString(locale)
-	     "#shortinfo" #> getShortInfoForItem(item)  &
-	     "#title *"  #> translation.title.asHtml &
-	     "#teaser *"  #> translation.teaser.get &
-	     "#description *"  #> description &
-	     "#created *+"  #> item.createdAt.asHtml  &
-	     "#updated *+"  #> item.updatedAt.asHtml  &
-	     "#edititem [href]" #> urlToEditItem(item,translation.language.isAsLocale) &
-	     "#viewitem [href]" #> urlToViewItem(item,translation.language.isAsLocale) &
-	     "#viewitem *" #> "View Item"
-       }
-       case _ => {
-         // not the wanted content found!
+//     val translationBox = item.getTranslationForItem(contentLanguage)
+//     translationBox match {
+//       case Full(translation) => {
+//         val description = translation.description.get match {
+//           case null => NodeSeq.Empty 
+//           case _ => TextileParser.toHtml(translation.description.get)
+//         }
+//         "#translations *" #> getLinksToAllTranslations(item) &
+//	     "#language *" #> translation.language.isAsLocale.getDisplayLanguage & //LocaleDataMetaInfo.getSupportedLocaleString(locale)
+//	     "#shortinfo" #> getShortInfoForItem(item)  &
+//	     "#title *"  #> translation.title.asHtml &
+//	     "#teaser *"  #> translation.teaser.get &
+//	     "#description *"  #> description &
+//	     "#created *+"  #> item.createdAt.asHtml  &
+//	     "#updated *+"  #> item.updatedAt.asHtml  &
+//	     "#edititem [href]" #> urlToEditItem(item,translation.language.isAsLocale) &
+//	     "#viewitem [href]" #> urlToViewItem(item,translation.language.isAsLocale) &
+//	     "#viewitem *" #> "View Item"
+//       }
+//       case _ => {
+//         // not the wanted content found!
+//         val translation = item.defaultTranslation.getObjectOrHead // could be extended to use the users default maybe?
+//         "#translations *" #> item.translations.map(itemTranslation => getShortInfoAndLinkToItem(item)) &
+//	     "#language *" #> translation.language.isAsLocale.getDisplayLanguage & //LocaleDataMetaInfo.getSupportedLocaleString(locale)
+//	     "#shortinfo" #> getShortInfoForItem(item)  &
+//	     "#created *+"  #> item.createdAt.asHtml  &
+//	     "#updated *+"  #> item.updatedAt.asHtml  &
+//	     "#edititem [href]" #> urlToEditItem(item,translation.language.isAsLocale) &
+//	     "#viewitem [href]" #> urlToViewItem(item,translation.language.isAsLocale) &
+//	     "#viewitem *" #> "View Item"
+//       }
+//     }
+     // dummy fallback translation behavior
          val translation = item.defaultTranslation.getObjectOrHead // could be extended to use the users default maybe?
          "#translations *" #> item.translations.map(itemTranslation => getShortInfoAndLinkToItem(item)) &
 	     "#language *" #> translation.language.isAsLocale.getDisplayLanguage & //LocaleDataMetaInfo.getSupportedLocaleString(locale)
@@ -440,9 +455,6 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 	     "#edititem [href]" #> urlToEditItem(item,translation.language.isAsLocale) &
 	     "#viewitem [href]" #> urlToViewItem(item,translation.language.isAsLocale) &
 	     "#viewitem *" #> "View Item"
-       }
-     }
-
      
   }
 }
