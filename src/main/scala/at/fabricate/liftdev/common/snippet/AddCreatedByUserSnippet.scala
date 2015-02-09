@@ -90,7 +90,7 @@ trait AddCreatedByUserSnippet[T <: BaseEntityWithTitleAndDescription[T] with Add
 //		println("chaining asHtml from AddCommentSnippet")
     val boxedUser : Box[item.TheUserType] = item.createdByUser
     val initiatorSelectors : CssSel = boxedUser match {
-      case Full(initiatingUser) => ("#initiator *+" #> <a href={theUserSnippet.urlToViewItem(initiatingUser)}>{"%s %s".format(initiatingUser.firstName , initiatingUser.lastName )}</a>  &
+      case Full(initiatingUser) => ("#initiator *+" #> <a href={theUserSnippet.urlToViewItem(initiatingUser)}>{"%s".format(initiatingUser.defaultTranslation.getObjectOrHead.title.get )}</a>  &
      "#contactinitiator [href]" #> theUserSnippet.urlToViewItem(initiatingUser))
       case _ => ("#initiator *+" #> "Unknown Initiator!"  &
      "#contactinitiator [href]" #> "")

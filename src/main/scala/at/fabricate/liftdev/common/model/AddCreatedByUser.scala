@@ -29,9 +29,9 @@ trait AddCreatedByUser[T <: (AddCreatedByUser[T]) ] extends BaseEntity[T]  with 
 	  
 	  def getCurrentUser : Box[ProtoUser[_]]
 	  
-	  type TheUserType <: MegaProtoUser[TheUserType]
+	  type TheUserType <: MegaProtoUser[TheUserType] with BaseEntityWithTitleAndDescription[TheUserType]
 	  
-	  def theUserObject : MetaMegaProtoUser[TheUserType]
+	  def theUserObject : MetaMegaProtoUser[TheUserType] with BaseMetaEntityWithTitleAndDescription[TheUserType]
 	  
 //      type TheRatedType = T
             
