@@ -50,3 +50,27 @@
 	width: 100%;
 	margin-bottom: $xsmall-em;
 }
+
+#lift__noticesContainer___notice{
+	background-color:  $brand-color;
+	padding: 1em;
+	float: left;
+	width: 100%;
+	color: white;
+}
+
+#lift__noticesContainer___warning {
+	background-color: $brand-color;
+	padding: 1em;
+	float: left;
+	width: 100%;
+	color: white;
+}
+
+#lift__noticesContainer___error {
+	background-color: orange;
+	padding: 1em;
+	float: left;
+	width: 100%;
+	color: white;
+}

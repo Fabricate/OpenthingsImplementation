@@ -845,6 +845,30 @@ figure.effect-lily:hover p {
   width: 100%;
   margin-bottom: 0.625em; }
 
+/* line 54, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/elements */
+#lift__noticesContainer___notice {
+  background-color: #5e198e;
+  padding: 1em;
+  float: left;
+  width: 100%;
+  color: white; }
+
+/* line 62, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/elements */
+#lift__noticesContainer___warning {
+  background-color: #5e198e;
+  padding: 1em;
+  float: left;
+  width: 100%;
+  color: white; }
+
+/* line 70, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/elements */
+#lift__noticesContainer___error {
+  background-color: orange;
+  padding: 1em;
+  float: left;
+  width: 100%;
+  color: white; }
+
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/typical_classes */
 .right {
   float: right; }
