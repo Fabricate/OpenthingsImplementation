@@ -29,7 +29,10 @@ trait LazyLoginForSave[T <: BaseEntityWithTitleDescriptionIconAndCommonFields[T]
          case anItem : ItemType  => { // AddCreatedByUserMeta[ItemType]
         	 //anItem.createdBy(getActualUser).save
            //theUser.currentUser
-           anItem.createdByUser(anItem.theUserObject.currentUser.get.primaryKeyField).save
+           // TODO: This should go to the AddCreatedBySnippet
+           if (anItem.createdByUser.isEmpty)
+        	   anItem.createdByUser(anItem.theUserObject.currentUser.get.primaryKeyField)
+           anItem.save
          }
          case _ => // too bad we can not set the account link now!
            	item.save
