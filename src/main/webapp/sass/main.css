@@ -1332,6 +1332,33 @@ body {
   list-style: square;
   padding-left: 6%; }
 
+/* line 17, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/pages */
+.termsPage {
+  font-size: 0.875em;
+  max-width: 60em; }
+
+/* line 21, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/pages */
+.notFoundPage {
+  background-image: url(../images/404.jpg);
+  background-size: cover;
+  background-position: center left;
+  width: 100%;
+  max-width: none; }
+
+/* line 28, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/pages */
+.notFoundPage .simpleSearch {
+  background: white;
+  padding: 4%;
+  margin-top: 1.875em; }
+
+/* line 33, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/pages */
+.notFoundPage header {
+  background: white;
+  padding: 4%;
+  display: inline-block;
+  font-size: 0.875em;
+  max-width: 45em; }
+
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/landingspage */
 .landingSection {
   width: 100%;

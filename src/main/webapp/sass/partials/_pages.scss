@@ -13,3 +13,27 @@
 	list-style: square;
 	padding-left: $smedium-percentage;
 }
+
+.termsPage{
+	font-size: .875em;
+	max-width: 60em;
+}
+.notFoundPage{
+	background-image: url(../images/404.jpg);
+	background-size: cover;
+	background-position: center left;
+	width: 100%;
+	max-width: none;
+}
+.notFoundPage .simpleSearch{
+	background: white;
+	padding: $small-percentage;
+	margin-top: $medium-em;
+}
+.notFoundPage header{
+	background: white;
+	padding: $small-percentage;
+	display: inline-block;
+	font-size: .875em;
+	max-width: 45em;
+}
