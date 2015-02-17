@@ -764,22 +764,23 @@ figure.effect-lily p {
   opacity: 0;
   -webkit-transition: opacity 0.2s, -webkit-transform 0.35s;
   transition: opacity 0.2s, transform 0.35s;
-  background: rgba(94, 25, 142, 0.8); }
+  background: rgba(94, 25, 142, 0.8);
+  clear: left; }
 
-/* line 108, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/images */
+/* line 109, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 figure.effect-lily:hover img, figure.effect-lily:hover p {
   opacity: 1; }
 
-/* line 111, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/images */
+/* line 112, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 figure.effect-lily:hover h2 {
   background: rgba(0, 0, 0, 0.8); }
 
-/* line 117, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/images */
+/* line 118, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 figure.effect-lily:hover img, figure.effect-lily:hover h2, figure.effect-lily:hover p {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0); }
 
-/* line 122, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/images */
+/* line 123, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/images */
 figure.effect-lily:hover p {
   -webkit-transition-delay: 0.05s;
   transition-delay: 0.05s;

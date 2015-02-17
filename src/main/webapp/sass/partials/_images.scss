@@ -102,6 +102,7 @@ figure.effect-lily p {
 	-webkit-transition: opacity 0.2s, -webkit-transform 0.35s;
 	transition: opacity 0.2s, transform 0.35s;
 	background: rgba($brand-color, 0.8);
+	clear: left;
 }
 
 figure.effect-lily:hover img,
