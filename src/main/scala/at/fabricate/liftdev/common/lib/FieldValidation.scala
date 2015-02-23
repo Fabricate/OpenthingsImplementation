@@ -17,21 +17,7 @@ object FieldValidation {
     	 else
     		 List[FieldError]()
 	  	} 
-//	protected def valMinLen(10, "Subject too short"):
-//String => Lift[FieldError] = s =>
-//s match {
-//case str if str != null&& str.length > 10 => Nil
-//case _ => List(FieldError(subject, "Message too short"))
-//}
-	
-//	def minNumOfWords(num: => Int, msg: => String):
-//String => List[FieldError] =
-//s => s match {
-//case str if (str != null) && str.split(" ").size >=
-//num => Nil
-//case _ => List(FieldError(currentField.box openOr new
-//FieldIdentifier {}, Text(msg)))
-//}
+
     /**Definition der Validationsbedingung "Feld darf nicht leer sein"*/
 	def notEmpty(field: MappedField[_,_])(content: String) = minLength(field, 0)(content)
 	

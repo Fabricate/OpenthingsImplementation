@@ -17,18 +17,14 @@ import net.liftweb.common.Box
 
 trait LazyLoginForSave[T <: BaseEntityWithTitleDescriptionIconAndCommonFields[T] with AddCreatedByUser[T] ]  extends BaseEntityWithTitleAndDescriptionSnippet[T] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[T]{
 
-  //type TheUserTypeLogin = ItemType.TheUserType
   def checkIfUserCanSave[U <: Mapper[U]](item: U) : Boolean
   val loginLocation : String
-  //val theUser : MetaMegaProtoUser[_] //[V <: MegaProtoUser[V]]()
-  //def getActualUserType[V <: MegaProtoUser[V]] : () =>  MetaMegaProtoUser[V] = () => MetaMegaProtoUser[_].current
+ 
   
    override def doSave[U <: Mapper[U]](item: U): Any = {
     if (checkIfUserCanSave(item)){
       item match {
-         case anItem : ItemType  => { // AddCreatedByUserMeta[ItemType]
-        	 //anItem.createdBy(getActualUser).save
-           //theUser.currentUser
+         case anItem : ItemType  => { 
            // TODO: This should go to the AddCreatedBySnippet
            if (anItem.createdByUser.isEmpty)
         	   anItem.createdByUser(anItem.theUserObject.currentUser.get.primaryKeyField)

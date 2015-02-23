@@ -21,20 +21,13 @@ object Category extends Category with BaseMetaEntity[Category] with GeneralCateg
 
 class Category extends BaseEntity[Category] with GeneralCategory[Category] 
 with ManyToMany 
-//with OneToMany[Long,SampleTag] 
 {
   def getSingleton = Category
 
     // a link to all Tags
-  val mappingToProjectCategories  = Project.getCategoryMapper // : LongKeyedMetaMapper[Samp.TheMapping]
+  val mappingToProjectCategories  = Project.getCategoryMapper
   
-  	// ManyToMany example
+  	// ManyToMany mapping
   object projectCategories extends MappedManyToMany(mappingToProjectCategories, mappingToProjectCategories.theCategory, mappingToProjectCategories.categorizedItem, Project)   
 
-//  // OneToMany example -> does not work
-//  object tags extends MappedOneToMany(mappingToTags, mappingToTags.theTag, OrderBy(mappingToTags.primaryKeyField, Ascending))   
-//
-//  //  with Owned[mappingToTags] with Cascade[mappingToTags]
-////  MappedOneToMany(TheTags, TheTags.taggedItem, OrderBy(TheTags.primaryKeyField, Ascending))  with Owned[TheTags]
-////with Cascade[TheTags]
 }

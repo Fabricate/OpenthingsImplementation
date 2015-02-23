@@ -41,8 +41,6 @@ trait AddRatingSnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRating[
 				SetHtml("rating", generateDisplayRating(item)) &
 //				 // hide the form
 				SetHtml("newrating",NodeSeq.Empty )
-//				JsCmds.SetValById("newcomtitle", "") &
-//				JsCmds.SetValById("newcommessage", "")
 	           }, 
 	           errors => {
 	             errors.map(println(_))
@@ -52,28 +50,10 @@ trait AddRatingSnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRating[
 		   }
 		 }).reduce(_ & _)
  	 }
-//	     "#newcomtitle" #> SHtml.text(newComment.title.get, value => {newComment.title.set(value);JsCmds.Noop}, "placeholder"->"Title" )&
-//	     "#newcomauthor" #> SHtml.text(newComment.author.get, value => {newComment.author.set(value);JsCmds.Noop}, "placeholder"->"Name"  )&     
-//	     "#newcommessage" #> SHtml.textarea(newComment.comment.get, value => {newComment.comment.set(value);JsCmds.Noop}, "placeholder"->"Your comment" ) & // rows="6"
-//	     "#newcomsubmithidden" #> SHtml.hidden(() => {
-//	       saveAndDisplayAjaxMessages(newComment, 
-//	           () => {
-//	            var newCommentHtml = bindCommentCSS(newComment)(commentTemplate)
-//	        	newComment = createNewItem
-//				 // add the new comment to the list of comments
-//				AppendHtml("comments", newCommentHtml) &
-//				 // clear the form
-//				JsCmds.SetValById("newcomtitle", "") &
-//				JsCmds.SetValById("newcommessage", "")
-//	           }, 
-//	           errors => {
-//	             JsCmds.Alert("adding comment '"+newComment.title.get+"' failed" )
-//	           },"commentMessages")
-//			          } ) 
+
   
   def generateDisplayRating(item : ItemType) : NodeSeq = {
 		val ratingSum : Double = item.ratings.foldLeft(0)(_ + _.rating.get)
-//		val rating : Double = ratingSum / item.ratings.length
 		if (item.ratings.length > 0)
 			Text((ratingSum / item.ratings.length).toString)
 		else

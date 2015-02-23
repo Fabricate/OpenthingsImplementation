@@ -49,8 +49,6 @@ import at.fabricate.liftdev.common.lib.UrlLocalizer
 
 object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] {
 
-  
-
       
       val contentLanguage = UrlLocalizer.contentLocale
     
@@ -70,7 +68,6 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
        
     val difficultyParam = "difficulty"
     object difficulty extends RequestVar(S.param(difficultyParam).map(value => value match {
-//          case genius if genius == geniusString  => geniusList
           case kids if kids == kidsDiffString  => DifficultyEnum.upToKidsList
           case starter if starter == starterDiffString  => DifficultyEnum.upToStarterList
           case average if average == averageDiffString  => DifficultyEnum.upToAverageList
@@ -123,10 +120,6 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
     val allLicenceString = "all"
     val commercialLicencesString = "com"
     val derivableLicencesString = "deriv"
-//    val allLicences : ( String,String ) = allLicenceString -> "All Licences"
-//    val commercialLicences : ( String,String ) = commercialLicencesString -> "Commercial Licences"
-//    val derivableLicences : ( String,String ) = derivableLicencesString  -> "Derivable Licences"
-//    val licenceSel = List(allLicences , commercialLicences , derivableLicences )
     
     val licenceParam = "licence"
     object licence extends RequestVar(S.param(licenceParam).map(_ match {
@@ -134,10 +127,7 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
           case derivable if derivable == derivableLicencesString  => LicenceEnum.derivableLicences
           case _  => LicenceEnum.allLicences 
     }) openOr(LicenceEnum.allLicences))
-//    var licence = allLicences._1
     
-//    	selected="selected" 
-    	
     def generateLicenceSelect =
 	  <select id="licence" name={licenceParam}>
 			<option value={allLicenceString } selected={if(licence.get == LicenceEnum.allLicences )"selected" else null}>all licences</option>
@@ -150,7 +140,6 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
 	def searchableLanguages : List[(String,Locale)] = Sorting.stableSort(
 	  			Locale.getISOLanguages.toList.map(l => l -> new Locale(l)),
 	  			(e1: Tuple2[String, Locale], e2: Tuple2[String, Locale]) => e1._2.getDisplayLanguage < e2._2.getDisplayLanguage ).toList
-	  //Locale.getISOLanguages().toList
 	  			
 	def findInSearchableLanguages(selectedLanguage : String) : Option[Tuple2[String,Locale]] = searchableLanguages.find({ case ((language:String,locale:Locale)) => language == selectedLanguage})
 	  
@@ -166,8 +155,6 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
 	} 
     ) 
 	
-	//(value => searchableLanguages.find(_ == value)
-    //openOr(" ")) 
     
 	val generateLanguageSelect = 
 	  <select id="language" name={languageParam}>
@@ -189,21 +176,10 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
 	    ))
 
    
-  // will not be used hopefully
     override val TheItem = Project
   override def itemBaseUrl = "search"
-//    Dont change anything as it is hardcoded atm
-//  override def itemViewUrl = "view"
-//  override def itemListUrl = "list"
-//  override def itemEditUrl = "edit"
   def searchTemplate = "globalSearch"
   def searchTitle = "Search"
-    
-//  override def listTemplate = "listProject"
-//  override def editTemplate = "editProject"
-//  override def listTitle = "List Project"
-//  override def editTitle = "Edit Project"
-    
       def theUserSnippet = UserSnippet
   
   val notAvailable = Text("Not avaliable here!")
@@ -211,8 +187,6 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
     override def getMenu : List[Menu] = 
      List[Menu](
                Menu.i(searchTitle) / searchTemplate  >> Hidden
-//               Menu.i(listTitle) / listTemplate ,
-//               Menu.i(editTitle) / editTemplate  >> Hidden
      )
       // generate the url rewrites
   override def generateRewrites : PartialFunction[RewriteRequest,RewriteResponse] =  {
@@ -232,14 +206,12 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
   
   def dispatchForm : DispatchIt = {    
     case "form" => form _ 
-//    case "list" => renderIt(_)
   }
   
      // ### methods that will be stacked ###
    override def localDispatch : DispatchIt = dispatchForm orElse super.localDispatch
   
   override def urlToViewItem(item: KeyedMapper[_,_], locale : Locale ) : String = item match {
-    //case project : Project if (language.get != " ") => ProjectSnippet.urlToViewItem(project, new Locale(language.get))
     case project : Project => {
     		findInSearchableLanguages(languageToSearchFor.get) match {
 		      case Some((lang:String,locale:Locale)) => ProjectSnippet.urlToViewItem(project, locale)
@@ -250,7 +222,6 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
   }
   
   override def urlToEditItem(item: KeyedMapper[_,_], locale : Locale) : String = item match {
-    //case project : Project if language.get != " " => ProjectSnippet.urlToEditItem(project, new Locale(language.get))
     case project : Project => { 
     		findInSearchableLanguages(languageToSearchFor.get) match {
 		      case Some((lang:String,locale:Locale)) => ProjectSnippet.urlToEditItem(project, locale)
@@ -269,21 +240,9 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
         "#iconlabel *" #> "" &
         "#icon" #> "" &
         "#difficultylabel *" #> "projects with difficulty" &
-//        "#difficulty" #> Project.difficulty.toForm &
         "#difficulty" #> difficultySelect &
         "#statelabel *" #> "projects with state" &
         "#state" #> stateSelect &
-//        "#licence" #> SHtml.select(licenceSel , Empty , _ match {
-//          case commercial if commercial == commercialLicencesString  => licence.set( LicenceEnum.commercialLicences )
-//          case derivable if derivable == derivableLicencesString  => licence.set( LicenceEnum.derivableLicences )
-//          case _  => licence.set( LicenceEnum.allLicences )
-//        }  ) &
-//            {
-//          case (licences: ( List[LicenceEnum.Value],String ) ,title:String) => licence.set(licences)
-//        }) &  
-        // do something like commercializable projects only, or derivable projects
-        // for now just remove
-//        "#licence" #> "" & 
         "* [required]" #> (None: Option[String]) &
         "#licencelabel" #> (None: Option[String]) &
         "#licence" #> licenceSelect &
@@ -303,27 +262,15 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
         ).apply(xhtml)
   }
   
-  
-//  val description = S.param("description")  openOr ""
-//  val description = S.param("description")  openOr ""
 
   def addLikeCharFrontAndBack(queryParam:String) : String = "%"+queryParam.replaceAll("\\*", "%")+"%"
-//  {
-//    val queryString = "%"+queryParam.replaceAll("\\*", "%")+"%"
-//    println( queryString )
-//    queryString
-//  }
+
   
   def getPaginationLimit[T <: BaseEntityWithTitleAndDescription[T]] : List[QueryParam[T]] = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
   
   def queryItems[T <: BaseEntityWithTitleDescriptionIconAndCommonFields[T]](itemToQuery: BaseMetaEntityWithTitleDescriptionIconAndCommonFields[T] with BaseEntityWithTitleDescriptionIconAndCommonFields[T], otherQueryParams : List[QueryParam[T]] = List() ) = { // , otherQueryParams = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
     val query = 
 
-//        In(itemToQuery.primaryKeyField,itemToQuery.TheTranslation.translatedItem, (
-//            Like(itemToQuery.TheTranslation.title,addLikeCharFrontAndBack(title.get)),            
-//            Like(itemToQuery.TheTranslation.description,addLikeCharFrontAndBack(description.get)),            
-//            Like(itemToQuery.TheTranslation.language,addLikeCharFrontAndBack(language.get))
-//                )) ::
         In(itemToQuery.primaryKeyField,itemToQuery.TheTranslationMeta.translatedItem,Like(itemToQuery.TheTranslationMeta.title,addLikeCharFrontAndBack(title.get))) ::
         In(itemToQuery.primaryKeyField,itemToQuery.TheTranslationMeta.translatedItem,Like(itemToQuery.TheTranslationMeta.description,addLikeCharFrontAndBack(description.get))) ::
         In(itemToQuery.primaryKeyField,itemToQuery.TheTranslationMeta.translatedItem,Like(itemToQuery.TheTranslationMeta.language,addLikeCharFrontAndBack(languageToSearchFor.get))) ::
@@ -339,10 +286,8 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
   
        // define the page
   override def count = queryItems[Project](Project).length
-//    Project.findAll(Like(Project.title,addLikeCharFrontAndBack(title.get))).length
 
   override def page = queryItems[Project](Project,OrderBy(Project.primaryKeyField, Descending)::getPaginationLimit[Project])
-//      StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage), OrderBy(TheItem.primaryKeyField, Descending))
 
   
 }

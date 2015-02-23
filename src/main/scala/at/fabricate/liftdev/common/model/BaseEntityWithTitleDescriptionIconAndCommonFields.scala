@@ -29,17 +29,6 @@ with EqualityByID[T]
 {
   self: T =>
     
-	// TODO:
-	// add Licence Tag (one of many that are stored in a database)
-    // Generalize generation of Licences, (
-//    	CC: version+{BY-NC-SA}^2
-//    	Public Domain
-//    	MIT
-//    	Gnu
-//    	Berkley
-//    	...
-//    )
-
   
    /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
   object licence extends MappedEnumWithDescription[Elem,T](this,LicenceEnum)
@@ -52,9 +41,6 @@ with EqualityByID[T]
    /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
   object difficulty extends MappedEnumWithDescription[Elem,T](this,DifficultyEnum)
   
-
-	// add Tag, Tool, ...
-    // add field createdby, maybe (without display) also interesting for other types
   
 }
 

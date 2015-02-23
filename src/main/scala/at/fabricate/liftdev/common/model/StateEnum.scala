@@ -6,9 +6,7 @@ import scala.xml.Elem
 
 	// add a difficulty (one of many that comes from a list of string options)
     object StateEnum extends EnumWithDescriptionAndObject[Elem] {
-      
-//      private def wrapSpanWithClass(theClass : String) : Elem = <span class={theClass}></span>
-    
+          
     val stateText = "project is in"
     val state1 = "concept / idea / draft state"
     val state2 = "early state of development"

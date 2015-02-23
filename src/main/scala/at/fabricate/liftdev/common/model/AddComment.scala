@@ -39,7 +39,6 @@ trait AddComment[T <: (AddComment[T]) ] extends BaseEntity[T]  with OneToMany[Lo
 	  object comments extends MappedOneToMany(TheComment, TheComment.commentedItem, OrderBy(TheComment.primaryKeyField, Ascending)) with Owned[TheComment]
 with Cascade[TheComment]
 
-	  //def getItemsToSchemify = List(TheComment, T)
       
       class TheComment extends LongKeyedMapper[TheComment] with IdPK {
     	  def getSingleton = TheComment
@@ -48,10 +47,7 @@ with Cascade[TheComment]
 	  	  object title extends MappedString(this, 80){    	    
     	    override def validations = FieldValidation.minLength(this,5) _ :: Nil
     	  }
-//		  object author extends MappedString(this, 40){
-//    	    override def validations = FieldValidation.minLength(this,3) _ :: Nil
-//    	    override def defaultValue = getCurrentUser.map(user => "%s %s".format(user.firstName, user.lastName )) openOr("")
-//    	  }
+
     	  object author extends MappedLongForeignKey(this,theUserObject){
     	    override def defaultValue = getCurrentUser.map(_.id.get).openOr(-1)
     	  }

@@ -19,10 +19,6 @@ object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] 
   
   override val TheItem = Project
   override def itemBaseUrl = "project"
-//    Dont change anything as it is hardcoded atm
-//  override def itemViewUrl = "view"
-//  override def itemListUrl = "list"
-//  override def itemEditUrl = "edit"
   override def viewTemplate = "viewProject"
   override def listTemplate = "listProject"
   override def editTemplate = "editProject"
@@ -32,26 +28,16 @@ object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] 
     
     // configuration for lazy login
       def checkIfUserCanSave[T <: Mapper[T]](item : T) = User.canEditContent(item)
-      //val theUser = User
+
       val loginLocation = "/"+LoginSnippet.loginTemlate // "/"+
       
-      
-      //override val getActualUser = () => User.currentUser.get
-    
+          
       def theUserSnippet = UserSnippet
       
-//     override def create(xhtml: NodeSeq) : NodeSeq  = create(xhtml)  &
-//     	"#" #> 
 
 
       val contentLanguage = UrlLocalizer.contentLocale
     
-//    override def asHtml(item : ItemType) : CssSel = {
-//    		println("chaining asHtml from ProjectSnippet")
-//    		
-////    		println("finished cssselector: "+super.asHtml(item).toString)
-//    		
-//    		super.asHtml(item)
 
    override def asHtml(item : ItemType) : CssSel = { 
    (   

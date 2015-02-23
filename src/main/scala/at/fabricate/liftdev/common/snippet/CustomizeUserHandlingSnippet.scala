@@ -28,17 +28,7 @@ import at.fabricate.liftdev.common.lib.UrlLocalizer
  * Snippet object that configures template-login and connects it to Login.auth
  */
 class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitleAndDescription[T]](userObject : MetaMegaProtoUser[T] with CustomizeUserHandling[T] with BaseMetaEntityWithTitleAndDescription[T], userSnippet : BaseEntityWithTitleAndDescriptionSnippet[T]) extends DispatchSnippet {
-//  private object user extends RequestVar("")
-//  private object pass extends RequestVar("")
 
-//  def auth() = {
-//    logger.debug("[Login.auth] enter.")
-
-    // validate the user credentials and do a bunch of other stuff
-//    userObject.logUserIn(who)
-
-//    logger.debug("[Login.auth] exit.")
-//  }
   
   def dispatch : DispatchIt = {    
     case "login" => login _
@@ -84,20 +74,7 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
                Menu.i(resetPasswordTitle) / resetPasswordTemlate  >> Hidden ,
                Menu.i(validateUserTitle) / validateUserTemlate  >> Hidden
      )
-//     Hidden ::
-//    Template(() => wrapIt(validateUser(snarfLastItem))) ::
-//    If(notLoggedIn_? _, S.?("logout.first")) ::
-//    Nil
-     
-//    def userMgtLoginUrl = userObject.loginPath 
-//      
-//    def userMgtLogoutUrl = userObject.logoutPath
-//      
-//    def userMgtSignUpUrl = userObject.signUpPath 
-//      
-//    def userMgtLostPasswordUrl = userObject.lostPasswordPath 
-//      
-//    def userMgtResetPasswordUrl =      userObject.passwordResetPath 
+
      
      object requestedID extends RequestVar[String]("")
      
@@ -132,16 +109,7 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
   def validateUser(xhtml : NodeSeq): NodeSeq = {
     	  userObject.customValidateUser(requestedID.get)
     	}
-//    	  findUserByUniqueId(id) match {
-//    case Full(user) if !user.validated_? =>
-//      user.setValidated(true).resetUniqueId().save
-//      logUserIn(user, () => {
-//        S.notice(S.?("account.validated"))
-//        S.redirectTo(homePage)
-//      })
-//
-//    case _ => S.error(S.?("invalid.validation.link")); S.redirectTo(homePage)
-//  }
+
   /**
    * This is the part of the snippet that creates the form elements and connects the client side components to
    * server side handlers.
@@ -150,13 +118,11 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
    * @return NodeSeq - the fully rendered HTML
    */
   def login(xhtml: NodeSeq): NodeSeq = {
-//    logger.debug("[Login.login] enter.")
 		if (!userObject.loggedIn_?)
             userObject.customLogin{
   			("#email" #> <input type="text" name="username" placeholder="Your mail address"/> & //FocusOnLoad()
   			"#password" #> <input type="password" name="password" placeholder="Your password"/> &
   			"#loginform [action]" #> S.uri
-//  			"type=submit" #> loginSubmitButton(S.?("log.in"))
   			).apply(xhtml)
             }
 		else
@@ -169,27 +135,22 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
 		if (!userObject.loggedIn_?)
             userObject.customSignup({
              (user, action) =>   
-               ("#txtEmail" #> user.email.toForm & //(user.email.toForm.map(_ % ("default"->"mail adress")) & //FocusOnLoad()
-//  			"#txtPassword" #> user.password.toForm.toList &
+               ("#txtEmail" #> user.email.toForm & 
   			"#txtPassword" #> S.fmapFunc({s: List[String] => user.password.setFromAny(s)}){funcName =>
   					Full(<span><input type="password" name={funcName} value="" placeholder="Password" id="txtPassword"/>
   					<input type="password" name={funcName} value="" placeholder="Repeat Password" id="txtPassword"/></span>)
 } &
-//               List(SHtml.password("", value => {user.password(value)}, "placeholder" -> "password", "id" -> "txtPassword"),
-//  			    SHtml.password("", value => {user.password(value)}, "placeholder" -> "repeat password", "id" -> "txtPassword")) &
+
   			"#txtFirstName" #> user.firstName.toForm &
   			"#txtLastName" #> user.lastName.toForm &
   			"#nickName" #> user.defaultTranslation.obj.get.title.toForm &
   			"#signuphidden" #> SHtml.hidden(action )&
   			"#signupform [action]" #> S.uri
-//  			"type=submit" #> loginSubmitButton(S.?("log.in"))
   			).apply(xhtml)
             },List(validateUserTemlate),()=>userObject.createNewEntity(UrlLocalizer.contentLocale))
 		else
 		  loggedInMessage
-//              	 def innerSignup = {
-//  			 ("type=submit" #> signupSubmitButton(S ? "sign.up", testSignup _)) apply signupXhtml(theUser)
-//  	 }
+
   }
   
   def changePassword(xhtml: NodeSeq): NodeSeq = {
@@ -205,7 +166,6 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
   			"#new-password" #> passwordInput &
   			"#changepasswordhidden" #> SHtml.hidden(() => action(oldPassword, newPassword) )&
   			"#changepasswordform [action]" #> S.uri
-//  			"type=submit" #> loginSubmitButton(S.?("log.in"))
   			).apply(xhtml)
    		}
             	else
@@ -235,8 +195,6 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
    		    (user, finish ) => 
    		      val passwordInput = SHtml.password_*("", LFuncHolder(s => user.password.setList(s) ))
    		      ("#reset-password" #> passwordInput &
-//   		      SHtml.password_*("", { p: List[String] => 
-//   		        user.password.setList(p) } ) &
    		        "#resetpasswordhidden" #> SHtml.hidden( finish ) &
    		        "#resetpasswordform [action]" #> S.uri
    		      	).apply(xhtml)
@@ -244,21 +202,8 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
     	else
           loggedInMessage
   
-//   		        user.setPasswordFromListString(p) 
-//   		      "#lostpasswordhidden" #> SHtml.hidden(() => action(mailAddress,List(resetPasswordTemlate)) )
-
-          
-//    	      val bind = {
-//	        "type=password" #> SHtml.password_*("", { p: List[String] =>
-//	          user.setPasswordFromListString(p)
-//	        }) &
-//	        "type=submit" #> resetPasswordSubmitButton(S.?("set.password"), finishSet _)
-//	      }
-//	
-//	      bind(passwordResetXhtml)
   
     def edit(xhtml: NodeSeq): NodeSeq = {
-      		// does that make sense?
       		if (userObject.loggedIn_? )
             	userSnippet.toForm(userObject.currentUser.getOrElse(userObject.create)).apply(xhtml)
             	else
@@ -266,11 +211,7 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
   }
 
     def logout(xhtml: NodeSeq): NodeSeq = {
-      		// does that make sense?
       		if (userObject.loggedIn_? ){
-//      		  println(xhtml)
-//      		  xhtml
-//      		  Text("I applied logout and user is logged in")
             	("#logouthidden" #> SHtml.hidden(()=>userObject.customLogout(S.uri)) &
             	 "#logoutform [action]" #> S.uri).apply(xhtml)
       		}

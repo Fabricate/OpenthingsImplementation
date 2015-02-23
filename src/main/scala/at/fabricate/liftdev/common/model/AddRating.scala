@@ -34,7 +34,6 @@ trait AddRating[T <: (AddRating[T]) ] extends BaseEntity[T]  with OneToMany[Long
 	  object ratings extends MappedOneToMany(TheRating, TheRating.ratedItem, OrderBy(TheRating.primaryKeyField, Ascending))  with Owned[TheRating]
 with Cascade[TheRating]
 
-	  //def getItemsToSchemify = List(TheComment, T)
       
       class TheRating extends LongKeyedMapper[TheRating] with IdPK {
     	  def getSingleton = TheRating
@@ -42,11 +41,10 @@ with Cascade[TheRating]
 	      object ratedItem extends MappedLongForeignKey(this,self.getSingleton)
 
 		  object author extends MappedString(this, 40){
-//    	    override def validations = FieldValidation.minLength(this,3) _ :: Nil
+
     	    override def defaultValue = getCurrentUser.map(user => "%s %s".format(user.firstName, user.lastName )) openOr("")
     	  }
 		  object rating extends MappedInt(this){		    
-//    	    override def validations = FieldValidation.minLength(this,10) _ :: Nil
 		  }
 		  
 	}

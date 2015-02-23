@@ -33,37 +33,11 @@ trait AddCategories[T <: (AddCategories[T])] extends BaseEntity[T]  with OneToMa
 	        
       def getCategoryMapper : LongKeyedMetaMapper[TheCategories] = TheCategories
       
-//        object createdByUser extends MappedLongForeignKey(this, theUserObject){
-//
-//    override def defaultValue = theUserObject.currentUser.map(_.primaryKeyField.get ) openOr(-1)
-//    
-//	  /**Genutzter Spaltenname in der DB-Tabelle*/
-//    override def dbColumnName = "initiator"
-//    
-//    /**Name des Datenfeldes für CRUD-Seiten*/
-////    override def displayName = S.?("project\u0020initiator")
-//    
-////    override def validations = FieldValidation.notEmpty(this) :: Nil
-//    
-//      
-//    /**Darstellung des Feldes auf CRUD-  object createdByUser extends MappedManyToMany(self,){
-//    
-//  }Seiten. Anstelle der Id wird Nachname und Vorname des Autors
-//     * angezeigt bzw. "k.A." für "keine Angabe", wenn es zu dieser User-Id keinen User gibt. */
-////    override def asHtml = User.getLinkToUser(get)
-//    
-//  }
+
 	        
 	  object categories extends MappedOneToMany(TheCategories, TheCategories.categorizedItem, OrderBy(TheCategories.primaryKeyField, Ascending))  with Owned[TheCategories]
 with Cascade[TheCategories]
-//	{
-////	    this.
-//	    override def defaultValue = theUserObject.currentUser.map(_.primaryKeyField.get ) openOr(-1)
-//	    override def dbColumnName = "initiator"
-////	    override def validations = FieldValidation.notEmpty(this) :: Nil
-//	  }
 
-	  //def getItemsToSchemify = List(TheComment, T)
       
       class TheCategories extends BaseEntity[TheCategories] with LongKeyedMapper[TheCategories] with IdPK {
     	  def getSingleton = TheCategories
@@ -92,9 +66,3 @@ trait AddCategoriesMeta[ModelType <: (AddCategories[ModelType]) ] extends BaseMe
 	  	  abstract override def getItemsToSchemify : List[BaseMetaMapper] =  getCategoryMapper :: super.getItemsToSchemify
 
 }
-
-//  // a link to all the created Projects
-//  val mappingToProjects : LongKeyedMetaMapper[Project.TheMapping] = Project.getUserMapper
-//  
-//  object createdProjects extends MappedManyToMany(mappingToProjects, mappingToProjects.byUser, mappingToProjects.createdItem, Project)   with Owned[mappingToProjects]
-//with Cascade[mappingToProjects]

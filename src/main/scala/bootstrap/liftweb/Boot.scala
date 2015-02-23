@@ -53,18 +53,6 @@ class Boot {
     // initialize the localizer
     UrlLocalizer.init() 
     
-//    // just do something else if a mail wants to be sent
-//    Mailer.devModeSend.default.set( (m: MimeMessage) =>
-//    	println("Would have sent: "+m.getContent)
-//    )
-    
-    //AutoComplete.init
-
-    // Use Lift's Mapper ORM to populate the database
-    // you don't need to use Mapper to use Lift... use
-    // any ORM you want
-    
-    // DID THAT KILL LIFT COMPILATION???? -> Yea, this was mixing between types
     // has to be a list of BaseMetaMapper entities
     val itemsToSchemify : List[BaseMetaMapper] = Project.getItemsToSchemify ::: 
     User.getItemsToSchemify ::: Tag.getItemsToSchemify ::: List[BaseMetaMapper](Tool, UserHasTools) 
@@ -73,7 +61,6 @@ class Boot {
     // initialize the Mapper instances
     // stuff that can only be done at the Startup phase
     // adds for example serving of images and uploading of files to REST API to the LiftRules
-    
     User.init
     Project.init
     
@@ -88,36 +75,6 @@ class Boot {
       case "Feedback" => FeedbackSnippet
     }
     
-    //LiftRules.dispatch.append(ImageLogic.matcher)
-    //LiftRules.statelessDispatch.append(FileUploadREST)
-//    LiftRules.dispatch.append(FileUploadREST)
-    
-//    val userRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
-//      case RewriteRequest(ParsePath(List("designer", "edit"), _, _, _), _, _) =>
-//	      RewriteResponse("editDesigner" :: Nil)
-//      case RewriteRequest(ParsePath(List("designer", "search"), _, _, _), _, _) =>
-//	      RewriteResponse("searchDesigner" :: Nil)	      
-//      case RewriteRequest(ParsePath(List("designer", "list"), _, _, _), _, _) =>
-//	      RewriteResponse("listDesigner" :: Nil)	 
-//      case RewriteRequest(ParsePath(List("designer", "list", "random"), _, _, _), _, _) =>
-//	      RewriteResponse("listDesigner" :: Nil, Map("type" -> urlDecode("random")))		      
-//      case RewriteRequest(ParsePath(List("designer", designerID), _, _, _), _, _) =>
-//	      RewriteResponse("viewDesigner" :: Nil, Map("id" -> urlDecode(designerID)))
-//    }
-    
-    
-//    val projectRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
-//      	case RewriteRequest(ParsePath(List("project", "index"), _, _, _), _, _) =>
-//      		RewriteResponse("listProject" :: Nil)
-//      	case RewriteRequest(ParsePath(List("project", "list"), _, _, _), _, _) =>
-//      		RewriteResponse("listProject" :: Nil)
-//      	case RewriteRequest(ParsePath(List("project", "edit",projectID), _, _, _), _, _) =>
-//      		RewriteResponse("editProject" :: Nil, Map("id" -> urlDecode(projectID)))
-//      	case RewriteRequest(ParsePath(List("project", "edit"), _, _, _), _, _) =>
-//      		RewriteResponse("editProject" :: Nil)
-//      	case RewriteRequest(ParsePath(List("project","view", projectID), _, _, _), _, _) =>
-//      		RewriteResponse("viewProject" :: Nil, Map("id" -> urlDecode(projectID)))
-//    }
     
     val userRewrites = UserSnippet.generateRewrites
     
@@ -132,29 +89,8 @@ class Boot {
         (searchRewrites).orElse
         (projectRewrites).orElse
         (loginRewrites) )
-//    
-    // TODO : aufraumen, sauberes Menue !!!
-    /*
-    val homeMenu = Menu(Loc("Home Page", "index" :: Nil, "Home"))
-      
-    val projectMenu = Project.menus
-    
-    val toolMenu = Tool.menus
-    
-    val userMenu = User.menus
-    
-    val designerMenu = Menu(Loc("Designer Page", "viewDesigner" :: Nil, "Designers"))
-    val editDesignerMenu = Menu(Loc("Edit Designer", "editDesigner" :: Nil, "Edit Designer"))
 
-      //Menu.i("View Account") / "viewAcct" /
-    
-    val menus = List[Menu](homeMenu, designerMenu, editDesignerMenu) ::: userMenu ::: toolMenu ::: projectMenu
-    
-    def sitemap = SiteMap(menus : _* )
-    
-        LiftRules.setSiteMap(sitemap)
-    
-    */
+
     
     val IfLoggedIn = If(() => User.currentUser.isDefined, "You must be logged in")
     
@@ -163,27 +99,18 @@ class Boot {
     
     def menu: List[Menu] = 
     List[Menu](Menu.i("Home") / "index" >> Hidden,
-//               Menu.i("Edit my profile") / "editDesigner" >> Hidden >> AccessControl.loggedIn ,  //>> IfLoggedIn,
-//               Menu.i("View Designer") / "viewDesigner" / ** >> Hidden,
-//               Menu.i("List Designers") / "listDesigner" / ** >> Hidden,
                Menu.i("Test page") / "testpage" / ** >> Hidden,
                Menu.i("Search Designers") / "searchDesigner",                 
                Menu.i("Public Data") / "public" / ** >> Hidden,
                Menu.i("SASS") / "sass" / ** >> Hidden,
-//               Menu.i("Navigation Menu") / "navigation"  >> Hidden,
-
-               Menu.i("Page not found!") / "404"  >> Hidden,
-               
+               Menu.i("Page not found!") / "404"  >> Hidden,               
                // TODO: double definition, dont do that here
                //Menu.i("Validate") / "validate_user" / * >> Hidden,
-
                Menu.i("Static") / "static" / ** >> Hidden
-               //Menu(Loc("Static", Link(List("static"), true, "/about_us/index"), "About us"))
                ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu  ::: 
                UserSnippet.getMenu ::: SearchSnippet.getMenu ::: Tool.menus :::
                FeedbackSnippet.getMenu
-//               ::: User.menus
-//
+
     LiftRules.setSiteMap(SiteMap(menu :_*))
     
     
@@ -195,33 +122,9 @@ class Boot {
       case (req,failure) => 
         NotFoundAsTemplate(ParsePath(List("404"),"html",false,false))
     })
-    
-    // Build SiteMap
-    /*
-    def sitemap = SiteMap(
-      Menu.i("Home") / "index" >> User.AddUserMenusAfter, // the simple way to declare a menu
 
-      // more complex because this menu allows anything in the
-      // /static path to be visible
-      Menu(Loc("Static", Link(List("static"), true, "/static/index"), 
-	       "Static Content")))
-	       * 
-	       */
 
     def sitemapMutators = User.sitemapMutator
-
-    // set the sitemap.  Note if you don't want access control for
-    // each page, just comment this line out.
-    //LiftRules.setSiteMapFunc(() => sitemapMutators(sitemap))
-    
-    /*
-    def progressPrinter(bytesRead: Long, contentLength: Long, fieldIndex: Int) {
-    	println("Read %d of %d for %d" format (bytesRead, contentLength, fieldIndex))
-    }
-
-    LiftRules.progressListener = progressPrinter
-    * 
-    */
     
     // increase the filesize for uploads (in Bytes)
     LiftRules.maxMimeFileSize = 200000000

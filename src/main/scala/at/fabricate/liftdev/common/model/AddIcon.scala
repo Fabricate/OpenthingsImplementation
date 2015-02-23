@@ -18,27 +18,8 @@ import lib.MatchString
 import java.awt.image.BufferedImage
 
 trait AddIcon[T <: (AddIcon[T] with MatchByID[T]) ] extends BaseEntity[T] { // 
-  // [T <: Mapper[T] ]s
-  //self: KeyedMetaMapper[IdPK,T] =>
   self: T =>
     
-  //type A <: LongKeyedMapper[A]
-  
- // HINT: you have to use toFloat, otherwise it will result in 0 !!!
-    
-    
-   
-      // define WithImage
-    /* Syntax in ProtoUser in LIFT version 2.2, causes an Error: S.?? not available !
-  def defaultImage = S.??("/images/nouser.jpg")
-    
-  def imageDisplayName = S.??("user name") //S.?("user\u0020image")
-  
-  def imageDbColumnName = S.??("user_image")
-    
-  def baseServingPath = S.??("userimage")
-  * 
-  */
     
   def defaultIcon = "/public/images/noimage.jpg"
     
@@ -93,18 +74,14 @@ trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with MatchByID[ModelType]) ]
 
       type TheIconType = ModelType
     
-      //self.find
-  //object TheImage extends ObjectById[AddIconMeta[TheIconType]](self) 
 
     object MatchServePath extends MatchString(baseServingPath)
     object MatchIconPath extends MatchString(iconPath)
 
-      //User.a
-  // TODO: Refactor to use the matchedstring
   abstract override def init : Unit = {
     LiftRules.dispatch.append({
       case r @ Req(MatchServePath(servePath) :: MatchIconPath(iconPath)  :: MatchItemByID(iconTypeID) ::
-                 Nil, _, GetRequest) => ()  =>  // if (id != Empty)
+                 Nil, _, GetRequest) => ()  =>  
                    Full(InMemoryResponse(iconTypeID.icon.get,
                                List("Content-Type" -> "image/jpeg",
                                     "Content-Length" ->
@@ -148,7 +125,6 @@ class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends Ma
 
   def jpegImageQuality : Float = 85 / 100.toFloat
   
-  	        // TODO  implement later, as Crudify and Megaprotouser can not be mixed in at the same time
 	    override def displayName = imageDisplayName
 	    	  /**Genutzter Spaltenname in der DB-Tabelle*/
 	    override def dbColumnName = imageDbColumnName
@@ -240,7 +216,6 @@ class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends Ma
 	  override def asHtml:Node = {
 	      <img src={url}></img>
 	    }
-	    //style={"max-width:" + maxWidth + ";max-height:"+maxHeight}
 	  
-	  override def _toForm: Box[Elem] = Full(SHtml.fileUpload(fu=>setFromUpload(Full(fu)))) //fu=>setFromUpload(Full(fu)) setFromUpload(Full(fu))))
+	  override def _toForm: Box[Elem] = Full(SHtml.fileUpload(fu=>setFromUpload(Full(fu)))) 
 }

@@ -32,9 +32,7 @@ trait AddCreatedByUser[T <: (AddCreatedByUser[T]) ] extends BaseEntity[T]  with 
 	  type TheUserType <: MegaProtoUser[TheUserType] with BaseEntityWithTitleAndDescription[TheUserType]
 	  
 	  def theUserObject : MetaMegaProtoUser[TheUserType] with BaseMetaEntityWithTitleAndDescription[TheUserType]
-	  
-//      type TheRatedType = T
-            
+	              
         object createdByUser extends MappedLongForeignKey(this, theUserObject){
 
 		    override def defaultValue = theUserObject.currentUser.map(_.primaryKeyField.get ) openOr(-1)
@@ -42,17 +40,6 @@ trait AddCreatedByUser[T <: (AddCreatedByUser[T]) ] extends BaseEntity[T]  with 
 			  /**Genutzter Spaltenname in der DB-Tabelle*/
 		    override def dbColumnName = "initiator"
 		    
-		    /**Name des Datenfeldes für CRUD-Seiten*/
-		//    override def displayName = S.?("project\u0020initiator")
-		    
-		//    override def validations = FieldValidation.notEmpty(this) :: Nil
-		    
-		      
-		    /**Darstellung des Feldes auf CRUD-  object createdByUser extends MappedManyToMany(self,){
-		    
-		  }Seiten. Anstelle der Id wird Nachname und Vorname des Autors
-		     * angezeigt bzw. "k.A." für "keine Angabe", wenn es zu dieser User-Id keinen User gibt. */
-		//    override def asHtml = User.getLinkToUser(get)
 		    
 		  }
 	       

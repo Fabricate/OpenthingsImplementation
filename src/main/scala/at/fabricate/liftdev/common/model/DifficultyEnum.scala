@@ -22,7 +22,6 @@ import scala.xml.Elem
 			<h5>{difficultyText}</h5>
 			<h6>{theText}</h6>
 		</li>
-//      <span class={theClass}></span>
     
 	val kids = Value(stage1,wrapSpanWithClass("icon-indication-bar0",stage1))
 	val starter = Value(stage2,wrapSpanWithClass("icon-indication-bar1",stage2))

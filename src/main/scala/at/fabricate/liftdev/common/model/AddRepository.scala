@@ -71,7 +71,7 @@ trait AddRepository [T <: (AddRepository[T] with MatchByID[T]) ] extends BaseEnt
         
        private val webappRootURL : URL = LiftRules.getResource("/") .openOrThrowException("Webapp Root not found!") 
 
-       private val webappRoot = webappRootURL.getPath() // TODO : maybe use urlDecode to convert the "%20" to " "
+       private val webappRoot = webappRootURL.getPath()
        
        private val basePathToRepository = fieldOwner.basePathToRepository
  	   private val endPathToRepository = fieldOwner.endPathToRepository
@@ -81,10 +81,10 @@ trait AddRepository [T <: (AddRepository[T] with MatchByID[T]) ] extends BaseEnt
      File.separator + repositoryID
      
      override def pathToRepository =  basePathToItemFolder + 
-     File.separator + endPathToRepository//fieldOwner.pathToRepository
+     File.separator + endPathToRepository
      
      override def pathToData =  basePathToItemFolder + 
-     File.separator + endPathToData//fieldOwner.pathToRepository
+     File.separator + endPathToData
   
      def repositoryID : String = fieldOwner.repositoryID
      
@@ -93,60 +93,9 @@ trait AddRepository [T <: (AddRepository[T] with MatchByID[T]) ] extends BaseEnt
      override def defaultCommitterName = fieldOwner .defaultCommitterName
 	 override def defaultCommitterMail = fieldOwner .defaultCommitterMail
        
-//     override def urlToRepo = 
-//       
-//     override def urlToData = 
-       
- 	  /*
-  override def defaultImage = fieldOwner.defaultIcon
-    
-  override def imageDisplayName = fieldOwner.iconDisplayName
-  
-  override def imageDbColumnName = fieldOwner.iconDbColumnName
-    
-  override def baseServingPath = fieldOwner.baseServingPath
 
-  override def fieldId = Some(Text("bin"+imageDbColumnName ))
-*/
   }
- 	/*
- 	def basePath : String = { // //LiftRules.context.ctx.getRealPath("/")
- 	   			   println(LiftRules.calculateContextPath.toString)
-//LiftRules.excludePathFromContextPathRewriting
- 	   			   
- 	  if (!LiftRules.context.path.endsWith(File.separator) )
- 			 LiftRules.context.path+File.separator
- 			 else
- 			   LiftRules.context.path
- 			   
- 	}
- 	* 
- 	*/
 
-  
-// items/"+primaryKeyField+"/repository/.git
-   /*
-	def pathToRepository(repositoryID : String) : String = {
-    val url = base.getPath+"items/"+repositoryID+"/repository/.git"
-     println("URL: "+url)
-     println("LiftCoreResourceName: "+LiftRules.liftCoreResourceName)
-     println("ResourceServePath: "+LiftRules.resourceServerPath)
-     url
-   }
-   * 
-   */
-     //basePath+"items/"+primaryKeyField+"/repository/.git"
-   // file structure (where to put the zip file?)
-  // items 
-   // 	- <ItemID>/
-   //		- <ItemID>.zip
-   //		- repository/
-   //		- previewImages/
-	//	   		- <maybe> commitID
-   //				- images
-   //		- previewData
-	//	   		- <maybe> commitID
-   //				- previewData (subsampled STL for Example)
 
    lazy val commitToUse : MappedString[T] = new MyCommitIDToUse(this, 32)
 
@@ -154,18 +103,6 @@ trait AddRepository [T <: (AddRepository[T] with MatchByID[T]) ] extends BaseEnt
     override def displayName = fieldOwner.commitIDToUseName
     override val fieldId = Some(Text("txtRepoCommitID"))
     
-//   setting to private did not work
-//    override def set(value : String) = super.set(value)
-    
-    /*
-        /**Namen-Auswahlliste für CRUD-Seiten*/
-    override def validSelectValues: Box[List[(Long, String)]] = {
-      fieldOwner.repository.getAllCommits
-      val currentUser : List[User] = User.currentUser.toList
-      Full(currentUser.map(u => (u.id.get, u.lastName.get) ) )
-    }
-    * 
-    */
   }
    
    def commitIDToUseName = S.?("version")
@@ -177,73 +114,10 @@ trait AddRepositoryMeta [ModelType <: ( AddRepository[ModelType] with MatchByID[
 
       type TheRepoType = ModelType
       
-   	// maybe afterSave ??, if ID is not available?
-      // -> ID is not available, even after save or commit!!!!
-      
-	/*override def afterSave = {
-      println("afterSave")
-      println("id:"+this.primaryKeyField.get)
- 	  createNewRepo
- 	  
- 	  super.afterSave
- 	}  
- 	*  
-      override def afterCommit = {
-      println("afterCommit")
-      println("id:"+this.primaryKeyField.get)
- 	  createNewRepo
- 	  
- 	  super.afterCommit
- 	} 
- 	*/
-    
-    /*
-    override def create = {
-      createNewRepo
-      super.create
-    }
-    * 
-    */
-    
-   /* override def beforeSave = {
-      
-      println("beforeSave")
-      createNewRepo
-      super.beforeCreate
-    }
-    
-      
-    private def createNewRepo = {
-      // create a new repository on the filesystem
- 	  val newRepo = repository.createNewRepo
- 	  println("repository created: "+repository .pathToRepository+"\n"+newRepo.getDirectory().toString())
-    }
-    
-    * 
-    */
-//        Not needed - matching does not work and simple strings (should) work fine
-//      object MatchAPIPath extends MatchString(apiPath)
-//      
-//      object MatchUploadPath extends MatchString(uploadPath)
-//      
-//      object MatchRepositoryPath extends MatchString(repositoryPath)
 
       
       
       abstract override def init : Unit = {
-//        serve ( "simple5" / "item" prefix {
-//// all the inventory
-//case Nil JsonGet _ => Item.inventoryItems: JValue
-//case Nil XmlGet _ => Item.inventoryItems: Node
-//55
-//56
-//57
-//58
-//59
-//// a particular item
-//case Item(item) :: Nil JsonGet _ => item: JValue
-//case Item(item) :: Nil XmlGet _ => item: Node
-//})
 
         object FileUploadREST extends RestHelper {
 

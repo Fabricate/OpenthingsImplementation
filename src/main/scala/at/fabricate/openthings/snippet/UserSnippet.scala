@@ -27,10 +27,6 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
   
   override val TheItem = User
   override def itemBaseUrl = "designer"
-//    Dont change anything as it is hardcoded atm
-//  override def itemViewUrl = "view"
-//  override def itemListUrl = "list"
-//  override def itemEditUrl = "edit"
   override def viewTemplate = "viewDesigner"
   override def listTemplate = "listDesigner"
   override def editTemplate = "editDesigner"
@@ -45,15 +41,8 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
    private def bindToolsCSS(toolname : String, checkbox: NodeSeq) = 
 	      ":checkbox" #>  checkbox &
 	      "id=toolname" #>  toolname
-	      
-//  saveAndDisplayAjaxMessages(item : Mapper[_], 
-//       successAction : () => JsCmd = () => JsCmds.Noop, 
-//       errorAction : List[FieldError] => JsCmd = errors => JsCmds.Noop, 
-//       idToDisplayMessages : String, 
-//       successMessage : String  = "Saved changes!", errorMessage: String  = "Error saving item!")
     
   override def toForm(item : ItemType) : CssSel = {
-//     		println("chaining asHtml from BaseRichEntitySnippet")
 	     var userTools = item.tools.map(tool => tool.name.toString)         
 
          def toolSelected(toolName: String)(selected: Boolean) = {
@@ -75,34 +64,20 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
        "#showicon" #> item.icon.asHtml &      
        "#emailsettings" #> item.emailSettings.toForm &      
        "#personalwebsite" #> item.personalWebsite.toForm &
-       "#listtools" #> listTools _  //&
-//       "#toolsubmithidden" #> SHtml.hidden(() => saveAndDisplayAjaxMessages(item.tools, // wrong instance; Changes are saved implicitly!!
-//           JsCmds.Noop, // success action
-//           JsCmds.Noop, //
-//           "itemMessages",
-//           "Saved Tool!",
-//           "Error at saving Tool!")
-
+       "#listtools" #> listTools _  
    ) &
         (super.toForm(item))
    }
   
    //   abstract override
    override def asHtml(item : ItemType) : CssSel = {
-//     		println("chaining asHtml from BaseRichEntitySnippet")
       
           def listTools(template: NodeSeq) : NodeSeq  =             
             item.tools.map(tool => tool.name.toString).
             	flatMap( toolName =>
            		bindToolsCSS(toolName, SHtml.checkbox(true, (_) => () ))(template) 
            		)                         
-             //  )
    (
-//       "#title *" #> (item.defaultTranslation.obj match {
-//         case Full(aTranslation) => aTranslation.title.get
-//         case _ => "no title available"
-//       } ) &
-       //"#title *" #> "%s %s".format(item.firstName, item.lastName ) &    
        "#personalwebsite [href]" #> item.personalWebsite.get &
        "#listtools" #> listTools _ &
        "#projectbydesigner" #> item.createdProjects.map(project => {
@@ -121,31 +96,11 @@ object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with B
                    "#projectbydesignerlink" #> ""    
         				   )
        }) &
-         //         val translation = project.getTranslationForLocales(List(S.locale), project.translations.head)
        "#licence *"  #> "" &
        "#initiator *"  #> "" &
         "#difficulty"  #>  ""
    ) &
    (super.asHtml(item))
   }
-//    override def asHtml(item : ItemType) : CssSel = {
-//    		println("chaining asHtml from ProjectSnippet")
-//    		
-////    		println("finished cssselector: "+super.asHtml(item).toString)
-//    		
-//    		super.asHtml(item)
-//  }
 
-//  override def localDispatch : DispatchIt = dispatchEditOwn orElse super.localDispatch
-//     
-//  def dispatchEditOwn : DispatchIt = {
-//     case "editOwn" => editOwn _
-//   }
-//   	      
-//  def editOwn(xhtml: NodeSeq) : NodeSeq  =  { 
-//    if (User.loggedIn_?)
-//	    toForm(User.currentUser.get)(xhtml) 
-//	 else 
-//	   LoginSnippet.notLoggedInMessage   
-//  }   
 }

@@ -17,14 +17,7 @@ import net.liftweb.http.S
 
 object LoginSnippet extends CustomizeUserHandlingSnippet[User](User,UserSnippet){
 
-//    override def loginTitle = "Custom Login"
-//    override def logoutTitle = "Custom Logout"      
-//    override def signUpTitle = "Custom Sign up"          
-//    override def lostPasswordTitle = "Custom Lost password"      
-//    override def resetPasswordTitle = "Custom Reset password" 
-      
-   
-      
+
       val contentLanguage = UrlLocalizer.contentLocale
       
     def localDispatch : DispatchIt = {      
@@ -34,9 +27,7 @@ object LoginSnippet extends CustomizeUserHandlingSnippet[User](User,UserSnippet)
     
     override def dispatch : DispatchIt = localDispatch orElse(super.dispatch)
       
-    def language(xhtml: NodeSeq): NodeSeq = { // UrlLocalizer.
-//      ajaxSelect(AjaxForm.states.map(s => (s, s)), Full(state), { s =>
-//      state = s; After(200, replace(state)) })
+    def language(xhtml: NodeSeq): NodeSeq = { 
     	("#selectLanguage" #> SHtml.ajaxSelect(
     	    UrlLocalizer.allLanguages.map(lang => SelectableOption( lang.getDisplayLanguage, lang.getDisplayLanguage) ),
     	    Full(UrlLocalizer.getSiteLocale.getDisplayLanguage),
@@ -45,21 +36,15 @@ object LoginSnippet extends CustomizeUserHandlingSnippet[User](User,UserSnippet)
     }
       
     def account(xhtml: NodeSeq): NodeSeq = {
-      		// does that make sense?
       		if (User.loggedIn_? )
             	(
             	 "#login" #> "" &
-            	 //"#login *" #> "Logout" //&
-//            	 "#logoutBtn [href]" #> "/%s".format(userObject.logoutPath.mkString("/")) &
-//            	 "#account" #> <span class="icon-"></span> Account  
             	  "#landingsection" #> "" &
             	  "#onlinestatus [class]" #> "loggedIn"
             )(xhtml)
             	else
             	(
-            	 //"#login *" #> "Login" &
             	 "#logout" #> "" &
-//            	 "#logoutBtn [href]" #> "/%s".format(userObject.logoutPath.mkString("/")) &
             	"#account" #> ""&
             	  "#onlinestatus [class]" #> "notLoggedIn"&
             	  "#addproject [onClick]" #> "LoginScreen();"

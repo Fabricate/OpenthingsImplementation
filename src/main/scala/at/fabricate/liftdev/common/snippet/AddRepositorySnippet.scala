@@ -38,15 +38,6 @@ trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRep
 
   def displayMessageAndHideLocal(message : String ) : JsCmd = displayMessageAndHide("repositoryMessages",message)
   
-//  def zipDownloadMenu 
-  
-//  abstract override def getMenu : List[Menu] = (Menu.i("download zip ") / "projects" / * / "data" / * / *   >> Hidden) :: super.getMenu
-  
-//  abstract override def generateRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
-////    projects/30/data/770fbca31f27a3480b5419f459f8c9e2e5cf3281/30.zip
-//      case RewriteRequest(ParsePath(List(MatchItemPath(itemBasePath), "index"), _, _, _), _, _) =>
-//	      RewriteResponse(listTemplate :: Nil)
-//  } orElse super.generateRewrites
   
   abstract override def view(xhtml: NodeSeq) :  NodeSeq  =  {
     // get just the comment section
@@ -58,7 +49,6 @@ trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRep
   
   abstract override def asHtml(item : ItemType) : CssSel = {
 
-//		println("chaining asHtml from AddRepositorySnippet")
       var commitLabel = ""
         
       			      var status = item.repository.getStatus()
@@ -150,18 +140,13 @@ trait AddRepositorySnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRep
 			       }
 			          
 				(
-//		      "#createrepo [onclick]" #> SHtml.ajaxInvoke(callback) &
-		      //"#commitlabel" #> SHtml.text(commitLabel, commitLabel = _) &
-//		      "#commitlabel" #> SHtml.text("", (str) => {commitLabel = str; JsCmds.Noop}, "default"->"Describe the key features of this project revision")&
+
 		      "#commitlabel" #> SHtml.ajaxText("", value => {commitLabel = value}, "placeholder"->"Describe the key features of this project revision") &
 			  "#listfiles" #>  listAllFiles(item ) &
 			  "#listcommits" #> listAllCommits(item ) &	
 			  "#repositorystatus" #> <ul>{update.map({case (typeOfUpdate, listOfUpdate) => <li>{typeOfUpdate+listOfUpdate.mkString("",", ","") }</li>})}</ul> & 
 
-//		      "#commitrepohidden" #> SHtml.hidden(() => commit(item, commitLabel  )) &
 		      "#commitrepo [onclick]" #> SHtml.ajaxInvoke(commitRepository(item) ) &
-		      //"#commitrepo " #> SHtml.hidden(commit(id)) &
-//		      "#testbutton [onclick]" #> SHtml.ajaxInvoke(callback) &
 		      "#fileupload [data-url]" #> "/%s/%s/%s/%s".format(
 		          item.apiPath, 
 		          item.uploadPath,

@@ -146,25 +146,3 @@ class SortedMapperPaginatorSnippet[T <: Mapper[T]](
 MySortedMapperPaginator[T](meta, initialSort, headers: _*)
   with SortedPaginatorSnippet[T, MappedField[_, T]]
 
-/*
-
-With this I can have a template like:
-<table class="stuff">
-        <thead class="headers">
-            // sortColumns go here
-        </thead>
-        <tbody class="list">
-            // data go here
-        </tbody>
-        <tfoot class="pagination">
-            // pagination go here
-        </tfoot>
-    </table>
-
-and do a bind like:
-
-         ".list" #> pag.render _ &
-        ".pagination" #> pag.paginate _ &
-        ".headers" #> pag.sortColumns _
-
-*/

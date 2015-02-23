@@ -12,7 +12,6 @@ import net.liftweb.util._
 
 object ImageLogic {
   
-  // TODO: unsafe, what if the image does not exist
   object UserImage{
     def unapply(in: String): Option[User] =
     		User.find(By(User.id, in.toInt ))
@@ -26,44 +25,4 @@ object ImageLogic {
                                     user.icon.get.length.toString), Nil, 200))  
   }
     
-  /*
-   * 
-   * () => servImage(user, r)
-                 
-    def servImage(user: User, r: Req): Box[LiftResponse] = 
-      
-   * 
-   * {
-    if (user)
-    Full(InMemoryResponse(new Array[Byte](0),
-                          List("Last-Modified" ->
-                               toInternetDate(img.saveTime.is)), Nil, 304))
-    else
-      
-                                   //"Last-Modified" ->
-                                   // toInternetDate(img.saveTime.is),
-  object TestImage {
-    def unapply(in: String): Option[Image] =
-    Image.find(By(Image.lookup, in.trim))
-  }
-
-  def matcher: LiftRules.DispatchPF = {
-    case r @ Req("image_logic" :: TestImage(img) ::
-                 Nil, _, GetRequest) => () => servImage(img, r)
-  }
-
-  def servImage(img: Image, r: Req): Box[LiftResponse] = {
-    if (r.testIfModifiedSince(img.saveTime))
-    Full(InMemoryResponse(new Array[Byte](0),
-                          List("Last-Modified" ->
-                               toInternetDate(img.saveTime.is)), Nil, 304))
-    else Full(InMemoryResponse(img.image.is,
-                               List("Last-Modified" ->
-                                    toInternetDate(img.saveTime.is),
-                                    "Content-Type" -> img.mimeType.is,
-                                    "Content-Length" ->
-                                    img.image.is.length.toString), Nil, 200))
-  }
-  * 
-  */
 }

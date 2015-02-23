@@ -32,48 +32,20 @@ trait AddTags[T <: (AddTags[T])] extends BaseEntity[T]  with OneToMany[Long, T] 
 	  type TheTagType <: GeneralTag[TheTagType]
 	  
 	  type TheTagTranslation = TheGenericTranslation
-//	  = TheTagType.TheTranslation
-	  //<: BaseEntityWithTitleAndDescription[TheTagType].TheTranslation
 	  
-	  def theTagObject : GeneralTagMeta[TheTagType] //with Tags[Z]
+	  def theTagObject : GeneralTagMeta[TheTagType]
 	        
       def getTagMapper : LongKeyedMetaMapper[TheTags] = TheTags
       
       
 	def getSingleton : AddTagsMeta[T]
 	  
-//        object createdByUser extends MappedLongForeignKey(this, theUserObject){
-//
-//    override def defaultValue = theUserObject.currentUser.map(_.primaryKeyField.get ) openOr(-1)
-//    
-//	  /**Genutzter Spaltenname in der DB-Tabelle*/
-//    override def dbColumnName = "initiator"
-//    
-//    /**Name des Datenfeldes für CRUD-Seiten*/
-////    override def displayName = S.?("project\u0020initiator")
-//    
-////    override def validations = FieldValidation.notEmpty(this) :: Nil
-//    
-//      
-//    /**Darstellung des Feldes auf CRUD-  object createdByUser extends MappedManyToMany(self,){
-//    
-//  }Seiten. Anstelle der Id wird Nachname und Vorname des Autors
-//     * angezeigt bzw. "k.A." für "keine Angabe", wenn es zu dieser User-Id keinen User gibt. */
-////    override def asHtml = User.getLinkToUser(get)
-//    
-//  }
+
 
 	        
 	  object tags extends MappedOneToMany(TheTags, TheTags.taggedItem, OrderBy(TheTags.primaryKeyField, Ascending))  with Owned[TheTags]
 with Cascade[TheTags]
-//	{
-////	    this.
-//	    override def defaultValue = theUserObject.currentUser.map(_.primaryKeyField.get ) openOr(-1)
-//	    override def dbColumnName = "initiator"
-////	    override def validations = FieldValidation.notEmpty(this) :: Nil
-//	  }
 
-	  //def getItemsToSchemify = List(TheComment, T)
       
       class TheTags extends LongKeyedMapper[TheTags] with IdPK {
     	  def getSingleton = TheTags
@@ -114,30 +86,12 @@ with Cascade[TheTags]
           TheTags.create.taggedItem(this).theTag(newTag).saveMe  	    
 	    newTag
 	  }
-//                 val newTag = localItem.theTagObject
-////          // create a new translation with the actual content language and the name supplied
-////          val translation = newTag.TheTranslationMeta.create.language(contentLanguage.get.toString)
-////          // append the new translation to the translations
-////          newTag.translations += translation
-////          // make this translation the default
-////          newTag.defaultTranslation(translation)
-//          //newTag.defaultTranslation.obj.map(_.title(name).saveMe)
+
 
 }
 
 trait AddTagsMeta[ModelType <: (AddTags[ModelType]) ] extends BaseMetaEntity[ModelType] {
 	self: ModelType =>
 	  	  abstract override def getItemsToSchemify : List[BaseMetaMapper] =  getTagMapper :: super.getItemsToSchemify
-
-	 
-//	def getTagMapper = getSingleton.getTagMapper
-//	
-//	def theTagObject = getSingleton.theTagObject
-	
+	  	  
 }
-
-//  // a link to all the created Projects
-//  val mappingToProjects : LongKeyedMetaMapper[Project.TheMapping] = Project.getUserMapper
-//  
-//  object createdProjects extends MappedManyToMany(mappingToProjects, mappingToProjects.byUser, mappingToProjects.createdItem, Project)   with Owned[mappingToProjects]
-//with Cascade[mappingToProjects]

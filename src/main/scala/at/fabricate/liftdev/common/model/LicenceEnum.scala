@@ -8,8 +8,7 @@ import scala.xml.Elem
       
       private def wrapLicenceLink(linkTarget : String, linkText : String, iconClasses : List[String]) : Elem = 
       <a href={linkTarget} target="_blank">{linkText} {iconClasses.map(iClass => iconClass(iClass)) }</a>
-//      : _ *
-//      List[Elem]
+
       
       var commercialLicences : List[Value] = List()
       
@@ -18,7 +17,7 @@ import scala.xml.Elem
       var allLicences : List[Value] = List()
     
       private def iconClass(theClass : String) : Elem = <span class={theClass}></span>
-//      <a href="https://creativecommons.org/licenses/by-nc/3.0/" target="_blank">Attribution 4.0 International <span class="icon-cc"></span> <span class="icon-cc-by"></span></a>
+
 	// create CC Licences
       for (
           (versionShort, versionLong) <- List(

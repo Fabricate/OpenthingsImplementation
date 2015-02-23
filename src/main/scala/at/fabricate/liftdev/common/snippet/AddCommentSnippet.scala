@@ -25,9 +25,7 @@ trait AddCommentSnippet[T <: BaseEntityWithTitleAndDescription[T] with AddCommen
   }
   
   abstract override def asHtml(item : ItemType) : CssSel = {
-		 
-//		println("chaining asHtml from AddCommentSnippet")
-    
+		     
 		 def createNewItem = item.TheComment.create.commentedItem(item)
 		 
 		 var newComment: item.TheComment = createNewItem
@@ -39,7 +37,6 @@ trait AddCommentSnippet[T <: BaseEntityWithTitleAndDescription[T] with AddCommen
 		   
     	 def bindNewCommentCSS : CssSel= 
 		     "#newcomtitle" #> SHtml.text(newComment.title.get, value => {newComment.title.set(value);JsCmds.Noop} )& //, "placeholder"->"Title"
-//		     "#newcomauthor" #> SHtml.text(newComment.author.get, value => {newComment.author.set(value);JsCmds.Noop}, "placeholder"->"Name"  )&     
 		     "#newcommessage" #> SHtml.textarea(newComment.comment.get, value => {newComment.comment.set(value);JsCmds.Noop} ) & // rows="6" , "placeholder"->"Your comment"
 		     "#newcomsubmithidden" #> SHtml.hidden(() => {
 		       saveAndDisplayAjaxMessages(newComment, 

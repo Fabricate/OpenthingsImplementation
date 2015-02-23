@@ -37,38 +37,13 @@ with AddCreatedByUserSnippet[T]
 with AddTagsSnippet[T]
 //with AddCategoriesSnippet[T]
 {
-   
-//  def localDispatch : DispatchIt = {    
-//    case "list" => renderIt(_)
-//    case "renderIt" => renderIt(_)
-//    case "edit" => edit _
-//    case "create" => create _
-//    case "view" => view(_)
-//    case "paginate" => paginate _
-//    case "paginatecss" => paginatecss(_)
-//  }
-//    orElse super.dispatch
-    
-  
-    
-  
-//    override def count = 10
-
-//  override def page = List()
  
-		  
-    
-
-  
     	 
   // internal helper fields that will be chained to create the complete css selector
   //   abstract override
    abstract override def toForm(item : ItemType) : CssSel = {
-//     		println("chaining asHtml from BaseRichEntitySnippet")
 
    (
-//       "#icon" #> item.icon .toForm & // will go to the baseiconentitysnippet later on
-//    "#initiator *"  #> {<strong>Made by:</strong> item.de} &
     "#licence"  #> item.licence.toForm &
     "#difficulty"  #> item.difficulty.toForm &
     "#state"  #> item.state.toForm
@@ -78,29 +53,15 @@ with AddTagsSnippet[T]
   
    //   abstract override
    abstract override def asHtml(item : ItemType) : CssSel = {
-//     		println("chaining asHtml from BaseRichEntitySnippet")
 
    (
-//       "#icon [src]" #> item.icon .url & // will go to the baseiconentitysnippet later on
-//    "#initiator *+"  #> {<strong>Made by:</strong> item.de} &
+
     "#licence *"  #> item.licence.asHtml &
     "#difficulty"  #> item.difficulty.asHtml  &
     "#state"  #> item.state.asHtml 
    ) &
    (super.asHtml(item))
      
-//     , {
-//     "#icon [src]" #> item.icon .url &
-//     "#comment" #> project.comments.map(comment => bindCommentCSS(comment))  &
-//     "#newcomment" #> bindNewCommentCSS
-//   })
-     
-//         "#item" #> {MapperBinder.bindMapper(item,{
-//             "#save" #> SHtml.submit( "save", () => 
-////               saveAndRedirectToNewInstance((item, success: () => Unit, errors: List[FieldError] => Unit) => saveAndDisplayMessages(item,success,errors, "") , item,
-//               saveAndRedirectToNewInstance(saveAndDisplayMessages(_,_:()=>Unit,_:List[FieldError]=>Unit, "") , item)
-//               )
-//        }) _ } 
   }
 
 }

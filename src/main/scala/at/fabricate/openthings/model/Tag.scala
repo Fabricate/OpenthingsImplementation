@@ -19,20 +19,13 @@ object Tag extends Tag with BaseMetaEntity[Tag] with GeneralTagMeta[Tag] {
 
 class Tag extends BaseEntity[Tag] with GeneralTag[Tag] 
 with ManyToMany 
-//with OneToMany[Long,SampleTag] 
 {
   def getSingleton = Tag
 
     // a link to all Tags
-  val mappingToProjectTags  = Project.getTagMapper // : LongKeyedMetaMapper[Samp.TheMapping]
+  val mappingToProjectTags  = Project.getTagMapper
   
-  	// ManyToMany example
+  	// ManyToMany mapping
   object projectTags extends MappedManyToMany(mappingToProjectTags, mappingToProjectTags.theTag, mappingToProjectTags.taggedItem, Project)   
 
-//  // OneToMany example -> does not work
-//  object tags extends MappedOneToMany(mappingToTags, mappingToTags.theTag, OrderBy(mappingToTags.primaryKeyField, Ascending))   
-//
-//  //  with Owned[mappingToTags] with Cascade[mappingToTags]
-////  MappedOneToMany(TheTags, TheTags.taggedItem, OrderBy(TheTags.primaryKeyField, Ascending))  with Owned[TheTags]
-////with Cascade[TheTags]
 }

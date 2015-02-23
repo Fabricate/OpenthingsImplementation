@@ -21,40 +21,19 @@ object FeedbackSnippet  extends DispatchSnippet {
   
   def dispatch : DispatchIt = {    
     case "mail" => mail _
-//    case "logout" => logout _
-//    case "edit" => edit _
-//    case "signup" => signup _
-//    case "validateUser" => validateUser _
-//    case "changePassword" => changePassword _
-//    case "lostPassword" => lostPassword _
-//    case "resetPassword" => resetPassword _
   }
   
     def contactTitle = "Contact"      
     def contactTemlate = "contact" 
     def feedbackTitle = "Feedback"      
     def feedbackTemlate = "feedback" 
-//    
-////    def loggedInMessage : NodeSeq = Text("ERROR - You are already logged in!")
-////    def notLoggedInMessage : NodeSeq = Text("ERROR - You are not logged in!")
-//
-//
+
     def getMenu = 
        List[Menu](
                Menu.i(contactTitle) / contactTemlate ,
                Menu.i(feedbackTitle) / feedbackTemlate 
      )
-//	  def generateRewrites : PartialFunction[RewriteRequest,RewriteResponse] = {
-//	      case RewriteRequest(ParsePath(MatchResetPassword(resetPath):: anID :: Nil, _, _, _), _, _) => { 
-//	        requestedID.set(anID)
-//	        RewriteResponse(resetPath :: Nil)
-//	      }
-//	      case RewriteRequest(ParsePath(MatchValidateUser(validatePath):: anID :: Nil, _, _, _), _, _) =>{ 
-//	        requestedID.set(anID)
-//		      RewriteResponse(validatePath :: Nil)	  	  
-//	      }
-//	    }
-     
+
     val recipients = List("openthingsteam@gmail.com","hello@martinr.nl")
      
     def sendPlainMail(from : String, replyTo : String, subject : String, to : List[String], content : String) = 
@@ -81,7 +60,6 @@ object FeedbackSnippet  extends DispatchSnippet {
           S.redirectTo("/index")
           })
     		   ).apply(xhtml)
-//
       
     }
 
