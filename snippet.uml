@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>at.fabricate.liftdev.common.snippet</OriginalElement>
+  <nodes>
+    <node x="1198.0" y="2135.5">at.fabricate.liftdev.common.snippet.AddRatingSnippet</node>
+    <node x="399.0" y="2167.0">at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionAndIconSnippet</node>
+    <node x="2706.0" y="2062.0">at.fabricate.liftdev.common.snippet.AjaxPaginatorSnippet$class</node>
+    <node x="1689.0" y="3323.0">at.fabricate.liftdev.common.snippet.AddRepositorySnippet$class</node>
+    <node x="1294.0" y="3503.0">at.fabricate.liftdev.common.snippet.SortedMapperPaginatorSnippet</node>
+    <node x="721.9250000000001" y="0.0">at.fabricate.liftdev.common.snippet.AjaxPaginatorSnippet</node>
+    <node x="916.0" y="3503.0">at.fabricate.liftdev.common.snippet.AddCommentSnippet$class</node>
+    <node x="1241.0" y="3323.0">at.fabricate.liftdev.common.snippet.AjaxSortedPaginatorSnippet$class</node>
+    <node x="2028.25" y="1777.0">at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet.MatchEdit$</node>
+    <node x="1481.0" y="2062.0">at.fabricate.liftdev.common.snippet.CustomizeUserHandlingSnippet</node>
+    <node x="2202.0" y="2773.0">at.fabricate.liftdev.common.snippet.CustomizeUserHandlingSnippet.MatchResetPassword$</node>
+    <node x="0.0" y="3323.0">at.fabricate.liftdev.common.snippet.MyMapperPaginator</node>
+    <node x="0.0" y="1609.0">at.fabricate.liftdev.common.snippet.AjaxSortedMapperPaginatorSnippet</node>
+    <node x="139.0" y="773.0">at.fabricate.liftdev.common.snippet.AjaxSortedPaginatorSnippet</node>
+    <node x="741.0" y="2156.5">at.fabricate.liftdev.common.snippet.AddCreatedByUserSnippet</node>
+    <node x="2251.0" y="3323.0">at.fabricate.liftdev.common.snippet.AddRatingSnippet$class</node>
+    <node x="601.0" y="2393.0">at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet</node>
+    <node x="2688.0" y="3323.0">at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet$class</node>
+    <node x="1522.25" y="1777.0">at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet.MatchList$</node>
+    <node x="1217.0" y="373.0">at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet</node>
+    <node x="0.0" y="2062.0">at.fabricate.liftdev.common.snippet.AddTagsSnippet</node>
+    <node x="357.0" y="3323.0">at.fabricate.liftdev.common.snippet.AddTagsSnippet$class</node>
+    <node x="1960.0" y="2773.0">at.fabricate.liftdev.common.snippet.CustomizeUserHandlingSnippet.requestedID$</node>
+    <node x="2255.25" y="1777.0">at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet.MatchView$</node>
+    <node x="571.0" y="2829.0">at.fabricate.liftdev.common.snippet.LazyLoginForSave</node>
+    <node x="1769.25" y="1777.0">at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet.MatchItemPath$</node>
+    <node x="3297.0" y="2062.0">at.fabricate.liftdev.common.snippet.AddRepositorySnippet</node>
+    <node x="0.0" y="3503.0">at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionAndIconSnippet$class</node>
+    <node x="1234.25" y="1766.0">at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet.unsavedContent$</node>
+    <node x="960.0" y="2146.0">at.fabricate.liftdev.common.snippet.AddCommentSnippet</node>
+    <node x="1677.0" y="2773.0">at.fabricate.liftdev.common.snippet.CustomizeUserHandlingSnippet.MatchValidateUser$</node>
+    <node x="520.0" y="3503.0">at.fabricate.liftdev.common.snippet.AddCreatedByUserSnippet$class</node>
+    <node x="766.0" y="3323.0">at.fabricate.liftdev.common.snippet.MySortedMapperPaginator</node>
+    <node x="1741.0" y="3503.0">at.fabricate.liftdev.common.snippet.LazyLoginForSave$class</node>
+    <node x="648.0" y="804.0">at.fabricate.liftdev.common.snippet.AjaxMapperPaginatorSnippet</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet" target="at.fabricate.liftdev.common.snippet.AddTagsSnippet">
+      <point x="-191.60000000000014" y="-193.0" />
+      <point x="648.8999999999999" y="2373.0" />
+      <point x="189.5" y="2373.0" />
+      <point x="0.0" y="140.5" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet" target="at.fabricate.liftdev.common.snippet.AddCommentSnippet">
+      <point x="95.79999999999995" y="-193.0" />
+      <point x="936.3" y="2363.0" />
+      <point x="1069.0" y="2363.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.CustomizeUserHandlingSnippet.MatchResetPassword$" target="at.fabricate.liftdev.common.snippet.CustomizeUserHandlingSnippet">
+      <point x="0.0" y="-36.0" />
+      <point x="2341.5" y="2748.0" />
+      <point x="2464.333333333333" y="2748.0" />
+      <point x="393.33333333333303" y="330.5" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet" target="at.fabricate.liftdev.common.snippet.AjaxPaginatorSnippet">
+      <point x="0.0" y="-593.0" />
+      <point x="1922.0" y="348.0" />
+      <point x="1079.4250000000002" y="348.0" />
+      <point x="143.0000000000001" y="161.5" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.LazyLoginForSave" target="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet">
+      <point x="0.0" y="-224.5" />
+      <point x="0.0" y="193.0" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet.MatchEdit$" target="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet">
+      <point x="0.0" y="-36.0" />
+      <point x="2131.75" y="1584.0" />
+      <point x="2204.0" y="1584.0" />
+      <point x="282.0" y="593.0" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet.unsavedContent$" target="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet">
+      <point x="0.0" y="-47.0" />
+      <point x="1368.25" y="1584.0" />
+      <point x="1358.0" y="1584.0" />
+      <point x="-564.0" y="593.0" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet.MatchItemPath$" target="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet">
+      <point x="0.0" y="-36.0" />
+      <point x="1888.75" y="1584.0" />
+      <point x="1922.0" y="1584.0" />
+      <point x="0.0" y="593.0" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.CustomizeUserHandlingSnippet.requestedID$" target="at.fabricate.liftdev.common.snippet.CustomizeUserHandlingSnippet">
+      <point x="0.0" y="-36.0" />
+      <point x="0.0" y="330.5" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet.MatchList$" target="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet">
+      <point x="0.0" y="-36.0" />
+      <point x="1624.25" y="1584.0" />
+      <point x="1640.0" y="1584.0" />
+      <point x="-282.0" y="593.0" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet.MatchView$" target="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet">
+      <point x="0.0" y="-36.0" />
+      <point x="2360.75" y="1584.0" />
+      <point x="2486.0" y="1584.0" />
+      <point x="564.0" y="593.0" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.CustomizeUserHandlingSnippet.MatchValidateUser$" target="at.fabricate.liftdev.common.snippet.CustomizeUserHandlingSnippet">
+      <point x="0.0" y="-36.0" />
+      <point x="1808.5" y="2748.0" />
+      <point x="1677.6666666666667" y="2748.0" />
+      <point x="-393.33333333333326" y="330.5" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet" target="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionAndIconSnippet">
+      <point x="-95.80000000000007" y="-193.0" />
+      <point x="744.6999999999999" y="2363.0" />
+      <point x="560.0" y="2363.0" />
+      <point x="0.0" y="35.5" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet" target="at.fabricate.liftdev.common.snippet.AddRatingSnippet">
+      <point x="191.5999999999999" y="-193.0" />
+      <point x="1032.1" y="2373.0" />
+      <point x="1317.0" y="2373.0" />
+      <point x="0.0" y="67.0" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.AjaxSortedPaginatorSnippet" target="at.fabricate.liftdev.common.snippet.AjaxPaginatorSnippet">
+      <point x="0.0" y="-193.0" />
+      <point x="383.5" y="348.0" />
+      <point x="793.4250000000001" y="348.0" />
+      <point x="-143.0" y="161.5" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet" target="at.fabricate.liftdev.common.snippet.AddCreatedByUserSnippet">
+      <point x="0.0" y="-193.0" />
+      <point x="0.0" y="46.0" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.AjaxSortedMapperPaginatorSnippet" target="at.fabricate.liftdev.common.snippet.AjaxSortedPaginatorSnippet">
+      <point x="0.0" y="-204.0" />
+      <point x="0.0" y="193.0" />
+    </edge>
+    <edge source="at.fabricate.liftdev.common.snippet.AjaxMapperPaginatorSnippet" target="at.fabricate.liftdev.common.snippet.AjaxPaginatorSnippet">
+      <point x="0.0" y="-162.0" />
+      <point x="922.5" y="348.0" />
+      <point x="936.4250000000001" y="348.0" />
+      <point x="0.0" y="161.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.9446185997910136" x="944.987831858407" y="208.5" />
+  <SelectedNodes>
+    <node>at.fabricate.liftdev.common.snippet.AddCommentSnippet</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
