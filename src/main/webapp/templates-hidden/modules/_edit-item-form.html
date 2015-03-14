@@ -2,7 +2,9 @@
 <form id="formitem" enctype="multipart/form-data" method="post" action="#">
 	<input id="title" placeholder="Title" required>
 	<textarea id="teaser" placeholder="Short desciption max 140 characters" rows="2" required maxlength="250"></textarea>
-	<textarea id="description" class="wysiwyg" placeholder="Project description" rows="8" required></textarea>
+	<textarea id="wysiwyg" class="wysiwyg" placeholder="Project description" rows="8" required></textarea>
+	<script id="update_description_preview"></script>
+	<div id="description_preview">Preview....</div>
 	<label id="iconlabel">Upload project image</label>
 	<input id="icon" type="file" name="fileToUpload">
 <!--	<label id="difficultylabel"></label>-->
@@ -21,13 +23,13 @@
 		<option value="" disabled selected>Language</option>
 	</select>
 
-<!--
+
 	<a id="newlanguage" href="#">create new language</a>
 	<label id="defaultlanguagelabel">Default Language: </label>
 	<select id="defaultlanguage" required>
 		<option value="" disabled selected>DefaultLanguage</option>
 	</select>
--->
+
 	<input id="itemsubmithidden" type="hidden">
 	<button type="submit" id="save">Save</button>
 </form>

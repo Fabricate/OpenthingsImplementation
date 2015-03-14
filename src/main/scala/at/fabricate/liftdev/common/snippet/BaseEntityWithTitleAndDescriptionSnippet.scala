@@ -15,6 +15,8 @@ import net.liftweb.util.FieldError
 import net.liftweb.mapper.Mapper
 import net.liftweb.http.js.JsCmds
 import net.liftweb.http.js.JsCmd
+import net.liftweb.http.js.JsCmds.Function
+import net.liftweb.http.js.JE._
 import net.liftweb.http.js.jquery.JqJsCmds.DisplayMessage
 import net.liftweb.mapper.KeyedMapper
 import net.liftweb.util._
@@ -304,10 +306,22 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
        Replace("description",elem2NodeSeq(newTranslation.description.toForm)) & 
        Replace("language",elem2NodeSeq(newTranslation.language.toForm))
      }
+
+     def parse(textile : String)() : JsCmd = {
+       Replace("description_preview", <div id='description_preview'>{TextileParser.toHtml(textile)}</div>)
+     }
      	
      "#title"  #> theTranslation.title.toForm &
      "#teaser"  #> (theTranslation.teaser.toForm.map(_ % new UnprefixedAttribute("rows","3", Null))) &
-     "#description"  #> theTranslation.description.toForm &
+     "#wysiwyg"  #> theTranslation.description.toForm &
+     //"#markItUp [onkeyup]" #> Call("updatePreview") &
+     "#update_description_preview *" #>
+       Function("updatePreview", List("content"),
+         SHtml.ajaxCall(JsVar("content"), (s: String) => {
+           println("received string '%s' for textile transformation".format(s));
+           parse(s)
+         } )._2.cmd
+     ) &
      "#language"  #> theTranslation.language.toForm &
      "#newlanguage"  #> SHtml.a(Text("create new translation"),  "id"->"newlanguage")(createNewTranslationForItem(item)) &//translation.language.toForm &
      "#defaultlanguage"  #> item.defaultTranslation.toForm &
@@ -355,22 +369,22 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      val locale = S.locale
  
      // translation behavior
-         val translation = item.defaultTranslation.getObjectOrHead 
-         val description = translation.description.get match {
-           case null => NodeSeq.Empty 
-           case _ => TextileParser.toHtml(translation.description.get)
-         }
-         "#translations *" #> item.translations.map(itemTranslation => getShortInfoAndLinkToItem(item)) &
-	     "#language *" #> translation.language.isAsLocale.getDisplayLanguage &  
-	     "#title *"  #> translation.title.asHtml &
-	     "#teaser *"  #> translation.teaser.get &
-	     "#description *"  #> description &
-	     "#shortinfo" #> getShortInfoForItem(item)  &
-	     "#created *+"  #> item.createdAt.asHtml  &
-	     "#updated *+"  #> item.updatedAt.asHtml  &
-	     "#edititem [href]" #> urlToEditItem(item,translation.language.isAsLocale) &
-	     "#viewitem [href]" #> urlToViewItem(item,translation.language.isAsLocale) &
-	     "#viewitem *" #> "View Item"
-     
+     val translation = item.defaultTranslation.getObjectOrHead
+     val description = translation.description.get match {
+       case null => NodeSeq.Empty
+       case _ => TextileParser.toHtml(translation.description.get)
+     }
+     "#translations *" #> item.translations.map(itemTranslation => getShortInfoAndLinkToItem(item)) &
+     "#language *" #> translation.language.isAsLocale.getDisplayLanguage &
+     "#title *"  #> translation.title.asHtml &
+     "#teaser *"  #> translation.teaser.get &
+     "#description *"  #> description &
+     "#shortinfo" #> getShortInfoForItem(item)  &
+     "#created *+"  #> item.createdAt.asHtml  &
+     "#updated *+"  #> item.updatedAt.asHtml  &
+     "#edititem [href]" #> urlToEditItem(item,translation.language.isAsLocale) &
+     "#viewitem [href]" #> urlToViewItem(item,translation.language.isAsLocale) &
+     "#viewitem *" #> "View Item"
+
   }
 }
