@@ -55,7 +55,7 @@ trait AddRatingSnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRating[
   def generateDisplayRating(item : ItemType) : NodeSeq = {
 		val ratingSum : Double = item.ratings.foldLeft(0)(_ + _.rating.get)
 		if (item.ratings.length > 0)
-			Text((ratingSum / item.ratings.length).toString)
+			Text("%1.2f".format(ratingSum / item.ratings.length))
 		else
 		  Text("no ratings available")
   }
