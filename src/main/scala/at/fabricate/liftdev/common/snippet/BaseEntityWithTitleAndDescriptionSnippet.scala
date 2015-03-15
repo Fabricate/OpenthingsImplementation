@@ -16,7 +16,7 @@ import net.liftweb.mapper.Mapper
 import net.liftweb.http.js.JsCmds
 import net.liftweb.http.js.JsCmd
 import net.liftweb.http.js.JsCmds.Function
-import net.liftweb.http.js.JE._
+import net.liftweb.http.js.JE
 import net.liftweb.http.js.jquery.JqJsCmds.DisplayMessage
 import net.liftweb.mapper.KeyedMapper
 import net.liftweb.util._
@@ -317,7 +317,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
      //"#markItUp [onkeyup]" #> Call("updatePreview") &
      "#update_description_preview *" #>
        Function("updatePreview", List("content"),
-         SHtml.ajaxCall(JsVar("content"), (s: String) => {
+         SHtml.ajaxCall(JE.JsRaw("""$("#wysiwyg").val()"""), (s: String) => {
            println("received string '%s' for textile transformation".format(s));
            parse(s)
          } )._2.cmd
