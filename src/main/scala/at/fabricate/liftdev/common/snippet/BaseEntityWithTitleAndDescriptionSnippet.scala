@@ -15,8 +15,10 @@ import net.liftweb.util.FieldError
 import net.liftweb.mapper.Mapper
 import net.liftweb.http.js.JsCmds
 import net.liftweb.http.js.JsCmd
+import net.liftweb.http.js.JsExp
 import net.liftweb.http.js.JsCmds.Function
 import net.liftweb.http.js.JE
+import net.liftweb.http.js.jquery.JqJsCmds
 import net.liftweb.http.js.jquery.JqJsCmds.DisplayMessage
 import net.liftweb.mapper.KeyedMapper
 import net.liftweb.util._
@@ -51,7 +53,7 @@ import scala.xml.UnprefixedAttribute
 import scala.xml.Null
 
 
-abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
+abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends EndlessScrollingPaginatorSnippet[T] with DispatchSnippet with Logger {
 
   // ### Things that have to be defined/refined in subclasses/traits ###
      type ItemType = T
@@ -86,9 +88,11 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
   object MatchList extends MatchString(itemListUrl)
 
   object MatchEdit extends MatchString(itemEditUrl)
-     
-     
-  
+
+
+  var listItemTemplate : NodeSeq = NodeSeq.Empty
+
+
   val contentLanguage : RequestVar[Locale]  
      
      
@@ -216,11 +220,37 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
   val ID_NOT_SUPPLIED = "-1"
 
   // All the external methodes
-  def renderIt (in: scala.xml.NodeSeq) : scala.xml.NodeSeq =   
-    // just a dummy implementation
-    // later user asHtml
-   ("#item" #> page.map(item => asHtml(item) ) 
-       ).apply(in)
+  def renderIt (in: scala.xml.NodeSeq) : scala.xml.NodeSeq = {
+
+    listItemTemplate = ("#list_items ^^" #> ("#item ^^" #> "str")).apply(in)
+
+    //println("list item templates: "+listItemTemplate)
+
+    def appendNextPage(in : Any) : JsCmd = in match {
+        case id: String =>
+          if (first < count - (2 * itemsPerPage)) {
+            first = first + itemsPerPage
+            val newPage = ("#item" #> page.map(item => asHtml(item) )
+              ).apply(listItemTemplate)
+            JqJsCmds.AppendHtml(id, newPage)
+          } else
+            JsCmds.Noop
+        case _ =>
+          JsCmds.Noop
+      }
+
+      // just a dummy implementation
+        // later user asHtml
+       ("#list_items" #> ("#item" #> page.map(item => asHtml(item) )) &
+         "#update_list" #>  JsCmds.Script(JE.JsRaw(
+         """$(window).scroll(function(){
+      if($(window).scrollTop() == $(document).height() - $(window).height()) {"""+
+           SHtml.jsonCall("list_items", appendNextPage _ )._2.toJsCmd+"""
+      }
+    })""").cmd) &
+         "#update_button [onclick]" #>SHtml.jsonCall("list_items", appendNextPage _ )._2.toJsCmd
+         ).apply(in)
+    }
        
   def loadItemFromSessionOrCreate : ItemType = 
     unsavedContent.get.openOr({

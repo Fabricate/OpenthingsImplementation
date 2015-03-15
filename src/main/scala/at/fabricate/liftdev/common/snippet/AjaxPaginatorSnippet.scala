@@ -13,6 +13,8 @@ import net.liftweb.http.Paginator
 import net.liftweb.http.SortedPaginatorSnippet
 import scala.xml.Text
 
+
+// WARNING: pagination links with ajax dont work unfortunately, would need some bugfixing
 trait AjaxPaginatorSnippet[T] extends PaginatorSnippet[T] {
   private lazy val pagMemo = SHtml.idMemoize(ignored => super.paginate _)
 
@@ -35,7 +37,7 @@ trait AjaxPaginatorSnippet[T] extends PaginatorSnippet[T] {
   def render(html: NodeSeq): NodeSeq = memo(html)
   
   
-  	override def itemsPerPage = 9
+  	override def itemsPerPage = 12
   	override def prevXml: NodeSeq = Text("<")
 	override def nextXml: NodeSeq = Text(">")
 	override def firstXml: NodeSeq = Text("<<")

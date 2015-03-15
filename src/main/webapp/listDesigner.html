@@ -1,19 +1,11 @@
 <div id="main" data-lift="surround?with=default;at=content">
 	<section class="mainContent listView left">
-		<ul>
-			<div data-lift="User.list?eager_eval=true">
+        <div data-lift="User.list?eager_eval=true">
+		    <ul id="list_items">
 				<span data-lift="embed?what=modules/_list-item">ProjectAndUserHeader</span>
-			</div>
-
-		</ul>
-	
-		<div data-lift="User.paginatecss">
-		<span id="first"> </span>&nbsp; | &nbsp;
-		<span id="prev"> </span>&nbsp; | &nbsp;
-		<span id="zoomedpages">&nbsp;</span> &nbsp; | &nbsp;
-		<span id="next"></span>&nbsp; | &nbsp;
-		<span id="last"></span>&nbsp; | <br />
-		<span id="records"></span>
-		</div>
+		    </ul>
+            <script id="update_list"></script>
+            <button id="update_button">next page</button>
+        </div>
 	</section>
 </div>
