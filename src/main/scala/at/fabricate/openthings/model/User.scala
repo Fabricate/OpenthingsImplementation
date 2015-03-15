@@ -57,6 +57,8 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
   // just an idea for different signup process
   override def signupFields = firstName :: lastName :: email :: password :: Nil 
   
+	// comment this line out to require email validations
+	override def skipEmailValidation = true
   
   // get a link to the user
   def getLinkToUser(userId : Long) : Elem = userId.toString match {
