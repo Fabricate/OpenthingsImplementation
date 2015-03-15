@@ -42,6 +42,7 @@ object FeedbackSnippet  extends DispatchSnippet {
                          
     def mail(xhtml : NodeSeq): NodeSeq = {
       object from extends RequestVar("")
+      object name extends RequestVar("")
       object subject extends RequestVar("")
       object message extends RequestVar("")
       object options extends RequestVar("")
@@ -52,10 +53,11 @@ object FeedbackSnippet  extends DispatchSnippet {
       
        ("#message" #> SHtml.textareaElem(message) &
         "#from" #> SHtml.textElem(from) &
+         "#name" #> SHtml.textElem(name) &
         "#subject" #> SHtml.textElem(subject) &
         "#options" #> SHtml.select(selectableOptions, Empty, options.set(_)) &
         "#mailaction" #> SHtml.hidden(() => {
-          sendPlainMail("openthingsserver@gmail.com",from.get, subject.get, recipients , "Option: "+options.get+"\n\n Message: \n"+message.get)
+          sendPlainMail("openthingsserver@gmail.com",from.get, subject.get, recipients ,"Name: "+name.get+"\n\n Option: "+options.get+"\n\n Message: \n"+message.get)
           S.notice("Thank you for your message!")
           S.redirectTo("/index")
           })
