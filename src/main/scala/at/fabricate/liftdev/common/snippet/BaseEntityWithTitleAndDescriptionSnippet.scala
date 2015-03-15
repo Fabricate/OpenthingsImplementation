@@ -236,7 +236,10 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
               ).apply(listItemTemplate)
             JqJsCmds.AppendHtml(id, newPage)
           } else
-            JsCmds.Noop
+            // stop the endless scrolling now
+            JsCmds.jsExpToJsCmd(JE.JsRaw("""doScroll=false;""")) &
+              JsCmds.Replace("update_button", NodeSeq.Empty)
+
         case _ =>
           JsCmds.Noop
       }
@@ -245,8 +248,9 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
         // later user asHtml
        ("#list_items" #> ("#item" #> page.map(item => asHtml(item) )) &
          "#update_list" #>  JsCmds.Script(JE.JsRaw(
-         """$(window).scroll(function(){
-      if($(window).scrollTop() == $(document).height() - $(window).height()) {"""+
+         """doScroll = true;
+            $(window).scroll(function(){
+      if( ($(window).scrollTop() == $(document).height() - $(window).height()) && doScroll == true ) {"""+
            SHtml.jsonCall("list_items", appendNextPage _ )._2.toJsCmd+"""
       }
     })""").cmd) &
