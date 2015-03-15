@@ -226,6 +226,8 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 
     //println("list item templates: "+listItemTemplate)
 
+    first = 0L
+
     def appendNextPage(in : Any) : JsCmd = in match {
         case id: String =>
           if (first < count - (2 * itemsPerPage)) {
