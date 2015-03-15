@@ -39,7 +39,7 @@ trait EndlessScrollingPaginatorSnippet[T] extends PaginatorSnippet[T] {
    */
   override var first = 0L
   
-  	override def itemsPerPage = 12
+  	override def itemsPerPage = 4
   	override def prevXml: NodeSeq = Text("<")
 	override def nextXml: NodeSeq = Text(">")
 	override def firstXml: NodeSeq = Text("<<")

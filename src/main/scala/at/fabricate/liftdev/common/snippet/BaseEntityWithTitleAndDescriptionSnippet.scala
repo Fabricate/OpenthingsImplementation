@@ -230,7 +230,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 
     def appendNextPage(in : Any) : JsCmd = in match {
         case id: String =>
-          if (first < count - (2 * itemsPerPage)) {
+          if (first < count - (1 * itemsPerPage)) {
             first = first + itemsPerPage
             val newPage = ("#item" #> page.map(item => asHtml(item) )
               ).apply(listItemTemplate)
@@ -250,7 +250,8 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
            SHtml.jsonCall("list_items", appendNextPage _ )._2.toJsCmd+"""
       }
     })""").cmd) &
-         "#update_button [onclick]" #>SHtml.jsonCall("list_items", appendNextPage _ )._2.toJsCmd
+         "#update_button [onclick]" #>SHtml.jsonCall("list_items", appendNextPage _ )._2.toJsCmd &
+         "#nr_items *" #> count
          ).apply(in)
     }
        
