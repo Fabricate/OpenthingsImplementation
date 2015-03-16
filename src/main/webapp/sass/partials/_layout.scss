@@ -12,6 +12,7 @@ body{
  }
 .listView{
 	padding-bottom: $xsmall-percentage;
+	text-align: center;
 }
 .col-2{
 	width: 50%;
@@ -53,4 +54,11 @@ body{
 	padding-top: 2em;
 	margin-top: 2em;
 	border-top: 1px solid $lightgrey;
+}
+
+.loader{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
 }
