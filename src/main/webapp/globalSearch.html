@@ -7,10 +7,13 @@
 			<h1>Advanced search</h1>
 			<span data-lift="embed?what=modules/_search-form">EditItemForm</span>
 		</div>
-		<ul>
-			<div data-lift="Search.list?eager_eval=true">
+        <div data-lift="Search.list?eager_eval=true">
+		    <ul id="list_items">
 				<span data-lift="embed?what=modules/_list-item">ProjectAndUserHeader</span>
-			</div>
-		</ul>
+		    </ul>
+            <script id="update_list"></script> <br></br>
+            <span id="nr_items"></span> projects found <br></br>
+            <button id="update_button">next page</button>
+        </div>
 	</section>
 </div>
