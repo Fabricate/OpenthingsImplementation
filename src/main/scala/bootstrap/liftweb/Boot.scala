@@ -69,6 +69,7 @@ class Boot {
     
     LiftRules.snippetDispatch.append {
       case "Search" => SearchSnippet
+      case "Tag" => TagSnippet
       case "Project" => ProjectSnippet
       case "User" => UserSnippet
       case "Login" => LoginSnippet
@@ -81,12 +82,15 @@ class Boot {
     val projectRewrites =  ProjectSnippet.generateRewrites
     
     val searchRewrites = SearchSnippet.generateRewrites
+
+    val tagRewrites = TagSnippet.generateRewrites
        
     val loginRewrites = LoginSnippet.generateRewrites
 
     // Set up some rewrites
     LiftRules.statelessRewrite.append (userRewrites.orElse
         (searchRewrites).orElse
+        (tagRewrites).orElse
         (projectRewrites).orElse
         (loginRewrites) )
 
@@ -108,7 +112,7 @@ class Boot {
                //Menu.i("Validate") / "validate_user" / * >> Hidden,
                Menu.i("Static") / "static" / ** >> Hidden
                ) :::  LoginSnippet.getMenu ::: ProjectSnippet.getMenu  ::: 
-               UserSnippet.getMenu ::: SearchSnippet.getMenu ::: Tool.menus :::
+               UserSnippet.getMenu ::: TagSnippet.getMenu ::: SearchSnippet.getMenu ::: Tool.menus :::
                FeedbackSnippet.getMenu
 
     LiftRules.setSiteMap(SiteMap(menu :_*))
