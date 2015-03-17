@@ -62,3 +62,11 @@ body{
 	bottom: 0;
 	width: 100%;
 }
+.detailedDescription ul{
+	margin-bottom: $medium-em;
+	list-style: circle;
+	padding-left:  $medium-em;
+}
+.detailedDescription img{
+	max-width: 100%;
+}

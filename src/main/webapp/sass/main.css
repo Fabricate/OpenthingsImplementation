@@ -192,6 +192,10 @@ input, select, button, textarea, .btn {
 i {
   opacity: 0.5; }
 
+/* line 97, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/typography */
+strong {
+  font-weight: bold; }
+
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/forms */
 select, input, textarea {
   border: 1px solid #edebeb;
@@ -967,6 +971,16 @@ body {
   left: 0;
   bottom: 0;
   width: 100%; }
+
+/* line 65, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.detailedDescription ul {
+  margin-bottom: 1.875em;
+  list-style: circle;
+  padding-left: 1.875em; }
+
+/* line 70, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+.detailedDescription img {
+  max-width: 100%; }
 
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/menus */
 .logo, .shareDesignBtn, .mainNavigation li, .mainNavigation li a {

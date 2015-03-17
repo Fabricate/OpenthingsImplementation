@@ -63,17 +63,10 @@
 <!--		<span data-lift="Menu.builder"></span>-->
 
 
-
-		<script src="/public/js/jquery.viewportchecker.js"></script>
 		<script>
 			jQuery(document).ready(function() {
 				// add the wysiwyg via markitup
 				$('.wysiwyg').markItUp(myTextileSettings);
-
-				jQuery('.preview').addClass("hidden").viewportChecker({
-						classToAdd: 'visible animated fadeIn',
-						offset: 100
-					 });
 			});
 
 			function ShowComments(){
