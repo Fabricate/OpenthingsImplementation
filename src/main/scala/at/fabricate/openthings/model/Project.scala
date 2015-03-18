@@ -12,17 +12,13 @@ import java.util.Calendar
 import scala.xml.UnprefixedAttribute
 import scala.xml.Null
 import at.fabricate.liftdev.common.lib.{EnumWithKeyAndValue, EnumWithStringKeyAndValue, EnumWithDescriptionAndObject }
-import at.fabricate.liftdev.common.model.BaseMetaEntity
-import at.fabricate.liftdev.common.model.AddRepositoryMeta
-import at.fabricate.liftdev.common.model.BaseMetaEntityWithTitleDescriptionIconAndCommonFields
-import at.fabricate.liftdev.common.model.BaseEntityWithTitleDescriptionIconAndCommonFields
-import at.fabricate.liftdev.common.model.AddRepository
-import at.fabricate.liftdev.common.model.BaseEntity
- 
+import at.fabricate.liftdev.common.model._
+
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/
 
-object Project extends Project with BaseMetaEntity[Project] with BaseMetaEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepositoryMeta[Project] {
+object Project extends Project with BaseMetaEntity[Project] with BaseMetaEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepositoryMeta[Project]
+with AddSkillsMeta[Project] {
   
   
 }
@@ -30,12 +26,17 @@ object Project extends Project with BaseMetaEntity[Project] with BaseMetaEntityW
 
 /**Beschreibt eine Projekt-Instanz
 * @author Johannes Fischer **/
-class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepository[Project] {
+class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepository[Project]
+with AddSkills[Project] {
 
     // definitions for AddTag
   type TheTagType = Tag
   def theTagObject = Tag
-  
+
+  // definitions for AddSkill
+  type TheSkillType = Skill
+  def theSkillObject = Skill
+
     // definitions for AddCategories
   type TheCategoryType = Category
   def theCategoryObject = Category

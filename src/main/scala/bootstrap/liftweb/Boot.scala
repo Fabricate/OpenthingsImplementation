@@ -55,7 +55,8 @@ class Boot {
     
     // has to be a list of BaseMetaMapper entities
     val itemsToSchemify : List[BaseMetaMapper] = Project.getItemsToSchemify ::: 
-    User.getItemsToSchemify ::: Tag.getItemsToSchemify ::: List[BaseMetaMapper](Tool, UserHasTools) 
+    User.getItemsToSchemify ::: Tag.getItemsToSchemify ::: Skill.getItemsToSchemify :::
+      List[BaseMetaMapper](Tool, UserHasTools)
     Schemifier.schemify(true, Schemifier.infoF _, itemsToSchemify :_*)
         
     // initialize the Mapper instances
