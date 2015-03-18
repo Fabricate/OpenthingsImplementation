@@ -36,7 +36,7 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
     val titleValidations : List[String => List[FieldError]] = List( _ => List[FieldError]())
     val teaserLength = 150
     val teaserValidations : List[String => List[FieldError]] = List( _ => List[FieldError]())
-    val descriptionLength = 2000
+    val descriptionLength = 100000
     val descriptionValidations : List[String => List[FieldError]] = List( _ => List[FieldError]())
 
    
