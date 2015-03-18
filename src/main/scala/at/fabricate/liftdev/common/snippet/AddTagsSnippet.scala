@@ -7,8 +7,7 @@ import net.liftweb.http.js.JsCmds
 import net.liftweb.http.js.jquery.JqJsCmds.AppendHtml
 import net.liftweb.http.SHtml
 import net.liftweb.util.Helpers._
-import scala.xml.NodeSeq
-import scala.xml.Text
+import scala.xml.{Null, UnprefixedAttribute, NodeSeq, Text}
 import model.BaseEntity
 import model.BaseMetaEntityWithTitleAndDescription
 import model.BaseEntityWithTitleAndDescription
@@ -55,7 +54,7 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
       case Nil => ("#singletag" #> (None: Option[String]) )
 
       // dummy for now
-      case alist => ("#singletag *" #> alist.map( _.defaultTranslation.getObjectOrHead.title.get))
+      case alist => ("#singletag *" #> alist.map(aTag => <a>{aTag.defaultTranslation.getObjectOrHead.title.get}</a> % new UnprefixedAttribute("href","/tag/%s".format(aTag.defaultTranslation.getObjectOrHead.id.get), Null)  ))
 
     }
   
