@@ -1,0 +1,21 @@
+<div id="main" data-lift="surround?with=default;at=content">
+	<section class="mainContent searchContent left">
+		<div id="tag_messages">
+
+		</div>
+        <!--
+		<div class="searchForm left" data-lift="Search.form?eager_eval=true">
+			<h1>Advanced search</h1>
+			<span data-lift="embed?what=modules/_search-form">EditItemForm</span>
+		</div>
+		-->
+        <div data-lift="Skill.list?eager_eval=true">
+		    <ul id="list_items">
+				<span data-lift="embed?what=modules/_list-item">ProjectAndUserHeader</span>
+		    </ul>
+            <script id="update_list"></script> <br></br>
+            <span id="nr_items"></span> projects found<!-- with tag <span id="tag_name"></span>--><br></br>
+            <button id="update_button">next page</button>
+        </div>
+	</section>
+</div>
