@@ -3,19 +3,16 @@ package snippet
 
 import model.Project
 import net.liftweb.util.CssSel
-import at.fabricate.liftdev.common.snippet.AddRepositorySnippet
-import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet
-import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet
+import at.fabricate.liftdev.common.snippet._
 import at.fabricate.liftdev.common.lib.UrlLocalizer
 import scala.xml.NodeSeq
-import at.fabricate.liftdev.common.snippet.LazyLoginForSave
 import at.fabricate.openthings.model.User
 import net.liftweb.mapper.Mapper
 import net.liftweb.util._
 import net.liftweb.common._
 import net.liftweb.util.Helpers._
 
-object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] with AddRepositorySnippet[Project] with LazyLoginForSave[Project]  {
+object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project] with AddRepositorySnippet[Project] with LazyLoginForSave[Project] with AddSkillsSnippet[Project]  {
   
   override val TheItem = Project
   override def itemBaseUrl = "project"

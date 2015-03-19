@@ -62,7 +62,7 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
      
      	listAllTagsForItem(item) &
          // add the onsite editing stuff
-         this.localToForm(item) &
+         this.localTagsToForm(item) &
      // chain the css selectors 
      (super.asHtml(item))
   }
@@ -70,11 +70,11 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
 
   
     abstract override def toForm(item : ItemType) : CssSel = {
-      this.localToForm(item)  &
+      this.localTagsToForm(item)  &
      // chain the css selectors 
      (super.toForm(item))
     }
-      def localToForm(item : ItemType) : CssSel = {
+      def localTagsToForm(item : ItemType) : CssSel = {
         
         def tagSelected(localItem:ItemType)(singleTag:localItem.TheTagType)(selected:Boolean) : JsCmd = {
 	        val tagMapper = localItem.getTagMapper
