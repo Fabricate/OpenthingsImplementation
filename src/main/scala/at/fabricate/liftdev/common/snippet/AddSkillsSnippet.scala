@@ -11,7 +11,7 @@ import scala.xml.{Null, UnprefixedAttribute, NodeSeq, Text}
 import model.BaseEntity
 import model.BaseMetaEntityWithTitleAndDescription
 import model.BaseEntityWithTitleAndDescription
-import net.liftweb.http.js.JsCmds.SetHtml
+import net.liftweb.http.js.JsCmds.{Replace, SetHtml}
 import net.liftweb.common.Empty
 import at.fabricate.liftdev.common.model.AddSkills
 import at.fabricate.liftdev.common.model.MatchByID
@@ -27,7 +27,6 @@ import at.fabricate.liftdev.common.model.TheGenericTranslation
 import at.fabricate.liftdev.common.lib.UrlLocalizer
 import java.util.Locale
 import net.liftweb.mapper.By
-import net.liftweb.http.js.JsCmds.SetHtml
 
 
 trait AddSkillsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddSkills[T])] extends BaseEntityWithTitleAndDescriptionSnippet[T] {
@@ -90,7 +89,7 @@ trait AddSkillsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddSkills
 	                    })
 	              }
 	        }
-	        SetHtml("listskills",listAllSkillsForItem(item).apply(listSkillsTemplate ))
+          Replace("listskills",listAllSkillsForItem(localItem).apply(listSkillsTemplate ))
           } 
         
         def addSkill(localItem:ItemType)(skillName:String) : JsCmd = {

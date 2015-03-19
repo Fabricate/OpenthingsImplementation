@@ -18,12 +18,12 @@ import scala.xml.Text
 import net.liftweb.http.SHtml
 import model.Tool
 import net.liftweb.http.js.JsCmds
-import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet
-import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleDescriptionAndIconSnippet
+import at.fabricate.liftdev.common.snippet.{AddSkillsSnippet, BaseEntityWithTitleAndDescriptionSnippet, BaseEntityWithTitleDescriptionAndIconSnippet}
 import at.fabricate.liftdev.common.lib.UrlLocalizer
 import at.fabricate.liftdev.common.model.TheGenericTranslation
 
-object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with BaseEntityWithTitleDescriptionAndIconSnippet[User]  {
+object UserSnippet extends BaseEntityWithTitleAndDescriptionSnippet[User] with BaseEntityWithTitleDescriptionAndIconSnippet[User]
+with AddSkillsSnippet[User]  {
   
   override val TheItem = User
   override def itemBaseUrl = "designer"

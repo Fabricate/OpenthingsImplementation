@@ -2,7 +2,7 @@ package at.fabricate.openthings
 package snippet
 
 import model.User
-import at.fabricate.liftdev.common.snippet.CustomizeUserHandlingSnippet
+import at.fabricate.liftdev.common.snippet.{AddSkillsSnippet, CustomizeUserHandlingSnippet}
 import scala.xml.NodeSeq
 import net.liftweb.common._
 import net.liftweb._
@@ -15,7 +15,7 @@ import net.liftweb.http.js.JsCmds
 import net.liftweb.http.SHtml.SelectableOption
 import net.liftweb.http.S
 
-object LoginSnippet extends CustomizeUserHandlingSnippet[User](User,UserSnippet){
+object LoginSnippet extends CustomizeUserHandlingSnippet[User](User,UserSnippet) {
 
 
       val contentLanguage = UrlLocalizer.contentLocale

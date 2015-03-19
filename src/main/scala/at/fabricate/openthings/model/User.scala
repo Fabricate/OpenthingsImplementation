@@ -20,18 +20,14 @@ import net.liftweb.util.Mailer.From
 import net.liftweb.util.Mailer.Subject
 import net.liftweb.util.Mailer.To
 import net.liftweb.util.Mailer.BCC
-import at.fabricate.liftdev.common.model.BaseMetaEntity
-import at.fabricate.liftdev.common.model.BaseMetaEntityWithTitleDescriptionAndIcon
-import at.fabricate.liftdev.common.model.CustomizeUserHandling
-import at.fabricate.liftdev.common.model.BaseEntity
-import at.fabricate.liftdev.common.model.BaseEntityWithTitleDescriptionAndIcon
+import at.fabricate.liftdev.common.model._
 import at.fabricate.liftdev.common.lib.EnumWithDescriptionAndObject
 import at.fabricate.liftdev.common.lib.MappedEnumWithDescription
-import at.fabricate.liftdev.common.model.EqualityByID
 import at.fabricate.openthings.snippet.ProjectSnippet
 import java.util.Locale
 
-object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling[User] with BaseMetaEntity[User] with BaseMetaEntityWithTitleDescriptionAndIcon[User] {
+object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling[User] with BaseMetaEntity[User] with BaseMetaEntityWithTitleDescriptionAndIcon[User]
+with AddSkillsMeta[User] {
   
   
   
@@ -108,9 +104,17 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
  */
 class User extends MegaProtoUser[User] with BaseEntity[User] with BaseEntityWithTitleDescriptionAndIcon[User] 
 with EqualityByID[User] 
-with OneToMany[Long, User] 
+with OneToMany[Long, User]
+with AddSkills[User]
 with ManyToMany
 {
+
+
+
+  // definitions for AddSkill
+  type TheSkillType = Skill
+  def theSkillObject = Skill
+
   def getSingleton = User // what's the "meta" server
   
    override def firstNameDisplayName = S.?("firstname")
