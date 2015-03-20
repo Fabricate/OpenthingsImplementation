@@ -1090,17 +1090,18 @@ body {
 /* line 27, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/search */
 .searchContent .searchForm {
   background-color: white;
-  padding: 4%; }
+  padding: 4%;
+  z-index: 2; }
 
-/* line 31, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/search */
+/* line 32, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/search */
 .searchContent .searchForm #teaser, .searchContent .searchForm #description {
   display: none; }
 
-/* line 34, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/search */
+/* line 35, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/search */
 .searchForm {
   width: 100%; }
 
-/* line 37, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/search */
+/* line 38, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/search */
 .searchContent .searchForm input, .searchContent .searchForm select {
   float: left;
   margin: 0 1% 0.625em 0;

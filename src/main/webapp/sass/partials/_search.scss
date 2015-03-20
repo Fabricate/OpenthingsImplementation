@@ -27,6 +27,7 @@
 .searchContent .searchForm{
 	background-color: white;
 	padding: $small-percentage;
+	z-index: 2;
 }
 .searchContent .searchForm #teaser, .searchContent .searchForm #description{
 	display: none;
