@@ -16,9 +16,14 @@ object FieldValidation {
 			List(FieldError(field, Text("\"%s\" must have more than %s characters".format(field.displayName, length))))
     	 else
     		 List[FieldError]()
-	  	} 
-
-    /**Definition der Validationsbedingung "Feld darf nicht leer sein"*/
+	  	}
+  def maxLength(field: MappedField[_,_], length: Int)(content: String) = {
+    if (content.trim.length > length)
+      List(FieldError(field, Text("\"%s\" must have less than %s characters".format(field.displayName, length))))
+    else
+      List[FieldError]()
+  }
+  /**Definition der Validationsbedingung "Feld darf nicht leer sein"*/
 	def notEmpty(field: MappedField[_,_])(content: String) = minLength(field, 0)(content)
 	
     /**Validation für ein Kalenderdatum.*/

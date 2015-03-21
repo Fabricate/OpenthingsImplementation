@@ -14,5 +14,5 @@ trait GeneralTag[T <: GeneralTag[T] ] extends BaseEntity[T] with BaseEntityWithT
 
 	 override type TheUniqueTextType = TheTranslation
 
-  	 override val titleValidations = List(ensureFieldIsUnique(TheTranslationMeta.title) _ )
+  titleValidations ++= List(ensureFieldIsUnique(TheTranslationMeta.title) _ )
 }

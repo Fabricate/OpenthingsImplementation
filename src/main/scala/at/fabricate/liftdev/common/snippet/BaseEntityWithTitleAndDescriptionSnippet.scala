@@ -146,10 +146,12 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
    final def save[T,U <: Mapper[U]](item : U, successAction : () => T, errorAction : List[FieldError] => T) : T = 
             item.validate match {
               case Nil => {
+                println("item validated successfully")
 	            doSave(item)	        	
 	        	successAction()
               }
               case errors => {
+                println("item validated with errors: "+errors.mkString("\n"))
                 errorAction(errors)
               }
             }

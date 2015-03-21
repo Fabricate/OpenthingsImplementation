@@ -23,6 +23,8 @@ import net.liftweb.mapper.By
 import net.liftweb.util.FieldError
 import at.fabricate.liftdev.common.lib.MappedLanguage
 
+import scala.collection.mutable
+
 // This is the basic database entity 
 // every db object should inherit from that
 // specially needed for tags and skills that dont have an icon
@@ -33,10 +35,14 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
   self: T =>
         
     val titleLength = 60
-    val titleValidations : List[String => List[FieldError]] = List( _ => List[FieldError]())
+    val titleMinLength = 5
+    final val titleValidations : mutable.MutableList[String => List[FieldError]] = mutable.MutableList(FieldValidation.minLength(TheTranslationMeta.title,titleMinLength) _ ,
+      FieldValidation.maxLength(TheTranslationMeta.title,titleLength) _ )
     val teaserLength = 150
+    val teaserMinLength = 10
     val teaserValidations : List[String => List[FieldError]] = List( _ => List[FieldError]())
-    val descriptionLength = 60535
+    val descriptionLength = 65000
+    val descriptionMinLength = 100
     val descriptionValidations : List[String => List[FieldError]] = List( _ => List[FieldError]())
 
    
@@ -71,13 +77,13 @@ with Cascade[TheTranslation]
     	  object language extends MappedLanguage(this)
     	  
     	  object title extends MappedString(this, titleLength){
-		    override def validations = titleValidations 
+		    override def validations = titleValidations
 		  }
     	  object teaser extends MappedTextarea(this, teaserLength){
-		    override def validations = teaserValidations 
+		    override def validations = teaserValidations.toList
 		  }
     	  object description extends MappedTextarea(this, descriptionLength){
-		    override def validations = descriptionValidations 
+		    override def validations = descriptionValidations.toList
 		  }
     	  
 	}
@@ -139,6 +145,21 @@ with Cascade[TheTranslation]
       //this.translations.map(_.save)
       super.save
     }
+  // validate also all the translations
+  abstract override def validate = {
+    println("validating translations too")
+    // save the default translation
+    this.defaultTranslation.obj.map(_.validate)
+    /* will not work atm
+    // validate the unsaved translation
+    this.translationToSave.obj.map(aTranslation => {
+      aTranslation.validate
+    })
+    // validate all the other translations
+    //this.translations.map(_.validate)
+    */
+    super.validate
+  }
 }
 
 trait BaseMetaEntityWithTitleAndDescription[ModelType <: ( BaseEntityWithTitleAndDescription[ModelType]) ] extends BaseMetaEntity[ModelType] with CreatedUpdated

@@ -14,5 +14,5 @@ trait GeneralSkill[T <: GeneralSkill[T] ] extends BaseEntity[T] with BaseEntityW
 
 	 override type TheUniqueTextType = TheTranslation
 
-  	 override val titleValidations = List(ensureFieldIsUnique(TheTranslationMeta.title) _ )
+  titleValidations ++= List(ensureFieldIsUnique(TheTranslationMeta.title) _ )
 }
