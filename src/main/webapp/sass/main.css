@@ -1161,6 +1161,10 @@ body {
   margin-bottom: 0.625em;
   width: 100%; }
 
+/* line 47, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/tags */
+#listtags li a {
+  color: white; }
+
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/projectversions */
 .projectVersions {
   padding: 8%;
@@ -1382,6 +1386,25 @@ body {
   display: inline-block;
   font-size: 0.875em;
   max-width: 45em; }
+
+/* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/skills */
+.skills {
+  background: rgba(94, 25, 142, 0.05);
+  padding: 8%;
+  width: 100%; }
+
+/* line 7, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/skills */
+.skills ul li {
+  padding: 2%;
+  width: 100%; }
+
+/* line 11, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/skills */
+.skills ul li:nth-of-type(odd) {
+  background: rgba(255, 255, 255, 0.1); }
+
+/* line 14, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/skills */
+.skills ul li:nth-of-type(even) {
+  background: rgba(255, 255, 255, 0.2); }
 
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/landingspage */
 .landingSection {
