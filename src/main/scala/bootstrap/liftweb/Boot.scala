@@ -125,7 +125,7 @@ class Boot {
     
     
     // make the messages disappear after some time
-    LiftRules.noticesAutoFadeOut.default.set((noticeType: NoticeType.Value) => Full((1 seconds, 2 seconds)))
+    LiftRules.noticesAutoFadeOut.default.set((noticeType: NoticeType.Value) => Full((10 seconds, 2 seconds)))
     
     // use a custom 404 page (404.html or 404[locale].html)
     LiftRules.uriNotFound.prepend(NamedPF("404handler"){

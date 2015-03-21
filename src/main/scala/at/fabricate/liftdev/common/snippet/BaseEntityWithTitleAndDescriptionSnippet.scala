@@ -106,7 +106,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
    final def dispatch : DispatchIt = localDispatch 
    
    final def displayMessageAndHide(idToDisplayMessage : String, message : String, classAttr : String = "message" ) : JsCmd = {
-    DisplayMessage(idToDisplayMessage, <span class={classAttr}>{message}</span>, 5 seconds, 1 second)
+    DisplayMessage(idToDisplayMessage, <span class={classAttr}>{message}</span>, 10 seconds, 2 second)
   }
    
    // generate the url rewrites
