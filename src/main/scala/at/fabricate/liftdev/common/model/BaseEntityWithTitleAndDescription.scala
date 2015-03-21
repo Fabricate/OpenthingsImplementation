@@ -77,7 +77,7 @@ with Cascade[TheTranslation]
     	  object language extends MappedLanguage(this)
     	  
     	  object title extends MappedString(this, titleLength){
-		    override def validations = titleValidations
+		    override def validations = titleValidations.toList
 		  }
     	  object teaser extends MappedTextarea(this, teaserLength){
 		    override def validations = teaserValidations.toList
