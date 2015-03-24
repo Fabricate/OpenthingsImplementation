@@ -40,10 +40,12 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
       FieldValidation.maxLength(TheTranslationMeta.title,titleLength) _ )
     val teaserLength = 150
     val teaserMinLength = 10
-    val teaserValidations : List[String => List[FieldError]] = List( _ => List[FieldError]())
+    val teaserValidations : mutable.MutableList[String => List[FieldError]] = mutable.MutableList(FieldValidation.minLength(TheTranslationMeta.teaser,teaserMinLength) _ ,
+      FieldValidation.maxLength(TheTranslationMeta.teaser,teaserLength) _ )
     val descriptionLength = 65000
-    val descriptionMinLength = 100
-    val descriptionValidations : List[String => List[FieldError]] = List( _ => List[FieldError]())
+    val descriptionMinLength = 10
+    val descriptionValidations : mutable.MutableList[String => List[FieldError]] = mutable.MutableList(FieldValidation.minLength(TheTranslationMeta.description,descriptionMinLength) _ ,
+      FieldValidation.maxLength(TheTranslationMeta.description,descriptionLength) _ )
 
    
     object defaultTranslation extends LongMappedMapper(this, TheTranslationMeta){
@@ -148,8 +150,9 @@ with Cascade[TheTranslation]
   // validate also all the translations
   abstract override def validate = {
     println("validating translations too")
+    var results = List[FieldError]()
     // save the default translation
-    this.defaultTranslation.obj.map(_.validate)
+    this.defaultTranslation.obj.map(translation => results = translation.validate ::: results)
     /* will not work atm
     // validate the unsaved translation
     this.translationToSave.obj.map(aTranslation => {
@@ -158,7 +161,7 @@ with Cascade[TheTranslation]
     // validate all the other translations
     //this.translations.map(_.validate)
     */
-    super.validate
+    super.validate ::: results
   }
 }
 
