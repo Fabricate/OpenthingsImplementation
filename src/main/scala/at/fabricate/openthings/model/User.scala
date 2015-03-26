@@ -6,6 +6,7 @@ import net.liftweb.util._
 import net.liftweb.util.Helpers._
 import net.liftweb.common._
 import net.liftweb.http.S
+import scala.collection.mutable
 import scala.xml.Node
 import scala.xml.Elem
 import net.liftweb.http.SHtml
@@ -109,6 +110,15 @@ with AddSkills[User]
 with ManyToMany
 {
 
+  // redefine the validations
+  // TODO: there is a bug, that title is always less than 5 characters
+  override val titleValidations : mutable.MutableList[String => List[FieldError]] = mutable.MutableList(FieldValidation.maxLength(TheTranslationMeta.title,titleLength) _ )
+
+  // no minimumlenght for teaser, as it is not available on register!
+  override val teaserValidations : mutable.MutableList[String => List[FieldError]] = mutable.MutableList( FieldValidation.maxLength(TheTranslationMeta.teaser,teaserLength) _ )
+
+  // no minimumlenght for description, as it is not available on register!
+  override val descriptionValidations : mutable.MutableList[String => List[FieldError]] = mutable.MutableList(FieldValidation.maxLength(TheTranslationMeta.description,descriptionLength) _ )
 
 
   // definitions for AddSkill

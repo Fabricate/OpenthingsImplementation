@@ -12,13 +12,13 @@ import net.liftweb.mapper.MappedField
 object FieldValidation {
       /**Definition der Validationsbedingung "Feld darf nicht leer sein"*/
 	def minLength(field: MappedField[_,_], length: Int)(content: String) = {
-		if (content.trim.length < length)
+		if (content == null || content.trim.length < length)
 			List(FieldError(field, Text("\"%s\" must have more than %s characters".format(field.displayName, length))))
     	 else
     		 List[FieldError]()
 	  	}
   def maxLength(field: MappedField[_,_], length: Int)(content: String) = {
-    if (content.trim.length > length)
+    if (content != null && content.trim.length > length)
       List(FieldError(field, Text("\"%s\" must have less than %s characters".format(field.displayName, length))))
     else
       List[FieldError]()

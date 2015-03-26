@@ -39,8 +39,9 @@ trait EnsureUniqueTextFields[T <: EnsureUniqueTextFields[T]] extends BaseEntity[
 	  			// update object
               //case _ if (this.primaryKeyField != Empty ) => super.save
 	  			// no new object with same name!
-              case _ => {
-                println("same object already exists - no saving performed!")
+              case errors => {
+                //NOT CORRECT!//println("same object already exists - no saving performed!")
+                println("errors on validation on save unique:\n"+errors.mkString(";\n"))
                 false
               }
             }

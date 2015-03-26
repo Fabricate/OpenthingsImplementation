@@ -36,7 +36,8 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
         
     val titleLength = 60
     val titleMinLength = 5
-    final val titleValidations : mutable.MutableList[String => List[FieldError]] = mutable.MutableList(FieldValidation.minLength(TheTranslationMeta.title,titleMinLength) _ ,
+  //TODO: solve the problem with validation on registration! //final
+    val titleValidations : mutable.MutableList[String => List[FieldError]] = mutable.MutableList(FieldValidation.minLength(TheTranslationMeta.title,titleMinLength) _ ,
       FieldValidation.maxLength(TheTranslationMeta.title,titleLength) _ )
     val teaserLength = 150
     val teaserMinLength = 10
