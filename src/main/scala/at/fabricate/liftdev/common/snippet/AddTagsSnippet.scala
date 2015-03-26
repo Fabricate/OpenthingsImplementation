@@ -93,12 +93,27 @@ trait AddTagsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddTags[T])
           } 
         
         def addTag(localItem:ItemType)(tagName:String) : JsCmd = {
-          println("addTag with name "+tagName)
-          val newTag = localItem.addNewTagToItem(contentLanguage.get, tagName)  
-          newTag.save
- 					AppendHtml("selecttags", listATag(localItem)(newTag).apply(selectSingleTagTemplate)) &
-					 // clear the form
-					JsCmds.SetValById("newtagname", "")
+          //println("addTag with name "+tagName)
+          val newTag = localItem.addNewTagToItem(contentLanguage.get, tagName)
+          saveAndDisplayAjaxMessages(newTag,
+            () => {
+              /*var newCommentHtml = bindCommentCSS(newComment)(commentTemplate)
+              newComment = createNewItem
+              // add the new comment to the list of comments
+              AppendHtml("comments", newCommentHtml) &
+                // clear the form
+                JsCmds.SetValById("newcomtitle", "") &
+                JsCmds.SetValById("newcommessage", "")
+              */
+              AppendHtml("selecttags", listATag(localItem)(newTag).apply(selectSingleTagTemplate)) &
+                // clear the form
+                JsCmds.SetValById("newtagname", "")
+            },
+            errors => {
+              JsCmds.Alert("adding tag '"+tagName+"' failed" )
+            },"tag_messages")
+          //newTag.save
+
         }
         
         def listATag(localItem : ItemType)(singleTag : localItem.TheTagType) :CssSel = {

@@ -177,7 +177,8 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 		      // S.xxx or DisplayMessage
 		       S.error(errorMessage)
                S.error(errors)
-               displayMessageAndHide(idToDisplayMessages, errorMessage, "message error") &
+           // TODO: display the error messages nicer!
+               displayMessageAndHide(idToDisplayMessages, errorMessage+"\n"+errors.mkString("\n"), "message error") &
                errorAction(errors)
                 }
 		     )

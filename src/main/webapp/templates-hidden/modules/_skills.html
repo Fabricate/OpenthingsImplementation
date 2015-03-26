@@ -4,6 +4,9 @@
 		<li id="singleskill"><a href="#">Skill</a></li>
 	</ul>
 	<div class="editPage">
+        <section id="skill_messages" class="left">
+
+        </section>
 		<form data-lift="form.ajax">
 			<h3>Add skills to project</h3>
 			<ul id="selectskills">
@@ -11,7 +14,7 @@
 			</ul>
 			<div class="editPage fullWidth left">
 				<div class="newskill left">
-					<input id="newskillname" value="" placeholder="Add new skill" />
+					<input id="newskillname" value="" placeholder="Add new skill" required minlength="5" maxlength="60" />
 				</div>
 				<input type="hidden" id="skillshidden" />
 		<!--		<input value="Add" type="submit" class="btn" />-->

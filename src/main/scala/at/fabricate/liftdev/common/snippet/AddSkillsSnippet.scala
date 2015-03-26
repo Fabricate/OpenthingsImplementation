@@ -93,12 +93,27 @@ trait AddSkillsSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddSkills
           } 
         
         def addSkill(localItem:ItemType)(skillName:String) : JsCmd = {
-          println("addSkill with name "+skillName)
+          //println("addSkill with name "+skillName)
           val newSkill = localItem.addNewSkillToItem(contentLanguage.get, skillName)
-          newSkill.save
- 					AppendHtml("selectskills", listASkill(localItem)(newSkill).apply(selectSingleSkillTemplate)) &
-					 // clear the form
-					JsCmds.SetValById("newskillname", "")
+          saveAndDisplayAjaxMessages(newSkill,
+            () => {
+              /*var newCommentHtml = bindCommentCSS(newComment)(commentTemplate)
+              newComment = createNewItem
+              // add the new comment to the list of comments
+              AppendHtml("comments", newCommentHtml) &
+                // clear the form
+                JsCmds.SetValById("newcomtitle", "") &
+                JsCmds.SetValById("newcommessage", "")
+              */
+              AppendHtml("selectskills", listASkill(localItem)(newSkill).apply(selectSingleSkillTemplate)) &
+                // clear the form
+                JsCmds.SetValById("newskillname", "")
+            },
+            errors => {
+              JsCmds.Alert("adding skill '"+skillName+"' failed" )
+            },"skill_messages")
+          //newSkill.save
+
         }
         
         def listASkill(localItem : ItemType)(singleSkill : localItem.TheSkillType) :CssSel = {

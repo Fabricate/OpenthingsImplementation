@@ -4,6 +4,9 @@
 		<li id="singletag"><a href="#">Tag</a></li>
 	</ul>
 	<div class="editPage">
+        <section id="tag_messages" class="left">
+
+        </section>
 		<form data-lift="form.ajax">
 			<h3>Add tags to project</h3>
 			<ul id="selecttags">
@@ -11,7 +14,7 @@
 			</ul>
 			<div class="editPage fullWidth left">
 				<div class="newtag left">
-					<input id="newtagname" value="" placeholder="Add new tag" />
+					<input id="newtagname" value="" placeholder="Add new tag" required minlength="5" maxlength="60" />
 				</div>
 				<input type="hidden" id="tagshidden" />
 		<!--		<input value="Add" type="submit" class="btn" />-->
