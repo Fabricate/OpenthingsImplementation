@@ -83,11 +83,11 @@ with AddSkillsSnippet[User]  {
        "#projectbydesigner" #> item.createdProjects.map(project => {
          project.doWithTranslationFor(contentLanguage.get)( translation  =>
                    "#projectbydesignertitle *" #> translation.title.asHtml &
-                   "#projectbydesignerdescription *" #> translation.description.asHtml &
+                   "#projectbydesignerdescription *" #> translation.teaser.asHtml &
                    "#projectbydesignerlink [href]" #> ProjectSnippet.urlToViewItem(project,translation.language.isAsLocale) 
         		 )( defaultTranslation =>
                    "#projectbydesignertitle *" #> defaultTranslation.title.asHtml &
-                   "#projectbydesignerdescription *" #> defaultTranslation.description.asHtml &
+                   "#projectbydesignerdescription *" #> defaultTranslation.teaser.asHtml &
                    "#projectbydesignerlink [href]" #> ProjectSnippet.urlToViewItem(project,defaultTranslation.language.isAsLocale)    
         		   )(
         		    // delete everything if we can not find a translation - maybe do something else instead

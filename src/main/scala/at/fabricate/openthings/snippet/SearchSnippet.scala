@@ -246,7 +246,7 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
         "* [required]" #> (None: Option[String]) &
         "#licencelabel" #> (None: Option[String]) &
         "#licence" #> licenceSelect &
-        "#save [value]" #> "search" & 
+        "#save *" #> "Search" & 
         "#formitem [method]" #> "get" &
         "#formitem [action]" #> itemBaseUrl &
         // insert the search string into the title box
