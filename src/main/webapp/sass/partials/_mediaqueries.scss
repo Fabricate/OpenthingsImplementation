@@ -14,6 +14,33 @@
 }
 
 @media only screen and (max-width: 640px)  {		
+	.mainNavigation{
+		font-size: 1em;
+		height: 57px;
+	}
+	.mainSearch{
+		font-size: .65em;
+		height: 65px;
+	}
+	#main{
+		margin-top: 122px;
+	}
+	.footerNav section{
+		width: 40%;
+		margin: $small-percentage;
+	}
+	.userProjectVersions, .detailedDescription{
+		padding: $small-percentage;
+	}
+	.two-col{
+		width: 100%;
+	}
+	.branding{
+		max-width: 100%;
+	}
+	.signupHome{
+		max-width: 100%;
+	}
 	.mainContent .preview{
 		width: 96%;
 	}

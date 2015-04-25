@@ -333,6 +333,17 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/src\/main\/webapp\/js\/jquery.magnific-popup.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/js\/jquery.magnific-popup.min.js",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/js\/min\/jquery.magnific-popup.min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/src\/main\/webapp\/js\/jquery.SimpleCropper.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -487,17 +498,6 @@
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
-		},
-	"\/src\/main\/webapp\/projects\/1\/repository\/Screen_Shot_2015-03-13_at_17.11.39.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 6.19844e+06,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/1\/repository\/Screen_Shot_2015-03-13_at_17.11.39.png",
-		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/1\/repository\/Screen_Shot_2015-03-13_at_17.11.39.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
 		},
 	"\/src\/main\/webapp\/public\/images\/404.jpg": {
 		"fileType": 16384,
@@ -1866,6 +1866,22 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/sass\/vendor\/_jquery.ui.core.scss",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/sass\/css\/_jquery.ui.core.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"useLibsass": 0
+		},
+	"\/src\/main\/webapp\/sass\/vendor\/_popup.scss": {
+		"createSourceMap": 0,
+		"debugStyle": 0,
+		"decimalPrecision": 10,
+		"fileType": 4,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/sass\/vendor\/_popup.scss",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/sass\/css\/_popup.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,

@@ -59,3 +59,15 @@
 .loginBtn{
 	margin-right: 1.4em;
 }
+#main{
+	margin-top: 170px;
+}
+.mainHeader{
+	position: fixed;
+	opacity: .98;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 3;
+	background: $lightgrey;
+}

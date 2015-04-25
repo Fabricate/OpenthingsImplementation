@@ -1,4 +1,4 @@
-button{
+button, .btn{
 	color: white;
 	background-color: $brand-color;
 	cursor: pointer;
@@ -7,7 +7,7 @@ button{
   transition: opacity 0.3s ease-in-out;
 }
 .btn{
-	color: white !important;
+	color: white;
 	display: inline-block;
 	background-color: $brand-color;
 	cursor: pointer;
