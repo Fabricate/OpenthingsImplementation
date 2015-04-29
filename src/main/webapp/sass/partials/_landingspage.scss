@@ -1,13 +1,16 @@
 .landingSection{
 	width: 100%;
 	padding: $small-percentage $medium-percentage;
-	background-color: rgba($brand-color, .3);
+	background-color: rgba($secondary, .50);
 }
 .landingSection::after{
 	content: "";
-  background: url(../images/footer_lodyas.png);
-  opacity: 0.9;
+  background: url(../images/protheses.jpg);
+	background-attachment: fixed;
+  opacity: .6;
   top: 0;
+	background-size: cover;
+	background-position: center;
   left: 0;
   bottom: 0;
   right: 0;
@@ -26,11 +29,17 @@
 	font-size: 1.5em;
 }
 .signupHome{
-	max-width: 40%;
+	max-width: 30%;
 	background: white;
+	position: absolute;
+	top: 50%;
+	right: 8%;
+	transform: translateY(-50%);
 	padding: $xsmall-percentage;
+	
 }
 .signupHome input{
 	width: 100%;
 	margin-bottom: $xsmall-em;
+	padding: .5em;
 }

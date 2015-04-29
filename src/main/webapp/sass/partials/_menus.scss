@@ -3,7 +3,7 @@
 }
 .mainNavigation{
 	background-color: $lightgrey;
-	height: 75px;
+	height: 56px;
 	font-size: 1.3125em;
 }
 .logo{
@@ -60,11 +60,12 @@
 	margin-right: 1.4em;
 }
 #main{
-	margin-top: 170px;
+	margin-top: 130px;
 }
 .mainHeader{
 	position: fixed;
 	opacity: .98;
+	font-size: 75%;
 	top: 0;
 	left: 0;
 	width: 100%;
