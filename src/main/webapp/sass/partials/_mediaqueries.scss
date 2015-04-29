@@ -14,16 +14,13 @@
 }
 
 @media only screen and (max-width: 640px)  {		
-	.mainNavigation{
-		font-size: 1em;
-		height: 57px;
-	}
+
 	.mainSearch{
 		font-size: .65em;
 		height: 65px;
 	}
 	#main{
-		margin-top: 122px;
+		margin-top: 0;
 	}
 	.footerNav section{
 		width: 40%;
@@ -40,6 +37,7 @@
 	}
 	.signupHome{
 		max-width: 100%;
+		display: none;
 	}
 	.mainContent .preview{
 		width: 96%;

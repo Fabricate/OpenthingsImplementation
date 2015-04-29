@@ -1,10 +1,14 @@
 <nav class="mainNavigation">
-	<ul class="left">
-			<li class="left"><a href="/index" class="logo left"><span class="icon-logo"></span> openthings<i>.alpha</i></a></li>
+	<ul class="left" data-lift="Login.account">
+			<li class="left"><a href="/index" class="logo left"><span class="icon-logo"></span> Openthings</a></li>
 			<li class="left"><a href="/project/list">Projects</a></li>
-			<li class="left"><a href="/static/about">About</a></li>
 <!--			<li class="left"><a href="/static/tutorials">Tutorials</a></li>-->
 			<li class="left"><a href="/designer/list">Designers</a></li>
+
+
+		<li><a href="#login" id="login" class="loginBtn right" onClick="LoginScreen();">Login / Register</a></li>
+		<li><a href="#logout" id="logout" class="loginBtn right" onClick="LogoutScreen();">Logout</a></li>
+		<li><a href="#account" id="account" class="loginBtn right" onClick="AccountScreen();"><span class="icon-"></span> Account</a></li>
 	</ul>
 
 	<div  placeholder="Upload image" data-lift="Login.account">
@@ -16,10 +20,12 @@
 			<option>Select language</option>
 		</select>
 	</div>
-
-	<div  placeholder="Upload image" data-lift="Login.account">
-		<a href="#login" id="login" class="loginBtn right" onClick="LoginScreen();">Login / Register</a>
-		<a href="#logout" id="logout" class="loginBtn right" onClick="LogoutScreen();">Logout</a>
-		<a href="#account" id="account" class="loginBtn right" onClick="AccountScreen();"><span class="icon-"></span> Account</a>
+	
+	<div data-lift="Search.form?eager_eval=true">
+		<form id="searchform" class="left" method="get" action="#">
+				<input id="easysearch" placeholder="Search" type="text"  name="#">
+				<button type="submit"><span class="icon-loupe"></span></button>
+<!--				<button>Advanced</button>-->
+		</form>
 	</div>
 </nav>

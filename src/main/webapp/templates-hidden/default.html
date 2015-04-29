@@ -42,7 +42,7 @@
   <body data-lift="Login.account" id="onlinestatus">
 		<section class="mainHeader">
 			<span data-lift="embed?what=modules/_navigation">Navigation</span>
-			<span data-lift="embed?what=modules/_search">Search</span>
+<!--			<span data-lift="embed?what=modules/_search">Search</span>-->
 <!--		<span data-lift="embed?what=modules/_advancedsearch">Advanced search</span>-->
 		</section>
 
@@ -209,6 +209,10 @@
 				$(".viewcomments").remove();
 			}
 			
+			$('.mainNavigation li a').click(function(){
+					$('.mainNavigation li a').removeClass("active");
+					$(this).addClass("active");
+			});
 
 			$(document).ready(function() {
 				$('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({

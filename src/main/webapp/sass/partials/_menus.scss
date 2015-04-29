@@ -2,8 +2,8 @@
 	height: 100%;
 }
 .mainNavigation{
-	background-color: $lightgrey;
-	height: 56px;
+	background-color: $canvas;
+	height: 50px;
 	font-size: 1.3125em;
 }
 .logo{
@@ -25,7 +25,7 @@
 .mainNavigation li a{
 	color: $mediumgrey;
 	padding: 0 1.4em;
-	line-height: 3.6em;
+	line-height: 2.8em;
 	display: inline-block;
 }
 .mainNavigation li .logo{
@@ -34,8 +34,9 @@
 .mainNavigation .current .logo{
 	color: $mediumgrey;
 }
-.mainNavigation li .logo:hover{
+.mainNavigation li .logo{
 	color: $mediumgrey;
+	background-color: white;
 }
 .mainNavigation .current a{
 	background-color: white;
@@ -44,7 +45,7 @@
 	background-color: white;
 }
 .mainNavigation a{
-	line-height: 3.6em;
+	line-height: 2.8em;
 }
 .mainNavigation .languageSelect{
 	margin: 15px 15px 0 0;
@@ -57,18 +58,30 @@
 //	font-size: 1em;
 //}
 .loginBtn{
-	margin-right: 1.4em;
+	color: $brand-color !important;
 }
 #main{
-	margin-top: 130px;
+	margin-top: 50px;
 }
 .mainHeader{
 	position: fixed;
 	opacity: .98;
-	font-size: 75%;
+	font-size: 85%;
 	top: 0;
 	left: 0;
 	width: 100%;
 	z-index: 3;
 	background: $lightgrey;
+}
+
+.mainNavigation ul{
+	height: 50px;
+}
+
+.current{
+	background-color: $lightgrey !important;
+}
+
+.mobileNav{
+	display: none;
 }
