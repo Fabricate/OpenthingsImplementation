@@ -52,7 +52,7 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
     object defaultTranslation extends LongMappedMapper(this, TheTranslationMeta){
     	override def validSelectValues =
     			Full(TheTranslationMeta.findMap(
-    					By(TheTranslationMeta.translatedItem,self.primaryKeyField),
+    					By(TheTranslationMeta.translatedItem,self.primaryKeyField.get),
     					OrderBy(TheTranslationMeta.id, Ascending)){
     					case t: TheTranslation => Full(t.id.get -> "%s (%s)".format(t.title,t.language.isAsLocale.getDisplayLanguage))
     			})
@@ -106,9 +106,9 @@ with Cascade[TheTranslation]
 	def doWithTranslationFor[V](languageExpected:Locale)(foundAction : TheGenericTranslation => V)(defaultTranslationAction : TheGenericTranslation => V)(notFound : V) : V = 
 	  getTranslationForItem(languageExpected) match {
                  case Full(translationFound) => foundAction(translationFound)
-                 case Empty => this.defaultTranslation.obj match {
+                 case _ => this.defaultTranslation.obj match {
                    case Full(defaultTranslationFound) => defaultTranslationAction(defaultTranslationFound)
-                   case Empty => notFound
+                   case _ => notFound
                  }
 	  }
 	

@@ -87,10 +87,9 @@ trait AddIconMeta[ModelType <: ( AddIcon[ModelType] with MatchByID[ModelType]) ]
                                     "Content-Length" ->
                                     iconTypeID.icon.get.length.toString), Nil, 200))
                                     })
-    
+      // also perform all the other init operations
+    super.init   
   }
-    // also perform all the other init operations
-    super.init 
   
 }
 
