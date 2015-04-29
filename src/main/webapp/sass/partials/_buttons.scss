@@ -7,7 +7,7 @@ button, .btn{
   transition: opacity 0.3s ease-in-out;
 }
 .btn{
-	color: white;
+	color: white !important;
 	display: inline-block;
 	background-color: $brand-color;
 	cursor: pointer;
@@ -20,7 +20,7 @@ button, .btn{
 	top: -0.3em;
 }
 .oppositeBtn{
-	color: $brand-color;
+	color: $brand-color !important;
 	background: white;
 }
 button:hover, .btn:hover{

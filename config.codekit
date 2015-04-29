@@ -472,6 +472,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/listProjectHome.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/listProjectHome.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/src\/main\/webapp\/login.html": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -499,6 +508,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/projects.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/src\/main\/webapp\/public\/images\/404.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -517,6 +535,17 @@
 		"initialSize": 114791,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/4042.jpg",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/4042.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/public\/images\/box.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 142499,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/box.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/box.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -550,6 +579,28 @@
 		"initialSize": 8425,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/congruent_outline.png",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/congruent_outline.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/public\/images\/enable.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 119635,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/enable.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/enable.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/public\/images\/favicon.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2015,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/favicon.png",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/favicon.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -631,6 +682,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/src\/main\/webapp\/public\/images\/protheses.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 142096,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/protheses.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/protheses.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/src\/main\/webapp\/public\/images\/SimpleCropperPreview.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -708,6 +770,17 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/src\/main\/webapp\/public\/js\/jquery.magnific-popup.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/js\/jquery.magnific-popup.min.js",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/js\/min\/jquery.magnific-popup.min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/src\/main\/webapp\/public\/js\/jquery.viewportchecker.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -736,6 +809,17 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/js\/min\/jquery-min.js",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/js\/min\/min\/jquery-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/src\/main\/webapp\/public\/js\/min\/jquery.magnific-popup.min-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/js\/min\/jquery.magnific-popup.min-min.js",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/js\/min\/min\/jquery.magnific-popup.min-min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -1907,6 +1991,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/static\/about.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/static\/about.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/src\/main\/webapp\/static\/construction.html": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -1957,6 +2050,15 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/static\/mission.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/static\/openness.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/static\/openness.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
