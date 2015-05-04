@@ -660,6 +660,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/src\/main\/webapp\/public\/images\/nouser.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 10660,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/nouser.png",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/nouser.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/src\/main\/webapp\/public\/images\/Ok.png": {
 		"fileType": 32768,
 		"ignore": 0,

@@ -7,7 +7,7 @@ body{
 .projectComments ul,.mainContent, .projectHeader, .mainContent .projectComments li, .commentInput, .commentInput input, .commentInput textarea, .commentInput form, .addTutorial, .projectComments, .userDetails, .projectDetails, .userProjectVersions, .projectVersions, .detailedDescription, .bom{
 	width: 100%;
 }
-.mainContent .projectHeader img, .mainContent .projectHeader div{
+.mainContent .projectHeader img, .mainContent .projectHeader .left{
  	width: 50%;
  }
 .listView{
@@ -34,10 +34,6 @@ body{
 	padding: $small-percentage;
 	background-color: $darkgrey;
 	color: white;
-}
-.editprojecticon{
-	font-size: 0.875em;
-	cursor: pointer;
 }
 .delete-icon{
 	transform: rotate(45deg);

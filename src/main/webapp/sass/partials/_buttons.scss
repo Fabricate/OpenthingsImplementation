@@ -2,18 +2,13 @@ button, .btn{
 	color: white;
 	background-color: $brand-color;
 	cursor: pointer;
-	padding: $small-em;
+	padding: $xsmall-em;
 	border-radius: 1px;
   transition: opacity 0.3s ease-in-out;
 }
 .btn{
 	color: white !important;
 	display: inline-block;
-	background-color: $brand-color;
-	cursor: pointer;
-	padding: $small-em;
-	border-radius: 1px;
-  transition: opacity 0.3s ease-in-out;
 }
 .updateProjectBtn{
 	position: relative;
@@ -30,9 +25,62 @@ input[type="submit"]{
 	color: white;
 	background-color: $brand-color;
 	cursor: pointer;
-	padding: $small-em;
+	padding: $xsmall-em;
 	border-radius: 1px;
   transition: opacity 0.3s ease-in-out;
 	border: none;
 	width: auto !important;
+}
+
+.onoffswitch {
+    position: relative; width: 119px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 6px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 32px; padding: 0; line-height: 32px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "Edit mode";
+    padding-left: 14px;
+    background-color: #32C764; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "Edit mode";
+    padding-right: 14px;
+    background-color: #E01616; color: #FFFFFF;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 20px; margin: 6px;
+    background: #FFFFFF;
+    border: 2px solid #999999; border-radius: 6px;
+    position: absolute; top: 0; bottom: 0; right: 83px;
+    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+
+.mainContent .projectHeader .onoffswitch{
+	padding: 0;
+	background-color: transparent;
+	margin-bottom: 1.5em;
 }

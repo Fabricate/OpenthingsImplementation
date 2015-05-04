@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Openthings is a platform where people can design together and stimulate collaboration to make great projects happen." />
     <meta name="keywords" content="open-design, design, version control, makers, maker movement, fablabs" />
+		<meta property="og:image" content="http://fabacademy.org/archives/2014/students/risseeuw.martin/images/tutorial/sanding.jpg"/>
+		
+		<link rel="author" href="https://plus.google.com/+MartinRisseeuw"/>
 		
     <title data-lift="Menu.title">openThings.alpha | </title>
 
@@ -117,26 +120,38 @@
 			function AddMaterial(){
 				$(".addMaterial").slideToggle();
 			}
-//			$('.editProjectBtn').click(function(){
-//				$(".editPage").fadeToggle();
-//				$('.editProjectBtn').toggleClass('editOn');
-//				
-//			});
 
-			$(document).ready(function() {
-					$(".editProjectBtn").click(function() {
-							var $this = $(this);
-							$(".editPage").fadeToggle("fast")
-							$this.toggleClass("editOn");
-
-							if ($this.hasClass("editOn")) {
-									$this.html("<span class='icon-pencil editprojecticon'></span> Stop editing");
-							} else {
-									$this.html("<span class='icon-pencil editprojecticon'></span> Work on project");
-							}
-					});
+			$('.projectNavBtn').click(function(){		
 			});
 			
+			$('.editMenu ul li a').click(function(){
+				$(".editMenu").toggleClass("activeMenu");	
+				$(".projectNavBtn").toggleClass("projectNavBtnActive");
+				$('.projectNavBtn').html("<span class='icon-pencil'></span> Project menu");
+			});
+
+			$(".projectNavBtn").click(function() {
+					$(".editMenu").toggleClass("activeMenu");	
+					$(".projectNavBtn").toggleClass("projectNavBtnActive");	
+					var $this = $(this);
+					$this.toggleClass("editOn");
+					if ($this.hasClass("editOn")) {
+							$this.html("<span class='icon-delete'></span> Close menu");
+					} else {
+							$this.html("<span class='icon-pencil'></span> Project menu");
+					}
+			});
+			
+			$('.onoffswitch-label').click(function(){
+					$(this).parent().toggleClass('onoffswitch-checked');
+					if ($(".onoffswitch").hasClass("onoffswitch-checked")) {
+						$(".editPage").fadeIn("fast");
+					}
+					else{
+						$(".editPage").fadeOut("fast");
+					}
+			});
+
 			function AdvancedSearch(){
 				$(".advancedSearch").slideToggle();
 				$(".close-icon").click(function(){
@@ -194,11 +209,8 @@
 				$(".rating").addClass("isRated5");
 			});
 
-			$(".designerView .editprojecticon").remove();
-			$(".designerView .editProjectBtn").remove();
-			$(".languageSelect").remove();
-			$(".notLoggedIn .commentInput").remove();
-			$(".notLoggedIn #newrating").remove();
+			$(".languageSelect, .notLoggedIn .commentInput, .notLoggedIn #newrating, .notLoggedIn .editMenu,.notLoggedIn .projectNavBtn").remove();
+
 			$(".notLoggedIn .editProjectBtn").remove();
 
 
@@ -230,6 +242,21 @@
 								'</div>'
 				});
 			});
+
+
+			$(document).ready(function() {
+				var n = $( ".comment" ).size();
+				$('.viewcomments i').prepend(n + " "); 
+			});
+
+			$('a').click(function() {
+					var elementClicked = $(this).attr("href");
+					var destination = $(elementClicked).offset().top;
+					$("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination-51}, 500 );
+					return false;
+			});
+				
+			</script>
 		</script>
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

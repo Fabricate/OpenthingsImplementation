@@ -1,8 +1,7 @@
 <header class="projectHeader left">
-			<button class="editProjectBtn"><span class="icon-pencil editprojecticon"></span> Work on project</button>
 		<img id="icon" class="left icon" src="#" />
 		<div class="left">
-				<h1><span id="title">Title</span> <span class="icon-pencil editprojecticon editPage" onclick="EditProject();"></span></h1>
+				<h1><span id="title">Title</span></h1>
 				<p id="teaser">Teaser</p>
 				<a href="#" id="personalwebsite"><span class="icon-world"></span> Personal website</a>
 				<p id="initiator"><strong>Initiated by: </strong></p>
@@ -27,4 +26,23 @@
 				<p id="updated">last updated at </p>
 -->
 		</div>
+		
+<nav class="editMenu">
+	<p>Switch on the edit mode to start working on this Openthing.</p>
+	<ul>
+		<div class="onoffswitch">
+				<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
+				<label class="onoffswitch-label" for="myonoffswitch">
+						<span class="onoffswitch-inner"></span>
+						<span class="onoffswitch-switch"></span>
+				</label>
+		</div>
+		<li><a href="#project-details" onclick="EditProject();">Edit project details</a></li>
+		<li><a href="#skills-needed">Skills needed for project</a></li>
+		<li><a href="#project-versions">Project versions</a></li>
+		<li><a href="#project-tags">Project tags</a></li>
+		<li><a href="#project-discussion">Project rating & discussion</a></li>
+	</ul>
+</nav>
+	<button class="projectNavBtn oppositeBtn"><span class="icon-pencil"></span> Project menu</button>
 </header>

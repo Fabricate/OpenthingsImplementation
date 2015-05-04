@@ -11,9 +11,9 @@
 	padding: $small-percentage;
 	width: 100%;
 	position: fixed;
-	height: 100%;
+	height: calc(100% - 51px);
 	overflow-y: auto;
-	top: 0;
+	top: 51px;
 	left: 0;
 	z-index: 4;
 	background: rgba(white,0.97);
@@ -31,7 +31,7 @@
 	font-size: 1.5em;
 	position: fixed;
 	right: 3%;
-	top: 7%;
+	top: 10%;
 	transform: rotate(45deg);
 	z-index: 2;
 }

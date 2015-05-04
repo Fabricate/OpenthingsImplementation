@@ -15,12 +15,9 @@
 .projectHeader a{
 	color: lightblue
 }
-.editProjectBtn, .stopEditing{
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	z-index: 1;
-}
 .editPage{
 	display: none;
+}
+.editprojecticon{
+	cursor: pointer;
 }
