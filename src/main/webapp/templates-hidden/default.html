@@ -136,9 +136,9 @@
 					var $this = $(this);
 					$this.toggleClass("editOn");
 					if ($this.hasClass("editOn")) {
-							$this.html("<span class='icon-delete'></span> Close menu");
+							$this.html("Close menu");
 					} else {
-							$this.html("<span class='icon-pencil'></span> Project menu");
+							$this.html("Project menu");
 					}
 			});
 			
@@ -226,34 +226,38 @@
 					$(this).addClass("active");
 			});
 
-			$(document).ready(function() {
-				$('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
-				type: 'iframe',
-				mainClass: 'mfp-fade',
-				showCloseBtn: true,
-				closeBtnInside:true,
-				removalDelay: 160,
-				preloader: false,
-				fixedContentPos: false,
-
-				markup: '<div class="mfp-iframe-scaler">'+
-									'<div class="mfp-close"></div>'+
-									'<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
-								'</div>'
-				});
-			});
+			
 
 
 			$(document).ready(function() {
+				
+				//Count amount of comments
 				var n = $( ".comment" ).size();
 				$('.viewcomments i').prepend(n + " "); 
-			});
-
-			$('a').click(function() {
+				
+				// Scroll to an element
+				$('a').click(function() {
 					var elementClicked = $(this).attr("href");
 					var destination = $(elementClicked).offset().top;
 					$("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination-51}, 500 );
 					return false;
+				});
+				
+				// Pop-ups such as vimeo
+				$('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
+					type: 'iframe',
+					mainClass: 'mfp-fade',
+					showCloseBtn: true,
+					closeBtnInside:true,
+					removalDelay: 160,
+					preloader: false,
+					fixedContentPos: false,
+
+					markup: '<div class="mfp-iframe-scaler">'+
+										'<div class="mfp-close"></div>'+
+										'<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+									'</div>'
+				});
 			});
 				
 			</script>
