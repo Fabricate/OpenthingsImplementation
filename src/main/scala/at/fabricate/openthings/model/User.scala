@@ -34,7 +34,7 @@ with AddSkillsMeta[User] {
   
   override val basePath = "user" :: Nil
     
-  override def dbTableName = "users" // define the DB table name
+  override def dbTableName = "user" // define the DB table name
  
   override def screenWrap = Full(
       <lift:surround with="default" at="content">
