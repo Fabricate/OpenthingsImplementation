@@ -1830,6 +1830,10 @@ body {
 .loggedIn .projectHeader {
   margin-top: 50px; }
 
+/* line 28, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/project */
+.loggedIn .designerView .projectHeader {
+  margin-top: 0; }
+
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/video */
 .videoHeader {
   padding: 0 !important; }
