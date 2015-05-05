@@ -5,7 +5,7 @@
 }
 
 @media only screen and (max-width: 930px)  {	
- .col-2, .mainContent .projectHeader img, .mainContent .projectHeader div{
+ .col-2, .mainContent .projectHeader img, .mainContent .projectHeader .projectMainDes{
 		width: 100%;
 	}
 	.mainContent .preview{
@@ -13,6 +13,9 @@
 	}
 	.mainNavigation li a, .shareDesignBtn{
 		padding: 0 .4em;
+	}
+	.editMenuHorizontal ul{
+		display: none;
 	}
 }
 

@@ -1,6 +1,6 @@
 <header class="projectHeader left">
 		<img id="icon" class="left icon" src="#" />
-		<div class="left">
+		<div class="left projectMainDes">
 				<h1><span id="title">Title</span></h1>
 				<p id="teaser">Teaser</p>
 				<a href="#" id="personalwebsite"><span class="icon-world"></span> Personal website</a>
@@ -25,18 +25,18 @@
 				<p id="created">created at </p>
 				<p id="updated">last updated at </p>
 -->
-		</div>
-		
-<nav class="editMenu">
-	<p>Switch on the edit mode to start working on this Openthing.</p>
-	<ul>
-		<div class="onoffswitch">
-				<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
-				<label class="onoffswitch-label" for="myonoffswitch">
-						<span class="onoffswitch-inner"></span>
-						<span class="onoffswitch-switch"></span>
-				</label>
-		</div>
+		</div>	
+	
+<nav class="editMenuHorizontal">
+	<div class="onoffswitch right">
+		<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
+		<label class="onoffswitch-label" for="myonoffswitch">
+				<span class="onoffswitch-inner"></span>
+				<span class="onoffswitch-switch"></span>
+		</label>
+	</div>
+	<p class="right">Edit mode:</p>
+	<ul class="left">
 		<li><a href="#project-details" onclick="EditProject();"><span class="icon-pencil"></span> Edit project details</a></li>
 		<li><a href="#skills-needed"><span class="icon-skills"></span> Skills needed for project</a></li>
 		<li><a href="#project-versions"><span class="icon-folder"></span> Project versions</a></li>
@@ -44,5 +44,4 @@
 		<li><a href="#project-discussion"><span class="icon-discussion"></span> Project rating & discussion</a></li>
 	</ul>
 </nav>
-	<button class="projectNavBtn oppositeBtn">Project menu</button>
 </header>

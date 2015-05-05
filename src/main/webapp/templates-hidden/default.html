@@ -120,9 +120,6 @@
 			function AddMaterial(){
 				$(".addMaterial").slideToggle();
 			}
-
-			$('.projectNavBtn').click(function(){		
-			});
 			
 			$('.editMenu ul li a').click(function(){
 				$(".editMenu").toggleClass("activeMenu");	
@@ -158,12 +155,15 @@
 					$(".accountScreen").fadeOut();
 				});
 			}
+
 			function AddTutorial(){
 				$(".addTutorial").slideToggle();
 				$('html, body').animate({
 				    scrollTop: $(".addTutorial").offset().top
 				}, 500);
 			}
+
+			//Scroll down to projects
 			function GoToProjects(){
 				$('html, body').animate({
 					scrollTop: $(".mainContent").offset().top
@@ -174,6 +174,7 @@
 				$(".versionDetails").slideToggle();
 			}
 
+			//Project rating
 			$('.rating1').hover(function() {
 				$('.rating').toggleClass('rated1'); // add class when mouseover happen
 			});		
@@ -209,18 +210,18 @@
 				$(".rating").addClass("isRated5");
 			});
 
-			$(".languageSelect, .notLoggedIn .commentInput, .notLoggedIn #newrating, .notLoggedIn .editMenu,.notLoggedIn .projectNavBtn").remove();
 
-			$(".notLoggedIn .editProjectBtn").remove();
+			// Remove elements when user is not loggedIn.
+			$(".languageSelect, .notLoggedIn .commentInput, .notLoggedIn #newrating, .notLoggedIn .editMenu,.notLoggedIn .projectNavBtn, .notLoggedIn .editProjectBtn, .notLoggedIn .editMenuHorizontal").remove();
 
-
-			if( $('.comment').length)         // use this if you are using class to check
-			{
+			// Check if there are comments available
+			if( $('.comment').length){
 			}
 			else{
 				$(".viewcomments").remove();
 			}
 			
+
 			$('.mainNavigation li a').click(function(){
 					$('.mainNavigation li a').removeClass("active");
 					$(this).addClass("active");
@@ -230,7 +231,6 @@
 
 
 			$(document).ready(function() {
-				
 				//Count amount of comments
 				var n = $( ".comment" ).size();
 				$('.viewcomments i').prepend(n + " "); 
@@ -242,24 +242,23 @@
 					$("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination-51}, 500 );
 					return false;
 				});
-				
-				// Pop-ups such as vimeo
-				$('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
-					type: 'iframe',
-					mainClass: 'mfp-fade',
-					showCloseBtn: true,
-					closeBtnInside:true,
-					removalDelay: 160,
-					preloader: false,
-					fixedContentPos: false,
-
-					markup: '<div class="mfp-iframe-scaler">'+
-										'<div class="mfp-close"></div>'+
-										'<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
-									'</div>'
-				});
 			});
-				
+
+			// Pop-ups such as vimeo
+			$('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
+				type: 'iframe',
+				mainClass: 'mfp-fade',
+				showCloseBtn: true,
+				closeBtnInside:true,
+				removalDelay: 160,
+				preloader: false,
+				fixedContentPos: false,
+
+				markup: '<div class="mfp-iframe-scaler">'+
+									'<div class="mfp-close"></div>'+
+									'<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+								'</div>'
+			});
 			</script>
 		</script>
         <script>

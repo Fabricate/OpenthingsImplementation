@@ -517,6 +517,17 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/projects\/1\/repository\/braun_squ.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 34085,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/projects\/1\/repository\/braun_squ.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/projects\/1\/repository\/braun_squ.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/src\/main\/webapp\/public\/images\/404.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
