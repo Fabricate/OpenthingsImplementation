@@ -45,4 +45,10 @@ with AddSkillsSnippet[Project]  {
    ) &
    (super.asHtml(item))
   }
+  
+  override def edit(xhtml : NodeSeq) : NodeSeq = (   
+      // Hint: remove the license from the edit page to prevent later changes on that one!
+       "#licence" #> NodeSeq.Empty & 
+       "#licencelabel" #> NodeSeq.Empty 
+   ).apply(super.edit(xhtml))
 }
