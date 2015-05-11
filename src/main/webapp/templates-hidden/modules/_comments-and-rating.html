@@ -1,21 +1,20 @@
 <section id="project-discussion" class="projectComments right">
 		<header class="left">
 			<div class="rating left">
-				<div id="ratingMessages">
-				</div>						
+				<div id="ratingMessages"></div>						
 				<p id="newrating">Rating: <span class="icon-star2 rating1" id="rating1"></span><span class="icon-star2 rating2" id="rating2"></span><span class="icon-star2 rating3" id="rating3"></span><span class="icon-star2 rating4" id="rating4"></span><span class="icon-star2 rating5" id="rating5"></span></p>
-				<p>Rating: <span id="rating"></span></p>
+				<p itemtype="aggregateRating">Rating: <span id="rating"></span></p>
 			</div>						
 			<div class="right">
-				<p class="viewcomments" onclick="ShowComments();">View <i><span class="icon-discussion"></span></i> comment(s)</p>
+				<p class="viewcomments" onclick="ShowComments();">View <i itemtype="commentCount"><span class="icon-discussion"></span></i> comment(s)</p>
 			</div>
 		</header>
-		<ul class="left" id="comments">
-			<li id="comment">
+		<ul class="left" id="comments" itemscope itemtype="http://schema.org/comment">
+			<li id="comment" itemprop="comment">
 				<article class="comment">
-					<h1 id="commenttitle" class="beta">What about the electronics</h1> 
-					<h2 id="commentauthor" class="zeta">Posted by: Martin Risseeuw</h2>
-					<p id="commentmessage">Selling excess solar or wind energy back to the power company is not a new idea. But what if, instead of selling renewable energy back to companies who then sell it to our neighbors, we could sell the energy directly to our neighbors?</p>
+					<h1 id="commenttitle" class="beta" itemprop="name">What about the electronics</h1> 
+					<h2 id="commentauthor" class="zeta" itemprop="author">Posted by: Martin Risseeuw</h2>
+					<p id="commentmessage"  itemprop="text">Selling excess solar or wind energy back to the power company is not a new idea. But what if, instead of selling renewable energy back to companies who then sell it to our neighbors, we could sell the energy directly to our neighbors?</p>
 				</article>
 			</li>
 		</ul>

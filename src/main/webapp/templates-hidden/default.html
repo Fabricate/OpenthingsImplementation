@@ -221,14 +221,19 @@
 				$(".viewcomments").remove();
 			}
 			
+			$('.openMenu p').click(function(){
+				$('.mainNavigation ul').fadeToggle();
+			});
 
 			$('.mainNavigation li a').click(function(){
 					$('.mainNavigation li a').removeClass("active");
 					$(this).addClass("active");
 			});
-
+			var menuHeight = $('.editMenuHorizontal').height() + $('.mainNavigation').height();
+			$('#main').css({'margin-top' : menuHeight + 'px'});
 			
-
+			var mainMenuHeight = $('.mainNavigation').height();
+			$('.editMenuHorizontal').css({'top' : mainMenuHeight + 'px'});
 
 			$(document).ready(function() {
 				//Count amount of comments

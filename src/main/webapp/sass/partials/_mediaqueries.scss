@@ -11,18 +11,52 @@
 	.mainContent .preview{
 		width: 47%;
 	}
-	.mainNavigation li a, .shareDesignBtn{
+	.mainNavigation ul{
+		padding: .5em 1em;
+		background: white;
+	}
+	.mainNavigation{
+		background-color: rgba(255, 255, 255, 1);
+	}
+	.mainNavigation ul{
+		display: none;
+	}
+	.mainNavigation li{
+		float: left !important;
+		width: 100%;
+	}
+	a, .shareDesignBtn{
 		padding: 0 .4em;
 	}
-	.editMenuHorizontal ul{
-		display: none;
+	.shareDesignBtn{
+		color: $mediumgrey !important;
+	}
+	.editMenuHorizontal li, .mainNavigation li{
+		display: list-item;
+		text-align: left;
+	}
+	.shareDesignBtn{
+		background-color: transparent !important;
+	}
+	.shareDesignBtn:hover{
+		background-color: transparent !important;
+	}
+	.openMenu{
+		padding: .5em 1em;
+		text-align: center;
+		display: block;
+	}
+	#searchform{
+		float: left;
+		top: 0;
+		left: 0;
+	}
+	.mainNavigation li a{
+		padding: 0;
 	}
 }
 
 @media only screen and (max-width: 640px)  {		
-	#searchform{
-		display: none;
-	}
 	.mainSearch{
 		font-size: .65em;
 		height: 65px;

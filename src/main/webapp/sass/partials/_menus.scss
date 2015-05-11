@@ -14,14 +14,26 @@
 	line-height: 3.6em;
 	color: white;
 }
+.openMenu{
+	display: none;
+}
+.openMenu p{
+	margin-bottom: 0;
+}
 .shareDesignBtn{
 	background-color: $brand-color;
 	padding: 0 1.4em;
 	line-height: 3.6em;
-	color: white;
+	color: white !important;
+}
+.shareDesignBtn:hover{
+	background-color: darken($brand-color, 15%) !important;
+}
+.mainNavigation ul{
+	width: 100%;
 }
 .mainNavigation li{
-	display: inline-block;
+	display: inline;
 }
 
 .mainNavigation li a{
@@ -62,9 +74,6 @@
 .loginBtn{
 	color: $brand-color !important;
 }
-#main{
-	margin-top: 50px;
-}
 .mainHeader{
 	position: fixed;
 	opacity: .98;
@@ -74,10 +83,6 @@
 	width: 100%;
 	z-index: 3;
 	background: $lightgrey;
-}
-
-.mainNavigation ul{
-	height: 50px;
 }
 
 .current{
@@ -134,7 +139,6 @@
 	position: fixed;
 	overflow: scroll;
 	white-space: nowrap;
-	top: 51px;
 	left: 0;
 	width: 100%;
 	font-size: 85%;
