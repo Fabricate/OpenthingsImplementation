@@ -19,6 +19,14 @@
 }
 .openMenu p{
 	margin-bottom: 0;
+	font-size: 1em;
+	cursor: pointer;
+}
+.openSubMenu{
+	display: none;
+}
+.openSubMenu p{
+	margin-bottom: 0;
 }
 .shareDesignBtn{
 	background-color: $brand-color;
@@ -137,8 +145,6 @@
 
 .editMenuHorizontal{
 	position: fixed;
-	overflow: scroll;
-	white-space: nowrap;
 	left: 0;
 	width: 100%;
 	font-size: 85%;

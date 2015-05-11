@@ -21,6 +21,12 @@
 	.mainNavigation ul{
 		display: none;
 	}
+	.mainNavigation ul li:last-child{
+		display: none;
+	}
+	.mainNavigation ul span{
+		display: none;
+	}
 	.mainNavigation li{
 		float: left !important;
 		width: 100%;
@@ -46,6 +52,15 @@
 		text-align: center;
 		display: block;
 	}
+//	.editMenuHorizontal{
+//		position: fixed;
+//		width: 100%;
+//		height: 100%;
+//		left: 0;
+//		top: 0;
+//		transform: translateX(-100%);
+//		display: none;
+//	}
 	#searchform{
 		float: left;
 		top: 0;
