@@ -108,7 +108,7 @@ class Boot {
     
     def menu: List[Menu] = 
     List[Menu](Menu.i("Home") / "index" >> Hidden,
-               Menu.i("Test page") / "testpage" / ** >> Hidden,
+               Menu.i("Sitemap") / "sitemap.xml" / ** >> Hidden,
                Menu.i("Search Designers") / "searchDesigner",                 
                Menu.i("Public Data") / "public" / ** >> Hidden,
                Menu.i("SASS") / "sass" / ** >> Hidden,
