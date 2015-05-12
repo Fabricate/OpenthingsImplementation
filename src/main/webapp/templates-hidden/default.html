@@ -221,30 +221,54 @@
 				$(".viewcomments").remove();
 			}
 			
+			// Mobile menu functions
 			$('.openMenu p').click(function(){
-				$('.mainNavigation ul').fadeToggle();
+				var $openmenu = $('.openMenu');
+				var $openContent = $('.openMenu p');
+				
+				$('.mainNavigation ul').slideToggle();
+				$openmenu.toggleClass("activeMenu");
+				if ($openmenu.hasClass("activeMenu")) {
+						$openContent.html('<span class="icon-delete"></span> Close menu');
+				} else {
+						$openContent.html('<span class="icon-down"></span> Open menu');
+				}
+				
 			});
-
+			
+			// Add active class to menu, doesnt work without ajax.
 			$('.mainNavigation li a').click(function(){
 					$('.mainNavigation li a').removeClass("active");
 					$(this).addClass("active");
 			});
-			var menuHeight = $('.editMenuHorizontal').height() + $('.mainNavigation').height();
-			$('#main').css({'margin-top' : menuHeight + 'px'});
 			
-			var mainMenuHeight = $('.mainNavigation').height();
-			$('.editMenuHorizontal').css({'top' : mainMenuHeight + 'px'});
+			// Measure margin of the main container according the menu height
+			
+			
+			function menuHeight(){
+				var menuHeight = $('.editMenuHorizontal').height() + $('.mainNavigation').height();
+				var mainMenuHeight = $('.mainNavigation').height();
+				$('#main').css({'margin-top' : menuHeight + 'px'});
+				$('.editMenuHorizontal').css({'top' : mainMenuHeight + 'px'});
+			}
 
+			$(window).resize(function() {
+				menuHeight();
+			});
 			$(document).ready(function() {
+				menuHeight();
+				
+				
 				//Count amount of comments
 				var n = $( ".comment" ).size();
 				$('.viewcomments i').prepend(n + " "); 
 				
 				// Scroll to an element
 				$('a').click(function() {
+					var menuHeight = $('.editMenuHorizontal').height() + $('.mainNavigation').height();
 					var elementClicked = $(this).attr("href");
 					var destination = $(elementClicked).offset().top;
-					$("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination-51}, 500 );
+					$("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination - menuHeight}, 500 );
 					return false;
 				});
 			});
@@ -264,19 +288,18 @@
 									'<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
 								'</div>'
 			});
-			</script>
 		</script>
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		<script>
+			// Google Analytics
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+					(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+							m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-            ga('create', 'UA-61173517-1', 'auto');
-            ga('send', 'pageview');
-            ga('set', 'anonymizeIp', true);
-
-        </script>
+			ga('create', 'UA-61173517-1', 'auto');
+			ga('send', 'pageview');
+			ga('set', 'anonymizeIp', true);
+		</script>
 
   </body>
 </html>
