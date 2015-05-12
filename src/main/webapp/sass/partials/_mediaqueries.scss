@@ -3,6 +3,11 @@
 		width: 30.6%;
 	}
 }
+@media only screen and (max-width: 1280px)  {
+	.mainNavigation li a{
+		padding: 0 .5em;
+	}
+}
 
 @media only screen and (max-width: 930px)  {	
  .col-2, .mainContent .projectHeader img, .mainContent .projectHeader .projectMainDes{
