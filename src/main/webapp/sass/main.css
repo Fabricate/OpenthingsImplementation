@@ -250,23 +250,24 @@ button, .btn {
 /* line 9, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .btn {
   color: white !important;
-  display: inline-block; }
+  display: inline-block;
+  text-decoration: none !important; }
 
-/* line 13, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 14, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .updateProjectBtn {
   position: relative;
   top: -0.3em; }
 
-/* line 17, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 18, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .oppositeBtn {
   color: #5e198e !important;
   background: white; }
 
-/* line 21, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 22, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 button:hover, .btn:hover {
   opacity: 0.8; }
 
-/* line 24, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 25, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 input[type="submit"] {
   color: white;
   background-color: #5e198e;
@@ -277,7 +278,7 @@ input[type="submit"] {
   border: none;
   width: auto !important; }
 
-/* line 34, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 35, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .onoffswitch {
   position: relative;
   width: 76px;
@@ -286,11 +287,11 @@ input[type="submit"] {
   -ms-user-select: none;
   margin: 0.6em 1.4em; }
 
-/* line 39, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 40, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .onoffswitch-checkbox {
   display: none; }
 
-/* line 42, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 43, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .onoffswitch-label {
   display: block;
   overflow: hidden;
@@ -298,7 +299,7 @@ input[type="submit"] {
   border: 2px solid #999999;
   border-radius: 8px; }
 
-/* line 46, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 47, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .onoffswitch-inner {
   display: block;
   width: 200%;
@@ -308,7 +309,7 @@ input[type="submit"] {
   -o-transition: margin 0.3s ease-in 0s;
   transition: margin 0.3s ease-in 0s; }
 
-/* line 51, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 52, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .onoffswitch-inner:before, .onoffswitch-inner:after {
   display: block;
   float: left;
@@ -324,14 +325,14 @@ input[type="submit"] {
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
-/* line 56, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 57, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .onoffswitch-inner:before {
   content: "ON";
   padding-left: 12px;
   background-color: #1FBF61;
   color: #FFFFFF; }
 
-/* line 61, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 62, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .onoffswitch-inner:after {
   content: "OFF";
   padding-right: 12px;
@@ -339,7 +340,7 @@ input[type="submit"] {
   color: #FFFFFF;
   text-align: right; }
 
-/* line 67, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 68, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .onoffswitch-switch {
   display: block;
   width: 20px;
@@ -356,15 +357,15 @@ input[type="submit"] {
   -o-transition: all 0.3s ease-in 0s;
   transition: all 0.3s ease-in 0s; }
 
-/* line 75, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 76, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
   margin-left: 0; }
 
-/* line 78, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 79, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
   right: 0px; }
 
-/* line 82, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
+/* line 83, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 .mainContent .projectHeader .onoffswitch {
   padding: 0;
   background-color: transparent; }
@@ -1637,6 +1638,25 @@ body {
   padding: 2%;
   background-color: white; }
 
+/* line 46, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/pages */
+.mainfest-point {
+  background: white;
+  padding: 6%;
+  margin-bottom: 1.25em;
+  font-size: 80%; }
+
+/* line 53, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/pages */
+.mainfest-point h2 {
+  margin-bottom: 0; }
+
+/* line 56, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/pages */
+.mainfest-point p {
+  display: none; }
+
+/* line 60, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/pages */
+.mainfest-point p:last-child {
+  margin-bottom: 0; }
+
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/skills */
 .skills {
   background: #323232;
@@ -1705,13 +1725,18 @@ body {
 
 /* line 25, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/landingspage */
 .branding h1 {
-  font-size: 4em; }
+  font-size: 3em; }
 
 /* line 28, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/landingspage */
 .branding h1 span {
   font-size: 1.5em; }
 
 /* line 31, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/landingspage */
+.branding a {
+  color: white;
+  text-decoration: underline; }
+
+/* line 35, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/landingspage */
 .signupHome {
   max-width: 30%;
   background: white;
@@ -1721,7 +1746,7 @@ body {
   transform: translateY(-50%);
   padding: 2%; }
 
-/* line 41, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/landingspage */
+/* line 45, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/landingspage */
 .signupHome input {
   width: 100%;
   margin-bottom: 0.625em;

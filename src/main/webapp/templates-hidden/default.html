@@ -251,6 +251,21 @@
 				$('#main').css({'margin-top' : menuHeight + 'px'});
 				$('.editMenuHorizontal').css({'top' : mainMenuHeight + 'px'});
 			}
+		
+			$('.mainfest-point').click(function(){
+				$(this).find('p').slideToggle();
+				$(this).find('p').toggleClass('openacc');
+				
+				var $openacc = $('.mainfest-point p');
+				
+				if ($openacc.hasClass("openacc")) {
+						(this).slideUp;
+				} else {
+						
+				}
+				
+			});
+			
 
 			$(window).resize(function() {
 				menuHeight();

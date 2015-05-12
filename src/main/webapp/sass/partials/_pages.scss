@@ -42,3 +42,21 @@
 	padding: $xsmall-percentage;
 	background-color: $canvas;
 }
+
+.mainfest-point{
+	background: $canvas;
+	padding: $smedium-percentage;
+	margin-bottom: $smedium-em;
+	font-size: 80%;
+//	cursor: pointer;
+}
+.mainfest-point h2{
+	margin-bottom: 0;
+}
+.mainfest-point p{
+	display: none;
+}
+
+.mainfest-point p:last-child {
+	margin-bottom: 0;
+}
