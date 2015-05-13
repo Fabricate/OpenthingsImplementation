@@ -14,6 +14,7 @@ import net.liftweb.sitemap._
 import net.liftweb.sitemap.Loc._
 import at.fabricate.openthings.snippet._
 import at.fabricate.openthings.model._
+import at.fabricate.openthings.rest._
 import org.apache.commons.fileupload.FileUploadBase.FileUploadIOException
 import at.fabricate.openthings.lib.AccessControl
 import javax.mail.Authenticator
@@ -105,10 +106,16 @@ class Boot {
     
     // links can be defined more often than once
 //    SiteMap.enforceUniqueLinks = false
+
+    // serve the sitemap
+    LiftRules.statelessDispatch.append(Sitemap)
+    //LiftRules.liftRequest.append {
+    //    case Req("sitemap" :: Nil, "xml", _) => false
+    //}
     
     def menu: List[Menu] = 
     List[Menu](Menu.i("Home") / "index" >> Hidden,
-               Menu.i("Sitemap") / "sitemap.xml" / ** >> Hidden,
+               Menu.i("Sitemap") / "sitemap" / ** >> Hidden,
                Menu.i("Search Designers") / "searchDesigner",                 
                Menu.i("Public Data") / "public" / ** >> Hidden,
                Menu.i("SASS") / "sass" / ** >> Hidden,
@@ -168,8 +175,14 @@ class Boot {
     LiftRules.loggedInTest = Full(() => User.loggedIn_?)
 
     // Use HTML5 for rendering
-    LiftRules.htmlProperties.default.set((r: Req) =>
-      new Html5Properties(r.userAgent))    
+    //LiftRules.htmlProperties.default.set((r: Req) =>
+    //  new Html5Properties(r.userAgent))    
+    LiftRules.htmlProperties.default.set({ request: Req =>
+      request.path.partPath match {
+        case "sitemap" :: Nil => OldHtmlProperties(request.userAgent)
+        case _                => Html5Properties(request.userAgent)
+      }
+    })
 
     // Make a transaction span the whole HTTP request
     S.addAround(DB.buildLoanWrapper)
