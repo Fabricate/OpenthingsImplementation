@@ -3,6 +3,7 @@
 }
 body{
 	background-color: $lightgrey;
+	overflow-x: hidden;
 }
 .projectComments ul,.mainContent, .projectHeader, .mainContent .projectComments li, .commentInput, .commentInput input, .commentInput textarea, .commentInput form, .addTutorial, .projectComments, .userDetails, .projectDetails, .userProjectVersions, .projectVersions, .detailedDescription, .bom{
 	width: 100%;
@@ -50,13 +51,6 @@ body{
 	padding-top: 2em;
 	margin-top: 2em;
 	border-top: 1px solid $lightgrey;
-}
-
-.loader{
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	width: 100%;
 }
 .detailedDescription ul{
 	margin-bottom: $medium-em;

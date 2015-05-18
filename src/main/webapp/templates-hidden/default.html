@@ -33,15 +33,13 @@
     </lift:with-resource-id>
 
     <style type="text/css">
-/* <![CDATA[ */
-.edit_error_class {
-  display: block;
-  color: red;
-}
-
-	 
-  /* ]]> */
-  </style>
+			/* <![CDATA[ */
+			.edit_error_class {
+				display: block;
+				color: red;
+			}
+			/* ]]> */
+  	</style>
   </head>
   <body data-lift="Login.account" id="onlinestatus" itemscope itemtype="http://schema.org/WebPage">
 		<section class="mainHeader">
@@ -49,11 +47,6 @@
 <!--			<span data-lift="embed?what=modules/_search">Search</span>-->
 <!--		<span data-lift="embed?what=modules/_advancedsearch">Advanced search</span>-->
 		</section>
-
-
-		<div class="column span-12 last loader" style="text-align: right">
-			<h1 class="alt"><img alt="" id="ajax-loader" style="display:none; margin-bottom: 0px; margin-left: 5px" src="/public/images/ajax-loader.gif"></h1>
-		</div>
 		<div data-lift="Msgs?showAll=true" class="alertmessages"></div>
 
 		<span data-lift="embed?what=modules/_addproject">AddProject</span>
@@ -65,7 +58,12 @@
 		<div data-lift="Login.account"><span id="onlinestatus" class="#"></span></div>
 
     <div id="content">The main content will get bound here</div>
+		
 
+
+		<div class="column span-12 last loader left">
+			<h1 class="alt"><img alt="" id="ajax-loader" style="display:none;" src="/public/images/ajax-loader.gif"></h1>
+		</div>
 		<span data-lift="embed?what=modules/_footernav">FooterNav</span>
 
 <!--		<span data-lift="Menu.builder"></span>-->

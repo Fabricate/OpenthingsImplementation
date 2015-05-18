@@ -1,7 +1,11 @@
 #ajax-loader{
 	width: 20px;
-	left: 20px;
-	top: 26px;
+}
+.loader{
+	position: relative;
+	width: 100%;
+	text-align: center;
+	margin-top: -22px;
 }
 #commentMessages span{
 	background: none repeat scroll 0 0 rgba($brand-color, .4);
