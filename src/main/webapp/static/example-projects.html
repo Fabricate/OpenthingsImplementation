@@ -1,0 +1,55 @@
+<div id="main" class="theContent" data-lift="surround?with=default;at=content">
+   <div id="slides">
+		 <ul class="slides-container">
+			 	<li>
+					<div class="slideroverlay"></div>
+					<img src="https://www.openthings.wiki/serve/projectimage/10" alt="">
+					<div class="container">
+						<h1>Bass guitar</h1>
+						<p>Can you produce a high quality electric bass guitar using the Fablab methodology?</p>
+						<a href="https://www.openthings.wiki/en/project/view/10" class="btn btn-1 btn-1a">View project</a>
+					</div>
+				</li>
+				<li>
+					<div class="slideroverlay"></div>
+					<img src="https://www.openthings.wiki/serve/projectimage/24" alt="">
+					<div class="container">
+						<h1>Wire winder</h1>
+						<p>To solve my problem with too long cable of my headphone, I made it.</p>
+						<a href="https://www.openthings.wiki/en/project/view/24" class="btn btn-1 btn-1a">View project</a>
+					</div>
+				</li>
+				<li>
+					<div class="slideroverlay"></div>
+					<img src="https://www.openthings.wiki/serve/projectimage/17" alt="">
+					<div class="container">
+						<h1>Stash</h1>
+						<p>Stash your pocket things in this thing</p>
+						<a href="https://www.openthings.wiki/en/project/view/17" class="btn btn-1 btn-1a">View project</a>
+					</div>
+				</li>
+		 </ul>
+	</div>	
+	<script src="/public/js/jquery.superslides.min.js"></script>
+	<script>
+		$('#slides').superslides({
+			animation: 'fade',
+			animation_speed: 'normal',
+			play: 10000,
+			pagination: false
+		});
+
+		$(document).ready(function(){
+			setTimeout(function(){
+				$(".mainHeader").fadeOut("slow");
+			}, 2500);
+		});
+		$( window ).scroll(function() {
+			$( ".mainHeader" ).fadeIn( "fast", function () {
+				setTimeout(function(){
+					$(".mainHeader").fadeOut("slow");
+				}, 2500);
+			});
+		});
+	</script>
+</div>

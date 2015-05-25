@@ -1656,6 +1656,10 @@ body {
 .mainfest-point p:last-child {
   margin-bottom: 0; }
 
+/* line 64, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/pages */
+.theContent {
+  margin-top: 0 !important; }
+
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/skills */
 .skills {
   background: #323232;
@@ -2431,6 +2435,90 @@ img.mfp-img {
   right: 0;
   padding-top: 0; }
 
+/* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+#slides {
+  position: relative; }
+
+/* line 4, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+#slides .slides-container {
+  display: none; }
+
+/* line 7, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+#slides .scrollable {
+  *zoom: 1;
+  position: relative;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  height: 100%; }
+
+/* line 16, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+#slides .scrollable:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+/* line 22, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+.slides-navigation {
+  margin: 0 auto;
+  position: absolute;
+  z-index: 3;
+  top: 46%;
+  width: 100%; }
+
+/* line 29, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+.slides-navigation a {
+  position: absolute;
+  display: block; }
+
+/* line 33, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+.slides-navigation a.prev {
+  left: 0; }
+
+/* line 36, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+.slides-navigation a.next {
+  right: 0; }
+
+/* line 40, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+.slides-pagination {
+  position: absolute;
+  z-index: 3;
+  bottom: 0;
+  text-align: center;
+  width: 100%; }
+
+/* line 47, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+.slides-pagination a {
+  border: 2px solid #222;
+  border-radius: 15px;
+  width: 10px;
+  height: 10px;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=");
+  margin: 2px;
+  overflow: hidden;
+  text-indent: -100%; }
+
+/* line 63, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+.slides-pagination a.current {
+  background: #222; }
+
+/* line 67, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+.slides-container .container {
+  background: rgba(0, 0, 0, 0.1);
+  color: white;
+  padding: 4%;
+  display: inline-block;
+  position: absolute;
+  left: 10%;
+  bottom: 10%; }
+
 @media only screen and (max-width: 1280px) {
   /* line 2, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/mediaqueries */
   .mainContent .preview {
@@ -2567,6 +2655,25 @@ img.mfp-img {
   /* line 116, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/mediaqueries */
   .mainSearch input {
     width: 18em; }
+
+  /* line 119, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/mediaqueries */
+  .branding button {
+    margin-bottom: 0.5em; }
+
+  /* line 122, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/mediaqueries */
+  .projectDetails li, .userDetails li {
+    margin: 0 0 4% 0;
+    width: 50%; }
+
+  /* line 126, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/mediaqueries */
+  .editMenuHorizontal ul {
+    display: none; }
+ }
+
+@media only screen and (max-width: 420px) {
+  /* line 132, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/mediaqueries */
+  #searchform input {
+    width: 160px; }
  }
 
 /*# sourceMappingURL=main.css.map */

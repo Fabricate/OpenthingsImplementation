@@ -116,4 +116,20 @@
 	.mainSearch input{
 		width: 18em;
 	}
+	.branding button{
+		margin-bottom: .5em;
+	}
+	.projectDetails li, .userDetails li{
+		margin: 0 0 4% 0;
+		width: 50%;
+	}
+	.editMenuHorizontal ul{
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 420px)  {	
+	#searchform input{
+		width: 160px;
+	}
 }
