@@ -2511,13 +2511,38 @@ img.mfp-img {
 
 /* line 67, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
 .slides-container .container {
-  background: rgba(0, 0, 0, 0.1);
   color: white;
-  padding: 4%;
+  padding: 2%;
   display: inline-block;
   position: absolute;
-  left: 10%;
-  bottom: 10%; }
+  bottom: 10%;
+  left: 6%;
+  max-width: 600px;
+  z-index: 3; }
+
+/* line 77, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+.slideroverlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1; }
+
+/* line 88, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+.container a {
+  color: white; }
+
+/* line 92, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+.container .creativeCommons, .container #initiator {
+  font-size: 0.875em; }
+
+/* line 95, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/superslides */
+.container #initiator {
+  margin-bottom: 0.5em; }
 
 @media only screen and (max-width: 1280px) {
   /* line 2, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/mediaqueries */
