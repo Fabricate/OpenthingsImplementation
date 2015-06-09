@@ -51,11 +51,11 @@
 #searchform input{
 	padding: .1em .4em .1em 2.1em;
 	font-size: 1em;
-	width: 228px;
+	width: 300px;
 }
 #searchform button{
 	background: none repeat scroll 0 0 transparent;
-	color: #5e198e;
+	color: $brand-color;
 	font-size: 1em;
 	left: 10px;
 	padding: 0.2em;

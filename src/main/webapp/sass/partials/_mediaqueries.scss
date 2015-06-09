@@ -10,6 +10,13 @@
 	.onoffswitch{
 		margin: 0.6em .5em;
 	}
+	
+	.editMenuHorizontal li span{
+		display: none;
+	}
+	.editMenuHorizontal{
+		font-size: 75%;
+	}
 }
 
 @media only screen and (max-width: 930px)  {	
@@ -26,7 +33,7 @@
 	.mainNavigation{
 		background-color: rgba(255, 255, 255, 1);
 	}
-	.mainNavigation ul{
+	.mainNavigation ul, .signupHome{
 		display: none;
 	}
 	.mainNavigation ul li:last-child{
@@ -45,10 +52,6 @@
 	.shareDesignBtn{
 		color: $mediumgrey !important;
 	}
-	.editMenuHorizontal li, .mainNavigation li{
-		display: list-item;
-		text-align: left;
-	}
 	.shareDesignBtn{
 		background-color: transparent !important;
 	}
@@ -60,6 +63,43 @@
 		text-align: center;
 		display: block;
 	}
+	.landingPageMain .preview{
+		display: none;
+	}
+	.landingPageMain .preview:nth-of-type(3){
+		display: none;
+	}
+	.landingPageMain .preview:nth-of-type(1), .landingPageMain .preview:nth-of-type(2){
+		display: block;
+	}
+	.mainContent .homelist .preview{
+		width: 47% !important;
+	}
+	.brandingText{
+		width: 100%;
+	}
+	.introSection{
+		padding: $medium-percentage 0;
+	}
+	.explainItems li span{
+		font-size: 3em;
+	}
+	.explainItems li p{
+		font-size: .875em;
+	}
+	.badgelogo{
+		display: none;
+	}
+	.mainNavigation li:first-child a{
+		padding: 0 0.6em;
+	}
+	.mainNavigation ul span{
+		display: inline-block;
+	}
+	.introVid{
+		width: 80%;
+	}
+	
 //	.editMenuHorizontal{
 //		position: fixed;
 //		width: 100%;
@@ -77,12 +117,31 @@
 	.mainNavigation li a{
 		padding: 0;
 	}
+	
+	.editMenuHorizontal li span{
+		display: none;
+	}
+	.editMenuHorizontal{
+		font-size: 65%;
+	}
+	
+}
+@media only screen and (max-width: 880px)  {		
+	.editMenuHorizontal{
+		font-size: 45%;
+	}
+
 }
 
 @media only screen and (max-width: 640px)  {		
 	.mainSearch{
 		font-size: .65em;
 		height: 65px;
+	}
+	
+	.editMenuHorizontal li, .mainNavigation li{
+		display: list-item;
+		text-align: left;
 	}
 	#main{
 		margin-top: 50px;
@@ -126,10 +185,67 @@
 	.editMenuHorizontal ul{
 		display: none;
 	}
+	.landingPageMain .preview{
+		display: none;
+	}
+	.mainContent .homelist .preview{
+		width: 96% !important;
+	}
+	.brandingText{
+		width: 100%;
+	}
+	.introSection{
+		padding: $medium-percentage 0;
+	}
+	.explainItems li span{
+		font-size: 3em;
+	}
+	.explainItems li p{
+		font-size: .875em;
+	}
+	.badgelogo{
+		display: none;
+	}
+	.landingPageMain .preview:nth-of-type(1), .landingPageMain .preview:nth-of-type(2){
+		display: block;
+	}
+	.mainNavigation li:first-child a{
+		padding: 0 0.6em;
+	}
+	.mainNavigation ul span{
+		display: inline-block;
+	}
+	.introVid{
+		width: 80%;
+	}
 }
 
 @media only screen and (max-width: 420px)  {	
 	#searchform input{
 		width: 160px;
+	}
+	.landingPageMain .preview{
+		display: none;
+	}
+	.mainContent .homelist .preview{
+		width: 96% !important;
+	}
+	.brandingText{
+		width: 100%;
+	}
+	.introSection{
+		padding: $medium-percentage 0;
+	}
+	.explainItems li span{
+		font-size: 3em;
+	}
+	.explainItems li p{
+		font-size: .875em;
+	}
+	.badgelogo{
+		display: none;
+	}
+	.landingPageMain .preview:nth-of-type(1){
+		display: block;
 	}
 }

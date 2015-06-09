@@ -2,12 +2,46 @@
 	<div data-lift="Login.account?eager_eval=true">
 		<span data-lift="embed?what=modules/_landingspage">Landingspage</span>
 	</div>
-    <section class="mainContent listView left">
+    <section class="mainContent listView landingPageMain left">
         <div data-lift="Project.list?eager_eval=true">
-            <ul id="list_items">
+						<header class="homeProjectIntro">
+							<h2 class="gamma">Made with</h2>
+							<h1>Openthings</h1>
+						</header>
+            <ul id="list_items" class="homelist">
                 <span data-lift="embed?what=modules/_list-item">ProjectAndUserHeader</span>
             </ul>
-            <script id="update_list"></script>
+						<footer class="left">
+						<div class="spacerline left"></div>
+						<a href="/project/list" class="btn btn-1 btn-1a">Browse all projects</a>
+						</footer>
         </div>
     </section>
+		<section class="left introSection">
+			<ul class="explainItems">
+				<li class="left">
+					<span class="icon-plus"></span>
+					<p>Learn from others through sharing</p>
+				</li>
+				<li class="left">
+					<span class="icon-build"></span>
+					<p>Build projects better, together</p>
+				</li>
+				<li class="left">
+					<span class="icon-lamp"></span>
+					<p>Share and realise ideas & concepts</p>
+				</li>
+			</ul>
+			<div class="introVidContainer left">
+				<div class="introVid">
+					<div class="videoWrapper">
+						<iframe src="https://player.vimeo.com/video/125988161?title=0&byline=0&portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+					</div>
+				</div>
+			</div>
+			<footer class="left">
+			<div class="spacerline left"></div>
+				<a href="/static/who" class="btn btn-1 btn-1a oppositeBtn">About Openthings</a>
+			</footer>
+		</section>
 </div>

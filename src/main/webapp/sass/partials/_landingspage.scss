@@ -1,7 +1,7 @@
 .landingSection{
 	width: 100%;
-	padding: $small-percentage $medium-percentage;
-	background-color: rgba($secondary, .50);
+	padding: $smedium-percentage $medium-percentage;
+	background-color: rgba($sec-brand-color, .8);
 }
 .landingSection::after{
 	content: "";
@@ -20,17 +20,16 @@
 .branding{
 	color: white;
 	padding: $medium-percentage 0;
-	max-width: 50%;
+	max-width: 55%;
 }
 .branding h1{
-	font-size: 3em;
+	font-size: 2.3em;
 }
 .branding h1 span{
 	font-size: 1.5em;
 }
-.branding a{
-	color: white;
-	text-decoration: underline;
+.branding p{
+	font-size: 1.5em;
 }
 .signupHome{
 	max-width: 30%;
@@ -46,4 +45,69 @@
 	width: 100%;
 	margin-bottom: $xsmall-em;
 	padding: .5em;
+}
+.badgelogo{
+	width: 30%;
+	padding-bottom: 30%;
+	background-size: contain;
+  background: url(../images/logobadge.svg);
+	background-repeat: no-repeat;
+}
+.brandingText{
+	width: 65%;
+}
+.introSection, .homeProjectIntro, .landingPageMain footer{
+	padding: $small-percentage 0 $xsmall-percentage;
+}
+.landingPageMain .preview{
+	display: none;
+}
+.landingPageMain .preview:nth-of-type(1), .landingPageMain .preview:nth-of-type(2), .landingPageMain .preview:nth-of-type(3){
+	display: block;
+}
+.introSection{
+	width: 100%;
+	padding: $medium-percentage;
+	background: darken($brand-color, 10%);
+}
+.introSection footer{
+	text-align: center;
+	padding: $small-percentage 0 0;
+}
+.landingPageMain footer, .introSection footer{
+	width: 100%;
+}
+.homeProjectIntro{
+	text-transform: uppercase;
+	letter-spacing: .1em;
+}
+
+.homeProjectIntro h2, .homeProjectIntro h1{
+	margin-bottom: 0;
+}
+
+.mainContent .homelist .preview{
+	width: 30.6%;
+}
+.explainItems{
+	width: 80%;
+	margin: auto;
+}
+.explainItems li p{
+	font-size: 1.8em;
+}
+.explainItems li{
+	width: 33.33%;
+	padding: 0 4%;
+	text-align: center;
+}
+.explainItems li p{
+	margin-top: 1.2em;
+}
+.explainItems li span{
+	font-size: 8em;
+	margin-bottom: 2em;
+}
+.introVidContainer{
+	margin-top: 6em;
 }

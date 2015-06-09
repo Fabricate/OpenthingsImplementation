@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="/public/markitup/sets/default/style.css" />
 		<link rel="icon" 
       type="image/png" 
-      href="/public/images/favicon.png">
+      href="/public/images/favicon.png?v=2">
 
     <lift:with-resource-id>
         <script id="jquery" src="/js/jquery-2.1.3.js"></script>
@@ -87,9 +87,9 @@
 				}, 500);
 			}
 			function AddProject(){
-				$(".postProject").fadeIn();
+				$(".postProject").slideDown();
 				$(".close-icon").click(function(){
-					$(".postProject").fadeOut();
+					$(".postProject").slideUp();
 				});
 			}
 			function EditProject(){
@@ -99,15 +99,15 @@
 				});
 			}
 			function LoginScreen(){
-				$(".loginScreen").fadeIn();
+				$(".loginScreen").slideDown();
 				$(".close-icon").click(function(){
-					$(".loginScreen").fadeOut();
+					$(".loginScreen").slideUp();
 				});
 			}
 			function LogoutScreen(){
-				$(".logoutScreen").fadeIn();
+				$(".logoutScreen").slideDown();
 				$(".close-icon").click(function(){
-					$(".logoutScreen").fadeOut();
+					$(".logoutScreen").slideUp();
 				});
 			}
 			function AccountScreen(){

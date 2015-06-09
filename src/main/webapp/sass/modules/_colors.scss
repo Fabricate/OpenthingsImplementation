@@ -1,8 +1,9 @@
 $background-color: white;
-$brand-color: rgb(94,25,142);
+$sec-brand-color: rgb(94,25,142);
+$brand-color: #fbc02d;
 $secondary-brand-color: rgb(50,58,69);
 $orange: rgb(255,171,84);
-$darkorange: rgb(216,123,39);
+$darkorange: darken($brand-color, 10%);
 $purple: rgb(173,107,130);
 $lightgrey: rgb(237,235,235);
 $mediumgrey: rgb(102,102,102);

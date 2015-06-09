@@ -46,9 +46,15 @@
 
 .mainNavigation li a{
 	color: $mediumgrey;
-	padding: 0 1.4em;
+	padding: 0 $small-em;
 	line-height: 2.8em;
 	display: inline-block;
+}
+.mainNavigation li:first-child a{
+	padding: 0 $xsmall-em 0 $medium-em;
+}
+.mainNavigation li:last-child a{
+	padding: 0 $medium-em;
 }
 .mainNavigation li .logo{
 	color: white;

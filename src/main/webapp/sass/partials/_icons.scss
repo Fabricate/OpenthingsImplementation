@@ -288,3 +288,13 @@
     50%  {content: "\e647";}
     100% {content: "\e642";}
 } 
+
+.logobee{
+	background: url(../images/logo_icon.svg);
+	background-size: contain;
+	width: 2.3em;
+	height: 1.65em;
+	top: .45em;
+	display: inline-block;
+	background-repeat: no-repeat;
+}

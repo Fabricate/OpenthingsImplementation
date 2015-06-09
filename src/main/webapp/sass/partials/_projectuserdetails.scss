@@ -1,5 +1,5 @@
 .projectDetails, .userDetails{
-	padding: $medium-percentage;
+	padding: $medium-percentage $smedium-percentage;
 	background-color: rgba(white, .9);
 	color: $darkgrey;
 	text-align: center;
@@ -16,7 +16,7 @@
 }
 .projectDetails li, .userDetails li{
 	margin: 0 $xsmall-percentage 0 0;
-	width: 22.5%;
+	width: 32%;
 }
 .projectDetails li:last-child, .userDetails li:last-child{
 	margin: 0 0 0 0;

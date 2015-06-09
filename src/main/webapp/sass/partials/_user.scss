@@ -1,0 +1,22 @@
+.userHeader .projectMainDes{
+	width: 100% !important;
+}
+.mainContent .userHeader .icon{
+	width: 100% !important;
+	height: 100%;
+}
+.mainContent .userHeader div{
+	padding: 0 !important;
+}
+
+.mainContent .userHeader .userDes{
+	padding: $small-percentage $medium-percentage !important;
+}
+.usertitle{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	padding: $xsmall-percentage $medium-percentage;
+	background: rgba(0,0,0,.2);
+	margin-bottom: 0;
+}
