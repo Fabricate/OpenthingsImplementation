@@ -111,9 +111,9 @@
 				});
 			}
 			function AccountScreen(){
-				$(".accountScreen").fadeIn();
+				$(".accountScreen").slideDown();
 				$(".close-icon").click(function(){
-					$(".accountScreen").fadeOut();
+					$(".accountScreen").slideUp();
 				});
 			}
 			function AddMaterial(){
@@ -219,8 +219,6 @@
 			else{
 				$(".viewcomments").remove();
 			}
-			
-			
 			
 			// Mobile menu functions
 			$('.openMenu p').click(function(){

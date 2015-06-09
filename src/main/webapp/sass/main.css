@@ -1079,6 +1079,10 @@ body {
 .detailedDescription img {
   max-width: 100%; }
 
+/* line 65, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/layout */
+#personalwebsite[href=''] {
+  display: none; }
+
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/menus */
 .logo, .shareDesignBtn, .mainNavigation li, .mainNavigation li a {
   height: 100%; }
