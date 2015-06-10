@@ -1743,7 +1743,7 @@ body {
 .landingSection {
   width: 100%;
   padding: 6% 8%;
-  background-color: rgba(94, 25, 142, 0.8); }
+  background-color: rgba(12, 6, 51, 0.8); }
 
 /* line 6, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/landingspage */
 .landingSection::after {
