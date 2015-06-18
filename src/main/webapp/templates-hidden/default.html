@@ -73,6 +73,12 @@
 			jQuery(document).ready(function() {
 				// add the wysiwyg via markitup
 				$('.wysiwyg').markItUp(myTextileSettings);
+				
+			
+				
+				if ($('.userDes p').is(':empty')){
+					$('.userDes').remove();
+				}	
 			});
 
 			function ShowComments(){
