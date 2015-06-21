@@ -157,21 +157,18 @@ class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends Ma
     
     def heightDiff:Int = (image.getHeight-imageHeight)
     def widthDiff:Int = (image.getWidth-imageWidth)
-    
-    val (left,top,right,bottom) = alignCroppedImage match {
-      case ALIGN_CENTER => (widthDiff/2,heightDiff/2, scaledWidth-(widthDiff/2),scaledHeight-(heightDiff/2))
-      case ALIGN_TOP_OR_LEFT  => (0,0, scaledWidth,scaledHeight)
-      case ALIGN_BOTTOM_OR_RIGHT  => (widthDiff,heightDiff, scaledWidth,scaledHeight)
- 
-    
-    }
-    
 
-    if (image.getHeight > imageHeight) {
-      image.getSubimage(0,top, image.getWidth, imageHeight)
-    } else if (image.getWidth > imageWidth) {
-      image.getSubimage(left,0, imageWidth, image.getHeight)
-    } else image
+          // calculate the corner position of the resulting image
+          // inside the scaled image, depends on cropping strategy
+          val (left,top) = alignCroppedImage match {
+            case ALIGN_CENTER => (widthDiff/2,heightDiff/2)
+            case ALIGN_TOP_OR_LEFT => (0,0)
+            case ALIGN_BOTTOM_OR_RIGHT => (widthDiff,heightDiff)
+          }
+
+
+          // crop the image to fit the target size
+          image.getSubimage(left,top, imageWidth, imageHeight)
   }
   
   private def processImage(fileHolder: Box[FileParamHolder]) : Array[Byte] = {
