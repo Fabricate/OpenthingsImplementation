@@ -144,8 +144,8 @@ class Boot {
     def sitemapMutators = User.sitemapMutator
     
     // increase the filesize for uploads (in Bytes)
-    LiftRules.maxMimeFileSize = 200000000
-    LiftRules.maxMimeSize = 400000000
+    LiftRules.maxMimeFileSize = 100*1024*1024
+    LiftRules.maxMimeSize = 105*1024*1024
     
     // catch exceptions at max fileupload size
     // **** Did not work:
