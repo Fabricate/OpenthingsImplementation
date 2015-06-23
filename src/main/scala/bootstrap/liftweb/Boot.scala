@@ -77,6 +77,7 @@ class Boot {
       case "User" => UserSnippet
       case "Login" => LoginSnippet
       case "Feedback" => FeedbackSnippet
+      case "Featured" => FeaturedSnippet
     }
     
     
