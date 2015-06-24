@@ -37,7 +37,7 @@ object FeaturedSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project]
 
    
     override val TheItem = Project
-  // what to do here??, own template?
+  override def itemBaseUrl = "project"
 
       def theUserSnippet = UserSnippet
 
