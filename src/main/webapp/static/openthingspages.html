@@ -1,0 +1,48 @@
+<div id="main" class="theContent" data-lift="surround?with=default;at=content">
+   <div id="slides">
+		 <ul class="slides-container">
+			 	<li>
+					<div class="slideroverlay"></div>
+					<img src="https://www.openthings.wiki/serve/projectimage/10" alt="">
+					<div class="container">
+						<h1>Get your personal Openthings page</h1>
+						<p>Are you working on a great project?</p>
+						<a href="static/order" class="btn btn-1 btn-1a">Order now</a> 
+						<a href="static/order" class="btn btn-1 btn-1a">Example</a>
+					</div>
+					
+				</li>
+			 
+			 	<li>
+					<div class="slideroverlay"></div>
+					<img src="https://www.openthings.wiki/serve/projectimage/8" alt="">
+					<div class="container">
+						<h1>Get your personal Openthings page</h1>
+						<p>Are you working on a great project, and are you looking to showcase your opensource project? Register for a special Openthings page. </p>
+					</div>
+				</li>
+		 </ul>
+	</div>	
+	<script src="/public/js/jquery.superslides.min.js"></script>
+	<script>
+		$('#slides').superslides({
+			animation: 'fade',
+			animation_speed: 'normal',
+			play: 10000,
+			pagination: false
+		});
+
+		$(document).ready(function(){
+			setTimeout(function(){
+				$(".mainHeader").fadeOut("slow");
+			}, 2500);
+		});
+		$( window ).scroll(function() {
+			$( ".mainHeader" ).fadeIn( "fast", function () {
+				setTimeout(function(){
+					$(".mainHeader").fadeOut("slow");
+				}, 2500);
+			});
+		});
+	</script>
+</div>

@@ -559,6 +559,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/src\/main\/webapp\/public\/images\/blog\/expo.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 475181,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/blog\/expo.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/blog\/expo.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/src\/main\/webapp\/public\/images\/box.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -566,6 +577,17 @@
 		"initialSize": 142499,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/box.jpg",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/box.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/public\/images\/burger.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 163873,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/burger.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/burger.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -610,6 +632,17 @@
 		"initialSize": 119635,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/enable.jpg",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/enable.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/public\/images\/expo.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 475181,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/expo.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/expo.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -1487,6 +1520,22 @@
 		"shouldRunBless": 0,
 		"useLibsass": 0
 		},
+	"\/src\/main\/webapp\/sass\/partials\/_blog.scss": {
+		"createSourceMap": 0,
+		"debugStyle": 0,
+		"decimalPrecision": 10,
+		"fileType": 4,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/sass\/partials\/_blog.scss",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/sass\/css\/_blog.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"useLibsass": 0
+		},
 	"\/src\/main\/webapp\/sass\/partials\/_bom.scss": {
 		"createSourceMap": 0,
 		"debugStyle": 0,
@@ -2074,11 +2123,29 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/static\/503.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/static\/503.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/src\/main\/webapp\/static\/about.html": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/static\/about.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/static\/blog.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/static\/blog.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -2097,6 +2164,15 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/static\/designers.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/static\/donate.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/static\/donate.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -2146,6 +2222,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/static\/kabk_expo.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/static\/kabk_expo.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/src\/main\/webapp\/static\/logo_high-res.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -2166,6 +2251,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/static\/open_everything.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/static\/open_everything.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/src\/main\/webapp\/static\/openness-manifesto.html": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -2180,6 +2274,15 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/static\/openness.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/static\/openthingspages.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/static\/openthingspages.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
