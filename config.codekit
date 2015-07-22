@@ -104,15 +104,6 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/src\/main\/webapp\/google2b44e020ac4b455b.html": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/src\/main\/webapp\/google2b44e020ac4b455b.html",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
 	"\/src\/main\/webapp\/index.html": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -566,6 +557,17 @@
 		"initialSize": 475181,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/blog\/expo.jpg",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/blog\/expo.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/src\/main\/webapp\/public\/images\/blog\/wall_logo.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 625592,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/blog\/wall_logo.jpg",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/public\/images\/blog\/wall_logo.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -1568,6 +1570,22 @@
 		"shouldRunBless": 0,
 		"useLibsass": 0
 		},
+	"\/src\/main\/webapp\/sass\/partials\/_collaborated-projects.scss": {
+		"createSourceMap": 0,
+		"debugStyle": 0,
+		"decimalPrecision": 10,
+		"fileType": 4,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/sass\/partials\/_collaborated-projects.scss",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/sass\/css\/_collaborated-projects.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"useLibsass": 0
+		},
 	"\/src\/main\/webapp\/sass\/partials\/_comments.scss": {
 		"createSourceMap": 0,
 		"debugStyle": 0,
@@ -1801,6 +1819,22 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/sass\/partials\/_panels.scss",
 		"outputAbbreviatedPath": "\/src\/main\/webapp\/sass\/css\/_panels.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"useLibsass": 0
+		},
+	"\/src\/main\/webapp\/sass\/partials\/_partners.scss": {
+		"createSourceMap": 0,
+		"debugStyle": 0,
+		"decimalPrecision": 10,
+		"fileType": 4,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/sass\/partials\/_partners.scss",
+		"outputAbbreviatedPath": "\/src\/main\/webapp\/sass\/css\/_partners.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
@@ -2440,6 +2474,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/src\/main\/webapp\/templates-hidden\/modules\/_collaborated-projects.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_collaborated-projects.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/src\/main\/webapp\/templates-hidden\/modules\/_comments-and-rating.html": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -2751,6 +2794,15 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_user-projects.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/src\/main\/webapp\/templates-hidden\/modules\/_userskills.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/src\/main\/webapp\/templates-hidden\/modules\/_userskills.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0

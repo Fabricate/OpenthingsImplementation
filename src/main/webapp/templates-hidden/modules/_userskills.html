@@ -1,0 +1,25 @@
+<section id="skills-needed" class="skills skillsSection left">
+	<h2 class="gamma">This project is looking for some skilled people</h2>
+	<ul id="listskills">
+		<li id="singleskill"><a href="#">Skill</a></li>
+	</ul>
+	<div class="editPage">
+        <section id="skill_messages" class="left">
+
+        </section>
+		<form data-lift="form.ajax">
+			<h3>Add skills to project</h3>
+			<ul id="selectskills">
+				<li id="selectsingleskill"><input type="checkbox" id="skillselect"><label id="skilllabel">SkillName</label></li>
+			</ul>
+			<div class="editPage fullWidth left">
+				<div class="newskill left">
+					<input id="newskillname" value="" placeholder="Add new skill" required minlength="5" maxlength="60" />
+				</div>
+				<input type="hidden" id="skillshidden" />
+		<!--		<input value="Add" type="submit" class="btn" />-->
+				<button type="submit"><span class="icon-plus"></span> Add</button>
+			</div>
+		</form>
+	</div>
+</section>

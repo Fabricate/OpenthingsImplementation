@@ -2148,6 +2148,21 @@ body {
   background: rgba(0, 0, 0, 0.2);
   margin-bottom: 0; }
 
+/* line 23, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/user */
+.userDes #teaser {
+  border-bottom: 1px solid #edebeb;
+  padding-bottom: 0.9375em; }
+
+/* line 27, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/user */
+.reputation {
+  font-size: 1em; }
+
+/* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/partners */
+.partners {
+  background: #edebeb;
+  text-align: center;
+  padding: 8%; }
+
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/footer */
 .mainFooter {
   padding: 0 2%; }
@@ -2175,6 +2190,16 @@ body {
 .footerNav li {
   line-height: 1.5em;
   font-size: 0.875em; }
+
+/* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/collaborated-projects */
+.collaboratedProjects {
+  padding: 8%;
+  width: 100%;
+  background: rgba(251, 192, 45, 0.2); }
+
+/* line 6, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/collaborated-projects */
+.collaboratedProjects ul li {
+  padding: 1% 0; }
 
 /* Magnific Popup CSS */
 /* line 2, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/vendor/popup */
