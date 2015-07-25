@@ -2161,7 +2161,32 @@ body {
 .partners {
   background: #edebeb;
   text-align: center;
-  padding: 8%; }
+  padding: 0 8% 4%;
+  width: 100%; }
+
+/* line 8, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/partners */
+.partners ul {
+  padding: 4% 0; }
+
+/* line 11, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/partners */
+.partners ul li {
+  width: 100%;
+  max-width: 200px;
+  margin: 0 3%;
+  height: auto;
+  display: inline-block; }
+
+/* line 19, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/partners */
+.partners ul li a {
+  opacity: 0.6; }
+
+/* line 22, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/partners */
+.partners ul li a:hover {
+  opacity: 1; }
+
+/* line 26, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/partners */
+.partners ul .waag {
+  max-width: 250px; }
 
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/footer */
 .mainFooter {
