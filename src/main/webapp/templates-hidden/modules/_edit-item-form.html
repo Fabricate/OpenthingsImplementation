@@ -1,50 +1,38 @@
 <div id="combineTheChildrenToOneElement">	
-<form id="formitem" enctype="multipart/form-data" method="post" action="#">
-	<input id="title" placeholder="Title" required minlength="5" maxlength="60">
-	<textarea id="teaser" placeholder="Short desciption max 150 characters" rows="2" required minlength="10" maxlength="150"></textarea>
-	<textarea id="wysiwyg" class="wysiwyg" placeholder="Project description" rows="8" required minlength="10" maxlength="65000"></textarea>
-	<script id="update_description_preview"></script>
-	<p>Want to add more images? Read the tutorial <a href="/static/upload-images" target="_blank">here</a>.</p>
-<!--	<div id="description_preview">Preview....</div>-->
-	<br>
-	<label id="iconlabel">Upload project image</label>
-	<input id="icon" type="file" name="fileToUpload">
-<!--	<label id="difficultylabel"></label>-->
-	<select id="difficulty" required>
-		<option value="" disabled selected>Difficulty</option>
-	</select>
-	<select id="state" required>
-		<option value="" disabled selected>State</option>
-	</select>
-	<label id="licencelabel">Need help choosing a license? Click <a href="https://creativecommons.org/choose/" target="_blank">here</a></label>
-	<select id="licence" required>
-		<option value="" disabled selected>Licence</option>
-	</select>
-	<label id="languagelabel">You entered content in (Language): </label>
-	<select id="language" required>
-		<option value="" disabled selected>Language</option>
-	</select>
+  <form id="formitem" enctype="multipart/form-data" method="post" action="#">
+    <input id="title" placeholder="Title" required minlength="5" maxlength="60">
+    <textarea id="teaser" placeholder="Short desciption max 150 characters" rows="2" required minlength="10" maxlength="150"></textarea>
+    <textarea id="wysiwyg" class="wysiwyg" placeholder="Project description" rows="8" required minlength="10" maxlength="65000"></textarea>
+    <script id="update_description_preview"></script>
+    <p>Want to add more images? Read the tutorial <a href="/static/upload-images" target="_blank">here</a>.</p>
+  <!--	<div id="description_preview">Preview....</div>-->
+    <br>
+    <label id="iconlabel">Upload project image</label>
+    <input id="icon" type="file" name="fileToUpload">
+  <!--	<label id="difficultylabel"></label>-->
+    <select id="difficulty" required>
+      <option value="" disabled selected>Difficulty</option>
+    </select>
+    <select id="state" required>
+      <option value="" disabled selected>State</option>
+    </select>
+    <label id="licencelabel">Need help choosing a license? Click <a href="https://creativecommons.org/choose/" target="_blank">here</a></label>
+    <select id="licence" required>
+      <option value="" disabled selected>Licence</option>
+    </select>
+    <label id="languagelabel">You entered content in (Language): </label>
+    <select id="language" required>
+      <option value="" disabled selected>Language</option>
+    </select>
 
-<!--
-	<a id="newlanguage" href="#">create new language</a>
-	<label id="defaultlanguagelabel">Default Language: </label>
-	<select id="defaultlanguage" required>
-		<option value="" disabled selected>DefaultLanguage</option>
-	</select>
--->
-
-	<input id="itemsubmithidden" type="hidden">
-	<button type="submit" id="save">Save</button>
-</form>
-<!--
-		<input type='file' id='fileInput' name='files[]' />
-		<canvas id='myCanvas' style='display:none;'></canvas>
-		<div id='modal'></div>
-		<div id='preview'>
-			<div class='buttons'>
-				<div class='cancel'></div>
-				<div class='ok'></div>
-			</div>
-		</div>
--->
+  <!--
+    <a id="newlanguage" href="#">create new language</a>
+    <label id="defaultlanguagelabel">Default Language: </label>
+    <select id="defaultlanguage" required>
+      <option value="" disabled selected>DefaultLanguage</option>
+    </select>
+  -->
+    <input id="itemsubmithidden" type="hidden">
+    <button type="submit" id="save">Save</button>
+  </form>
 </div>

@@ -35,3 +35,12 @@ input[type="checkbox"]{
 .mce-panel{
 	margin-bottom: $small-em !important;
 }
+
+#resetpasswordform input{
+  width: 100%;
+  margin-bottom: 0.625em;
+}
+
+#resetpasswordform .btn{
+  width: auto;
+}

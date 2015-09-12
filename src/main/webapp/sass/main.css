@@ -226,6 +226,15 @@ input[type="checkbox"] {
 .mce-panel {
   margin-bottom: 0.9375em !important; }
 
+/* line 39, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/forms */
+#resetpasswordform input {
+  width: 100%;
+  margin-bottom: 0.625em; }
+
+/* line 44, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/forms */
+#resetpasswordform .btn {
+  width: auto; }
+
 /* line 1, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/buttons */
 button, .btn {
   color: white;
@@ -2208,7 +2217,7 @@ body {
 
 /* line 16, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/footer */
 .footerNav section {
-  width: 21%;
+  width: 16%;
   margin: 2%; }
 
 /* line 20, /Users/martinrisseeuw/Dropbox/openthings/OpenthingsImplementation/src/main/webapp/sass/partials/footer */

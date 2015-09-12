@@ -74,8 +74,6 @@
 				// add the wysiwyg via markitup
 				$('.wysiwyg').markItUp(myTextileSettings);
 				
-			
-				
 				if ($('.userDes p').is(':empty')){
 					$('.userDes').remove();
 				}	
@@ -125,6 +123,39 @@
 			function AddMaterial(){
 				$(".addMaterial").slideToggle();
 			}
+
+			//Scroll down to projects
+			function GoToProjects(){
+				$('html, body').animate({
+					scrollTop: $(".mainContent").offset().top
+				}, 500); 
+			}
+
+			function ViewDetails(){
+				$(".versionDetails").slideToggle();
+			}
+
+			function AdvancedSearch(){
+				$(".advancedSearch").slideToggle();
+				$(".close-icon").click(function(){
+					$(".accountScreen").fadeOut();
+				});
+			}
+
+			function AddTutorial(){
+				$(".addTutorial").slideToggle();
+				$('html, body').animate({
+				    scrollTop: $(".addTutorial").offset().top
+				}, 500);
+			}
+			
+			// Measure margin of the main container according the menu height
+			function menuHeight(){
+				var menuHeight = $('.editMenuHorizontal').height() + $('.mainNavigation').height();
+				var mainMenuHeight = $('.mainNavigation').height();
+				$('#main').css({'margin-top' : menuHeight + 'px'});
+				$('.editMenuHorizontal').css({'top' : mainMenuHeight + 'px'});
+			}
 			
 			$('.editMenu ul li a').click(function(){
 				$(".editMenu").toggleClass("activeMenu");	
@@ -153,31 +184,6 @@
 						$(".editPage").fadeOut("fast");
 					}
 			});
-
-			function AdvancedSearch(){
-				$(".advancedSearch").slideToggle();
-				$(".close-icon").click(function(){
-					$(".accountScreen").fadeOut();
-				});
-			}
-
-			function AddTutorial(){
-				$(".addTutorial").slideToggle();
-				$('html, body').animate({
-				    scrollTop: $(".addTutorial").offset().top
-				}, 500);
-			}
-
-			//Scroll down to projects
-			function GoToProjects(){
-				$('html, body').animate({
-					scrollTop: $(".mainContent").offset().top
-				}, 500); 
-			}
-
-			function ViewDetails(){
-				$(".versionDetails").slideToggle();
-			}
 
 			//Project rating
 			$('.rating1').hover(function() {
@@ -246,16 +252,6 @@
 					$('.mainNavigation li a').removeClass("active");
 					$(this).addClass("active");
 			});
-			
-			// Measure margin of the main container according the menu height
-			
-			
-			function menuHeight(){
-				var menuHeight = $('.editMenuHorizontal').height() + $('.mainNavigation').height();
-				var mainMenuHeight = $('.mainNavigation').height();
-				$('#main').css({'margin-top' : menuHeight + 'px'});
-				$('.editMenuHorizontal').css({'top' : mainMenuHeight + 'px'});
-			}
 		
 			$('.mainfest-point').click(function(){
 				$(this).find('p').slideToggle();
