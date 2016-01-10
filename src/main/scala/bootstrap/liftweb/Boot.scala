@@ -21,6 +21,7 @@ import javax.mail.Authenticator
 import javax.mail.PasswordAuthentication
 import javax.mail.internet.MimeMessage
 import at.fabricate.liftdev.common.lib.UrlLocalizer
+import at.fabricate.openthings.api.ProjectREST
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -65,6 +66,9 @@ class Boot {
     // adds for example serving of images and uploading of files to REST API to the LiftRules
     User.init
     Project.init
+    
+    // initialize the rest api
+    LiftRules.dispatch.append(ProjectREST)
     
     // where to search snippet
     LiftRules.addToPackages("at.fabricate.openthings")
@@ -120,6 +124,8 @@ class Boot {
                Menu.i("Search Designers") / "searchDesigner",                 
                Menu.i("Public Data") / "public" / ** >> Hidden,
                Menu.i("SASS") / "sass" / ** >> Hidden,
+// this seems to be not necessary
+//               Menu.i("API") / "api" / ** >> Hidden,
                Menu.i("Page not found!") / "404"  >> Hidden,               
                // TODO: double definition, dont do that here
                //Menu.i("Validate") / "validate_user" / * >> Hidden,

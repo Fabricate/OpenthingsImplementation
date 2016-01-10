@@ -13,6 +13,12 @@ import scala.xml.UnprefixedAttribute
 import scala.xml.Null
 import at.fabricate.liftdev.common.lib.{EnumWithKeyAndValue, EnumWithStringKeyAndValue, EnumWithDescriptionAndObject }
 import at.fabricate.liftdev.common.model._
+import net.liftweb.json.JValue
+import net.liftweb.util.Helpers._
+import net.liftweb.json.Xml
+import scala.xml.Node
+import at.fabricate.openthings.snippet.ProjectSnippet
+
 
 /**Meta(Kompagnion)-Objekt für die Projekt-Klasse. Enthaelt instanzuebergreifende Einstellungen.
 * @author Johannes Fischer **/
@@ -77,5 +83,44 @@ with AddSkills[Project] {
 
   /**Liefert das Meta-Objekt zur eigenen Modellklasse.*/
   def getSingleton = Project
+
+
+  /**
+   * Generates the JSON REST representation of a project
+   * TODO: this has to be generalized later
+   */
+  def toJSON () : JValue = {
+    import net.liftweb.json.JsonDSL._
+    import net.liftweb.json.JsonAST._
+
+      // TODO: find a better solution
+    // S.hostName depends on the name in the http request and thus can be spoofed
+    def serverURI = S.hostAndPath // S. uri //S.hostName
+    
+
+    ("project" ->
+        ("title" -> defaultTranslation.getObjectOrHead.title.get) ~
+        ("teaser" -> defaultTranslation.getObjectOrHead.teaser.get) ~
+        ("description" -> defaultTranslation.getObjectOrHead.description.get) ~
+        ("tags" -> 	
+        	JArray(getAllTagsForThisItem.map(aTag => ("name" -> aTag.defaultTranslation.getObjectOrHead.title.get) ~ ("id" -> aTag.defaultTranslation.getObjectOrHead.id.get)))
+        ) ~
+        ("state" -> state.get.id) ~
+        ("difficulty" -> difficulty.get.id) ~
+        //("rating" -> ratings.) ~
+        ("icon" -> "%s%s".format(serverURI,icon.url)  ) ~
+        ("creator" -> createdByUser.obj.get.fullName  ) ~
+        ("url" -> "%s%s".format(serverURI,ProjectSnippet.urlToViewItem(this))  ) ~
+        ("id" -> id.get) 
+      )
+  }
+
+  
+  def toXML () : Node = Xml.toXml(toJSON()).head
+  
+  implicit def convertToJSON(p : Project) = p.toJSON()
+  
+  implicit def convertToXML(p : Project) = p.toXML()
+
 
 }
