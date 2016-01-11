@@ -22,6 +22,7 @@ import javax.mail.PasswordAuthentication
 import javax.mail.internet.MimeMessage
 import at.fabricate.liftdev.common.lib.UrlLocalizer
 import at.fabricate.openthings.api.ProjectREST
+import net.liftweb.http.provider.HTTPParam
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -69,6 +70,37 @@ class Boot {
     
     // initialize the rest api
     LiftRules.dispatch.append(ProjectREST)
+    
+    // enable CORS for the REST API
+    LiftRules.supplimentalHeaders  = s => s.addHeaders(
+      List(HTTPParam("X-Lift-Version", LiftRules.liftVersion),
+        HTTPParam("Access-Control-Allow-Origin", "*"),
+        HTTPParam("Access-Control-Allow-Credentials", "true"),
+        HTTPParam("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS"),
+        HTTPParam("Access-Control-Allow-Headers", "WWW-Authenticate,Keep-Alive,User-Agent,X-Requested-With,Cache-Control,Content-Type")
+      ))
+
+      /*
+       * 
+       nginx config for CORS:
+       // just send the headers for the rest api
+        location / { 
+         if ($request_method = 'OPTIONS') { 
+           add_header 'Access-Control-Allow-Origin' '*'; 
+           add_header 'Access-Control-Allow-Credentials' 'true'; 
+           add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, OPTIONS'; 
+           add_header 'Access-Control-Allow-Headers' 'Keep-Alive,User-Agent,X-Requested-With,.......'; 
+           add_header 'Access-Control-Max-Age' 1728000; 
+           add_header 'Content-Type' 'text/plain charset=UTF-8'; 
+           add_header 'Content-Length' 0; 
+           return 200; 
+        } 
+:
+}
+
+http://stackoverflow.com/questions/10034931/http-options-verb-handling-with-lift
+https://www.assembla.com/spaces/liftweb/wiki/Cross_Origin_Resource_Sharing
+       */
     
     // where to search snippet
     LiftRules.addToPackages("at.fabricate.openthings")
