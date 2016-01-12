@@ -192,5 +192,15 @@ object SearchSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] w
   }
   
 
+  // things that have to be implemented for the pagination
+  
+    def getPaginationLimit[T <: BaseEntityWithTitleAndDescription[T]] : List[QueryParam[T]] = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
+
+
+       // define the page
+  override def count = numberOfItems
+
+  override def page = listOfCurrentItems
+
 
 }

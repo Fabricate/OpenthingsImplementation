@@ -79,6 +79,9 @@ class Boot {
         HTTPParam("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS"),
         HTTPParam("Access-Control-Allow-Headers", "WWW-Authenticate,Keep-Alive,User-Agent,X-Requested-With,Cache-Control,Content-Type")
       ))
+      /*
+      * 
+      */
 
       /*
        * 
@@ -157,7 +160,7 @@ https://www.assembla.com/spaces/liftweb/wiki/Cross_Origin_Resource_Sharing
                Menu.i("Public Data") / "public" / ** >> Hidden,
                Menu.i("SASS") / "sass" / ** >> Hidden,
 // this seems to be not necessary
-//               Menu.i("API") / "api" / ** >> Hidden,
+               Menu.i("API") / "api" / ** >> Hidden,
                Menu.i("Page not found!") / "404"  >> Hidden,               
                // TODO: double definition, dont do that here
                //Menu.i("Validate") / "validate_user" / * >> Hidden,

@@ -23,7 +23,7 @@ import net.liftweb.mapper.Descending
 import net.liftweb.mapper.OrderBy
 import net.liftweb.mapper.MaxRows
 
-trait ProjectSearch extends EndlessScrollingPaginatorSnippet[Project] {
+trait ProjectSearch  {
 
         val contentLanguage = UrlLocalizer.contentLocale
     
@@ -102,7 +102,7 @@ trait ProjectSearch extends EndlessScrollingPaginatorSnippet[Project] {
       def addLikeCharFrontAndBack(queryParam:String) : String = "%"+queryParam.replaceAll("\\*", "%")+"%"
 
   
-  def getPaginationLimit[T <: BaseEntityWithTitleAndDescription[T]] : List[QueryParam[T]] = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
+  def getPaginationLimit[T <: BaseEntityWithTitleAndDescription[T]] : List[QueryParam[T]] // = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
   
   def queryItems[T <: BaseEntityWithTitleDescriptionIconAndCommonFields[T]](itemToQuery: BaseMetaEntityWithTitleDescriptionIconAndCommonFields[T] with BaseEntityWithTitleDescriptionIconAndCommonFields[T], otherQueryParams : List[QueryParam[T]] = List() ) = { // , otherQueryParams = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
     val query = 
@@ -120,10 +120,18 @@ trait ProjectSearch extends EndlessScrollingPaginatorSnippet[Project] {
         )
   }
   
+               // define the page
+  def numberOfItems = queryItems[Project](Project).length
+
+  def listOfCurrentItems = queryItems[Project](Project,OrderBy(Project.primaryKeyField, Descending)::getPaginationLimit[Project])
+
+        /*
        // define the page
   override def count = queryItems[Project](Project).length
 
   override def page = queryItems[Project](Project,OrderBy(Project.primaryKeyField, Descending)::getPaginationLimit[Project])
 
+*/
+        
   
 }
