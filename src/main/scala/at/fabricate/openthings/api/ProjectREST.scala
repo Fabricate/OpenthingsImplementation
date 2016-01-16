@@ -24,29 +24,28 @@ import net.liftweb.mapper.StartAt
 import net.liftweb.mapper.MaxRows
 import net.liftweb.http.OkResponse
 import net.liftweb.http.OkResponse
+import net.liftweb.http.RequestVar
 
 object ProjectREST extends RestHelper with ProjectSearch{  
   
-  /*
-    val difficultyParam = "difficulty"
-    object difficulty extends RequestVar(S.param(difficultyParam).map(value => value match {
-          case kids if kids == kidsDiffString  => DifficultyEnum.upToKidsList
-          case starter if starter == starterDiffString  => DifficultyEnum.upToStarterList
-          case average if average == averageDiffString  => DifficultyEnum.upToAverageList
-          case advanced if advanced == advancedDiffString  => DifficultyEnum.upToAdvancedList
-          case expert if expert == expertDiffString  => DifficultyEnum.upToExpertList
-          case _  => DifficultyEnum.upToGeniusList
-    }) openOr(DifficultyEnum.upToGeniusList)) 
-    * 
-    */
-  val currentPageNumber = 0
-  val itemsPerPage = 9
+    val defaultItemsPerPage = 9
+
+    val itemsPerPageParam = "nr_of_items"
+    object itemsPerPage extends RequestVar(S.param(itemsPerPageParam).map(value => value.toInt
+    ) openOr(defaultItemsPerPage)) 
     
+    val defaultPage = 0
+
+    val currentPageParam = "current_page"
+    object currentPageNumber extends RequestVar(S.param(currentPageParam).map(value => value.toInt
+    ) openOr(defaultPage)) 
+    
+        
     implicit def projectListToJSON(someProjects : List[Project]) : JValue = {
       JArray(someProjects.map(aProject => aProject.toJSON))	  	
   }
     
-  def getPaginationLimit[T <: BaseEntityWithTitleAndDescription[T]] : List[QueryParam[T]] = List(StartAt(currentPageNumber*itemsPerPage), MaxRows(itemsPerPage))
+  def getPaginationLimit[T <: BaseEntityWithTitleAndDescription[T]] : List[QueryParam[T]] = List(StartAt(currentPageNumber*itemsPerPage), MaxRows(itemsPerPage.get))
 
     
   /*
