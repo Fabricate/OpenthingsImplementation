@@ -3,6 +3,8 @@ package model
 
 import at.fabricate.liftdev.common.lib.EnumWithDescriptionAndObject
 import scala.xml.Elem
+import net.liftweb.common.Full
+import net.liftweb.common.Empty
 
 	// add a difficulty (one of many that comes from a list of string options)
     object DifficultyEnum extends EnumWithDescriptionAndObject[Elem] {
@@ -36,4 +38,31 @@ import scala.xml.Elem
     val upToAdvancedList = advanced   :: upToAverageList
     val upToExpertList = expert   :: upToAdvancedList
     val upToGeniusList = genius   :: upToExpertList
+    
+  def numberToDifficulty(number : Int) = number match {
+	  case 1 => Some(kids)	  
+	  case 2 => Some(starter)
+	  case 3 => Some(average)
+	  case 4 => Some(advanced)
+	  case 5 => Some(expert)
+	  case 6 => Some(genius)
+	  case _ => None
+	  }
+	/*
+  def textDifficulty(number : Int) = number match {
+	  case 1 => Full(kids)	  
+	  case 2 => Full(starter)
+	  case 3 => Full(average)
+	  case 4 => Full(advanced)
+	  case 5 => Full(expert)
+	  case 6 => Full(genius)
+	  case _ => Empty
+	  }	
+	  * 
+	  */
+	 def numberStrToDifficulty(number : String) = numberToDifficulty(number.toInt)
+	 
+	 // Extractor
+	 // do not override the default extractor
+	 //def unapply(id: String): Option[ExtendedValue] = numberStrToDifficulty(id)
 	}

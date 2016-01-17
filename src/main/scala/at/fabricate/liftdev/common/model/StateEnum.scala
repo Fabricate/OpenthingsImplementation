@@ -35,4 +35,31 @@ import scala.xml.Elem
     val downToDevAdvanced = dev_advanced     :: downToEvolved
     val downToDevEarly = dev_early     :: downToDevAdvanced
     val downToConcept = concept    :: downToDevEarly
+    
+      def numberToState(number : Int) = number match {
+	  case 1 => Some(concept)	  
+	  case 2 => Some(dev_early)
+	  case 3 => Some(dev_advanced)
+	  case 4 => Some(evolved)
+	  case 5 => Some(advanced)
+	  case 6 => Some(mature)
+	  case _ => None
+	  }
+	/*
+  def textDifficulty(number : Int) = number match {
+	  case 1 => Full(kids)	  
+	  case 2 => Full(starter)
+	  case 3 => Full(average)
+	  case 4 => Full(advanced)
+	  case 5 => Full(expert)
+	  case 6 => Full(genius)
+	  case _ => Empty
+	  }	
+	  * 
+	  */
+	 def numberStrToState(number : String) = numberToState(number.toInt)
+	 
+	 // Extractor
+	 // do not override the default extractor
+	 //def unapply(id: String): Option[ExtendedValue] = numberStrToDifficulty(id)
 	}

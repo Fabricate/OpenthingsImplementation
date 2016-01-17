@@ -25,8 +25,15 @@ import net.liftweb.mapper.MaxRows
 import net.liftweb.http.OkResponse
 import net.liftweb.http.OkResponse
 import net.liftweb.http.RequestVar
+import at.fabricate.liftdev.common.model.LicenceEnum
+import at.fabricate.liftdev.common.model.DifficultyEnum
+import net.liftweb.mapper.OrderBy
+import net.liftweb.mapper.Descending
+import at.fabricate.liftdev.common.model.StateEnum
+import net.liftweb.common.Box
+import net.liftweb.util.Helpers
 
-object ProjectREST extends RestHelper with ProjectSearch{  
+object ProjectREST extends RestHelper { 
   
     val defaultItemsPerPage = 9
 
@@ -40,12 +47,89 @@ object ProjectREST extends RestHelper with ProjectSearch{
     object currentPageNumber extends RequestVar(S.param(currentPageParam).map(value => value.toInt
     ) openOr(defaultPage)) 
     
+        val titleParam = "title"
+    object title extends RequestVar(S.param(titleParam) openOr "") //  
+      
+    val descriptionParam = "description"
+    object description extends RequestVar(S.param(descriptionParam) openOr "") //  
+    
+       
+    val difficultyParam = "difficulty"
+    object difficulty extends RequestVar(S.param(difficultyParam).map ( 
+        argument => argument.split(",").toList.map(
+            aNumber => DifficultyEnum.numberStrToDifficulty(aNumber)).
+            // filter empty boxes and open the remaining ones
+            filter(_.isDefined  ).map (full => full.get) )
+     openOr (Nil) )
+    // DifficultyEnum.upToGeniusList
+       
+    val stateParam = "state"
+    object state extends RequestVar(S.param(stateParam).map ( 
+        argument => argument.split(",").toList.map(
+            aNumber => StateEnum.numberStrToState(aNumber)).
+            // filter empty boxes and open the remaining ones
+            filter(_.isDefined ).map (full => full.get) )
+     openOr (Nil) )
+    //StateEnum.downToConcept
+    
+   val creatorParam = "creator"
+    object creator extends RequestVar(S.param(creatorParam).map ( 
+        argument => argument.split(",").toList.map(
+            input => Helpers.tryo(input.toLong)).//Box.apply()).
+            // filter empty boxes and open the remaining ones
+            filter(_.isDefined ).map (full => full.get) )
+     openOr (Nil) )
+        
+    val allLicenceString = "all"
+    val commercialLicencesString = "com"
+    val derivableLicencesString = "deriv"
+    
+    val licenceParam = "licence"
+    object licence extends RequestVar(S.param(licenceParam).map(_ match {
+          case commercial if commercial == commercialLicencesString  => LicenceEnum.commercialLicences
+          case derivable if derivable == derivableLicencesString  => LicenceEnum.derivableLicences
+          case _  => Nil 
+    }) openOr(Nil))
         
     implicit def projectListToJSON(someProjects : List[Project]) : JValue = {
       JArray(someProjects.map(aProject => aProject.toJSON))	  	
   }
     
   def getPaginationLimit[T <: BaseEntityWithTitleAndDescription[T]] : List[QueryParam[T]] = List(StartAt(currentPageNumber*itemsPerPage), MaxRows(itemsPerPage.get))
+
+  
+  def addLikeCharFrontAndBack(queryParam:String) : String = "%"+queryParam.replaceAll("\\*", "%")+"%"
+
+    
+  def queryItems[T <: BaseEntityWithTitleDescriptionIconAndCommonFields[T]](itemToQuery: BaseMetaEntityWithTitleDescriptionIconAndCommonFields[T] with BaseEntityWithTitleDescriptionIconAndCommonFields[T], otherQueryParams : List[QueryParam[T]] = List() ) = { // , otherQueryParams = List(StartAt(curPage*itemsPerPage), MaxRows(itemsPerPage))
+    var query = 
+
+        In(itemToQuery.primaryKeyField,itemToQuery.TheTranslationMeta.translatedItem,Like(itemToQuery.TheTranslationMeta.title,addLikeCharFrontAndBack(title.get))) ::
+        In(itemToQuery.primaryKeyField,itemToQuery.TheTranslationMeta.translatedItem,Like(itemToQuery.TheTranslationMeta.description,addLikeCharFrontAndBack(description.get))) :: 
+        otherQueryParams
+        
+        if (state.get != Nil){
+          //println (state.get.mkString(", "))
+          query = ByList(itemToQuery.state,state.get) :: query
+        }
+//        In(itemToQuery.primaryKeyField,itemToQuery.TheTranslationMeta.translatedItem,Like(itemToQuery.TheTranslationMeta.language,addLikeCharFrontAndBack(languageToSearchFor.get))) ::
+    	  if (difficulty.get != Nil)
+    	     query = ByList(itemToQuery.difficulty,difficulty.get) :: query
+      	if (licence.get != Nil)  	     
+    	     query = ByList(itemToQuery.licence,licence.get) :: query
+      	if (creator.get != Nil)  	     
+    	     query = ByList(itemToQuery.createdByUser,creator.get) :: query
+    	
+    	
+    itemToQuery.findAll(
+        query :_*
+        )
+  }
+  
+               // define the page
+  def numberOfItems = queryItems[Project](Project).length
+
+  def listOfCurrentItems = queryItems[Project](Project,OrderBy(Project.primaryKeyField, Descending)::getPaginationLimit[Project])
 
     
   /*
