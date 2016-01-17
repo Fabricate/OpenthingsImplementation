@@ -17,6 +17,7 @@ unmanagedResourceDirectories in Test <+= (baseDirectory) { _ / "src/main/webapp"
 
 classpathTypes ~= (_ + "openthings")
 
+EclipseKeys.withSource := true
 
 scalacOptions ++= Seq("-deprecation", "-unchecked")
 
