@@ -59,6 +59,14 @@ with Cascade[TheRating]
 	  	  // Hint by David Pollak on https://groups.google.com/forum/#!topic/liftweb/Rkz06yng-P8
 	  	  override def getSingleton = this
 	}
+	
+  def generateDisplayRating() : Double = {
+		val ratingSum : Double = ratings.foldLeft(0)(_ + _.rating.get)
+		if (ratings.length > 0)
+			ratingSum / ratings.length
+		else
+		  0.0d
+  }
 
       
 }

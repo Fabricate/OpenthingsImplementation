@@ -53,12 +53,14 @@ trait AddRatingSnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRating[
 
   
   def generateDisplayRating(item : ItemType) : NodeSeq = {
-		val ratingSum : Double = item.ratings.foldLeft(0)(_ + _.rating.get)
-		if (item.ratings.length > 0)
-			Text("%1.2f".format(ratingSum / item.ratings.length))
-		else
-		  Text("no ratings available")
+    item.generateDisplayRating() match {
+      case 0.0 => Text("no ratings available")
+      case someNumber => Text("%1.2f".format(someNumber))
+    }
   }
+  
+  // maybe save that value as a precomputed field (addidtionally with a date) into the database in case of performance issues
+  
   
   abstract override def asHtml(item : ItemType) : CssSel = {
 		 

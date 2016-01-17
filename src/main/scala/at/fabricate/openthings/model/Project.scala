@@ -107,7 +107,7 @@ with AddSkills[Project] {
         ) ~
         ("state" -> state.get.id) ~
         ("difficulty" -> difficulty.get.id) ~
-        //("rating" -> ratings.) ~
+        ("rating" -> generateDisplayRating()) ~
         ("icon" -> "%s%s".format(serverURI,icon.url)  ) ~
         ("creator" -> createdByUser.obj.get.fullName  ) ~
         ("url" -> "%s%s".format(serverURI,ProjectSnippet.urlToViewItem(this))  ) ~
