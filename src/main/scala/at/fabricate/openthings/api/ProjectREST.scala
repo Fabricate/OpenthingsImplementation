@@ -12,6 +12,7 @@ import net.liftweb.mapper.Like
 import net.liftweb.mapper.In
 import net.liftweb.mapper.ByList
 import net.liftweb.mapper.By
+import net.liftweb.mapper.By_>=
 import net.liftweb.json.JValue
 import net.liftweb.http.rest.JsonSelect
 import net.liftweb.http.rest.XmlSelect
@@ -88,6 +89,11 @@ object ProjectREST extends RestHelper {
             // filter empty boxes and open the remaining ones
             filter(_.isDefined ).map (full => full.get) )
      openOr (Nil) )  
+ 
+    val ratingParam = "rating"
+    object rating extends RequestVar(S.param(ratingParam).map ( 
+        argument => argument.toDouble)
+     openOr (0.0) )  
     
     val allLicenceString = "all"
     val commercialLicencesString = "com"
@@ -120,10 +126,8 @@ object ProjectREST extends RestHelper {
         otherQueryParams 
         
         if (state.get != Nil){
-          //println (state.get.mkString(", "))
           query = ByList(itemToQuery.state,state.get) :: query
         }
-//        In(itemToQuery.primaryKeyField,itemToQuery.TheTranslationMeta.translatedItem,Like(itemToQuery.TheTranslationMeta.language,addLikeCharFrontAndBack(languageToSearchFor.get))) ::
     	  if (difficulty.get != Nil)
     	     query = ByList(itemToQuery.difficulty,difficulty.get) :: query
       	if (licence.get != Nil)  	     
@@ -133,7 +137,9 @@ object ProjectREST extends RestHelper {
       	if (tag.get != Nil)  	     
     	     //query = ByList(itemToQuery.tags,tag.get) :: query    	
       	   query =  In(itemToQuery.primaryKeyField,itemToQuery.TheTags.taggedItem,ByList(itemToQuery.TheTags.theTag,tag.get)) :: query
-    	
+      	if (rating.get > 0.0)  	     
+      	   query =  By_>=(itemToQuery.accumulatedRatings,rating.get) :: query
+   	
     itemToQuery.findAll(
         query :_*
         )

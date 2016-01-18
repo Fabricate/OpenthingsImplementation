@@ -21,6 +21,11 @@ import net.liftweb.mapper.BaseMetaMapper
 import net.liftweb.mapper.ProtoUser
 import net.liftweb.common.Box
 import net.liftweb.mapper.MappedInt
+import net.liftweb.mapper.MappedDouble
+import net.liftweb.mapper.MappedDate
+import java.util.Date
+import org.joda.time.DateTime
+import net.liftweb.mapper.MappedDateTime
 
 trait AddRating[T <: (AddRating[T]) ] extends BaseEntity[T]  with OneToMany[Long, T] { // 
 	self: T =>
@@ -30,16 +35,59 @@ trait AddRating[T <: (AddRating[T]) ] extends BaseEntity[T]  with OneToMany[Long
       type TheRatedType = T
       
       def getRatingMapper : LongKeyedMetaMapper[_] = TheRating
+      
+        object accumulatedRatings extends MappedDouble(this){
+          
+	        override def writePermission_? = false	        
+	        
+	       override def dbNotNull_? = true
+	       
+	       override def defaultValue = 0.0
+	        
+	        override def get = {
+	          val calc_date = fieldOwner.accumulatedRatings_calculatedAt.get
+	          val now = new Date
+	          // recalculate the ratings every 3 days
+	          val recalc_limit = new DateTime(now).minusDays(3).toDate()
+	          if (calc_date == null || calc_date.before(recalc_limit)){
+	            val new_rating = fieldOwner.generateDisplayRating()
+	            i_set_!(new_rating)
+	            save()
+	            fieldOwner.accumulatedRatings_calculatedAt.recalculated_ratings(now)
+	            new_rating
+	          }
+	          else
+	            super.get
+	        }
+  }
+	  
+	     object accumulatedRatings_calculatedAt extends MappedDateTime(this){
+          
+	       def recalculated_ratings(timestamp : Date){
+	         	  i_set_!(timestamp)
+	            save()
+	       }
+	       
+	        override def writePermission_? = false
+  }
 	        
 	  object ratings extends MappedOneToMany(TheRating, TheRating.ratedItem, OrderBy(TheRating.primaryKeyField, Ascending))  with Owned[TheRating]
 with Cascade[TheRating]
 
       
-      class TheRating extends LongKeyedMapper[TheRating] with IdPK {
+      class TheRating extends LongKeyedMapper[TheRating] with IdPK { // TODO:  with CreatedUpdated
     	  def getSingleton = TheRating
 	    	  
 	      object ratedItem extends MappedLongForeignKey(this,self.getSingleton)
-
+    	  
+    	  /*
+    	   * TODO: Use that author instead of the other one!
+    	  object author extends MappedLongForeignKey(this,theUserObject){
+    	    override def defaultValue = getCurrentUser.map(_.id.get).openOr(-1)
+    	  }
+    	  * 
+    	  */
+    	  
 		  object author extends MappedString(this, 40){
 
     	    override def defaultValue = getCurrentUser.map(user => "%s %s".format(user.firstName, user.lastName )) openOr("")
@@ -67,6 +115,7 @@ with Cascade[TheRating]
 		else
 		  0.0d
   }
+
 
       
 }

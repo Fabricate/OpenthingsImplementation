@@ -111,7 +111,7 @@ with AddSkills[Project] {
         ) ~
         ("state" -> state.get.id) ~
         ("difficulty" -> difficulty.get.id) ~
-        ("rating" -> generateDisplayRating()) ~
+        ("rating" -> accumulatedRatings.get ) ~ // generateDisplayRating()) ~
         ("icon" -> "%s%s".format(serverURI,icon.url)  ) ~
         ("creator" -> JObject(
             JField("name", createdByUser.obj.get.defaultTranslation.getObjectOrHead.title.get) ::

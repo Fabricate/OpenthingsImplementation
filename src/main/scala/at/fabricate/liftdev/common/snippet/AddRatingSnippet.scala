@@ -53,9 +53,12 @@ trait AddRatingSnippet[T <: BaseEntityWithTitleAndDescription[T] with AddRating[
 
   
   def generateDisplayRating(item : ItemType) : NodeSeq = {
-    item.generateDisplayRating() match {
+//    if (item.accumulatedRatings == null) 
+//      return Text("no ratings available")
+    item.accumulatedRatings.get match {
       case 0.0 => Text("no ratings available")
-      case someNumber => Text("%1.2f".format(someNumber))
+      case someNumber if someNumber != null => Text("%1.2f".format(someNumber))
+      case _ => Text("no ratings available")
     }
   }
   

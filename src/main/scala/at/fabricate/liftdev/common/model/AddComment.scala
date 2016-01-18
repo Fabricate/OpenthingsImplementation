@@ -22,6 +22,7 @@ import net.liftweb.mapper.ProtoUser
 import net.liftweb.common.Box
 import net.liftweb.mapper.MetaMegaProtoUser
 import net.liftweb.mapper.MegaProtoUser
+import net.liftweb.mapper.CreatedUpdated
 
 trait AddComment[T <: (AddComment[T]) ] extends BaseEntity[T]  with OneToMany[Long, T] { // 
 	self: T =>
@@ -40,7 +41,7 @@ trait AddComment[T <: (AddComment[T]) ] extends BaseEntity[T]  with OneToMany[Lo
 with Cascade[TheComment]
 
       
-      class TheComment extends LongKeyedMapper[TheComment] with IdPK {
+      class TheComment extends LongKeyedMapper[TheComment] with IdPK { // TODO:  with CreatedUpdated
     	  def getSingleton = TheComment
 	    	  
 	      object commentedItem extends MappedLongForeignKey(this,self.getSingleton)
