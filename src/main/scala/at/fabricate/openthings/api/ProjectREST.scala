@@ -32,6 +32,7 @@ import net.liftweb.mapper.Descending
 import at.fabricate.liftdev.common.model.StateEnum
 import net.liftweb.common.Box
 import net.liftweb.util.Helpers
+import net.liftweb.mapper.Ascending
 
 object ProjectREST extends RestHelper { 
   
@@ -79,7 +80,15 @@ object ProjectREST extends RestHelper {
             // filter empty boxes and open the remaining ones
             filter(_.isDefined ).map (full => full.get) )
      openOr (Nil) )
-        
+    
+    val tagParam = "tag"
+    object tag extends RequestVar(S.param(tagParam).map ( 
+        argument => argument.split(",").toList.map(
+            input => Helpers.tryo(input.toLong)).//Box.apply()).
+            // filter empty boxes and open the remaining ones
+            filter(_.isDefined ).map (full => full.get) )
+     openOr (Nil) )  
+    
     val allLicenceString = "all"
     val commercialLicencesString = "com"
     val derivableLicencesString = "deriv"
@@ -106,7 +115,9 @@ object ProjectREST extends RestHelper {
 
         In(itemToQuery.primaryKeyField,itemToQuery.TheTranslationMeta.translatedItem,Like(itemToQuery.TheTranslationMeta.title,addLikeCharFrontAndBack(title.get))) ::
         In(itemToQuery.primaryKeyField,itemToQuery.TheTranslationMeta.translatedItem,Like(itemToQuery.TheTranslationMeta.description,addLikeCharFrontAndBack(description.get))) :: 
-        otherQueryParams
+//        OrderBy.apply(itemToQuery.id,Ascending) ::
+//        OrderBy.apply(itemToQuery.id,Descending) ::
+        otherQueryParams 
         
         if (state.get != Nil){
           //println (state.get.mkString(", "))
@@ -119,7 +130,9 @@ object ProjectREST extends RestHelper {
     	     query = ByList(itemToQuery.licence,licence.get) :: query
       	if (creator.get != Nil)  	     
     	     query = ByList(itemToQuery.createdByUser,creator.get) :: query
-    	
+      	if (tag.get != Nil)  	     
+    	     //query = ByList(itemToQuery.tags,tag.get) :: query    	
+      	   query =  In(itemToQuery.primaryKeyField,itemToQuery.TheTags.taggedItem,ByList(itemToQuery.TheTags.theTag,tag.get)) :: query
     	
     itemToQuery.findAll(
         query :_*
