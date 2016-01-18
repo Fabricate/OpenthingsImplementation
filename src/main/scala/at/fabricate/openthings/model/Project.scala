@@ -103,13 +103,21 @@ with AddSkills[Project] {
         ("teaser" -> defaultTranslation.getObjectOrHead.teaser.get) ~
         ("description" -> defaultTranslation.getObjectOrHead.description.get) ~
         ("tags" -> 	
-        	JArray(getAllTagsForThisItem.map(aTag => ("name" -> aTag.defaultTranslation.getObjectOrHead.title.get) ~ ("id" -> aTag.defaultTranslation.getObjectOrHead.id.get)))
+        	JArray(getAllTagsForThisItem.map(
+        	    aTag => 
+        	      ("name" -> aTag.defaultTranslation.getObjectOrHead.title.get) ~ 
+        	      ("id" -> aTag.defaultTranslation.getObjectOrHead.id.get)
+        	      ))
         ) ~
         ("state" -> state.get.id) ~
         ("difficulty" -> difficulty.get.id) ~
         ("rating" -> generateDisplayRating()) ~
         ("icon" -> "%s%s".format(serverURI,icon.url)  ) ~
-        ("creator" -> createdByUser.obj.get.fullName  ) ~
+        ("creator" -> JObject(
+            JField("name", createdByUser.obj.get.defaultTranslation.getObjectOrHead.title.get) ::
+            JField("id", createdByUser.obj.get.id.get  ) ::
+            Nil)
+        ) ~
         ("url" -> "%s%s".format(serverURI,ProjectSnippet.urlToViewItem(this))  ) ~
         ("id" -> id.get) 
       )
