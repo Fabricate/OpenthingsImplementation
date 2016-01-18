@@ -20,7 +20,11 @@ object Tag extends Tag with BaseMetaEntity[Tag] with GeneralTagMeta[Tag] {
 class Tag extends BaseEntity[Tag] with GeneralTag[Tag] 
 with ManyToMany 
 {
-  def getSingleton = Tag
+  
+  
+    override val titleMinLength = 3
+
+    def getSingleton = Tag
 
     // a link to all Tags
   val mappingToProjectTags  = Project.getTagMapper
