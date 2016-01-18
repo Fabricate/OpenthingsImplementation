@@ -102,6 +102,7 @@ with AddSkills[Project] {
         ("title" -> defaultTranslation.getObjectOrHead.title.get) ~
         ("teaser" -> defaultTranslation.getObjectOrHead.teaser.get) ~
         ("description" -> defaultTranslation.getObjectOrHead.description.get) ~
+        ("language" -> defaultTranslation.getObjectOrHead.language.get) ~
         ("tags" -> 	
         	JArray(getAllTagsForThisItem.map(
         	    aTag => 
