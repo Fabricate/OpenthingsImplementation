@@ -23,6 +23,7 @@ import javax.mail.internet.MimeMessage
 import at.fabricate.liftdev.common.lib.UrlLocalizer
 import at.fabricate.openthings.api.ProjectREST
 import net.liftweb.http.provider.HTTPParam
+import at.fabricate.liftdev.common.snippet.L10n
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -117,6 +118,7 @@ https://www.assembla.com/spaces/liftweb/wiki/Cross_Origin_Resource_Sharing
       case "Login" => LoginSnippet
       case "Feedback" => FeedbackSnippet
       case "Featured" => FeaturedSnippet
+      case "L10n" => L10n
     }
     
     
