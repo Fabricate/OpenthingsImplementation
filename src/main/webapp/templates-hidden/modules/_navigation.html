@@ -9,19 +9,19 @@
 	</div>
 	<ul class="left" data-lift="Login.account">
 			<li><a href="/index" class="logo"><span class="logobee"></span></a></li>
-			<li><a href="/project/list">Projects</a></li>
+			<li><a href="/project/list"><lift:loc locid="projects">Projects</lift:loc></a></li>
 <!--
 			<li class="left"><a href="/static/tutorials">Tutorials</a></li>
 			<li class="left"><a href="/designer/list">Gurus</a></li>
 -->
-			<li><a href="/designer/list">Bees</a></li>
+			<li><a href="/designer/list"><lift:loc locid="bees">Bees</lift:loc></a></li>
 <!--
 			<li class="left"><a href="/designer/list">Maker spaces</a></li>
 			<li class="left"><a href="/designer/list">Machines</a></li>
 -->
 
 
-		<li><a href="#login" id="login" class="loginBtn" onClick="LoginScreen();">Login / Register</a></li>
+		<li><a href="#login" id="login" class="loginBtn" onClick="LoginScreen();"><lift:loc locid="login_register">Login / Register</lift:loc></a></li>
 		<li><a href="#account" id="account" class="loginBtn" onClick="AccountScreen();"><span class="icon-"></span> Account</a></li>
 
 	
