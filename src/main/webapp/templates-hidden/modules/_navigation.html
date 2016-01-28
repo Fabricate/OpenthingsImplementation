@@ -24,13 +24,13 @@
 		<li><a href="#login" id="login" class="loginBtn lift:L10n.i" onClick="LoginScreen();">login_register</a></li>
 		<li><a href="#account" id="account" class="loginBtn" onClick="AccountScreen();"><span class="icon-"></span> Account</a></li>
 
-	
+
 	<li data-lift="Login.account" class="right">
 		<a id="addproject" href="#addproject" class="shareDesignBtn" onClick="AddProject();"><span class="icon-plus"></span> <span class="lift:L10n.i">add_a_project</span></a>
 		</li>
 		<li data-lift="Search.form?eager_eval=true" class="right">
 			<form id="searchform" class="left" method="get" action="#">
-					<input id="easysearch" placeholder="search_placeholder" class="lift:L10n.placeholder" type="text"  name="#">
+					<input id="easysearch" placeholder="search_placeholder" data-lift="lift:L10n.placeholder" type="text"  name="#">
 					<button type="submit"><span class="icon-loupe"></span></button>
 	<!--				<button>Advanced</button>-->
 			</form>
