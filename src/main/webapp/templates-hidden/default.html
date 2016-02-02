@@ -7,9 +7,9 @@
     <meta name="keywords" content="open-design, design, version control, makers, maker movement, fablabs" />
 		<meta property="og:image" content="http://fabacademy.org/archives/2014/students/risseeuw.martin/images/tutorial/sanding.jpg"/>
 		<meta name="google-site-verification" content="ssLMRV87w4QeVJv81fimAPN44n45kz44q1-iQ4Cmz6U" />
-		
+
 		<link rel="author" href="https://plus.google.com/+MartinRisseeuw"/>
-		
+
     <title data-lift="Menu.title">Openthings |</title>
 
     <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
@@ -19,8 +19,8 @@
 	<!-- styles for the wysiwyg editor -->
     <link rel="stylesheet" type="text/css" href="/public/markitup/skins/markitup/style.css" />
     <link rel="stylesheet" type="text/css" href="/public/markitup/sets/default/style.css" />
-		<link rel="icon" 
-      type="image/png" 
+		<link rel="icon"
+      type="image/png"
       href="/public/images/favicon.png?v=2">
 
     <lift:with-resource-id>
@@ -39,7 +39,7 @@
 				color: red;
 			}
 			/* ]]> */
-  	</style>    
+  	</style>
   </head>
   <body data-lift="Login.account" id="onlinestatus" itemscope itemtype="http://schema.org/WebPage">
 		<section class="mainHeader">
@@ -58,7 +58,7 @@
 		<div data-lift="Login.account"><span id="onlinestatus" class="#"></span></div>
 
     <div id="content">The main content will get bound here</div>
-		
+
 
 
 		<div class="column span-12 last loader left">
@@ -71,12 +71,14 @@
 
 		<script>
 			jQuery(document).ready(function() {
+
+        $("#contactinitiator").removeAttr('href');
 				// add the wysiwyg via markitup
 				$('.wysiwyg').markItUp(myTextileSettings);
-				
+
 				if ($('.userDes p').is(':empty')){
 					$('.userDes').remove();
-				}	
+				}
 			});
 
 			function ShowComments(){
@@ -128,12 +130,20 @@
 			function GoToProjects(){
 				$('html, body').animate({
 					scrollTop: $(".mainContent").offset().top
-				}, 500); 
+				}, 500);
 			}
 
 			function ViewDetails(){
 				$(".versionDetails").slideToggle();
 			}
+			$("#contactinitiator").click(function(){
+        $(".contactMaker").slideToggle();
+				$('html, body').animate({
+				    scrollTop: $(".contactMaker").offset().top
+				}, 400);
+      });
+
+
 
 			function AdvancedSearch(){
 				$(".advancedSearch").slideToggle();
@@ -148,7 +158,7 @@
 				    scrollTop: $(".addTutorial").offset().top
 				}, 500);
 			}
-			
+
 			// Measure margin of the main container according the menu height
 			function menuHeight(){
 				var menuHeight = $('.editMenuHorizontal').height() + $('.mainNavigation').height();
@@ -156,16 +166,16 @@
 				$('#main').css({'margin-top' : menuHeight + 'px'});
 				$('.editMenuHorizontal').css({'top' : mainMenuHeight + 'px'});
 			}
-			
+
 			$('.editMenu ul li a').click(function(){
-				$(".editMenu").toggleClass("activeMenu");	
+				$(".editMenu").toggleClass("activeMenu");
 				$(".projectNavBtn").toggleClass("projectNavBtnActive");
 				$('.projectNavBtn').html("<span class='icon-pencil'></span> Project menu");
 			});
 
 			$(".projectNavBtn").click(function() {
-					$(".editMenu").toggleClass("activeMenu");	
-					$(".projectNavBtn").toggleClass("projectNavBtnActive");	
+					$(".editMenu").toggleClass("activeMenu");
+					$(".projectNavBtn").toggleClass("projectNavBtnActive");
 					var $this = $(this);
 					$this.toggleClass("editOn");
 					if ($this.hasClass("editOn")) {
@@ -174,7 +184,7 @@
 							$this.html("Project menu");
 					}
 			});
-			
+
 			$('.onoffswitch-label').click(function(){
 					$(this).parent().toggleClass('onoffswitch-checked');
 					if ($(".onoffswitch").hasClass("onoffswitch-checked")) {
@@ -188,13 +198,13 @@
 			//Project rating
 			$('.rating1').hover(function() {
 				$('.rating').toggleClass('rated1'); // add class when mouseover happen
-			});		
+			});
 			$('.rating2').hover(function() {
 				$('.rating').toggleClass('rated2'); // add class when mouseover happen
-			});	
+			});
 			$('.rating3').hover(function() {
 				$('.rating').toggleClass('rated3'); // add class when mouseover happen
-			});	
+			});
 			$('.rating4').hover(function() {
 				$('.rating').toggleClass('rated4'); // add class when mouseover happen
 			});
@@ -231,12 +241,12 @@
 			else{
 				$(".viewcomments").remove();
 			}
-			
+
 			// Mobile menu functions
 			$('.openMenu p').click(function(){
 				var $openmenu = $('.openMenu');
 				var $openContent = $('.openMenu p');
-				
+
 				$('.mainNavigation ul').slideToggle();
 				$openmenu.toggleClass("activeMenu");
 				if ($openmenu.hasClass("activeMenu")) {
@@ -244,41 +254,41 @@
 				} else {
 						$openContent.html('<span class="icon-down"></span> Open menu');
 				}
-				
+
 			});
-			
+
 			// Add active class to menu, doesnt work without ajax.
 			$('.mainNavigation li a').click(function(){
 					$('.mainNavigation li a').removeClass("active");
 					$(this).addClass("active");
 			});
-		
+
 			$('.mainfest-point').click(function(){
 				$(this).find('p').slideToggle();
 				$(this).find('p').toggleClass('openacc');
-				
+
 				var $openacc = $('.mainfest-point p');
-				
+
 				if ($openacc.hasClass("openacc")) {
 						(this).slideUp;
 				} else {
-						
+
 				}
-				
+
 			});
-			
+
 
 			$(window).resize(function() {
 				menuHeight();
 			});
 			$(document).ready(function() {
 				menuHeight();
-				
-				
+
+
 				//Count amount of comments
 				var n = $( ".comment" ).size();
-				$('.viewcomments i').prepend(n + " "); 
-				
+				$('.viewcomments i').prepend(n + " ");
+
 				// Scroll to an element
 				$('a').click(function() {
 					var menuHeight = $('.editMenuHorizontal').height() + $('.mainNavigation').height();

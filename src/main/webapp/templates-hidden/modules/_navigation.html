@@ -1,5 +1,5 @@
 <nav class="mainNavigation left">
-	<div class="openMenu"><p class="left"><span class="icon-down"></span> Open menu</p>
+	<div class="openMenu"><p class="left"><span class="icon-down"></span></p>
 		<div data-lift="Search.form?eager_eval=true" class="right">
 			<form id="searchform" class="left" method="get" action="#">
 					<input id="easysearch" placeholder="Search" type="text"  name="#">
@@ -9,20 +9,20 @@
 	</div>
 	<ul class="left" data-lift="Login.account">
 			<li><a href="/index" class="logo"><span class="logobee"></span></a></li>
-			<li><a href="/project/list"class="lift:L10n.i">projects</a></li>
+			<li><a href="/project/list" data-lift="lift:L10n.i">projects</a></li>
 <!--
 			<li class="left"><a href="/static/tutorials">Tutorials</a></li>
 			<li class="left"><a href="/designer/list">Gurus</a></li>
 -->
-			<li><a href="/designer/list"class="lift:L10n.i">bees</a></li>
+			<li><a href="/designer/list" data-lift="lift:L10n.i">bees</a></li>
 <!--
 			<li class="left"><a href="/designer/list">Maker spaces</a></li>
 			<li class="left"><a href="/designer/list">Machines</a></li>
 -->
 
 
-		<li><a href="#login" id="login" class="loginBtn lift:L10n.i" onClick="LoginScreen();">login_register</a></li>
-		<li><a href="#account" id="account" class="loginBtn" onClick="AccountScreen();"><span class="icon-"></span> Account</a></li>
+		<li><a href="#login" id="login" class="loginBtn" data-lift="lift:L10n.i" onClick="LoginScreen();">login_register</a></li>
+		<li><a href="#account" id="account" class="loginBtn" onClick="AccountScreen();"><span class="icon-"></span> <span data-lift="lift:L10n.i">account</span></a></li>
 
 
 	<li data-lift="Login.account" class="right">

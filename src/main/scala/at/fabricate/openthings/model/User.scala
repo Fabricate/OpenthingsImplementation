@@ -29,33 +29,33 @@ import java.util.Locale
 
 object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling[User] with BaseMetaEntity[User] with BaseMetaEntityWithTitleDescriptionAndIcon[User]
 with AddSkillsMeta[User] {
-  
-  
-  
+
+
+
   override val basePath = "user" :: Nil
-    
+
   override def dbTableName = "user" // define the DB table name
- 
+
   override def screenWrap = Full(
       <lift:surround with="default" at="content">
 		  <section class="mainContent standardPage left">
 			       <lift:bind />
 		  </section>
 	  </lift:surround>)
-			       
+
   // define the order fields will appear in forms and output
   override def fieldOrder = List(id, icon, firstName, lastName, email,
   locale, timezone, password)//, description)
-  
+
   // define the order fields will appear in the edit page
   override def editFields = List(icon, firstName, lastName, email,
   locale, timezone)
-  
+
   // just an idea for different signup process
-  override def signupFields = firstName :: lastName :: email :: password :: Nil 
-  
+  override def signupFields = firstName :: lastName :: email :: password :: Nil
+
 	// comment this line out to require email validations
-	//override def skipEmailValidation = true
+	override def skipEmailValidation = true
   
   // get a link to the user
   def getLinkToUser(userId : Long) : Elem = userId.toString match {
@@ -64,18 +64,18 @@ with AddSkillsMeta[User] {
       <a href={ "/designer/%s".format(theUser.id.toString ) }>{ theUser.fullName }</a>
     }
     case _ => <span>User not found!</span>
-  }  
+  }
 
-  
+
   // some basic user rights management
-  def canEditContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.get.permission == permissionsEnum.user 
-  def canModerateContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.get.permission == permissionsEnum.moderator 
-  def canAdministerContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.get.permission == permissionsEnum.administrator 
-  
+  def canEditContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.get.permission == permissionsEnum.user
+  def canModerateContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.get.permission == permissionsEnum.moderator
+  def canAdministerContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.get.permission == permissionsEnum.administrator
+
   // save the content of a session before the user gets logged in!
   override def capturePreLoginState() = {
     val unsavedContents = ProjectSnippet.unsavedContent.get // is the SessionVar
-    
+
     () => {
       // just save it here
       unsavedContents.map(content => {
@@ -94,7 +94,7 @@ with AddSkillsMeta[User] {
         )
     }
   }
-  
+
   // applying create will crash the system - this is the first thing to set
   override def createNewUserInstance = createNewEntity(Locale.ENGLISH)
 
@@ -103,8 +103,8 @@ with AddSkillsMeta[User] {
 /**
  * An O-R mapped "User" class that includes first name, last name, password and we add a "Personal Essay" to it
  */
-class User extends MegaProtoUser[User] with BaseEntity[User] with BaseEntityWithTitleDescriptionAndIcon[User] 
-with EqualityByID[User] 
+class User extends MegaProtoUser[User] with BaseEntity[User] with BaseEntityWithTitleDescriptionAndIcon[User]
+with EqualityByID[User]
 with OneToMany[Long, User]
 with AddSkills[User]
 with ManyToMany
@@ -126,67 +126,66 @@ with ManyToMany
   def theSkillObject = Skill
 
   def getSingleton = User // what's the "meta" server
-  
+
    override def firstNameDisplayName = S.?("firstname")
    override def lastNameDisplayName = S.?("lastname")
-  
+
     // define WithImage
-  
+
   // override def works, val gives the known nullpointer exception
 
   override def defaultIcon = "/public/images/nouser.jpg"
-    
+
   override def iconDisplayName = S.?("user\u0020icon")
-  
+
   override def iconDbColumnName = "user_image"
-    
+
   override def iconPath = "userimage"
-    
-    
-    
+
+
+
   override def maxIconWidth = 1024
-  
+
   override def maxIconHeight = 576
-  
+
   override def applyIconCropping = true
-  
+
   object permissionsEnum extends Enumeration{
     val banned = Value(0,"Banned")
     val user = Value(1,"User")
     val moderator = Value(2,"Moderator")
     val administrator = Value(3,"Administrator")
   }
-  
+
   object permission extends MappedEnum(this,permissionsEnum){
-    override  def defaultValue = permissionsEnum.user 
+    override  def defaultValue = permissionsEnum.user
     //override def dbNotNull_? = true
   }
-  
+
   object createdProjects extends MappedOneToMany(Project, Project.createdByUser, OrderBy(Project.primaryKeyField, Descending)) with Owned[Project]
 
   object tools extends MappedManyToMany(UserHasTools, UserHasTools.user, UserHasTools.tool, Tool)
-  
+
   object mailSettingsConst {
     def PUB = <span>public</span>
     def PRIV = <span>private</span>
   }
   	// add email settings for privacy
-    object mailSettingsEnum extends EnumWithDescriptionAndObject[Elem] {   
-    
+    object mailSettingsEnum extends EnumWithDescriptionAndObject[Elem] {
+
 	val pub = Value("Other users can ask me via mail!",mailSettingsConst.PUB)
 	val priv = Value("I dont want to get Mails from other users!",mailSettingsConst.PRIV)
 
 	}
-  
+
    /**Beschreibt Datenfeld für den Ersteller eines Projektes als Fremdschluessel fuer Relation zu User-Objekten*/
   object emailSettings extends MappedEnumWithDescription[Elem,User](this,mailSettingsEnum)
-  
-  
-  
-  object personalWebsite extends MappedString(this,100)
-  
 
-  
+
+
+  object personalWebsite extends MappedString(this,100)
+
+
+
   def fullName: String = "%s %s".format(this.lastName,this.firstName)
 }
-
