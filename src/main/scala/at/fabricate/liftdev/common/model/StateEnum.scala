@@ -3,10 +3,12 @@ package model
 
 import at.fabricate.liftdev.common.lib.EnumWithDescriptionAndObject
 import scala.xml.Elem
+import net.liftweb.http.S
 
 	// add a difficulty (one of many that comes from a list of string options)
     object StateEnum extends EnumWithDescriptionAndObject[Elem] {
-          
+        
+    /*
     val stateText = "project is in"
     val state1 = "concept / idea / draft state"
     val state2 = "early state of development"
@@ -14,13 +16,25 @@ import scala.xml.Elem
     val state4 = "evolved (medium state)"
     val state5 = "advanced state"
     val state6 = "mature state"
-      
+    * 
+    */
+  
+    val stateText = "project_state_head"
+    val state1 = "project_state_1"
+    val state2 = "project_state_2"
+    val state3 = "project_state_3"
+    val state4 = "project_state_4"
+    val state5 = "project_state_5"
+    val state6 = "project_state_6"
+    
         private def wrapSpanWithClass(theClass : String,theText: String) : Elem = 
         <li class="left">
 			<span class={theClass}></span>
-			<h5>{stateText}</h5>
-			<h6>{theText}</h6>
+			<h5 data-lift="lift:L10n.i">{stateText}</h5>
+			<h6 data-lift="lift:L10n.i">{theText}</h6>
 		</li>
+			
+			//S.?(
   
 	val concept = Value(state1,wrapSpanWithClass("icon-indication-bar0",state1))
 	val dev_early = Value(state2,wrapSpanWithClass("icon-indication-bar1",state2))

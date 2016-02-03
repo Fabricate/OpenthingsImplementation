@@ -9,6 +9,7 @@ import net.liftweb.common.Empty
 	// add a difficulty (one of many that comes from a list of string options)
     object DifficultyEnum extends EnumWithDescriptionAndObject[Elem] {
   
+  /*
     val difficultyText = "suitable for"
     val stage1 = "Kids"
     val stage2 = "Starter"
@@ -16,13 +17,24 @@ import net.liftweb.common.Empty
     val stage4 = "Advanced"
     val stage5 = "Expert"
     val stage6 = "Genius"
+    * 
+    */
+    
+    
+    val difficultyText = "project_difficulty_head"
+    val stage1 = "project_difficulty_1"
+    val stage2 = "project_difficulty_2"
+    val stage3 = "project_difficulty_3"
+    val stage4 = "project_difficulty_4"
+    val stage5 = "project_difficulty_5"
+    val stage6 = "project_difficulty_6"
     
       
       private def wrapSpanWithClass(theClass : String,theText: String) : Elem = 
         <li class="left">
 			<span class={theClass}></span>
-			<h5>{difficultyText}</h5>
-			<h6>{theText}</h6>
+			<h5 data-lift="lift:L10n.i">{difficultyText}</h5>
+			<h6 data-lift="lift:L10n.i">{theText}</h6>
 		</li>
     
 	val kids = Value(stage1,wrapSpanWithClass("icon-indication-bar0",stage1))
