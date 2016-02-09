@@ -1846,6 +1846,9 @@ body {
   border-color: #666666;
   margin-bottom: .625em; }
 
+.notLoggedIn #contactinitiator {
+  display: none !important; }
+
 .collaboratedProjects {
   padding: 8%;
   width: 100%;

@@ -10,3 +10,6 @@
   border-color: $mediumgrey;
   margin-bottom: .625em;
 }
+.notLoggedIn #contactinitiator{
+  display: none !important;
+}
