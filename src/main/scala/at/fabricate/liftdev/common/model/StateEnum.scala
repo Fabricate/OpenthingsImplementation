@@ -36,12 +36,12 @@ import net.liftweb.http.S
 			
 			//S.?(
   
-	val concept = Value(state1,wrapSpanWithClass("icon-indication-bar0",state1))
-	val dev_early = Value(state2,wrapSpanWithClass("icon-indication-bar1",state2))
-	val dev_advanced = Value(state3,wrapSpanWithClass("icon-indication-bar2",state3))
-	val evolved = Value(state4,wrapSpanWithClass("icon-indication-bar3",state4))
-	val advanced = Value(state5,wrapSpanWithClass("icon-indication-bar4",state5))
-	val mature = Value(state6,wrapSpanWithClass("icon-indication-bar5",state6))
+	val concept = MultiLanguageValue(state1,wrapSpanWithClass("icon-indication-bar0",state1))
+	val dev_early = MultiLanguageValue(state2,wrapSpanWithClass("icon-indication-bar1",state2))
+	val dev_advanced = MultiLanguageValue(state3,wrapSpanWithClass("icon-indication-bar2",state3))
+	val evolved = MultiLanguageValue(state4,wrapSpanWithClass("icon-indication-bar3",state4))
+	val advanced = MultiLanguageValue(state5,wrapSpanWithClass("icon-indication-bar4",state5))
+	val mature = MultiLanguageValue(state6,wrapSpanWithClass("icon-indication-bar5",state6))
 	
 	val downToMatureList = mature  :: Nil
     val downToAdvanced = advanced   :: downToMatureList

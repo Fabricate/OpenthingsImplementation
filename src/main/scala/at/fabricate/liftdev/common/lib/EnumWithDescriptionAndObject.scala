@@ -2,6 +2,7 @@ package at.fabricate.liftdev.common
 package lib
 
 import scala.collection.mutable
+import net.liftweb.http.S
 
 /**
  * code from andreas krogh, found at:
@@ -41,7 +42,15 @@ abstract class EnumWithDescriptionAndObject[T] extends Enumeration {
 			def wrapped = inWrapped
 		}
 	}
-
+	
+	def MultiLanguageValue(inDescription: String, inWrapped: T): ExtendedValue = {
+		new Val(nextId) with ValueWithDescription[T] {
+			def description = S.?(inDescription)
+			def name = toString()
+			def wrapped = inWrapped
+		}
+	}
+	
 	def Value(inWrapped: T): ExtendedValue = Value("", inWrapped)
 
 	def getValues = {
