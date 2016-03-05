@@ -1202,6 +1202,14 @@ body {
   font-size: 1em;
   width: 300px; }
 
+.searchForm select {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none; }
+
+.searchForm button {
+  clear: left; }
+
 #searchform button {
   background: none repeat scroll 0 0 transparent;
   color: #fbc02d;
@@ -1258,6 +1266,66 @@ body {
 
 #listtags li a {
   color: white; }
+
+/* Tag-it */
+ul.tagit {
+  padding: 1px 5px;
+  overflow: auto;
+  margin-left: inherit;
+  /* usually we don't want the regular ul margins. */
+  margin-right: inherit; }
+
+ul.tagit li {
+  display: block;
+  float: left;
+  margin: 2px 5px 2px 0; }
+
+ul.tagit li.tagit-choice {
+  position: relative;
+  line-height: inherit; }
+
+input.tagit-hidden-field {
+  display: none; }
+
+ul.tagit li.tagit-choice-read-only {
+  padding: .2em .5em .2em .5em; }
+
+ul.tagit li.tagit-choice-editable {
+  padding: .2em 18px .2em .5em; }
+
+ul.tagit li.tagit-new {
+  padding: .25em 4px .25em 0; }
+
+ul.tagit li.tagit-choice a.tagit-label {
+  cursor: pointer;
+  text-decoration: none; }
+
+ul.tagit li.tagit-choice .tagit-close {
+  cursor: pointer;
+  position: absolute;
+  right: .1em;
+  top: 50%;
+  margin-top: -8px;
+  line-height: 17px; }
+
+/* used for some custom themes that don't need image icons */
+ul.tagit li.tagit-choice .tagit-close .text-icon {
+  display: none; }
+
+ul.tagit li.tagit-choice input {
+  display: block;
+  float: left;
+  margin: 2px 5px 2px 0; }
+
+ul.tagit input[type="text"] {
+  box-sizing: border-box;
+  box-shadow: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: inherit;
+  background-color: inherit;
+  outline: none; }
 
 .projectVersions {
   padding: 8%;
@@ -1357,7 +1425,10 @@ body {
   background-color: white; }
 
 #commenttitle {
-  margin-bottom: 0.625em; }
+  margin-bottom: 0; }
+
+.comment h2 {
+  margin-bottom: .2em; }
 
 .projectComments header {
   background-color: white;
@@ -1680,8 +1751,8 @@ body {
   cursor: pointer;
   font-size: 1.5em;
   position: absolute;
-  right: 3%;
-  top: 10%;
+  right: 30px;
+  top: 30px;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
   z-index: 2; }

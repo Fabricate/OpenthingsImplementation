@@ -3,7 +3,10 @@
 	background-color: white;
 }
 #commenttitle{
-	margin-bottom: $xsmall-em;
+	margin-bottom: 0;
+}
+.comment h2{
+	margin-bottom: .2em;
 }
 .projectComments header{
 	background-color: white;
