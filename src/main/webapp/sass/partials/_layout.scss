@@ -36,6 +36,29 @@ body{
 	padding: $small-percentage;
 	background-color: $darkgrey;
 	color: white;
+
+
+}
+.about__home{
+	padding: $medium-percentage;
+	background: white;
+	width: 100%;
+}
+.about__home .wrapper{
+	column-count: 2;
+	column-gap: 60px;
+	font-size: .875em;
+	margin: auto;
+	text-align: justify;
+
+}
+.about__home .wrapper h2{
+	column-span: all;
+	text-align: center;
+}
+.about__home .wrapper h3{
+	margin-top:1.5714285714285714em;
+	font-weight: bold;
 }
 .delete-icon{
 	transform: rotate(45deg);

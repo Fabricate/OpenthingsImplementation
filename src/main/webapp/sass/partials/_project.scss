@@ -4,6 +4,21 @@
 .projectHeader{
 	background-color: $darkgrey;
 }
+.button__bar{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 50%;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	padding: 15px !important;
+	background-color: rgba(250,250,250,.2) !important;
+}
+.button__bar .inner{
+	background: transparent !important;
+	padding: 0 !important;
+}
 .projectHeader select{
 	padding: .3em;
 	color: white;
