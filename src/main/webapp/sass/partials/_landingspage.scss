@@ -80,8 +80,14 @@
 .homeProjectIntro{
 	text-transform: uppercase;
 	letter-spacing: .1em;
+	max-width: 700px;
+	margin: auto;
 }
-
+.homeProjectIntro p{
+	text-transform: none;
+	margin-top: 1em;
+	letter-spacing: .01em;
+}
 .homeProjectIntro h2, .homeProjectIntro h1{
 	margin-bottom: 0;
 }
