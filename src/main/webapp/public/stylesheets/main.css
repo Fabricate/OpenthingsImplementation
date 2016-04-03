@@ -948,8 +948,7 @@ body {
      -moz-column-gap: 60px;
           column-gap: 60px;
   font-size: .875em;
-  margin: auto;
-  text-align: justify; }
+  margin: auto; }
 
 .about__home .wrapper h2 {
   -webkit-column-span: all;
