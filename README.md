@@ -2,6 +2,9 @@ Openthings
 ==========
 Openthings is an open-source platform for sharing open design and building things together. The project is based on git.
 
+The official Openthings instance is running here: https://openthinhs.wiki
+Everyone can run their own instance when it's shared alike.
+
 ### How to start
 - Open the OpenthingsImplementation folder within your terminal
 ```
@@ -17,6 +20,11 @@ gulp start
 
 ## Openthings API V1
 The Openthings api makes it possible for people to load Openthing projects on the personal website through a GET API. This way people can create there own showcase of open design project but make use of the bigger Openthings system and database. For V2 we are planning to create a POST api so people can post project onto Openthings from their personal website.
+
+### Openthings TODO
+===================
+We are keeping track of the Openthings TODOS in Trello:
+https://trello.com/b/ztcZRp8n/openthings
 
 ### API Documentation
 =====================
