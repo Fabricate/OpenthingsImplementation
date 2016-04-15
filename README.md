@@ -22,19 +22,22 @@ The Openthings api makes it possible for people to load Openthing projects on th
 =====================
 
 #### API search options overview:
-- title= <fulltext search>
-- description= <fulltext search>
-- difficulty= <single number 1...6 or list of numbers 1,2, ...>
-- state= <single number 1...6 or list of numbers 1,2, ...>
-- creator= <single id of a creator or a list of ids  1,2, ...>
-- tag= <single id of a tag or a list of tags  1,2, ...>
-- rating= <integer 4 or decimal 4.1; defines the minimal rating of projects>
-- licence= < all , com or deriv >
-- nr_of_items= <number of items for pagination>
-- current_page= <number o the current page>
+- title= text search
+- description= text search
+- difficulty= single number 1...6 or list of numbers 1,2, ...
+- state= single number 1...6 or list of numbers 1,2, ...
+- creator= single id of a creator or a list of ids  1,2, ...
+- tag= single id of a tag or a list of tags  1,2, ...
+- rating= integer 4 or decimal 4.1; defines the minimal rating of projects
+- licence= all, com or deriv
+- nr_of_items= number of items for pagination
+- current_page= number o the current page
 
 #### Example string
 https://www.openthings.wiki/api/projects/search?tag=51,48&nr_of_items=8
+
+##### Search for title:
+https://www.openthings.wiki/api/projects/search?title=zelfgemaakt
 
 ##### Search for tags:
 With the API you can search for (multiple)tag(s). You can find the tag id simply in the url on Openthings when you click on a specific tag you would like to search for. For example:
