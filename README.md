@@ -5,4 +5,11 @@ OpenthingsImplementation
 
 ### How to start
 - Open the OpenthingsImplementation folder within your terminal
-- Run ./sbt_reload-on-codechanges
+- Run $ ./sbt_reload-on-codechanges
+
+### Working on CSS
+- Open the OpenthingsImplementation/src/main/webapp in your terminal
+```
+npm install
+gulp start
+```
