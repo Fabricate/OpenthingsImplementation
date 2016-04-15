@@ -81,3 +81,8 @@ https://www.openthings.wiki/api/projects/search?tag=51,48&licence=deriv&nr_of_it
 Move through search result pages:
 
 https://www.openthings.wiki/api/projects/search?tag=51,48&licence=deriv&nr_of_items=2&current_page=2
+
+#### General info
+##### Websites that make use of the Openthings API
+- Fablab Amsterdam https://fablab.waag.org
+- Platform Maker Education https://makereducation.nl
