@@ -117,6 +117,7 @@ https://www.assembla.com/spaces/liftweb/wiki/Cross_Origin_Resource_Sharing
       case "User" => UserSnippet
       case "Login" => LoginSnippet
       case "Feedback" => FeedbackSnippet
+      case "ContactMaker" => ContactMakerSnippet
       case "Featured" => FeaturedSnippet
       case "L10n" => L10n
     }

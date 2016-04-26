@@ -47,8 +47,8 @@ trait AddRating[T <: (AddRating[T]) ] extends BaseEntity[T]  with OneToMany[Long
 	        override def get = {
 	          val calc_date = fieldOwner.accumulatedRatings_calculatedAt.get
 	          val now = new Date
-	          // recalculate the ratings every 3 days
-	          val recalc_limit = new DateTime(now).minusDays(3).toDate()
+	          // recalculate the ratings every 4 hours
+	          val recalc_limit = new DateTime(now).minusHours(4).toDate()
 	          if (calc_date == null || calc_date.before(recalc_limit)){
 	            val new_rating = fieldOwner.generateDisplayRating()
 	            i_set_!(new_rating)

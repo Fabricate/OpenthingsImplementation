@@ -9,6 +9,7 @@ import net.liftweb.common.Empty
 	// add a difficulty (one of many that comes from a list of string options)
     object DifficultyEnum extends EnumWithDescriptionAndObject[Elem] {
   
+  /*
     val difficultyText = "suitable for"
     val stage1 = "Kids"
     val stage2 = "Starter"
@@ -16,21 +17,32 @@ import net.liftweb.common.Empty
     val stage4 = "Advanced"
     val stage5 = "Expert"
     val stage6 = "Genius"
+    * 
+    */
+    
+    
+    val difficultyText = "project_difficulty_head"
+    val stage1 = "project_difficulty_1"
+    val stage2 = "project_difficulty_2"
+    val stage3 = "project_difficulty_3"
+    val stage4 = "project_difficulty_4"
+    val stage5 = "project_difficulty_5"
+    val stage6 = "project_difficulty_6"
     
       
       private def wrapSpanWithClass(theClass : String,theText: String) : Elem = 
         <li class="left">
 			<span class={theClass}></span>
-			<h5>{difficultyText}</h5>
-			<h6>{theText}</h6>
+			<h5 data-lift="lift:L10n.i">{difficultyText}</h5>
+			<h6 data-lift="lift:L10n.i">{theText}</h6>
 		</li>
     
-	val kids = Value(stage1,wrapSpanWithClass("icon-indication-bar0",stage1))
-	val starter = Value(stage2,wrapSpanWithClass("icon-indication-bar1",stage2))
-	val average = Value(stage3,wrapSpanWithClass("icon-indication-bar2",stage3))
-	val advanced = Value(stage4,wrapSpanWithClass("icon-indication-bar3",stage4))
-	val expert = Value(stage5,wrapSpanWithClass("icon-indication-bar4",stage5))
-	val genius = Value(stage6,wrapSpanWithClass("icon-indication-bar5",stage6))
+	val kids = MultiLanguageValue(stage1,wrapSpanWithClass("icon-indication-bar0",stage1))
+	val starter = MultiLanguageValue(stage2,wrapSpanWithClass("icon-indication-bar1",stage2))
+	val average = MultiLanguageValue(stage3,wrapSpanWithClass("icon-indication-bar2",stage3))
+	val advanced = MultiLanguageValue(stage4,wrapSpanWithClass("icon-indication-bar3",stage4))
+	val expert = MultiLanguageValue(stage5,wrapSpanWithClass("icon-indication-bar4",stage5))
+	val genius = MultiLanguageValue(stage6,wrapSpanWithClass("icon-indication-bar5",stage6))
 	
 	val upToKidsList = kids :: Nil
     val upToStarterList = starter  :: upToKidsList

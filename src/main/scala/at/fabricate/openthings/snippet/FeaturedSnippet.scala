@@ -59,7 +59,7 @@ object FeaturedSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project]
 
   def feature(xhtml : NodeSeq) : NodeSeq  = {
 
-    val elements = 34 :: 35 :: 4 :: Nil
+    val elements = 34 :: 35 :: 56 :: Nil
     //println("Featured.test: "+elements.mkString(", "))
 
     //val query = elements.map(By(Project.id,_))

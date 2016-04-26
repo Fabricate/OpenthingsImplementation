@@ -1,14 +1,26 @@
 <section id="project-tags" class="tags tagsSection left">
-	<h2>Project tags</h2>
+	<h2 data-lift="lift:L10n.i">project_tags</h2>
 	<ul id="listtags" itemprop="keywords">
 		<li id="singletag"><a href="#">Tag</a></li>
 	</ul>
-	<div class="editPage">
-        <section id="tag_messages" class="left">
 
-        </section>
+	<!-- <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	        $("#myTags").tagit({
+    				availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"]
+					});
+	    });
+	</script>
+
+	<ul id="myTags">
+	    <li>Tag1</li>
+	    <li>Tag2</li>
+	</ul> -->
+	<div class="editPage">
+
 		<form data-lift="form.ajax">
-			<h3>Add tags to project</h3>
+			<h3 data-lift="lift:L10n.i">add_tags_to_project</h3>
 			<ul id="selecttags">
 				<li id="selectsingletag"><input type="checkbox" id="tagselect"><label id="taglabel">TagName</label></li>
 			</ul>
@@ -18,7 +30,7 @@
 				</div>
 				<input type="hidden" id="tagshidden" />
 		<!--		<input value="Add" type="submit" class="btn" />-->
-				<button type="submit"><span class="icon-plus"></span> Add</button>
+				<button class="left" type="submit"><span class="icon-plus"></span> <span data-lift="lift:L10n.i">add</span> <span id="tag_messages"></span></button>
 			</div>
 		</form>
 	</div>

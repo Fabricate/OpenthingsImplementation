@@ -15,6 +15,8 @@ object UrlLocalizer {
   
   var isInitialized = false
   
+  val available_locales_templates = List(new Locale("en"),new Locale("nl"),new Locale("de"))
+  
   
   // will be used if we can find no locale!
   val defaultLocale = Locale.ENGLISH
@@ -71,14 +73,27 @@ object UrlLocalizer {
 
       requestLocale match {
         case Full(aListOfLocales) => {
-          val useLocale = aListOfLocales.head
-          println("requested locales: "+aListOfLocales.mkString(","))
-          println("use locale: "+useLocale.getDisplayLanguage(useLocale))
-          setSiteLocale(Full(useLocale)); useLocale
+          // use a locale if the template translation is available for it
+          // or use english as a default
+          var locale_found = false;
+          var the_locale = defaultLocale//.getDefault
+          for (aLocale : Locale <- aListOfLocales){
+            if (! locale_found && available_locales_templates.contains(aLocale)){
+              println("requested locales: "+aListOfLocales.mkString(","))
+              println("use locale: "+aLocale.getDisplayLanguage(aLocale))
+              setSiteLocale(Full(aLocale)) 
+              the_locale = aLocale
+            }
+          }
+          if (!locale_found) {
+            println("no templates exist for required locales")
+          }
+          the_locale
         }
         case _ => {
           println("no locale in request")
-          Locale.getDefault
+          //Locale.getDefault
+          defaultLocale
         }
       }
     }
