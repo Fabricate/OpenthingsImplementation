@@ -1607,7 +1607,6 @@ ul.tagit input[type="text"] {
 .landingSection::after {
   content: "";
   background: url(../images/protheses.jpg);
-  background-attachment: fixed;
   opacity: .6;
   top: 0;
   background-size: cover;
