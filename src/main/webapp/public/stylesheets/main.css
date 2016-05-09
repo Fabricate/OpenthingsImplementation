@@ -2609,8 +2609,10 @@ img.mfp-img {
     padding: 0 .5em; }
   .onoffswitch {
     margin: 0.6em .5em; }
-  .editMenuHorizontal li span {
+  .editMenuHorizontal li {
     display: none; }
+  .editMenuHorizontal li:first-child {
+    display: inline-block; }
   .editMenuHorizontal {
     font-size: 75%; } }
 
@@ -2675,8 +2677,6 @@ img.mfp-img {
     left: 0; }
   .mainNavigation li a {
     padding: 0; }
-  .editMenuHorizontal li span {
-    display: none; }
   .editMenuHorizontal {
     font-size: 65%; } }
 
