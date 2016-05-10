@@ -262,13 +262,12 @@ body{
 	height: 100%;
 }
 
-.half__page iframe{
+.half__page #map{
 	width: 100%;
 	height: 100%;
 	position: absolute;
 	top: 0;
 	left: 0;
-	pointer-events: none;
 }
 .project__list__footer{
 	width: 100%;

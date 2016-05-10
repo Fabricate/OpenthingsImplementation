@@ -9,6 +9,8 @@
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.2.1/es6-promise.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
+		<script src='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
+		<link href='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
 	</head>
 	<body>
 		<div class="main__navigation__shadow"></div>
@@ -34,8 +36,8 @@
 		<main class="main__container">
 			<section class="page home center__content white__text text__center">
 				<header>
-					<h1 class="small__title__margin">Happylab Vienna</h1>
-					<p>Haussteinstraße 4/2, A-1020 Wien</p>
+					<h1 class="small__title__margin">Your fablab title</h1>
+					<p>Your tagline, address or something</p>
 				</header>
 				<div class="scroll__sign">
 					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -56,22 +58,28 @@
 			</section>
 			<section class="page contact">
 				<div class="half__page">
-					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2657.8825730777926!2d16.397912515676506!3d48.22813567923081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476d06fda3329cf5%3A0x2454c308f4e07382!2sHappylab!5e0!3m2!1sen!2snl!4v1462528614058" frameborder="0" style="border:0" allowfullscreen></iframe>
+					<div id='map'></div>
+					<script>
+						mapboxgl.accessToken = 'pk.eyJ1IjoibWFydGlud2FhZyIsImEiOiJjaWo0NWt6ZWYwMDE0dXlrcm0yenVkNDR5In0.0I9xJzLubP9g3V_NTt1PhA';
+						var map = new mapboxgl.Map({
+						  container: 'map',
+						  style: 'mapbox://styles/mapbox/streets-v8'
+						});
+						map.scrollZoom.disable();
+					</script>
 				</div>
 				<div class="half__page white__background big__padding">
-						<h1>Happylab Vienna</h1>
-						<p>Haussteinstraße 4/2 <br/>
-						A-1020 Wien<br/>
-						Tel.: +43 1 3084666-0<br/>
-						Fax: +43 1 3084666-90<br/>
-						Email: wien@happylab.at</p>
+					<h1>Fablab contact</h1>
+					<p>Your street 000<br/>
+					2121AA Your city<br/>
+					Tel: +31 6 13131415<br/>
+					Email: your@mail.nl</p>
 
-						<p>How do I get to Happylab Vienna by public transport?<br/>
-						U-Bahn U1 - Station Vorgartenstraße (5 minutes to walk)<br/>Bus 11A, 11B - Station Pensionsversicherungsanstalt</p>
+					<h4>How do I get to the fablab?</h4>
+					<p>Walk somewhere, then bike somewhere, then take a bus, then swim a little, and you shall arrive</p>
 
-						<h4>Where can I park?</h4>
-
-						<p>The parking spaces in front of the Happylab Vienna are usually empty. However, from Monday to Friday this area is a metered short parking area.</p>
+					<h4>Where can I park?</h4>
+					<p>On the moon</p>
 				</div>
 			</section>
 			<section class="page projects big__padding">
