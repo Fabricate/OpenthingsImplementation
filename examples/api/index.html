@@ -59,14 +59,6 @@
 			<section class="page contact">
 				<div class="half__page">
 					<div id='map'></div>
-					<script>
-						mapboxgl.accessToken = 'pk.eyJ1IjoibWFydGlud2FhZyIsImEiOiJjaWo0NWt6ZWYwMDE0dXlrcm0yenVkNDR5In0.0I9xJzLubP9g3V_NTt1PhA';
-						var map = new mapboxgl.Map({
-						  container: 'map',
-						  style: 'mapbox://styles/mapbox/streets-v8'
-						});
-						map.scrollZoom.disable();
-					</script>
 				</div>
 				<div class="half__page white__background big__padding">
 					<h1>Fablab contact</h1>
@@ -94,6 +86,7 @@
 			</section>
 		</main>
 		<script type="text/javascript">
+			// Fetch data through API. For more info: https://github.com/Fabricate/OpenthingsImplementation
 			fetch('https://www.openthings.wiki/api/projects/search?tag=47&nr_of_items=12')
 			.then(function(response) {
 			  return response.json()
@@ -136,6 +129,17 @@
 			.catch(function(ex) {
 			  console.log('parsing failed', ex)
 			})
+
+
+
+
+			// LOAD MAPBOX			
+			mapboxgl.accessToken = 'pk.eyJ1IjoibWFydGlud2FhZyIsImEiOiJjaWo0NWt6ZWYwMDE0dXlrcm0yenVkNDR5In0.0I9xJzLubP9g3V_NTt1PhA';
+			var map = new mapboxgl.Map({
+			  container: 'map',
+			  style: 'mapbox://styles/mapbox/streets-v8'
+			});
+			map.scrollZoom.disable();
 		</script>
 	</body>
 </html>
