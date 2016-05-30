@@ -22,9 +22,10 @@
 		<link rel="icon"
       type="image/png"
       href="/public/images/favicon.png?v=2">
-
     <lift:with-resource-id>
         <script id="jquery" src="/js/jquery-2.1.3.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+        <script src="/public/js/tag-it.min.js"></script>
         <script src="/public/markitup/jquery.markitup.js"></script>
         <script src="/public/js/jquery.magnific-popup.min.js"></script>
 				<!-- the wysiwyg editor -->
@@ -42,6 +43,15 @@
   	</style>
   </head>
   <body data-lift="Login.account" id="onlinestatus" itemscope itemtype="http://schema.org/WebPage">
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-TLMGKL"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TLMGKL');</script>
+    <!-- End Google Tag Manager -->
 		<section class="mainHeader">
 			<span data-lift="embed?what=modules/_navigation">Navigation</span>
 <!--			<span data-lift="embed?what=modules/_search">Search</span>-->
@@ -66,106 +76,26 @@
 		</div>
 		<span data-lift="embed?what=modules/_footernav">FooterNav</span>
 
-<!--		<span data-lift="Menu.builder"></span>-->
+    <!--<span data-lift="Menu.builder"></span>-->
 
-
+    <script src="/public/js/rating.js"></script>
+    <script src="/public/js/functions.js"></script>
 		<script>
 			jQuery(document).ready(function() {
-
         $("#contactinitiator").removeAttr('href');
 				// add the wysiwyg via markitup
 				$('.wysiwyg').markItUp(myTextileSettings);
 
-				if ($('.userDes p').is(':empty')){
+        if ($('.userDes p').is(':empty')){
 					$('.userDes').remove();
 				}
 			});
 
-			function ShowComments(){
-				$(".projectComments ul").slideToggle();
-				$(".viewcomments").addClass( "commentsopen" );
-			}
-			function openComments(){
-				$(".projectComments ul").slideDown();
-				$(".viewcomments").addClass( "commentsopen" );
-				$('html, body').animate({
-				    scrollTop: $("#comments li:last").offset().top
-				}, 500);
-			}
-			function AddProject(){
-				$(".postProject").slideDown();
-				$(".close-icon").click(function(){
-					$(".postProject").slideUp();
-				});
-			}
-			function EditProject(){
-				$(".editProject").fadeIn();
-				$(".close-icon").click(function(){
-					$(".editProject").fadeOut();
-				});
-			}
-			function LoginScreen(){
-				$(".loginScreen").slideDown();
-				$(".close-icon").click(function(){
-					$(".loginScreen").slideUp();
-				});
-			}
-			function LogoutScreen(){
-				$(".logoutScreen").slideDown();
-				$(".close-icon").click(function(){
-					$(".logoutScreen").slideUp();
-				});
-			}
-			function AccountScreen(){
-				$(".accountScreen").slideDown();
-				$(".close-icon").click(function(){
-					$(".accountScreen").slideUp();
-				});
-			}
-			function AddMaterial(){
-				$(".addMaterial").slideToggle();
-			}
 
-			//Scroll down to projects
-			function GoToProjects(){
-				$('html, body').animate({
-					scrollTop: $(".mainContent").offset().top
-				}, 500);
-			}
-
-			function ViewDetails(){
-				$(".versionDetails").slideToggle();
-			}
 			$("#contactinitiator").click(function(){
         $(".contactMaker").slideToggle();
-				$('html, body').animate({
-				    scrollTop: $(".contactMaker").offset().top
-				}, 400);
       });
 
-
-
-			function AdvancedSearch(){
-				$(".advancedSearch").slideToggle();
-				$(".close-icon").click(function(){
-					$(".accountScreen").fadeOut();
-				});
-			}
-
-			function AddTutorial(){
-				$(".addTutorial").slideToggle();
-				$('html, body').animate({
-				    scrollTop: $(".addTutorial").offset().top
-				}, 500);
-			}
-
-			// Measure margin of the main container according the menu height
-			function menuHeight(){
-				var menuHeight = $('.editMenuHorizontal').height() + $('.mainNavigation').height();
-				var mainMenuHeight = $('.mainNavigation').height();
-				$('#main').css({'margin-top' : menuHeight + 'px'});
-				$('.editMenuHorizontal').css({'top' : mainMenuHeight + 'px'});
-			}
 
 			$('.editMenu ul li a').click(function(){
 				$(".editMenu").toggleClass("activeMenu");
@@ -195,45 +125,16 @@
 					}
 			});
 
-			//Project rating
-			$('.rating1').hover(function() {
-				$('.rating').toggleClass('rated1'); // add class when mouseover happen
-			});
-			$('.rating2').hover(function() {
-				$('.rating').toggleClass('rated2'); // add class when mouseover happen
-			});
-			$('.rating3').hover(function() {
-				$('.rating').toggleClass('rated3'); // add class when mouseover happen
-			});
-			$('.rating4').hover(function() {
-				$('.rating').toggleClass('rated4'); // add class when mouseover happen
-			});
-			$('.rating5').hover(function() {
-				$('.rating').toggleClass('rated5'); // add class when mouseover happen
-			});
-			$(".rating1").click(function(){
-				$(".rating").addClass("isRated1");
-				$(".rating").removeClass("isRated2 isRated3 isRated4 isRated5");
-			});
-			$(".rating2").click(function(){
-				$(".rating").addClass("isRated2");
-				$(".rating").removeClass("isRated3 isRated4 isRated5");
-			});
-			$(".rating3").click(function(){
-				$(".rating").addClass("isRated3");
-				$(".rating").removeClass("isRated4 isRated5");
-			});
-			$(".rating4").click(function(){
-				$(".rating").addClass("isRated4");
-				$(".rating").removeClass("isRated5");
-			});
-			$(".rating5").click(function(){
-				$(".rating").addClass("isRated5");
-			});
 
 
 			// Remove elements when user is not loggedIn.
 			$(".languageSelect, .notLoggedIn .commentInput, .notLoggedIn #newrating, .notLoggedIn .editMenu,.notLoggedIn .projectNavBtn, .notLoggedIn .editProjectBtn, .notLoggedIn .editMenuHorizontal").remove();
+
+      // if( $('.notLoggedIn #singleskill').length){
+			// }
+      // else {
+			// 	$("#skills-needed").remove();
+      // }
 
 			// Check if there are comments available
 			if( $('.comment').length){
@@ -254,7 +155,6 @@
 				} else {
 						$openContent.html('<span class="icon-down"></span> Open menu');
 				}
-
 			});
 
 			// Add active class to menu, doesnt work without ajax.
@@ -281,9 +181,9 @@
 			$(window).resize(function() {
 				menuHeight();
 			});
+
 			$(document).ready(function() {
 				menuHeight();
-
 
 				//Count amount of comments
 				var n = $( ".comment" ).size();
@@ -315,17 +215,5 @@
 								'</div>'
 			});
 		</script>
-		<script>
-			// Google Analytics
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-					(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-							m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-			ga('create', 'UA-61173517-1', 'auto');
-			ga('send', 'pageview');
-			ga('set', 'anonymizeIp', true);
-		</script>
-
   </body>
 </html>
