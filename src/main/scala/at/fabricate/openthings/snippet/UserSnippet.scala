@@ -34,6 +34,8 @@ with AddSkillsSnippet[User]  {
   override def listTitle = "List Designer"
   override def editTitle = "Edit Designer"
     
+  
+    val notAvailable = Text("Not avaliable here!")
     
       
       val contentLanguage = UrlLocalizer.contentLocale
@@ -103,4 +105,8 @@ with AddSkillsSnippet[User]  {
    (super.asHtml(item))
   }
 
+   // remove this features
+  override def create(xhtml: NodeSeq) : NodeSeq  = notAvailable
+  
+  override def edit(xhtml: NodeSeq) : NodeSeq  =  notAvailable
 }
