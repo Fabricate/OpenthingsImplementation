@@ -935,6 +935,31 @@ body {
   background-color: #323232;
   color: white; }
 
+.about__home {
+  padding: 8%;
+  background: white;
+  width: 100%; }
+
+.about__home .wrapper {
+  -webkit-column-count: 2;
+     -moz-column-count: 2;
+          column-count: 2;
+  -webkit-column-gap: 60px;
+     -moz-column-gap: 60px;
+          column-gap: 60px;
+  font-size: .875em;
+  margin: auto; }
+
+.about__home .wrapper h2 {
+  -webkit-column-span: all;
+     -moz-column-span: all;
+          column-span: all;
+  text-align: center; }
+
+.about__home .wrapper h3 {
+  margin-top: 1.5714285714285714em;
+  font-weight: bold; }
+
 .delete-icon {
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
@@ -1202,6 +1227,14 @@ body {
   font-size: 1em;
   width: 300px; }
 
+.searchForm select {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none; }
+
+.searchForm button {
+  clear: left; }
+
 #searchform button {
   background: none repeat scroll 0 0 transparent;
   color: #fbc02d;
@@ -1258,6 +1291,66 @@ body {
 
 #listtags li a {
   color: white; }
+
+/* Tag-it */
+ul.tagit {
+  padding: 1px 5px;
+  overflow: auto;
+  margin-left: inherit;
+  /* usually we don't want the regular ul margins. */
+  margin-right: inherit; }
+
+ul.tagit li {
+  display: block;
+  float: left;
+  margin: 2px 5px 2px 0; }
+
+ul.tagit li.tagit-choice {
+  position: relative;
+  line-height: inherit; }
+
+input.tagit-hidden-field {
+  display: none; }
+
+ul.tagit li.tagit-choice-read-only {
+  padding: .2em .5em .2em .5em; }
+
+ul.tagit li.tagit-choice-editable {
+  padding: .2em 18px .2em .5em; }
+
+ul.tagit li.tagit-new {
+  padding: .25em 4px .25em 0; }
+
+ul.tagit li.tagit-choice a.tagit-label {
+  cursor: pointer;
+  text-decoration: none; }
+
+ul.tagit li.tagit-choice .tagit-close {
+  cursor: pointer;
+  position: absolute;
+  right: .1em;
+  top: 50%;
+  margin-top: -8px;
+  line-height: 17px; }
+
+/* used for some custom themes that don't need image icons */
+ul.tagit li.tagit-choice .tagit-close .text-icon {
+  display: none; }
+
+ul.tagit li.tagit-choice input {
+  display: block;
+  float: left;
+  margin: 2px 5px 2px 0; }
+
+ul.tagit input[type="text"] {
+  box-sizing: border-box;
+  box-shadow: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: inherit;
+  background-color: inherit;
+  outline: none; }
 
 .projectVersions {
   padding: 8%;
@@ -1357,7 +1450,10 @@ body {
   background-color: white; }
 
 #commenttitle {
-  margin-bottom: 0.625em; }
+  margin-bottom: 0; }
+
+.comment h2 {
+  margin-bottom: .2em; }
 
 .projectComments header {
   background-color: white;
@@ -1511,7 +1607,6 @@ body {
 .landingSection::after {
   content: "";
   background: url(../images/protheses.jpg);
-  background-attachment: fixed;
   opacity: .6;
   top: 0;
   background-size: cover;
@@ -1584,7 +1679,14 @@ body {
 
 .homeProjectIntro {
   text-transform: uppercase;
-  letter-spacing: .1em; }
+  letter-spacing: .1em;
+  max-width: 700px;
+  margin: auto; }
+
+.homeProjectIntro p {
+  text-transform: none;
+  margin-top: 1em;
+  letter-spacing: .01em; }
 
 .homeProjectIntro h2, .homeProjectIntro h1 {
   margin-bottom: 0; }
@@ -1596,7 +1698,7 @@ body {
   width: 80%;
   margin: auto; }
 
-.explainItems li p {
+.explainItems li h3 {
   font-size: 1.8em; }
 
 .explainItems li {
@@ -1604,7 +1706,7 @@ body {
   padding: 0 4%;
   text-align: center; }
 
-.explainItems li p {
+.explainItems li h3 {
   margin-top: 1.2em; }
 
 .explainItems li span {
@@ -1680,8 +1782,8 @@ body {
   cursor: pointer;
   font-size: 1.5em;
   position: absolute;
-  right: 3%;
-  top: 10%;
+  right: 30px;
+  top: 30px;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
   z-index: 2; }
@@ -1691,6 +1793,29 @@ body {
 
 .projectHeader {
   background-color: #323232; }
+
+.button__bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+  padding: 15px !important;
+  background-color: rgba(250, 250, 250, 0.2) !important; }
+
+.button__bar .inner {
+  background: transparent !important;
+  padding: 0 !important; }
 
 .projectHeader select {
   padding: .3em;

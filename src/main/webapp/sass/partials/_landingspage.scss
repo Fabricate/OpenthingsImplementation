@@ -6,7 +6,6 @@
 .landingSection::after{
 	content: "";
   background: url(../images/protheses.jpg);
-	background-attachment: fixed;
   opacity: .6;
   top: 0;
 	background-size: cover;
@@ -15,7 +14,7 @@
   bottom: 0;
   right: 0;
   position: absolute;
-  z-index: -1; 
+  z-index: -1;
 }
 .branding{
 	color: white;
@@ -39,7 +38,7 @@
 	right: 8%;
 	transform: translateY(-50%);
 	padding: $xsmall-percentage;
-	
+
 }
 .signupHome input{
 	width: 100%;
@@ -80,8 +79,14 @@
 .homeProjectIntro{
 	text-transform: uppercase;
 	letter-spacing: .1em;
+	max-width: 700px;
+	margin: auto;
 }
-
+.homeProjectIntro p{
+	text-transform: none;
+	margin-top: 1em;
+	letter-spacing: .01em;
+}
 .homeProjectIntro h2, .homeProjectIntro h1{
 	margin-bottom: 0;
 }
@@ -93,7 +98,7 @@
 	width: 80%;
 	margin: auto;
 }
-.explainItems li p{
+.explainItems li h3{
 	font-size: 1.8em;
 }
 .explainItems li{
@@ -101,7 +106,7 @@
 	padding: 0 4%;
 	text-align: center;
 }
-.explainItems li p{
+.explainItems li h3{
 	margin-top: 1.2em;
 }
 .explainItems li span{
