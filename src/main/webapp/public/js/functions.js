@@ -12,9 +12,9 @@ function openComments(){
 }
 
 function AddProject(){
-  $(".postProject").slideDown();
+  $(".postProject").slideDown("fast");
   $(".close-icon").click(function(){
-    $(".postProject").slideUp();
+    $(".postProject").slideUp("fast");
   });
 }
 

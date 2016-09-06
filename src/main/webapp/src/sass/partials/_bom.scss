@@ -1,0 +1,19 @@
+.needHelp{
+	padding: $small-percentage;
+	background-color: rgba(white, .3);
+	color: $darkgrey;
+	width: 100%;
+}
+.needHelp li{
+	padding: $tiny-percentage 0;
+	border-bottom: white 1px solid;
+}
+.addHelp{
+	display: none;
+}
+.addHelp input{
+	width: 44%;
+}
+.addHelp button{
+	margin-left: $xsmall-em;
+}

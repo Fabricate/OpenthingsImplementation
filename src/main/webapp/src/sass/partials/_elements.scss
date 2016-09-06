@@ -1,0 +1,84 @@
+#ajax-loader{
+	width: 20px;
+}
+.loader{
+	position: relative;
+	width: 100%;
+	text-align: center;
+	margin-top: -22px;
+}
+#commentMessages span{
+	background: none repeat scroll 0 0 rgba($brand-color, .4);
+	color: white;
+	font-size: 1.3em;
+	padding: $xsmall-percentage;
+	display: block;
+}
+#commentMessages{
+	width: 100%;
+}
+.uploadstatus p{
+	padding: $xsmall-percentage $smedium-percentage;
+	background: rgba($brand-color, 0.6);
+	color: white;
+	margin: -$xsmall-em 0 $xsmall-em;
+}
+.select-style {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #fafafa url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==") no-repeat 95% 50%;
+	display: table;
+}
+.select-style select {
+    padding: 5px 45px 5px 10px;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+		-moz-appearance: none;
+	
+}
+.select-style select:focus {
+    outline: none;
+}
+
+.lazyLoginScreen form{
+	max-width: 600px;
+	width: 80%;
+}
+.lazyLoginScreen input, .lazyLoginScreen textarea, .lazyLoginScreen select{
+	max-width: 100%;
+	width: 100%;
+	margin-bottom: $xsmall-em;
+}
+
+#lift__noticesContainer___notice{
+	background-color:  $brand-color;
+	padding: 1em;
+	float: left;
+	width: 100%;
+	z-index: 9999;
+	color: white;
+}
+
+#lift__noticesContainer___warning {
+	background-color: $brand-color;
+	padding: 1em;
+	float: left;
+	width: 100%;
+	color: white;
+}
+
+#lift__noticesContainer___error {
+	background-color: orange;
+	padding: 1em;
+	float: left;
+	width: 100%;
+	color: white;
+}
+.spacerline{
+	width: 100%;
+}

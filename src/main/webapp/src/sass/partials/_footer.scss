@@ -1,0 +1,23 @@
+.mainFooter{
+	padding: 0 $xsmall-percentage;
+}
+.mainFooter p{
+	font-size: 0.875em;
+	color: $mediumgrey;
+	margin-top: $xsmall-em;
+	line-height: 3em;
+	margin-bottom: 0;
+}
+.footerNav{
+	width: 100%;
+	background-color: white;
+	border-top: 1px solid #ddd;
+}
+.footerNav section{
+	width: 16%;
+	margin: $xsmall-percentage;
+}
+.footerNav li{
+	line-height: 1.5em;
+	font-size: 0.875em;
+}

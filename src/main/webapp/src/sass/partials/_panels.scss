@@ -1,0 +1,37 @@
+.panel form{
+	max-width: 600px;
+	width: 90%;
+}
+.panel input, .panel textarea, .panel select{
+	max-width: 100%;
+	width: 100%;
+	margin-bottom: $xsmall-em;
+}
+.panel{
+	padding: $small-percentage;
+	width: 100%;
+	position: fixed;
+	height: calc(100% - 51px);
+	overflow-y: auto;
+	top: 51px;
+	left: 0;
+	z-index: 4;
+	background: rgba(white,0.97);
+	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
+	display: none;
+}
+.loginScreen p{
+	width: 100%;
+}
+.panel button, .panel input[type="submit"]{
+	margin-bottom: $medium-percentage;
+}
+.close-icon{
+	cursor: pointer;
+	font-size: 1.5em;
+	position: absolute;
+	right: 30px;
+	top: 30px;
+	transform: rotate(45deg);
+	z-index: 2;
+}

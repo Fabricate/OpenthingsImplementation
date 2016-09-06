@@ -1,0 +1,23 @@
+.projectDetails, .userDetails{
+	padding: $medium-percentage $smedium-percentage;
+	background-color: rgba(white, .9);
+	color: $darkgrey;
+	text-align: center;
+}
+.projectDetails li span, .userDetails li span{
+	font-size: 3em;	
+}
+.projectDetails li h5, .userDetails li h5{
+	margin-top: 1em;
+	margin-bottom: 0;
+}
+.projectDetails li h6, .userDetails li h6{
+	margin-bottom: 0;
+}
+.projectDetails li, .userDetails li{
+	margin: 0 $xsmall-percentage 0 0;
+	width: 32%;
+}
+.projectDetails li:last-child, .userDetails li:last-child{
+	margin: 0 0 0 0;
+}

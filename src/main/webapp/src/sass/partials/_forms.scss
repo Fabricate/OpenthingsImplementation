@@ -1,0 +1,46 @@
+select, input, textarea{
+	border: 1px solid $lightgrey;
+	padding: 1em;
+	border-radius: 1px;
+	background: none;
+}
+input[type="checkbox"]{
+	padding: $tiny-em;
+}
+#showicon{
+	border: 1px solid $lightgrey;
+}
+
+.projectVersions input{
+	float: left;
+	width: 100%;
+}
+
+.contactform{
+	max-width: 600px;
+}
+
+.contactform input, .contactform textarea, .contactform select{
+	width: 100%;
+	border-color: $mediumgrey;
+	margin-bottom: $xsmall-em;
+}
+.addTags input{
+	max-width: 60% !important;
+}
+#editUserForm img{
+	max-width: 100%;
+}
+
+.mce-panel{
+	margin-bottom: $small-em !important;
+}
+
+#resetpasswordform input{
+  width: 100%;
+  margin-bottom: 0.625em;
+}
+
+#resetpasswordform .btn{
+  width: auto;
+}

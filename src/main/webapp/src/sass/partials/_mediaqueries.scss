@@ -1,0 +1,256 @@
+@media only screen and (max-width: 1280px)  {
+	.mainContent .preview{
+		width: 30.6%;
+	}
+}
+@media only screen and (max-width: 1280px)  {
+	.mainNavigation li a, .editMenuHorizontal li{
+		padding: 0 .5em;
+	}
+	.onoffswitch{
+		margin: 0.6em .5em;
+	}	
+	.editMenuHorizontal li{
+		display: none;
+	}
+	.editMenuHorizontal li:first-child{
+		display: inline-block;
+	}
+	.editMenuHorizontal{
+		font-size: 75%;
+	}
+}
+
+@media only screen and (max-width: 930px)  {	
+	.about__home .wrapper{
+		column-count: 1;
+		text-align: center;
+	}
+ .col-2, .mainContent .projectHeader img, .mainContent .projectHeader .projectMainDes{
+		width: 100%;
+	}
+	.mainContent .preview{
+		width: 47%;
+	}
+	.mainNavigation ul{
+		padding: .5em 1em;
+		background: white;
+	}
+	.mainNavigation{
+		background-color: rgba(255, 255, 255, 1);
+	}
+	.mainNavigation ul, .signupHome{
+		display: none;
+	}
+	.mainNavigation ul li:last-child{
+		display: none;
+	}
+	.mainNavigation ul span{
+		display: none;
+	}
+	.mainNavigation li{
+		float: left !important;
+		width: 100%;
+	}
+	a, .shareDesignBtn{
+		padding: 0 .4em;
+	}
+	.shareDesignBtn{
+		color: $mediumgrey !important;
+	}
+	.shareDesignBtn{
+		background-color: transparent !important;
+	}
+	.shareDesignBtn:hover{
+		background-color: transparent !important;
+	}
+	.openMenu{
+		padding: .5em 1em;
+		text-align: center;
+		display: block;
+	}
+	.landingPageMain .preview{
+		display: none;
+	}
+	.landingPageMain .preview:nth-of-type(3){
+		display: none;
+	}
+	.landingPageMain .preview:nth-of-type(1), .landingPageMain .preview:nth-of-type(2){
+		display: block;
+	}
+	.mainContent .homelist .preview{
+		width: 47% !important;
+	}
+	.brandingText{
+		width: 100%;
+	}
+	.introSection{
+		padding: $medium-percentage 0;
+	}
+	.explainItems li span{
+		font-size: 3em;
+	}
+	.explainItems li p{
+		font-size: .875em;
+	}
+	.badgelogo{
+		display: none;
+	}
+	.mainNavigation li:first-child a{
+		padding: 0 0.6em;
+	}
+	.mainNavigation ul span{
+		display: inline-block;
+	}
+	.introVid{
+		width: 80%;
+	}
+	
+//	.editMenuHorizontal{
+//		position: fixed;
+//		width: 100%;
+//		height: 100%;
+//		left: 0;
+//		top: 0;
+//		transform: translateX(-100%);
+//		display: none;
+//	}
+	#searchform{
+		float: left;
+		top: 0;
+		left: 0;
+	}
+	.mainNavigation li a{
+		padding: 0;
+	}
+	.editMenuHorizontal{
+		font-size: 65%;
+	}
+	
+}
+@media only screen and (max-width: 880px)  {		
+	.editMenuHorizontal{
+		font-size: 45%;
+	}
+
+}
+
+@media only screen and (max-width: 640px)  {		
+	.mainSearch{
+		font-size: .65em;
+		height: 65px;
+	}
+	.explainItems li{
+		width: 100%;
+	}
+	
+	.editMenuHorizontal li, .mainNavigation li{
+		display: list-item;
+		text-align: left;
+	}
+	#main{
+		margin-top: 50px;
+	}
+	.footerNav section{
+		width: 40%;
+		margin: $small-percentage;
+	}
+	.userProjectVersions, .detailedDescription{
+		padding: $small-percentage;
+	}
+	.two-col{
+		width: 100%;
+	}
+	.branding{
+		max-width: 100%;
+	}
+	.signupHome{
+		max-width: 100%;
+		display: none;
+	}
+	.mainContent .preview{
+		width: 96%;
+	}
+	.mainNavigation li a, .shareDesignBtn{
+		padding: 0 0.6em;
+	}
+	.loginBtn{
+		display: none;
+	}
+	.mainSearch input{
+		width: 18em;
+	}
+	.branding button{
+		margin-bottom: .5em;
+	}
+	.projectDetails li, .userDetails li{
+		margin: 0 0 4% 0;
+		width: 50%;
+	}
+	.editMenuHorizontal ul{
+		display: none;
+	}
+	.landingPageMain .preview{
+		display: none;
+	}
+	.mainContent .homelist .preview{
+		width: 96% !important;
+	}
+	.brandingText{
+		width: 100%;
+	}
+	.introSection{
+		padding: $medium-percentage 0;
+	}
+	.explainItems li span{
+		font-size: 3em;
+	}
+	.explainItems li p{
+		font-size: .875em;
+	}
+	.badgelogo{
+		display: none;
+	}
+	.landingPageMain .preview:nth-of-type(1), .landingPageMain .preview:nth-of-type(2){
+		display: block;
+	}
+	.mainNavigation li:first-child a{
+		padding: 0 0.6em;
+	}
+	.mainNavigation ul span{
+		display: inline-block;
+	}
+	.introVid{
+		width: 80%;
+	}
+}
+
+@media only screen and (max-width: 420px)  {	
+	#searchform input{
+		width: 160px;
+	}
+	.landingPageMain .preview{
+		display: none;
+	}
+	.mainContent .homelist .preview{
+		width: 96% !important;
+	}
+	.brandingText{
+		width: 100%;
+	}
+	.introSection{
+		padding: $medium-percentage 0;
+	}
+	.explainItems li span{
+		font-size: 3em;
+	}
+	.explainItems li p{
+		font-size: .875em;
+	}
+	.badgelogo{
+		display: none;
+	}
+	.landingPageMain .preview:nth-of-type(1){
+		display: block;
+	}
+}

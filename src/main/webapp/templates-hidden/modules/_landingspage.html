@@ -1,14 +1,29 @@
 <section id="landingsection" class="landingSection left">
-	<div class="branding left">
-		<div class="badgelogo left"></div>
-		<div class="brandingText right">
-			<h1 class="alpha">Openthings</h1>
-			<p data-lift="lift:L10n.i">landingpage_intro_text</p>
+	<div class="wrapper">
+		<div class="branding left">
+			<div class="badgelogo left"></div>
+			<div class="brandingText right">
+				<h1 class="alpha">Openthings</h1>
+				<p data-lift="lift:L10n.i">landingpage_intro_text</p>
+			</div>
+		</div>
+		<div class="signupHome right">
+			<div class="btn__bar">
+				<button class="signup__tab active">Signup</button>
+				<button class="login__tab">Login</button>
+			</div>
+			<div class="signup__field">
+				<div data-lift="Login.signup?eager_eval=true" class="home__signup">
+					<span data-lift="embed?what=modules/_signup-form">SignupForm</span>
+				</div>
+				<div data-lift="Login.signup?eager_eval=true" class="home__login">
+					<span data-lift="embed?what=modules/_login-form">LoginForm</span>
+				</div>
+			</div>
 		</div>
 	</div>
-
-	<div data-lift="Login.signup?eager_eval=true" class="signupHome right">
-			<h2><span class="icon-skills"></span> <span data-lift="lift:L10n.i">join_the_beehive</span></h2>
-			<span data-lift="embed?what=modules/_signup-form">SignupForm</span>
+	<div class="down__container">
+		<div class="down__btn"></div>
+		<span>Explore projects</span>
 	</div>
 </section>

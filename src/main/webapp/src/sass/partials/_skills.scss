@@ -1,0 +1,34 @@
+.skills{
+	background: $darkgrey;
+	padding: $medium-percentage;
+	width: 100%;
+	color: white;
+}
+
+.skills ul li{
+	padding: $xsmall-percentage;
+	width: 100%;
+}
+.skills ul li a{
+	color: white;
+}
+.skills ul li:nth-of-type(odd){
+	background: rgba($canvas, .1);
+}
+.skills ul li:nth-of-type(even){
+	background: rgba($canvas, .2);
+}
+
+.skills .editPage{
+	margin: $medium-percentage 0;
+}
+#newskillname{
+	width: 100%;
+	border-color: white !important;
+	color: white;
+}
+
+.newskill{
+	width: 100%;
+	margin-bottom: $xsmall-percentage;
+}

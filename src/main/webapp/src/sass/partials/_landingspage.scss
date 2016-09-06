@@ -1,0 +1,165 @@
+.landingSection{
+	width: 100%;
+	padding: $smedium-percentage $medium-percentage;
+	background-color: rgba($sec-brand-color, .75);
+	display: flex;
+	justify-content: center;
+	height: calc(100vh - 51px);
+	.wrapper{
+		max-width: 1300px;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+}
+.landingSection::after{
+	content: "";
+	background: url(../images/tool.jpg);
+	opacity: .6;
+	top: 0;
+	background-size: cover;
+	background-position: center;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	position: absolute;
+	z-index: -1;
+}
+.branding{
+	color: white;
+	max-width: 700px;
+	.badgelogo{
+		width: 200px;
+		height: 200px;
+		background-size: contain;
+	  	background: url(../images/logobadge.svg);
+		background-repeat: no-repeat;
+	}
+	.brandingText{
+		width: 400px;
+	}
+}
+.branding h1{
+	font-size: 2.3em;
+}
+.branding p{
+	font-size: 1.4em;
+}
+.signupHome{
+	max-width: 400px;
+	align-self: flex-start;
+	.btn__bar{
+		background: white;
+		width: auto;
+		float: right;
+		button{
+			margin: 0;
+			border: none;
+			background: $lightgrey;
+			color: $darkgrey;
+			&.active{
+				background: white;
+			}
+		}
+	}
+	.signup__field{
+		background: white;
+		padding: $gutter;
+		float: right;
+	}
+	input{
+		width: 100%;
+		margin-bottom: $xsmall-em;
+		padding: .5em;
+	}
+}
+.signupHome{
+	.home__login{
+		display: none;
+	}
+}
+.introSection, .homeProjectIntro, .landingPageMain footer{
+	padding: $small-percentage 0 $xsmall-percentage;
+}
+.landingPageMain .preview{
+	display: none;
+}
+.landingPageMain .preview:nth-of-type(1), .landingPageMain .preview:nth-of-type(2), .landingPageMain .preview:nth-of-type(3){
+	display: block;
+}
+.introSection{
+	width: 100%;
+	padding: $medium-percentage;
+	background: darken($brand-color, 10%);
+}
+.introSection footer{
+	text-align: center;
+	padding: $small-percentage 0 0;
+}
+.landingPageMain footer, .introSection footer{
+	width: 100%;
+}
+.homeProjectIntro{
+	text-transform: uppercase;
+	letter-spacing: .1em;
+	max-width: 700px;
+	margin: auto;
+}
+.homeProjectIntro p{
+	text-transform: none;
+	margin-top: 1em;
+	letter-spacing: .01em;
+}
+.homeProjectIntro h2, .homeProjectIntro h1{
+	margin-bottom: 0;
+}
+
+.mainContent .homelist .preview{
+	width: 30.6%;
+}
+.explainItems{
+	width: 80%;
+	margin: auto;
+}
+.explainItems li h3{
+	font-size: 1.8em;
+}
+.explainItems li{
+	width: 33.33%;
+	padding: 0 4%;
+	text-align: center;
+}
+.explainItems li h3{
+	margin-top: 1.2em;
+}
+.explainItems li span{
+	font-size: 8em;
+	margin-bottom: 2em;
+}
+.introVidContainer{
+	margin-top: 6em;
+}
+
+.down__container{
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%) scale(1);
+	bottom: 30px;
+	display: flex;
+	color: white;
+	align-items: center;
+	transition: .2s ease-in-out;
+	cursor: pointer;
+	&:hover{
+		transform: translateX(-50%) scale(1.1);
+	}
+}
+
+.down__btn{
+	width: 40px;
+	height: 40px;
+	margin-right: 10px;
+	background-image: url(../images/down.svg);
+	background-size: contain;
+}

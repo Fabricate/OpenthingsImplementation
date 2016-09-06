@@ -1,0 +1,74 @@
+.projectVersions{
+	padding: $medium-percentage;
+	background-color: rgba($brand-color, .1);
+	color: $darkgrey;
+}
+.projectVersions li{
+	border-top: 1px solid rgba(255,255,255, 0.5);
+	padding: $small-percentage 0;
+	width: 100%;
+}
+.projectVersionsList ul{
+ display: none;
+}
+#commitdifferencedetails li{
+	padding: $xsmall-percentage;
+	background: rgba($brand-color, .1);
+}
+#commitdifferencedetails li:nth-child(even){
+	background: rgba($brand-color, .2);
+}
+.addFiles{
+	width: 100%;
+	width:100%;
+	padding: 3% 0;
+	box-sizing: border-box;
+}
+.addFiles input{
+	margin-bottom: $xsmall-em;
+	border-color: $mediumgrey;
+}
+.addFiles ul li:first-child{
+	border-top: 0;
+}
+.addFiles ul li{
+	padding: $xsmall-percentage;
+}
+.addFiles ul li:nth-child(even){
+	background: rgba(50,50,50, .1);
+}
+.addFiles #files{
+	margin-bottom: 2em;
+}
+.versionDetails{
+	margin-top: $small-percentage;
+}
+.versionDetails{
+	display: none;
+}
+.versionDetails li{
+	background: rgba($brand-color, 0.1);
+	padding: $tiny-percentage $small-percentage;
+}
+.versionDetails li:nth-child(odd){
+	background: rgba($brand-color, 0.15);
+}
+.userProjectVersions{
+	padding: $medium-percentage;
+	background-color: rgba(white, .3);
+	color: $darkgrey;
+}
+.userProjectVersions li{
+	border-top: 1px solid rgba(255,255,255, 0.5);
+	padding: $small-percentage 0;
+}
+.projectVersionsList .icon-eye{
+	cursor: pointer;
+}
+//#repositoryMessages{
+//	background: rgba($brand-color, .5);
+//	padding: $small-em $medium-percentage;
+//}
+#revertcommit, #resetcommit{
+	display: none;
+}

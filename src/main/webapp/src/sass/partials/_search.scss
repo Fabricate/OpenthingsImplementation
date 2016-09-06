@@ -1,0 +1,71 @@
+.mainSearch{
+	width: 100%;
+	height: 74px;
+	background-color: white;
+	@include box-sizing(border-box);
+	padding: $small-em $medium-em;
+	border-bottom: 1px solid #ddd;
+}
+.mainSearch li{
+	display: inline;
+	margin: 0 0 0 $medium-em;
+	line-height: 3.125em;
+}
+.mainSearch input{
+	width: 24.375em;
+	height: 3.125em;
+	padding: 0 $small-em;
+	@include box-sizing(border-box);
+}
+.mainSearch button{
+	height: 3.125em;
+	padding: 0 $small-em;
+	margin: 0 0 0 $tiny-em;
+}
+.searchContent{
+	padding-bottom: $xsmall-percentage;
+}
+.searchContent .searchForm{
+	background-color: white;
+	padding: $small-percentage;
+	z-index: 2;
+}
+.searchContent .searchForm #teaser, .searchContent .searchForm #description{
+	display: none;
+}
+.searchForm {
+	width: 100%;
+}
+.searchContent .searchForm  input, .searchContent .searchForm  select{
+	float: left;
+	margin: 0 $tiny-percentage $xsmall-em 0;
+	max-height: 3.40em;
+	width: 30%;
+}
+#searchform {
+	font-size: .875em;
+	    top: 0.6em;
+	right: .5em;
+	float: right;
+}
+#searchform input{
+	padding: .1em .4em .1em 2.1em;
+	font-size: 1em;
+	width: 300px;
+}
+
+.searchForm select{
+  appearance:none;
+}
+.searchForm button{
+  clear: left;
+}
+#searchform button{
+	background: none repeat scroll 0 0 transparent;
+	color: $brand-color;
+	font-size: 1em;
+	left: 10px;
+	padding: 0.2em;
+	position: absolute;
+	top: 0;
+}

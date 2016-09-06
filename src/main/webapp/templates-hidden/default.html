@@ -1,22 +1,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:lift="http://liftweb.net/">
   <head>
-
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Openthings is a platform where people can design together and stimulate collaboration to make great projects happen." />
     <meta name="keywords" content="open-design, design, version control, makers, maker movement, fablabs" />
-		<meta property="og:image" content="http://fabacademy.org/archives/2014/students/risseeuw.martin/images/tutorial/sanding.jpg"/>
-		<meta name="google-site-verification" content="ssLMRV87w4QeVJv81fimAPN44n45kz44q1-iQ4Cmz6U" />
-
-		<link rel="author" href="https://plus.google.com/+MartinRisseeuw"/>
-
+    <meta property="og:image" content="http://fabacademy.org/archives/2014/students/risseeuw.martin/images/tutorial/sanding.jpg"/>
+    <link rel="author" href="https://plus.google.com/+MartinRisseeuw"/>
     <title data-lift="Menu.title">Openthings |</title>
-
+    <script src="https://use.typekit.net/xvi1azk.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
     <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="/public/stylesheets/main.css" />
     <link rel="stylesheet" type="text/css" href="/public/stylesheets/jquery.tagsinput.css" />
 
-	<!-- styles for the wysiwyg editor -->
+    <!-- styles for the wysiwyg editor -->
     <link rel="stylesheet" type="text/css" href="/public/markitup/skins/markitup/style.css" />
     <link rel="stylesheet" type="text/css" href="/public/markitup/sets/default/style.css" />
 		<link rel="icon"
@@ -27,7 +24,6 @@
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
         <script src="/public/js/tag-it.min.js"></script>
         <script src="/public/markitup/jquery.markitup.js"></script>
-        <script src="/public/js/jquery.magnific-popup.min.js"></script>
 				<!-- the wysiwyg editor -->
 					<script type="text/javascript" src="/public/markitup/sets/default/set.js"></script>
 				<!-- <script id="json" src="/classpath/json.js" type="text/javascript"></script> -->
@@ -54,8 +50,6 @@
     <!-- End Google Tag Manager -->
 		<section class="mainHeader">
 			<span data-lift="embed?what=modules/_navigation">Navigation</span>
-<!--			<span data-lift="embed?what=modules/_search">Search</span>-->
-<!--		<span data-lift="embed?what=modules/_advancedsearch">Advanced search</span>-->
 		</section>
 		<div data-lift="Msgs?showAll=true" class="alertmessages"></div>
 
@@ -66,154 +60,22 @@
 		<span data-lift="embed?what=modules/_editproject">Edit project</span>
 
 		<div data-lift="Login.account"><span id="onlinestatus" class="#"></span></div>
-
     <div id="content">The main content will get bound here</div>
 
-
-
 		<div class="column span-12 last loader left">
-			<h1 class="alt"><img alt="" id="ajax-loader" style="display:none;" src="/public/images/ajax-loader.gif"></h1>
+			<h6 class="alt"><img alt="" id="ajax-loader" style="display:none;" src="/public/images/ajax-loader.gif"></h6>
 		</div>
 		<span data-lift="embed?what=modules/_footernav">FooterNav</span>
-
     <!--<span data-lift="Menu.builder"></span>-->
-
-    <script src="/public/js/rating.js"></script>
-    <script src="/public/js/functions.js"></script>
-		<script>
-			jQuery(document).ready(function() {
-        $("#contactinitiator").removeAttr('href');
-				// add the wysiwyg via markitup
-				$('.wysiwyg').markItUp(myTextileSettings);
-
-        if ($('.userDes p').is(':empty')){
-					$('.userDes').remove();
-				}
-			});
-
-
-			$("#contactinitiator").click(function(){
-        $(".contactMaker").slideToggle();
-      });
-
-
-			$('.editMenu ul li a').click(function(){
-				$(".editMenu").toggleClass("activeMenu");
-				$(".projectNavBtn").toggleClass("projectNavBtnActive");
-				$('.projectNavBtn').html("<span class='icon-pencil'></span> Project menu");
-			});
-
-			$(".projectNavBtn").click(function() {
-					$(".editMenu").toggleClass("activeMenu");
-					$(".projectNavBtn").toggleClass("projectNavBtnActive");
-					var $this = $(this);
-					$this.toggleClass("editOn");
-					if ($this.hasClass("editOn")) {
-							$this.html("Close menu");
-					} else {
-							$this.html("Project menu");
-					}
-			});
-
-			$('.onoffswitch-label').click(function(){
-					$(this).parent().toggleClass('onoffswitch-checked');
-					if ($(".onoffswitch").hasClass("onoffswitch-checked")) {
-						$(".editPage").fadeIn("fast");
-					}
-					else{
-						$(".editPage").fadeOut("fast");
-					}
-			});
-
-
-
-			// Remove elements when user is not loggedIn.
-			$(".languageSelect, .notLoggedIn .commentInput, .notLoggedIn #newrating, .notLoggedIn .editMenu,.notLoggedIn .projectNavBtn, .notLoggedIn .editProjectBtn, .notLoggedIn .editMenuHorizontal").remove();
-
-      // if( $('.notLoggedIn #singleskill').length){
-			// }
-      // else {
-			// 	$("#skills-needed").remove();
-      // }
-
-			// Check if there are comments available
-			if( $('.comment').length){
-			}
-			else{
-				$(".viewcomments").remove();
-			}
-
-			// Mobile menu functions
-			$('.openMenu p').click(function(){
-				var $openmenu = $('.openMenu');
-				var $openContent = $('.openMenu p');
-
-				$('.mainNavigation ul').slideToggle();
-				$openmenu.toggleClass("activeMenu");
-				if ($openmenu.hasClass("activeMenu")) {
-						$openContent.html('<span class="icon-delete"></span> Close menu');
-				} else {
-						$openContent.html('<span class="icon-down"></span> Open menu');
-				}
-			});
-
-			// Add active class to menu, doesnt work without ajax.
-			$('.mainNavigation li a').click(function(){
-					$('.mainNavigation li a').removeClass("active");
-					$(this).addClass("active");
-			});
-
-			$('.mainfest-point').click(function(){
-				$(this).find('p').slideToggle();
-				$(this).find('p').toggleClass('openacc');
-
-				var $openacc = $('.mainfest-point p');
-
-				if ($openacc.hasClass("openacc")) {
-						(this).slideUp;
-				} else {
-
-				}
-
-			});
-
-
-			$(window).resize(function() {
-				menuHeight();
-			});
-
-			$(document).ready(function() {
-				menuHeight();
-
-				//Count amount of comments
-				var n = $( ".comment" ).size();
-				$('.viewcomments i').prepend(n + " ");
-
-				// Scroll to an element
-				$('a').click(function() {
-					var menuHeight = $('.editMenuHorizontal').height() + $('.mainNavigation').height();
-					var elementClicked = $(this).attr("href");
-					var destination = $(elementClicked).offset().top;
-					$("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination - menuHeight}, 500 );
-					return false;
-				});
-			});
-
-			// Pop-ups such as vimeo
-			$('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
-				type: 'iframe',
-				mainClass: 'mfp-fade',
-				showCloseBtn: true,
-				closeBtnInside:true,
-				removalDelay: 160,
-				preloader: false,
-				fixedContentPos: false,
-
-				markup: '<div class="mfp-iframe-scaler">'+
-									'<div class="mfp-close"></div>'+
-									'<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
-								'</div>'
-			});
-		</script>
+    <script src="/public/js/main.min.js"></script>
+    <script type="text/javascript">
+    window._urq = window._urq || [];
+    _urq.push(['initSite', 'f1e929a4-4af9-4390-93eb-abb21b171577']);
+    (function() {
+    var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
+    ur.src = ('https:' == document.location.protocol ? 'https://cdn.userreport.com/userreport.js' : 'http://cdn.userreport.com/userreport.js');
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
+    })();
+    </script>
   </body>
 </html>
