@@ -26,6 +26,7 @@ import net.liftweb.http.S
     val state4 = "project_state_4"
     val state5 = "project_state_5"
     val state6 = "project_state_6"
+    val state7 = "project_state_7"
     
         private def wrapSpanWithClass(theClass : String,theText: String) : Elem = 
         <li class="left">
@@ -42,6 +43,7 @@ import net.liftweb.http.S
 	val evolved = MultiLanguageValue(state4,wrapSpanWithClass("icon-indication-bar3",state4))
 	val advanced = MultiLanguageValue(state5,wrapSpanWithClass("icon-indication-bar4",state5))
 	val mature = MultiLanguageValue(state6,wrapSpanWithClass("icon-indication-bar5",state6))
+	val undefined = MultiLanguageValue(state7,wrapSpanWithClass("icon-indication-bar6",state7))
 	
 	val downToMatureList = mature  :: Nil
     val downToAdvanced = advanced   :: downToMatureList
@@ -57,6 +59,7 @@ import net.liftweb.http.S
 	  case 4 => Some(evolved)
 	  case 5 => Some(advanced)
 	  case 6 => Some(mature)
+	  case 7 => Some(undefined)
 	  case _ => None
 	  }
 	/*
