@@ -1,0 +1,33 @@
+.tutorialHeader {
+  background: #000;
+  width: 100%;
+  padding: $small-percentage 0 0 0;
+}
+
+.video__container {
+  width: 60%;
+  height: 0;
+  padding: 0 0 34.25% 0 !important;
+  margin: 0 auto $small-percentage;
+}
+
+.video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.tutorial__description {
+  background: #fff;
+  width: 100%;;
+}
+
+.tutorial__description .inner {
+  max-width: 60%;
+  margin: auto;
+  padding: $small-percentage 0;
+  // border-left: 1px solid $lightgrey;
+  // border-right: 1px solid $lightgrey;
+}
