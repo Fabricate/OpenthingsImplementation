@@ -15,7 +15,9 @@ import net.liftweb.util.Helpers._
 object ProjectSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project] with BaseEntityWithTitleDescriptionIconAndCommonFieldsSnippet[Project]
 with AddRepositorySnippet[Project]
 with LazyLoginForSave[Project]
-with AddSkillsSnippet[Project]  {
+with AddSkillsSnippet[Project]  
+with AddImagesSnippet[Project]  
+{
   
   override val TheItem = Project
   override def itemBaseUrl = "project"

@@ -59,7 +59,7 @@ class Boot {
     
     // has to be a list of BaseMetaMapper entities
     val itemsToSchemify : List[BaseMetaMapper] = Project.getItemsToSchemify ::: 
-    User.getItemsToSchemify ::: Tag.getItemsToSchemify ::: Skill.getItemsToSchemify :::
+    User.getItemsToSchemify ::: Tag.getItemsToSchemify ::: Skill.getItemsToSchemify ::: Image.getItemsToSchemify ::: 
       List[BaseMetaMapper](Tool, UserHasTools)
     Schemifier.schemify(true, Schemifier.infoF _, itemsToSchemify :_*)
         
@@ -68,6 +68,7 @@ class Boot {
     // adds for example serving of images and uploading of files to REST API to the LiftRules
     User.init
     Project.init
+    Image.init
     
     // initialize the rest api
     LiftRules.dispatch.append(ProjectREST)
@@ -112,6 +113,7 @@ https://www.assembla.com/spaces/liftweb/wiki/Cross_Origin_Resource_Sharing
     LiftRules.snippetDispatch.append {
       case "Search" => SearchSnippet
       case "Tag" => TagSnippet
+      //case "Image" => ImageSnippet
       case "Skill" => SkillSnippet
       case "Project" => ProjectSnippet
       case "User" => UserSnippet
@@ -134,6 +136,8 @@ https://www.assembla.com/spaces/liftweb/wiki/Cross_Origin_Resource_Sharing
     val skillRewrites = SkillSnippet.generateRewrites
        
     val loginRewrites = LoginSnippet.generateRewrites
+       
+    //val imageRewrites = ImageSnippet.generateRewrites
 
     // Set up some rewrites
     LiftRules.statelessRewrite.append (userRewrites.orElse
@@ -141,6 +145,7 @@ https://www.assembla.com/spaces/liftweb/wiki/Cross_Origin_Resource_Sharing
         (tagRewrites).orElse
         (skillRewrites).orElse
         (projectRewrites).orElse
+        //(imageRewrites).orElse
         (loginRewrites) )
 
 
