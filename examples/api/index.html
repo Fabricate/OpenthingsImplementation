@@ -1,0 +1,145 @@
+<html>
+	<head>
+		<title>Openthings API template</title>
+		<meta charset="UTF-8">
+		<meta name="description" content="An example implemntation of the Openthings API">
+		<meta name="keywords" content="HTML,CSS,JSON,JavaScript">
+		<meta name="author" content="Openthings">
+		<link rel="stylesheet" type="text/css" href="public/stylesheets/main.css">
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.2.1/es6-promise.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
+		<script src='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
+		<link href='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
+	</head>
+	<body>
+		<div class="main__navigation__shadow"></div>
+		<nav class="main__navigation">
+			<ul>
+				<li class="main__navigation__item">
+					<a href="#home" class="main__navigation__link">Home</a>
+				</li>
+				<li class="main__navigation__item active">
+					<a href="#contact" class="main__navigation__link">Contact</a>
+				</li>
+				<li class="main__navigation__item">
+					<a href="#about" class="main__navigation__link">About</a>
+				</li>
+				<li class="main__navigation__item">
+					<a href="#projects" class="main__navigation__link">Projects</a>
+				</li>
+				<li class="main__navigation__item">
+					<a href="#people" class="main__navigation__link">People</a>
+				</li>
+			<ul>
+		</nav>
+		<main class="main__container">
+			<section class="page home center__content white__text text__center">
+				<header>
+					<h1 class="small__title__margin">Your fablab title</h1>
+					<p>Your tagline, address or something</p>
+				</header>
+				<div class="scroll__sign">
+					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 58 93" style="enable-background:new 0 0 58 93;" xml:space="preserve">
+						<style type="text/css">
+							.st0{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-miterlimit:10;}
+							.st1{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:square;stroke-miterlimit:10;}
+							.st2{fill-rule:evenodd;clip-rule:evenodd;fill:none;stroke:#FFFFFF;stroke-width:2;stroke-miterlimit:10;}
+						</style>
+						<g>
+							<path class="st0" d="M3,30.5c0-14.4,11.6-26,26-26c14.4,0,26,11.6,26,26v32c0,14.4-11.6,26-26,26c-14.4,0-26-11.6-26-26V30.5z"/>
+							<line class="st1" x1="22.5" y1="58.4" x2="29.2" y2="65.1"/>
+							<line class="st1" x1="35.9" y1="58.8" x2="29.4" y2="65.3"/>
+							<circle class="st2 scrollwheel" cx="29" cy="29.5" r="6"/>
+						</g>
+					</svg>
+				</div>
+			</section>
+			<section class="page contact">
+				<div class="half__page">
+					<div id='map'></div>
+				</div>
+				<div class="half__page white__background big__padding">
+					<h1>Fablab contact</h1>
+					<p>Your street 000<br/>
+					2121AA Your city<br/>
+					Tel: +31 6 13131415<br/>
+					Email: your@mail.nl</p>
+
+					<h4>How do I get to the fablab?</h4>
+					<p>Walk somewhere, then bike somewhere, then take a bus, then swim a little, and you shall arrive</p>
+
+					<h4>Where can I park?</h4>
+					<p>On the moon</p>
+				</div>
+			</section>
+			<section class="page projects big__padding">
+				<div>
+					<ul class="project__list">
+						<!-- project loaded with fetch js -->
+					</ul>
+					<footer class="project__list__footer">
+						<a href="https://openthings.wiki" class="btn">view more</a>
+					</footer>
+				</div>
+			</section>
+		</main>
+		<script type="text/javascript">
+			// Fetch data through API. For more info: https://github.com/Fabricate/OpenthingsImplementation
+			fetch('https://www.openthings.wiki/api/projects/search?tag=47&nr_of_items=12')
+			.then(function(response) {
+			  return response.json()
+			})
+			.then(function(json) {
+			  json.map(function( projects, index ){
+
+			    var li = document.createElement('li'),
+			    	shadow = document.createElement('div'),
+			    	projectImageContainer = document.createElement('div'),
+			        descriptionContainer = document.createElement('div'),
+			        descriptionTitleContainer = document.createElement('h2'),
+			        descriptionBodyContainer = document.createElement('i'),
+			        projectLink = document.createElement('a'),
+			        projectContainer = document.querySelector('.project__list');
+
+			    shadow.classList.add("project__shadow");
+			    li.classList.add("project__list__item");
+			   	projectImageContainer.classList.add('project__image');
+				descriptionContainer.classList.add('project__description');
+				projectLink.classList.add('project__link');
+
+			    projectImageContainer.style.backgroundImage = "url('" + projects.project.icon + "')";
+
+			    descriptionTitleContainer.innerHTML = projects.project.title;
+			    descriptionBodyContainer.innerHTML = "By " + projects.project.creator.name;
+
+			    projectLink.href = projects.project.url;
+			    li.appendChild( projectLink );
+			    li.appendChild( shadow );
+			   	li.appendChild( projectImageContainer );
+			    li.appendChild( descriptionContainer );
+
+			    descriptionContainer.appendChild( descriptionTitleContainer );
+			    descriptionContainer.appendChild( descriptionBodyContainer );
+			    projectContainer.appendChild(li);
+			  });
+			})
+
+			.catch(function(ex) {
+			  console.log('parsing failed', ex)
+			})
+
+
+
+
+			// LOAD MAPBOX			
+			mapboxgl.accessToken = 'pk.eyJ1IjoibWFydGlud2FhZyIsImEiOiJjaWo0NWt6ZWYwMDE0dXlrcm0yenVkNDR5In0.0I9xJzLubP9g3V_NTt1PhA';
+			var map = new mapboxgl.Map({
+			  container: 'map',
+			  style: 'mapbox://styles/mapbox/streets-v8'
+			});
+			map.scrollZoom.disable();
+		</script>
+	</body>
+</html>

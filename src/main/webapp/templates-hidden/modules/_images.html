@@ -1,65 +1,69 @@
 <section id="project-images" class="images imagesSection left">
-	
-			<h2 data-lift="lift:L10n.i">project_images</h2>
-			<ul id="listImages">
-				<li id="singleImage"><div class="container"><img src="#" id="thumbnailImage"></img><input id="insertButton" type="button" onclick="insertAtCursor($('.wysiwyg-descriptionfield-editform')[0],'!http://dummy.nok(dummy)!')" data-lift="lift:L10n.value" value="project_description_add_image"></input> Title: <span id="viewImageTitle">imageTitle</span> Description: <span id="viewImageDescription">imageDescription</span> </div></li>
-			</ul>
-	
-		<form data-lift="form.ajax">
-    			<label id="imagelabel" data-lift="lift:L10n.i">project_image_upload</label>
-			<input id="imageUpload" type="file" ></input>
-			<div id="imageuploadform" class="imageuploadstatus left"></div>
-			<input id="newImageIitle" placeholder="Title" value="" type="text" ></input>
-			<input id="newImageDescription" placeholder="Description" value="" type="text" ></input>
+  <h2 data-lift="lift:L10n.i">project_images</h2>
+  <ul id="listImages">
+    <li id="singleImage">
+      <img src="#" id="thumbnailImage" class="left"></img>
+      <div class="thumb-content left">
+        <h3 id="viewImageTitle">imageTitle</h3>
+        <h5 id="viewImageDescription">imageDescription</h5>
+        <button id="insertButton" onclick="insertAtCursor($('.wysiwyg-descriptionfield-editform')[0],'!http://dummy.nok(dummy)!')" data-lift="lift:L10n.i">project_description_add_image</button> 
+      </div>
+    </li>
+  </ul>
+     
+  <form data-lift="form.ajax">
+    <label id="imagelabel" data-lift="lift:L10n.i">project_image_upload</label>
+    <input id="imageUpload" type="file" ></input>
+    <div id="imageuploadform" class="imageuploadstatus left"></div>
+    <input id="newImageIitle" placeholder="Title" value="" type="text" ></input>
+    <input id="newImageDescription" placeholder="Description" value="" type="text" ></input>
+    <button id="testMe" >test_button</button>
+    <button id="uploadImage" class="left" data-lift="lift:L10n.i" type="submit" >upload_image</button>
+  </form>
+  <span id="image_messages"></span>
 
-			<button id="testMe" >test_button</button>
 
-			<button id="uploadImage" class="left" data-lift="lift:L10n.i" type="submit" >upload_image</button>
-		</form>
-		<span id="image_messages"></span>
-
-
-	<lift:with-resource-id>
-		<script src="/js/vendor/jquery.ui.widget.js"></script>
-		<script src="/js/jquery.iframe-transport.js"></script>
-		<script src="/js/jquery.fileupload.js"></script>
-		<script src="/js/jquery.fileupload-process.js"></script>
-		<script src="/js/jquery.fileupload-image.js"></script>
-	</lift:with-resource-id>
+  <lift:with-resource-id>
+    <script src="/js/vendor/jquery.ui.widget.js"></script>
+    <script src="/js/jquery.iframe-transport.js"></script>
+    <script src="/js/jquery.fileupload.js"></script>
+    <script src="/js/jquery.fileupload-process.js"></script>
+    <script src="/js/jquery.fileupload-image.js"></script>
+  </lift:with-resource-id>
+  
 <script>
 function uploadImageToServer(inputToUpload, destination) {
 var file_data = $(inputToUpload).prop('files'); 
 $('#imageuploadform').fileupload('send', {files: file_data, url: destination}); 
 }
 </script>
-		<script id="imageuploadconfig">
+<script id="imageuploadconfig">
   $(function () {
     $('#imageuploadform').fileupload({
       done: function (e, data) {
       }
     });
   });
-		</script>
-
+</script>
 <script>
-function insertAtCursor(myField, myValue) {
-    //IE support
-    if (document.selection) {
-        myField.focus();
-        sel = document.selection.createRange();
-        sel.text = myValue;
-    }
-    //MOZILLA and others
-    else if (myField.selectionStart || myField.selectionStart == '0') {
-        var startPos = myField.selectionStart;
-        var endPos = myField.selectionEnd;
-        myField.value = myField.value.substring(0, startPos)
-            + myValue
-            + myField.value.substring(endPos, myField.value.length);
-    } else {
-        myField.value += myValue;
-    }
-}
+  function insertAtCursor(myField, myValue) {
+      //IE support
+      if (document.selection) {
+          myField.focus();
+          sel = document.selection.createRange();
+          sel.text = myValue;
+      }
+      //MOZILLA and others
+      else if (myField.selectionStart || myField.selectionStart == '0') {
+          var startPos = myField.selectionStart;
+          var endPos = myField.selectionEnd;
+          myField.value = myField.value.substring(0, startPos)
+              + myValue
+              + myField.value.substring(endPos, myField.value.length);
+      } else {
+          myField.value += myValue;
+      }
+  }
 </script>
 
 </section>

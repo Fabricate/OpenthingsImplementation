@@ -735,6 +735,14 @@ figure.effect-lily:hover p {
   -webkit-transition-duration: 0.35s;
   transition-duration: 0.35s; }
 
+.listImages {
+  overflow: hidden; }
+
+#singleImage {
+  overflow: hidden; }
+  #singleImage .thumbnailimage {
+    max-width: 150px; }
+
 html, body, .blogMain, .blogArticle, .blogArticle header, .blog {
   height: 100%; }
 
