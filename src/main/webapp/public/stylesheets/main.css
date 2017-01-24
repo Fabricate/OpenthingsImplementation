@@ -110,38 +110,32 @@ h6, .zeta {
 
 h1, .alpha {
   font-size: 2.625em;
-  line-height: 1.0476190476190477;
-  margin-bottom: 0.5238095238095238em; }
+  line-height: 1.0476190476190477; }
 
 h2, .beta {
   font-size: 1.96875em;
-  line-height: 1.3968253968253967;
-  margin-bottom: 0.6984126984126984em; }
+  line-height: 1.3968253968253967; }
 
 h3, .gamma {
   font-size: 1.3125em;
-  margin: 0 0 1.5714285714285714em;
   line-height: 1.5714285714285714; }
 
 h4, .delta {
   font-size: 1.1484375em;
-  line-height: 1.1972789115646258;
-  margin-bottom: 1.1972789115646258em; }
+  line-height: 1.1972789115646258; }
 
 h5, .epsilon {
   font-size: 0.984375em;
-  line-height: 1.3968253968253967;
-  margin-bottom: 1.3968253968253967em; }
+  line-height: 1.3968253968253967; }
 
 h6, .zeta {
   font-size: 0.875em;
-  line-height: 1.5714285714285714;
-  margin-bottom: 1.5714285714285714em; }
+  line-height: 1.5714285714285714; }
 
 p,
 blockquote {
-  font-size: 1.3125em;
-  margin: 0 0 1.5714285714285714em;
+  font-size: 1em;
+  margin: 0 0 1em;
   line-height: 1.5714285714285714;
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
@@ -165,7 +159,7 @@ a:hover {
   opacity: 0.8; }
 
 input, select, button, textarea, .btn {
-  font-size: 1.3125em;
+  font-size: 1em;
   line-height: 1.5714285714285714; }
 
 i {
@@ -252,7 +246,7 @@ input[type="submit"] {
 
 .onoffswitch {
   position: relative;
-  width: 76px;
+  width: 156px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -289,13 +283,13 @@ input[type="submit"] {
   box-sizing: border-box; }
 
 .onoffswitch-inner:before {
-  content: "ON";
+  content: "EDIT MODE ON";
   padding-left: 12px;
   background-color: #1FBF61;
   color: #FFFFFF; }
 
 .onoffswitch-inner:after {
-  content: "OFF";
+  content: "EDIT MODE OFF";
   padding-right: 12px;
   background-color: #E63131;
   color: #FFFFFF;
@@ -311,7 +305,7 @@ input[type="submit"] {
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 46px;
+  right: 126px;
   -webkit-transition: all 0.3s ease-in 0s;
   transition: all 0.3s ease-in 0s; }
 
@@ -323,6 +317,7 @@ input[type="submit"] {
 
 .mainContent .projectHeader .onoffswitch {
   padding: 0;
+  margin: 20px 0;
   background-color: transparent; }
 
 @font-face {
@@ -738,10 +733,51 @@ figure.effect-lily:hover p {
 .listImages {
   overflow: hidden; }
 
-#singleImage {
-  overflow: hidden; }
-  #singleImage .thumbnailimage {
-    max-width: 150px; }
+.popup.images {
+  max-width: 700px; }
+
+#listImages {
+  max-width: 100%;
+  width: 100%;
+  margin-bottom: 2em; }
+
+.imagesSection .container {
+  max-width: 600px;
+  width: 100%; }
+
+#listImages {
+  float: left; }
+
+#listImages li figure {
+  max-width: 170px;
+  margin-right: 30px; }
+  #listImages li figure img {
+    max-width: 100%; }
+
+#listImages li {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  width: 100%;
+  margin-bottom: 0.5em; }
+  #listImages li h3 {
+    font-weight: 700;
+    margin-bottom: 0; }
+
+.thumb-content {
+  max-width: calc(100% - 200px); }
+  .thumb-content p {
+    margin-bottom: 0.3em; }
+
+#insertButton {
+  padding: 0.3em 0.5em; }
+
+#singleImage .thumbnailimage {
+  max-width: 150px; }
 
 html, body, .blogMain, .blogArticle, .blogArticle header, .blog {
   height: 100%; }
@@ -996,6 +1032,9 @@ body {
 #personalwebsite[href=''] {
   display: none; }
 
+.no-padding {
+  padding: 0 !important; }
+
 .logo, .shareDesignBtn, .mainNavigation li, .mainNavigation li a {
   height: 100%; }
 
@@ -1144,9 +1183,10 @@ body {
   color: #666666; }
 
 .editMenuHorizontal {
-  position: fixed;
-  left: 0;
-  width: 100%;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 50%;
   font-size: 85%;
   border-bottom: 1px solid white;
   z-index: 3;
@@ -1726,8 +1766,7 @@ ul.tagit input[type="text"] {
 
 .detailedDescription {
   padding: 8%;
-  background: rgba(255, 255, 255, 0.5);
-  font-size: 80%; }
+  background: rgba(255, 255, 255, 0.5); }
 
 .creativeCommons {
   box-sizing: border-box;
@@ -1758,9 +1797,24 @@ ul.tagit input[type="text"] {
 .addHelp button {
   margin-left: 0.625em; }
 
+#combineTheChildrenToOneElement {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+
+.panel .container:nth-of-type(1) {
+  margin-right: 40px; }
+
 .panel form {
-  max-width: 600px;
-  width: 90%; }
+  max-width: 700px;
+  width: 100%; }
+
+.panel .container h2 {
+  margin-bottom: 0.3em; }
 
 .panel input, .panel textarea, .panel select {
   max-width: 100%;
@@ -1776,8 +1830,7 @@ ul.tagit input[type="text"] {
   top: 51px;
   left: 0;
   z-index: 4;
-  background: rgba(255, 255, 255, 0.97);
-  box-shadow: 0 4px 5px rgba(50, 50, 50, 0.2);
+  background: #fff;
   display: none; }
 
 .loginScreen p {
@@ -1790,11 +1843,14 @@ ul.tagit input[type="text"] {
   cursor: pointer;
   font-size: 1.5em;
   position: absolute;
-  right: 30px;
-  top: 30px;
+  right: 0;
+  top: 0;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
   z-index: 2; }
+
+.mainContent .projectHeader .edit-wrapper {
+  padding: 0; }
 
 .mainContent .projectHeader .select-style {
   padding: 5px 45px 5px 10px; }

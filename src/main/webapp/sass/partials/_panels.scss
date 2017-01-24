@@ -1,6 +1,18 @@
+#combineTheChildrenToOneElement {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.panel .container:nth-of-type(1) {
+	margin-right: 40px;
+}
+
 .panel form{
-	max-width: 600px;
-	width: 90%;
+	max-width: 700px;
+	width: 100%;
+}
+.panel .container h2 {
+	margin-bottom: 0.3em;
 }
 .panel input, .panel textarea, .panel select{
 	max-width: 100%;
@@ -16,8 +28,7 @@
 	top: 51px;
 	left: 0;
 	z-index: 4;
-	background: rgba(white,0.97);
-	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
+	background: #fff;
 	display: none;
 }
 .loginScreen p{
@@ -30,8 +41,8 @@
 	cursor: pointer;
 	font-size: 1.5em;
 	position: absolute;
-	right: 30px;
-	top: 30px;
+	right: 0;
+	top: 0;
 	transform: rotate(45deg);
 	z-index: 2;
 }

@@ -4,7 +4,7 @@ button, .btn{
 	cursor: pointer;
 	padding: $xsmall-em;
 	border-radius: 1px;
-  transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
 }
 .btn{
 	color: white !important;
@@ -33,7 +33,7 @@ input[type="submit"]{
 	width: auto !important;
 }
 .onoffswitch {
-    position: relative; width: 76px;
+    position: relative; width: 156px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
 		margin: .6em 1.4em;
 }
@@ -55,12 +55,12 @@ input[type="submit"]{
     -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
 }
 .onoffswitch-inner:before {
-    content: "ON";
+    content: "EDIT MODE ON";
     padding-left: 12px;
     background-color: #1FBF61; color: #FFFFFF;
 }
 .onoffswitch-inner:after {
-    content: "OFF";
+    content: "EDIT MODE OFF";
     padding-right: 12px;
     background-color: #E63131; color: #FFFFFF;
     text-align: right;
@@ -69,7 +69,7 @@ input[type="submit"]{
     display: block; width: 20px; margin: 3px;
     background: #FFFFFF;
     border: 2px solid #999999; border-radius: 8px;
-    position: absolute; top: 0; bottom: 0; right: 46px;
+    position: absolute; top: 0; bottom: 0; right: 126px;
     -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
     -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
 }
@@ -82,5 +82,6 @@ input[type="submit"]{
 
 .mainContent .projectHeader .onoffswitch{
 	padding: 0;
+    margin: 20px 0;
 	background-color: transparent;
 }

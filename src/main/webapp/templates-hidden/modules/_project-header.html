@@ -11,8 +11,21 @@
 				<h1 itemprop="name"><span id="title">Title</span></h1>
 				<p id="teaser" itemprop="about">Teaser</p>
 				<p id="initiator" itemprop="author" rel="author" data-lift="lift:L10n.i">initiated_by</p>
-<!--				<p id="contribition"><strong>Contributed by: </strong></p>-->
-<!--				<p id="licence" class="creativeCommons">Licence</p>-->
+
+				<div class="edit-wrapper">
+					<div class="onoffswitch">
+						<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
+						<label class="onoffswitch-label" for="myonoffswitch">
+								<span class="onoffswitch-inner"></span>
+								<span class="onoffswitch-switch"></span>
+						</label>
+					</div>
+				</div>
+				<div class="editPage no-padding">
+				<button onclick="EditProject();"><span class="icon-pencil"></span> <span data-lift="lift:L10n.i">edit_project_details</span></button>
+				</div>
+				<!-- <p id="contribition"><strong>Contributed by: </strong></p> -->
+				<!-- <p id="licence" class="creativeCommons">Licence</p> -->
 
 <!--		<p><ul><li id="translations">Translation</li></ul></p>-->
 <!--

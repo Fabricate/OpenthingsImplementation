@@ -12,18 +12,25 @@ function openComments(){
 }
 
 function AddProject(){
-  $(".postProject").slideDown();
+  $(".postProject").slideDown(function(){
+    document.body.style.overflow = 'hidden';
+  });
   $(".close-icon").click(function(){
     $(".postProject").slideUp();
   });
 }
 
 function EditProject(){
-  $(".editProject").fadeIn();
+  $(".editProject").slideDown(function(){
+    document.body.style.overflow = 'hidden';
+  });
+
   $(".close-icon").click(function(){
-    $(".editProject").fadeOut();
+    $(".editProject").slideUp();
+    document.body.style.overflow = 'auto';
   });
 }
+
 function LoginScreen(){
   $(".loginScreen").slideDown();
   $(".close-icon").click(function(){
@@ -73,8 +80,7 @@ function AddTutorial(){
 
 // Measure margin of the main container according the menu height
 function menuHeight(){
-  var menuHeight = $('.editMenuHorizontal').height() + $('.mainNavigation').height();
+  var menuHeight = $('.mainNavigation').height();
   var mainMenuHeight = $('.mainNavigation').height();
   $('#main').css({'margin-top' : menuHeight + 'px'});
-  $('.editMenuHorizontal').css({'top' : mainMenuHeight + 'px'});
 }

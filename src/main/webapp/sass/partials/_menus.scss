@@ -150,9 +150,10 @@
 }
 
 .editMenuHorizontal{
-	position: fixed;
-	left: 0;
-	width: 100%;
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	width: 50%;
 	font-size: 85%;
 	border-bottom: 1px solid $canvas;
 	z-index: 3;

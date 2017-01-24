@@ -130,9 +130,60 @@ figure.effect-lily:hover p {
 .listImages {
 	overflow: hidden;
 }
-#singleImage {
-	overflow: hidden;
 
+.popup.images {
+	max-width: 700px;
+}
+
+#listImages {
+	max-width: 100%;
+	width: 100%;
+	margin-bottom: 2em;
+}
+
+.imagesSection .container {
+	max-width: 600px;
+	width: 100%;
+}
+
+#listImages {
+	float: left;
+}
+
+#listImages li figure{
+	max-width: 170px;
+	margin-right: 30px;
+
+	img {
+		max-width: 100%;
+	}
+}
+
+#listImages li {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	margin-bottom: 0.5em;
+
+	h3 {
+		font-weight: 700;
+		margin-bottom: 0;
+	}
+}
+
+.thumb-content {
+	max-width: calc(100% - 200px);
+
+	p {
+		margin-bottom: 0.3em;
+	}
+}
+
+#insertButton {
+	padding: 0.3em 0.5em;
+}
+
+#singleImage {
 	.thumbnailimage {
 		max-width: 150px;
 	}

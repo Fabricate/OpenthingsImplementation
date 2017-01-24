@@ -189,14 +189,6 @@
 				var n = $( ".comment" ).size();
 				$('.viewcomments i').prepend(n + " ");
 
-				// Scroll to an element
-				$('a').click(function() {
-					var menuHeight = $('.editMenuHorizontal').height() + $('.mainNavigation').height();
-					var elementClicked = $(this).attr("href");
-					var destination = $(elementClicked).offset().top;
-					$("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination - menuHeight}, 500 );
-					return false;
-				});
 			});
 
 			// Pop-ups such as vimeo
