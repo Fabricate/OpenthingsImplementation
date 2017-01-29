@@ -43,7 +43,7 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
     val teaserMinLength = 10
     val teaserValidations : mutable.MutableList[String => List[FieldError]] = mutable.MutableList(FieldValidation.minLength(TheTranslationMeta.teaser,teaserMinLength) _ ,
       FieldValidation.maxLength(TheTranslationMeta.teaser,teaserLength) _ )
-    val descriptionLength = 65000
+    val descriptionLength = 60000
     val descriptionMinLength = 10
     val descriptionValidations : mutable.MutableList[String => List[FieldError]] = mutable.MutableList(FieldValidation.minLength(TheTranslationMeta.description,descriptionMinLength) _ ,
       FieldValidation.maxLength(TheTranslationMeta.description,descriptionLength) _ )

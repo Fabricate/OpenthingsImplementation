@@ -57,6 +57,9 @@ with AddSkills[Project] with AddImages[Project] {
   
   override def getCurrentUser = User.currentUser
 
+  override val teaserLength = 500
+  override val descriptionLength = 60000
+
   // override icon-image settings
   override def defaultIcon = "/public/images/noproject.jpg"
     

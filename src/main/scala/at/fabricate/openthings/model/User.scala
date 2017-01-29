@@ -55,7 +55,7 @@ with AddSkillsMeta[User] {
   override def signupFields = firstName :: lastName :: email :: password :: Nil
 
 	// comment this line out to require email validations
-	override def skipEmailValidation = true
+	//override def skipEmailValidation = true
   
   // get a link to the user
   def getLinkToUser(userId : Long) : Elem = userId.toString match {
