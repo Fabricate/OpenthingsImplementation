@@ -28,6 +28,7 @@ import net.liftweb.common.Empty
     val stage4 = "project_difficulty_4"
     val stage5 = "project_difficulty_5"
     val stage6 = "project_difficulty_6"
+    val stage7 = "project_difficulty_7"
     
       
       private def wrapSpanWithClass(theClass : String,theText: String) : Elem = 
@@ -43,6 +44,7 @@ import net.liftweb.common.Empty
 	val advanced = MultiLanguageValue(stage4,wrapSpanWithClass("icon-indication-bar3",stage4))
 	val expert = MultiLanguageValue(stage5,wrapSpanWithClass("icon-indication-bar4",stage5))
 	val genius = MultiLanguageValue(stage6,wrapSpanWithClass("icon-indication-bar5",stage6))
+	val unknown = MultiLanguageValue(stage7,wrapSpanWithClass("icon-indication-bar6",stage7))
 	
 	val upToKidsList = kids :: Nil
     val upToStarterList = starter  :: upToKidsList
@@ -58,6 +60,7 @@ import net.liftweb.common.Empty
 	  case 4 => Some(advanced)
 	  case 5 => Some(expert)
 	  case 6 => Some(genius)
+	  case 7 => Some(unknown)
 	  case _ => None
 	  }
 	/*
