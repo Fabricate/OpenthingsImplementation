@@ -20,6 +20,17 @@ import net.liftweb.http.FileParamHolder
 import net.liftweb.common.Full
 import net.liftweb.http.OnDiskFileParamHolder
 import java.io.File
+import net.liftweb.http.InMemFileParamHolder
+import java.nio.file.Path
+import java.nio.file.Paths
+import java.nio.file.Files
+import scala.xml._
+import net.liftweb.util._
+import net.liftweb.common._
+import net.liftweb.util.Helpers._
+import at.fabricate.openthings.model.Image
+import at.fabricate.liftdev.common.model.StateEnum
+import at.fabricate.liftdev.common.model.DifficultyEnum
 
 object ImportHelper{
   
@@ -51,6 +62,27 @@ object ImportHelper{
 
   def createNewProject(title : String, teaser: String, description: String, creator : User, language : Locale = Locale.ENGLISH) : Project = 
     Project.createNewEntity(Locale.ENGLISH, title, teaser, description).createdByUser(creator).saveMe()
+    
+  def convertStrToXML(html : String): Elem = xml.XML.loadString(html)
+  
+  def combinePath (filePrefix : String, pathDelimiter: String, filePath : String) : String = filePrefix +pathDelimiter+ filePath
+  
+  def loadStringToFileParam(content : String, fileName: String, fileMime : String) : Box[FileParamHolder] = {
+             val data = content.getBytes;
+             Full(new InMemFileParamHolder(fileName,fileMime,fileName, data))
+  }
+  
+  def loadFileToFileParam(absoluteFilePath : String, fileName: String, fileMime : String) : Box[FileParamHolder] = {
+           val file = new File(absoluteFilePath)
+           if (file.exists() && file.isFile()){
+             //fileholder =  new OnDiskFileParamHolder(icon.filename,icon.filemime,icon.filename, file)
+             val path = Paths.get(absoluteFilePath);
+             val data = Files.readAllBytes(path);
+             Full(new InMemFileParamHolder(fileName,fileMime,fileName, data))
+           } else {
+             Empty
+           }
+  }
 }
 
 
@@ -58,22 +90,23 @@ object ImportWaagProjects extends App {
   
     ImportHelper.setupDBConnection()
       
-    val filePrefix = ""
+    val filePrefix = ""    
 
     var password = ""
     
     var description = "";
+    val dummydescription = "This is a dummy description that will be replaced later on with the correct description content! Stay tuned!"
     var images : List[Waagprojectimage] = Nil;
     var files : List[Waagprojectfile] = Nil;
     var user : User = null
     var project : Project = null
     var icon : Waagprojectimage = null
-    var fileholder : FileParamHolder = null
-    var absoluteFilePath = ""
-    var file : File = null
-    var boxedUser : Box[User]= null
-    var teaserMarkdown = ""
+    var fileBox : Box[FileParamHolder] = Empty
+    var boxedUser : Box[User]= Empty
+    var teaserPlaintext = ""
     var descriptionMarkdown = ""
+    val markdownConverter = new LiftMarkdownConverter()
+    val plaintextConverter = new PlaintextConverter()
       Waaguser.findAll()
       .map { aUser => {
         println("## Processing User: "+aUser.name+" ##") 
@@ -83,7 +116,14 @@ object ImportWaagProjects extends App {
           user = boxedUser.open_!
         else{
           user = ImportHelper.createNewUser(aUser.name,aUser.mail, password)
-          
+          val userIcon = aUser.picture
+          fileBox = ImportHelper.loadFileToFileParam(ImportHelper.combinePath(filePrefix, "/", userIcon), userIcon, "image/jpg") 
+          if (fileBox.isDefined){
+             user.icon.setFromUpload(fileBox)
+             user.saveMe()
+           } else {
+             println("file "+userIcon+" does not exist")
+           }
         }
           
           
@@ -93,15 +133,14 @@ object ImportWaagProjects extends App {
           description = ""
           images  = Nil
           files  = Nil
-          teaserMarkdown = ""
+          teaserPlaintext = ""
           descriptionMarkdown = ""
           println("### Processing Project: "+aProject.title+" ###")   
           // collect all the data from the project
           description += aProject.body
           aProject.images.map(anImage => {
               //println(" ..Projectimage: "+anImage.filename)              
-              absoluteFilePath = filePrefix +"/"+ anImage.filepath
-              description += "<img src='"+absoluteFilePath+"' />"
+              description += "<img src='"+anImage.filepath+"' />"
               //images = anImage :: images
               }
               )
@@ -113,9 +152,8 @@ object ImportWaagProjects extends App {
                 //println(" ..Projectdocument: "+aDocument.title)
                 description += "<h3>"+aDocument.title+"</h3>"
                 aDocument.images.map(anImage =>{
-                //println(" ..Projectimage: "+anImage.filename)              
-                absoluteFilePath = filePrefix +"/"+ anImage.filepath
-                description += "<img src='"+absoluteFilePath+"' />"
+                //println(" ..Projectimage: "+anImage.filename)       
+                description += "<img src='"+anImage.filepath+"' />"
                 //images = anImage :: images
                 }
                 )
@@ -128,24 +166,108 @@ object ImportWaagProjects extends App {
               )
               
            // prepare the data to be valid for a project and create a new one
-           teaserMarkdown = Html2Markdown.toMarkdown(aProject.teaser)
-           if (teaserMarkdown.length() > 500) teaserMarkdown = teaserMarkdown.substring(0, 495)+"..."
-           descriptionMarkdown = Html2Markdown.toMarkdown(description)
-           project = ImportHelper.createNewProject(aProject.title, 
-               teaserMarkdown, 
-               descriptionMarkdown, 
+           teaserPlaintext = Html2Markdown.toMarkdown(aProject.teaser,plaintextConverter)
+           if (teaserPlaintext.length() > 500) teaserPlaintext = teaserPlaintext.substring(0, 495)+"..."
+           val title = if (aProject.title.length() > 60) aProject.title.substring(0, 56)+"..."
+           else aProject.title.get
+           project = ImportHelper.createNewProject(title, 
+               teaserPlaintext, 
+               dummydescription, 
                user, 
                Locale.ENGLISH)
-           icon = aProject.images.head
-           absoluteFilePath = filePrefix +"/"+ icon.filepath
-           file = new File(absoluteFilePath)
-           if (file.exists()){
-             fileholder =  new OnDiskFileParamHolder(icon.filename,icon.filemime,icon.filename, file)
-             project.icon.setFromUpload(Full(fileholder))
-           } else {
-             println("File "+icon.filename+" does not exist for Project "+aProject.title)
+           project.save()
+           // initialize repo
+          project.repository.getStatus()
+           // convert teaser to markdown
+                      // analyze all images
+           try {
+           val descriptionElem = ImportHelper.convertStrToXML("<?xml version=\"1.0\"?><!DOCTYPE some_name [<!ENTITY nbsp \"&#160;\">]> <myDescription>"+description+"</myDescription>") 
+           val modifiedDescriptionElem = (                             
+               "img [src]" #> ((n: NodeSeq) => {
+                val location = ImportHelper.combinePath(filePrefix, "/", n.\@("src"))
+                val name = new File(location).getName
+                //println(n.toString())
+                //println(location)
+                fileBox = ImportHelper.loadFileToFileParam(location, name, "image/jpeg") 
+                if (fileBox.isDefined){
+                  val image = project.addNewImageToItem(Locale.ENGLISH, name , name)
+                  Image.setImageFromFileHolder(fileBox.open_!, image)
+                  project.saveMe()
+                  "/serve/image/"+image.id
+                } else {
+                  println("Image:  "+name+" at "+location+" does not exist for Project "+aProject.title)                  
+                  "#"
+                }
+                
+              /*
+                fileBox = ImportHelper.loadFileToFileParam(absoluteFilePath, "/", userIcon, userIcon, "image/jpg") 
+               if (fileBox.isDefined){
+                 user.icon.setFromUpload(fileBox)
+                 user.saveMe()
+               } else {
+                 println("file "+absoluteFilePath+" does not exist")
+               }
+               * 
+               */
+             } ) &
+              "myDescription ^*" #> ((n: NodeSeq) => {
+             //lift the content of the new myDescription tag to the top again
+             n
+             } ) 
+           ).apply(descriptionElem)           
+           descriptionMarkdown = Html2Markdown.toMarkdown(modifiedDescriptionElem.toString(),markdownConverter)
+           
+           project.defaultTranslation.obj.map { translation => translation.description(descriptionMarkdown).save() }
+           } catch  {
+             case (e : SAXParseException) => {
+               println("no well formed xml at description for project "+aProject.title+" failed")
+               fileBox = ImportHelper.loadStringToFileParam(description,"description.txt","text/plain")
+               project.repository.copyFileToRepository(fileBox.open_!)
+               fileBox = ImportHelper.loadStringToFileParam(e.getMessage,"errormessage.txt","text/plain")
+               project.repository.copyFileToRepository(fileBox.open_!)
+               project.saveMe()
+             }
+             case (e : Exception) => {
+               println("converting description for project "+aProject.title+" failed")
+             }
            }
+           /*
+           (descriptionElem  "img").foreach{ imgTag =>
+              println((imgTag  "@src").text + "n")
+             
+           }
+           * 
+           */
+           icon = aProject.images.head
+           fileBox = ImportHelper.loadFileToFileParam(ImportHelper.combinePath(filePrefix, "/", icon.filepath), icon.filename, icon.filemime) 
+               if (fileBox.isDefined){
+                 try {
+                 project.icon.setFromUpload(fileBox)
+                 project.saveMe()
+                 } catch {
+                   case e: Exception => println("Project Icon:  "+icon.filename+" at "+ImportHelper.combinePath(filePrefix, "/", icon.filepath)+" upload resulted in an error for Project "+aProject.title)
+                 }
+               } else {
+                 println("Project Icon:  "+icon.filename+" at "+ImportHelper.combinePath(filePrefix, "/", icon.filepath)+" does not exist for Project "+aProject.title)
+               }
+
           }
+          files.map { aFile => {
+               val fileLocation = ImportHelper.combinePath(filePrefix, "/", aFile.filepath)
+               fileBox = ImportHelper.loadFileToFileParam(fileLocation, aFile.filename, aFile.filemime) 
+               println("proceccing Project File "+ aFile.filename+" at "+fileLocation  )
+               if (fileBox.isDefined){
+                 project.repository.copyFileToRepository(fileBox.open_!)
+                 project.saveMe()
+               } else {
+                 println("Project File:  "+aFile.filename+" at "+ImportHelper.combinePath(filePrefix, "/", aFile.filepath)+" does not exist for Project "+aProject.title)
+               }
+             }
+          }
+          project.repository.commit("Initial project import!", "Martin Risseeuw", "martin@martinr.nl")
+          project.state.set(StateEnum.undefined) // do unknown here
+          project.difficulty.set(DifficultyEnum.unknown) // do unknown here
+          project.save();
         }
         }
       }
