@@ -35,31 +35,37 @@ h6, .zeta {
 h1, .alpha {
     font-size: 2.625em;
     line-height: 1.0476190476190477;
+    margin-bottom: 0.5238095238095238em;
 }
 h2, .beta {
     font-size: 1.96875em;
     line-height: 1.3968253968253967;
+    margin-bottom: 0.6984126984126984em;
 }
 h3, .gamma {
     font-size: 1.3125em;
+    margin: 0 0 1.5714285714285714em;
     line-height: 1.5714285714285714;
 }
 h4, .delta {
     font-size: 1.1484375em;
     line-height: 1.1972789115646258;
+    margin-bottom: 1.1972789115646258em;
 }
 h5, .epsilon {
     font-size: 0.984375em;
     line-height: 1.3968253968253967;
+    margin-bottom: 1.3968253968253967em;
 }
 h6, .zeta {
     font-size: 0.875em;
     line-height: 1.5714285714285714;
+    margin-bottom: 1.5714285714285714em;
 }
 p,
 blockquote {
-    font-size: 1em;
-    margin: 0 0 1em;
+    font-size: 1.3125em;
+    margin: 0 0 1.5714285714285714em;
     line-height: 1.5714285714285714;
     -webkit-hyphens: auto;
        -moz-hyphens: auto;
@@ -82,7 +88,7 @@ a:hover{
     opacity: 0.8;
 }
 input, select, button, textarea, .btn{
-	font-size: 1em;
+	font-size: 1.3125em;
 	line-height: 1.5714285714285714;
 }
 i{
