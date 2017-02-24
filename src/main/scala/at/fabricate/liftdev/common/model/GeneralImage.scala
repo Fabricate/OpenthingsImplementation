@@ -209,13 +209,13 @@ trait GeneralImage[T <: GeneralImage[T] ] extends BaseEntity[T] with BaseEntityW
   	self: T =>
   	  
   def thumbWidth = 800
-  def thumbHeight = 600
-  def thumbApplyImageCropping = true  
+  def thumbHeight = 800
+  def thumbApplyImageCropping = false  
   def thumbAlignCroppedImage = ImageHelper.ALIGN_CENTER
   def thumbJpegImageQuality : Float = 95 / 100.toFloat
   
   def resizedWidth = 1600
-  def resizedHeight = 1200
+  def resizedHeight = 1600
   def resizedApplyImageCropping = false  
   def resizedAlignCroppedImage = ImageHelper.ALIGN_CENTER
   def resizedJpegImageQuality : Float = 90 / 100.toFloat
