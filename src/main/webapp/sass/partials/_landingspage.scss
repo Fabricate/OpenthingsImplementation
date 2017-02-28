@@ -1,8 +1,10 @@
-.landingSection{
+.landingSection {
 	width: 100%;
-	padding: $smedium-percentage $medium-percentage;
 	background-color: rgba($sec-brand-color, .8);
+	display: flex;
+	align-items: center;
 }
+
 .landingSection::after{
 	content: "";
   background: url(../images/protheses.jpg);
@@ -18,8 +20,10 @@
 }
 .branding{
 	color: white;
-	padding: $medium-percentage 0;
+	padding: $medium-em 0;
 	max-width: 55%;
+	display: flex;
+	align-items: center;
 }
 .branding h1{
 	font-size: 2.3em;
@@ -27,17 +31,15 @@
 .branding h1 span{
 	font-size: 1.5em;
 }
+
 .branding p{
 	font-size: 1.4em;
 }
+
 .signupHome{
-	max-width: 30%;
+	max-width: 26em;
 	background: white;
-	position: absolute;
-	top: 50%;
-	right: 8%;
-	transform: translateY(-50%);
-	padding: $xsmall-percentage;
+	margin-left: auto;
 
 }
 .signupHome input{
@@ -56,7 +58,7 @@
 	width: 65%;
 }
 .introSection, .homeProjectIntro, .landingPageMain footer{
-	padding: $small-percentage 0 $xsmall-percentage;
+	padding: $small-em 0 $xsmall-em;
 }
 .landingPageMain .preview{
 	display: none;
@@ -66,12 +68,12 @@
 }
 .introSection{
 	width: 100%;
-	padding: $medium-percentage;
+	padding: $medium-em;
 	background: darken($brand-color, 10%);
 }
 .introSection footer{
 	text-align: center;
-	padding: $small-percentage 0 0;
+	padding: $small-em 0 0;
 }
 .landingPageMain footer, .introSection footer{
 	width: 100%;

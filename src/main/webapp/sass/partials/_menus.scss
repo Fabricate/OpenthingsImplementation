@@ -6,7 +6,7 @@
 	width: 100%;
 	font-size: 1.3125em;
 	border-bottom: 1px solid $lightgrey;
-	min-height: 51px;
+	height: 50px;
 }
 .logo{
 	background: $darkgrey;
@@ -78,6 +78,7 @@
 .mainNavigation .languageSelect{
 	margin: 15px 15px 0 0;
 	font-size: 0.875em;
+	display: none;
 }
 //.mainNavigation select{
 //	border: 1px solid $mediumgrey;
@@ -134,7 +135,7 @@
 	width: 25%;
 	border-left: 1px solid $lightgrey;
 	height: calc(100% - 51px);
-	padding: $xsmall-percentage;
+	padding: $xsmall-em;
 	z-index: 3;
 	background: $canvas;
 	transform: translateX(100%);
@@ -143,7 +144,7 @@
 .editMenu li{
 	border-bottom: 1px solid $lightgrey;
 	font-size: 1.3em;
-	padding: $xsmall-percentage 0;
+	padding: $xsmall-em 0;
 }
 .editMenu li a{
 	color: $mediumgrey;

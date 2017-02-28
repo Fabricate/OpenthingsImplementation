@@ -11,14 +11,14 @@
 	background: none repeat scroll 0 0 rgba($brand-color, .4);
 	color: white;
 	font-size: 1.3em;
-	padding: $xsmall-percentage;
+	padding: $xsmall-em;
 	display: block;
 }
 #commentMessages{
 	width: 100%;
 }
 .uploadstatus p{
-	padding: $xsmall-percentage $smedium-percentage;
+	padding: $xsmall-em $smedium-em;
 	background: rgba($brand-color, 0.6);
 	color: white;
 	margin: -$xsmall-em 0 $xsmall-em;

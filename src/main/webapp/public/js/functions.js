@@ -20,8 +20,10 @@ function AddProject(){
 
 function EditProject(){
   $(".editProject").fadeIn();
+  document.body.style.overflow = 'hidden';
   $(".close-icon").click(function(){
     $(".editProject").fadeOut();
+    document.body.style.overflow = 'auto';
   });
 }
 function LoginScreen(){
@@ -73,8 +75,7 @@ function AddTutorial(){
 
 // Measure margin of the main container according the menu height
 function menuHeight(){
-  var menuHeight = $('.editMenuHorizontal').height() + $('.mainNavigation').height();
+  var menuHeight = $('.mainNavigation').height();
   var mainMenuHeight = $('.mainNavigation').height();
   $('#main').css({'margin-top' : menuHeight + 'px'});
-  $('.editMenuHorizontal').css({'top' : mainMenuHeight + 'px'});
 }

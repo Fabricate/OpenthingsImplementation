@@ -1,6 +1,6 @@
 @media only screen and (max-width: 1280px)  {
 	.mainContent .preview{
-		width: 30.6%;
+		width: 33.33%;
 	}
 }
 @media only screen and (max-width: 1280px)  {
@@ -24,7 +24,7 @@
 		width: 100%;
 	}
 	.mainContent .preview{
-		width: 47%;
+		width: 50%;
 	}
 	.mainNavigation ul{
 		padding: .5em 1em;
@@ -58,11 +58,12 @@
 	.shareDesignBtn:hover{
 		background-color: transparent !important;
 	}
-	.openMenu{
-		padding: .5em 1em;
+
+	.openMenu {
 		text-align: center;
 		display: block;
 	}
+	
 	.landingPageMain .preview{
 		display: none;
 	}
@@ -79,7 +80,7 @@
 		width: 100%;
 	}
 	.introSection{
-		padding: $medium-percentage 0;
+		padding: $medium-em 0;
 	}
 	.explainItems li span{
 		font-size: 3em;
@@ -148,10 +149,10 @@
 	}
 	.footerNav section{
 		width: 40%;
-		margin: $small-percentage;
+		margin: $small-em;
 	}
 	.userProjectVersions, .detailedDescription{
-		padding: $small-percentage;
+		padding: $small-em;
 	}
 	.two-col{
 		width: 100%;
@@ -195,7 +196,7 @@
 		width: 100%;
 	}
 	.introSection{
-		padding: $medium-percentage 0;
+		padding: $medium-em 0;
 	}
 	.explainItems li span{
 		font-size: 3em;
@@ -234,7 +235,7 @@
 		width: 100%;
 	}
 	.introSection{
-		padding: $medium-percentage 0;
+		padding: $medium-em 0;
 	}
 	.explainItems li span{
 		font-size: 3em;

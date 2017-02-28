@@ -1,91 +1,98 @@
 @font-face {
-    font-family: 'proxima_nova_rgregular';
-    src: url('../fonts/mark_simonson_-_proxima_nova_regular-webfont.eot');
-    src: url('../fonts/mark_simonson_-_proxima_nova_regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/mark_simonson_-_proxima_nova_regular-webfont.woff') format('woff'),
-         url('../fonts/mark_simonson_-_proxima_nova_regular-webfont.ttf') format('truetype'),
-         url('../fonts/mark_simonson_-_proxima_nova_regular-webfont.svg#proxima_nova_rgregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'proxima_nova_rgregular';
+  src: url('../fonts/mark_simonson_-_proxima_nova_regular-webfont.eot');
+  src: url('../fonts/mark_simonson_-_proxima_nova_regular-webfont.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/mark_simonson_-_proxima_nova_regular-webfont.woff') format('woff'),
+  url('../fonts/mark_simonson_-_proxima_nova_regular-webfont.ttf') format('truetype'),
+  url('../fonts/mark_simonson_-_proxima_nova_regular-webfont.svg#proxima_nova_rgregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
+
 html{
   font-size: 100%;
-	-webkit-font-smoothing: antialiased;
-	text-rendering: optimizeLegibility;
-	text-rendering: geometricPrecision;
-	font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  text-rendering: geometricPrecision;
+  font-smooth: always;
 
-	font-smoothing: antialiased;
-	-moz-font-smoothing: antialiased;
-	-webkit-font-smoothing: antialiased;
-	-webkit-font-smoothing: subpixel-antialiased;
+  font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
+
 body{
-	font-family: 'proxima_nova_rgregular', sans-serif;
-	color: $secondary-brand-color;
+  font-family: 'proxima_nova_rgregular', sans-serif;
+  color: $secondary-brand-color;
 }
+
 h1, .alpha,
 h2, .beta,
 h3, .gamma,
 h4, .delta,
 h5, .epsilon,
 h6, .zeta {
-    margin: 0;
+  margin: 0;
+  letter-spacing: 0.05em;
 }
 h1, .alpha {
-    font-size: 2.625em;
-    line-height: 1.0476190476190477;
-    margin-bottom: 0.5238095238095238em;
+  font-size: 1.725em;
+  line-height: 1.0476190476190477;
+  margin-bottom: 0.5238095238095238em;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 h2, .beta {
-    font-size: 1.96875em;
-    line-height: 1.3968253968253967;
-    margin-bottom: 0.6984126984126984em;
+  font-size: 1.36875em;
+  line-height: 1.3968253968253967;
+  margin-bottom: 0.6984126984126984em;
+  letter-spacing: 0.1em;
 }
 h3, .gamma {
-    font-size: 1.3125em;
-    margin: 0 0 1.5714285714285714em;
-    line-height: 1.5714285714285714;
+  font-size: 1.2125em;
+  margin: 0 0 1.5714285714285714em;
+  line-height: 1.5714285714285714;
 }
 h4, .delta {
-    font-size: 1.1484375em;
-    line-height: 1.1972789115646258;
-    margin-bottom: 1.1972789115646258em;
+  font-size: 1.1484375em;
+  line-height: 1.1972789115646258;
+  margin-bottom: 1.1972789115646258em;
 }
 h5, .epsilon {
-    font-size: 0.984375em;
-    line-height: 1.3968253968253967;
-    margin-bottom: 1.3968253968253967em;
+  font-size: 0.984375em;
+  line-height: 1.3968253968253967;
+  margin-bottom: 1.3968253968253967em;
 }
 h6, .zeta {
-    font-size: 0.875em;
-    line-height: 1.5714285714285714;
-    margin-bottom: 1.5714285714285714em;
+  font-size: 0.875em;
+  line-height: 1.5714285714285714;
+  margin-bottom: 1.5714285714285714em;
 }
 p,
 blockquote {
-    font-size: 1.3125em;
-    margin: 0 0 1.5714285714285714em;
-    line-height: 1.5714285714285714;
-    -webkit-hyphens: auto;
-       -moz-hyphens: auto;
-        -ms-hyphens: auto;
-            hyphens: auto;
+  font-size: 1em;
+  margin: 0 0 1.5714285714285714em;
+  line-height: 1.5714285714285714;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
 }
 dd,
 dt,
 li {
-    line-height: 1.5714285714285714;
-    margin: 0;
+  line-height: 1.5714285714285714;
+  margin: 0;
 }
 a{
-    text-decoration: none;
-    opacity: 1;
-		color: $darkorange;
-    transition: opacity 0.3s ease-in-out;
+  text-decoration: none;
+  opacity: 1;
+  color: $darkorange;
+  transition: opacity 0.3s ease-in-out;
 }
 a:hover{
-    opacity: 0.8;
+  opacity: 0.8;
 }
 input, select, button, textarea, .btn{
 	font-size: 1.3125em;

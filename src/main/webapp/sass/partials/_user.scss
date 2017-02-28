@@ -10,13 +10,13 @@
 }
 
 .mainContent .userHeader .userDes{
-	padding: $small-percentage $medium-percentage !important;
+	padding: $small-em $medium-em !important;
 }
 .usertitle{
 	position: absolute;
 	left: 0;
 	bottom: 0;
-	padding: $xsmall-percentage $medium-percentage;
+	padding: $xsmall-em;
 	background: rgba(0,0,0,.2);
 	margin-bottom: 0;
 }

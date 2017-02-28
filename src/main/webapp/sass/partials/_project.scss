@@ -19,17 +19,17 @@
 	background: transparent !important;
 	padding: 0 !important;
 }
+
 .projectHeader select{
 	padding: .3em;
 	color: white;
 }
+
 .projectHeader p{
 	max-width: 800px;
 	margin-bottom: $small-em
 }
-.editPage{
-	display: none;
-}
+
 .editprojecticon{
 	cursor: pointer;
 }

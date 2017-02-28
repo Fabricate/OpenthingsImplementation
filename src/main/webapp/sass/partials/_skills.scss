@@ -1,12 +1,11 @@
 .skills{
 	background: $darkgrey;
-	padding: $medium-percentage;
 	width: 100%;
 	color: white;
 }
 
 .skills ul li{
-	padding: $xsmall-percentage;
+	padding: $xsmall-em;
 	width: 100%;
 }
 .skills ul li a{
@@ -20,7 +19,7 @@
 }
 
 .skills .editPage{
-	margin: $medium-percentage 0;
+	margin: $small-em 0;
 }
 #newskillname{
 	width: 100%;
@@ -30,5 +29,5 @@
 
 .newskill{
 	width: 100%;
-	margin-bottom: $xsmall-percentage;
+	margin-bottom: $xsmall-em;
 }

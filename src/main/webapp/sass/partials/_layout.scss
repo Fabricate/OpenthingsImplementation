@@ -9,38 +9,41 @@ body{
 .projectComments ul,.mainContent, .projectHeader, .mainContent .projectComments li, .commentInput, .commentInput input, .commentInput textarea, .commentInput form, .addTutorial, .projectComments, .userDetails, .projectDetails, .userProjectVersions, .projectVersions, .detailedDescription, .bom{
 	width: 100%;
 }
+
 .mainContent .projectHeader img, .mainContent .projectHeader .projectMainDes{
  	width: 50%;
- }
-.listView{
-	padding-bottom: $xsmall-percentage;
+}
+
+.listView {
 	text-align: center;
 }
+
 .col-2{
 	width: 50%;
 }
+
 .two-col{
 	width: 50%;
 }
+
 .fullWidth{
 	width: 100%;
 }
+
 .mainContent .preview{
-	margin: $xsmall-percentage 0 0 $xsmall-percentage;
-	width: 22.5%;
+	width: 25%;
 }
+
 .mainContent li a{
 	color: $darkgrey;
 }
-.mainContent .projectHeader div{
-	padding: $small-percentage;
+.mainContent .projectHeader div {
 	background-color: $darkgrey;
 	color: white;
 
 
 }
-.about__home{
-	padding: $medium-percentage;
+.about__home {
 	background: white;
 	width: 100%;
 }
@@ -49,10 +52,11 @@ body{
 	column-gap: 60px;
 	font-size: .875em;
 	margin: auto;
+	max-width: 80em;
 }
 .about__home .wrapper h2{
 	column-span: all;
-	text-align: center;
+	text-align: left;
 }
 .about__home .wrapper h3{
 	margin-top:1.5714285714285714em;
@@ -66,7 +70,7 @@ body{
 }
 .addTutorial{
 	background: white;
-	padding: $small-percentage;
+	padding: $small-em;
 	display: none;
 }
 .step{
