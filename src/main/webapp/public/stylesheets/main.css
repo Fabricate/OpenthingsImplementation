@@ -738,11 +738,6 @@ figure.effect-lily:hover p {
 .listImages {
   overflow: hidden; }
 
-#singleImage {
-  overflow: hidden; }
-  #singleImage .thumbnailimage {
-    max-width: 150px; }
-
 html, body, .blogMain, .blogArticle, .blogArticle header, .blog {
   height: 100%; }
 
@@ -1760,7 +1755,7 @@ ul.tagit input[type="text"] {
 
 .panel form {
   max-width: 600px;
-  width: 90%; }
+  width: 50%; }
 
 .panel input, .panel textarea, .panel select {
   max-width: 100%;
@@ -1795,6 +1790,62 @@ ul.tagit input[type="text"] {
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
   z-index: 2; }
+
+.panel-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+
+.panel-container .popup.images {
+  width: calc(50% - 60px);
+  margin-left: 60px; }
+
+.panel-container .imagesSection {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+  .panel-container .imagesSection form {
+    margin-top: 50px;
+    width: 100%; }
+
+.panel-container #listImages {
+  width: 100%;
+  max-width: 600px; }
+  .panel-container #listImages li {
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center; }
+
+.panel-container img {
+  width: 80px;
+  margin-right: 15px; }
+
+.panel-container .insertButton {
+  margin-bottom: 0;
+  padding: 0;
+  background: transparent;
+  color: #000;
+  font-weight: 500;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  margin-left: 10px;
+  letter-spacing: 0.15em; }
 
 .mainContent .projectHeader .select-style {
   padding: 5px 45px 5px 10px; }

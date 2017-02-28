@@ -10,6 +10,12 @@ Everyone can run their own instance when it's shared alike.
 ```
 ./sbt_reload-on-codechanges
 ```
+- Start without rebuilding on html and css changes
+
+```
+./sbt
+container:start
+```
 
 ### Working on CSS
 - Open the OpenthingsImplementation/src/main/webapp in your terminal
