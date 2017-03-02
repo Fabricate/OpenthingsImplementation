@@ -23,6 +23,7 @@
 }
 .searchContent .searchForm{
 	background-color: white;
+	border-bottom: 1px solid $lightgrey;
 	z-index: 2;
 }
 .searchContent .searchForm #teaser, .searchContent .searchForm #description{
@@ -37,6 +38,7 @@
 	max-height: 3.40em;
 	width: 30%;
 }
+
 #searchform {
 	font-size: .875em;
 
