@@ -3,7 +3,6 @@
 	@include box-sizing(border-box);
 }
 body{
-	background-color: $lightgrey;
 	overflow-x: hidden;
 }
 .projectComments ul,.mainContent, .projectHeader, .mainContent .projectComments li, .commentInput, .commentInput input, .commentInput textarea, .commentInput form, .addTutorial, .projectComments, .userDetails, .projectDetails, .userProjectVersions, .projectVersions, .detailedDescription, .bom{
@@ -11,7 +10,15 @@ body{
 }
 
 .mainContent .projectHeader img, .mainContent .projectHeader .projectMainDes{
- 	width: 50%;
+ 	width: 100%;
+}
+
+.project-icon {
+	max-width: 100%;
+}
+
+.project-header {
+	border-bottom: 1px solid $lightgrey;
 }
 
 .listView {
@@ -38,10 +45,7 @@ body{
 	color: $darkgrey;
 }
 .mainContent .projectHeader div {
-	background-color: $darkgrey;
-	color: white;
-
-
+	color: $darkgrey;
 }
 .about__home {
 	background: white;

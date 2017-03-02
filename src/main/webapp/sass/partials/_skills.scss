@@ -1,7 +1,5 @@
 .skills{
-	background: $darkgrey;
 	width: 100%;
-	color: white;
 }
 
 .skills ul li{
@@ -9,13 +7,13 @@
 	width: 100%;
 }
 .skills ul li a{
-	color: white;
+	color: $darkgrey;
 }
 .skills ul li:nth-of-type(odd){
-	background: rgba($canvas, .1);
+	background: rgba($darkgrey, .1);
 }
 .skills ul li:nth-of-type(even){
-	background: rgba($canvas, .2);
+	background: rgba($darkgrey, .2);
 }
 
 .skills .editPage{
@@ -23,8 +21,7 @@
 }
 #newskillname{
 	width: 100%;
-	border-color: white !important;
-	color: white;
+	color: $darkgrey;
 }
 
 .newskill{

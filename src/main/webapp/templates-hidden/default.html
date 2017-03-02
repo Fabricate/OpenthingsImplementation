@@ -41,11 +41,9 @@
 		<span data-lift="embed?what=modules/_account">Account</span>
 		<span data-lift="embed?what=modules/_editproject">Edit project</span>
 		<div data-lift="Login.account"><span id="onlinestatus" class="#"></span></div>
-    
-
+  
     <div id="content">The main content will get bound here</div>
-
-		<span data-lift="embed?what=modules/_footernav">FooterNav</span>
+		<div data-lift="embed?what=modules/_footernav">FooterNav</div>
 
     <script src="/public/js/rating.js"></script>
     <script src="/public/js/functions.js"></script>
@@ -62,11 +60,9 @@
 				}
 			});
 
-
 			$("#contactinitiator").click(function(){
         $(".contactMaker").slideToggle();
       });
-
 
 			$('.editMenu ul li a').click(function(){
 				$(".editMenu").toggleClass("activeMenu");
@@ -111,9 +107,9 @@
 				$('.mainNavigation ul').slideToggle();
 				$openmenu.toggleClass("activeMenu");
 				if ($openmenu.hasClass("activeMenu")) {
-						$openContent.html('<span class="icon-delete"></span> Close menu');
+					$openContent.html('<span class="icon-delete"></span> Close menu');
 				} else {
-						$openContent.html('<span class="icon-down"></span> Open menu');
+					$openContent.html('<span class="icon-down"></span> Open menu');
 				}
 			});
 
@@ -125,7 +121,7 @@
 
 			$('.mainfest-point').click(function(){
         var $openacc = $('.mainfest-point p');
-        
+
 				$(this).find('p').slideToggle();
 				$(this).find('p').toggleClass('openacc');
 

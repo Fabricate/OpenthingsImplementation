@@ -1,9 +1,7 @@
 .mainContent .projectHeader .select-style{
 	padding: 5px 45px 5px 10px;
 }
-.projectHeader{
-	background-color: $darkgrey;
-}
+
 .button__bar{
 	position: absolute;
 	left: 0;
@@ -18,6 +16,10 @@
 .button__bar .inner{
 	background: transparent !important;
 	padding: 0 !important;
+}
+
+.projectHeader {
+	border-bottom: $lightgrey 1px solid;
 }
 
 .projectHeader select{
@@ -36,3 +38,7 @@
 .loggedIn .designerView .projectHeader {
 	margin-top: 0;
 }
+
+
+.mainContent .col-2.left {
+  border-right: 1px solid $lightgrey;}

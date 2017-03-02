@@ -914,14 +914,19 @@ html, body, .blogMain, .blogArticle, .blogArticle header, .blog {
   box-sizing: border-box; }
 
 body {
-  background-color: #edebeb;
   overflow-x: hidden; }
 
 .projectComments ul, .mainContent, .projectHeader, .mainContent .projectComments li, .commentInput, .commentInput input, .commentInput textarea, .commentInput form, .addTutorial, .projectComments, .userDetails, .projectDetails, .userProjectVersions, .projectVersions, .detailedDescription, .bom {
   width: 100%; }
 
 .mainContent .projectHeader img, .mainContent .projectHeader .projectMainDes {
-  width: 50%; }
+  width: 100%; }
+
+.project-icon {
+  max-width: 100%; }
+
+.project-header {
+  border-bottom: 1px solid #edebeb; }
 
 .listView {
   text-align: center; }
@@ -942,8 +947,7 @@ body {
   color: #323232; }
 
 .mainContent .projectHeader div {
-  background-color: #323232;
-  color: white; }
+  color: #323232; }
 
 .about__home {
   background: white;
@@ -1254,8 +1258,8 @@ body {
   top: 0; }
 
 .tagsSection {
-  background: rgba(255, 255, 255, 0.75);
-  width: 100%; }
+  width: 100%;
+  border-bottom: 1px solid #edebeb; }
 
 #selecttags {
   padding: 0.625em 0;
@@ -1361,7 +1365,7 @@ ul.tagit input[type="text"] {
   outline: none; }
 
 .projectVersions {
-  background-color: rgba(251, 192, 45, 0.1);
+  border-bottom: 1px solid #edebeb;
   color: #323232; }
 
 .projectVersions li {
@@ -1429,7 +1433,7 @@ ul.tagit input[type="text"] {
   display: none; }
 
 .projectDetails, .userDetails {
-  background-color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid #edebeb;
   color: #323232;
   text-align: center; }
 
@@ -1451,7 +1455,8 @@ ul.tagit input[type="text"] {
   margin: 0 0 0 0; }
 
 .projectComments {
-  background-color: white; }
+  background-color: white;
+  border-bottom: 1px solid #edebeb; }
 
 #commenttitle {
   margin-bottom: 0; }
@@ -1573,30 +1578,27 @@ ul.tagit input[type="text"] {
   max-width: 400px; }
 
 .skills {
-  background: #323232;
-  width: 100%;
-  color: white; }
+  width: 100%; }
 
 .skills ul li {
   padding: 0.625em;
   width: 100%; }
 
 .skills ul li a {
-  color: white; }
+  color: #323232; }
 
 .skills ul li:nth-of-type(odd) {
-  background: rgba(255, 255, 255, 0.1); }
+  background: rgba(50, 50, 50, 0.1); }
 
 .skills ul li:nth-of-type(even) {
-  background: rgba(255, 255, 255, 0.2); }
+  background: rgba(50, 50, 50, 0.2); }
 
 .skills .editPage {
   margin: 0.9375em 0; }
 
 #newskillname {
   width: 100%;
-  border-color: white !important;
-  color: white; }
+  color: #323232; }
 
 .newskill {
   width: 100%;
@@ -1730,7 +1732,7 @@ ul.tagit input[type="text"] {
   margin-top: 6em; }
 
 .detailedDescription {
-  background: rgba(255, 255, 255, 0.5); }
+  border-bottom: 1px solid #edebeb; }
   .detailedDescription p {
     font-size: 1em; }
 
@@ -1858,9 +1860,6 @@ ul.tagit input[type="text"] {
 .mainContent .projectHeader .select-style {
   padding: 5px 45px 5px 10px; }
 
-.projectHeader {
-  background-color: #323232; }
-
 .button__bar {
   position: absolute;
   left: 0;
@@ -1884,6 +1883,9 @@ ul.tagit input[type="text"] {
   background: transparent !important;
   padding: 0 !important; }
 
+.projectHeader {
+  border-bottom: #edebeb 1px solid; }
+
 .projectHeader select {
   padding: .3em;
   color: white; }
@@ -1897,6 +1899,9 @@ ul.tagit input[type="text"] {
 
 .loggedIn .designerView .projectHeader {
   margin-top: 0; }
+
+.mainContent .col-2.left {
+  border-right: 1px solid #edebeb; }
 
 .videoHeader {
   padding: 0 !important; }
