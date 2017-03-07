@@ -1,18 +1,6 @@
-#combineTheChildrenToOneElement {
-	display: flex;
-	flex-wrap: wrap;
-}
-
-.panel .container:nth-of-type(1) {
-	margin-right: 40px;
-}
-
 .panel form{
-	max-width: 700px;
-	width: 100%;
-}
-.panel .container h2 {
-	margin-bottom: 0.3em;
+	max-width: 600px;
+	width: 50%;
 }
 .panel input, .panel textarea, .panel select{
 	max-width: 100%;
@@ -28,7 +16,8 @@
 	top: 51px;
 	left: 0;
 	z-index: 4;
-	background: #fff;
+	background: rgba(white,0.97);
+	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;
 }
 .loginScreen p{
@@ -41,8 +30,60 @@
 	cursor: pointer;
 	font-size: 1.5em;
 	position: absolute;
-	right: 0;
-	top: 0;
+	right: 30px;
+	top: 30px;
 	transform: rotate(45deg);
 	z-index: 2;
+}
+
+
+.panel-container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.panel-container {
+	.popup.images {
+		width: calc(50% - 60px);
+		margin-left: 60px;
+	}
+	.imagesSection {
+		display: flex;
+		flex-wrap: wrap;
+
+		form {
+			margin-top: 50px;
+			width: 100%;
+		}
+	}
+
+	#listImages {
+		width: 100%;
+		max-width: 600px;
+		li {
+			width: 100%;
+			padding: 10px 0;
+			border-bottom: 1px solid #eee;
+			display: flex;
+			align-items: center;
+
+		}
+	}
+
+	img {
+		width: 80px;
+		margin-right: 15px;
+	}
+
+	.insertButton {
+		margin-bottom: 0;
+		padding: 0;
+		background: transparent;
+		color: #000;
+		font-weight: 500;
+		font-size: 0.75em;
+		text-transform: uppercase;
+		margin-left: 10px;
+		letter-spacing: 0.15em;
+	}
 }

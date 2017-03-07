@@ -1,36 +1,24 @@
-<section id="project-images" class="images imagesSection">
-  <div class="container"> 
-    <h2 data-lift="lift:L10n.i">project_images</h2>
-    <form data-lift="form.ajax">
-      <label id="imagelabel" data-lift="lift:L10n.i">project_image_upload</label>
-      <input id="imageUpload" type="file" ></input>
-      <div id="imageuploadform" class="imageuploadstatus left"></div>
-      <label data-lift="lift:L10n.i">project_image_upload_title</label>
-      <input id="newImageIitle" placeholder="Title" value="" type="text" ></input>
-      <label data-lift="lift:L10n.i">project_image_upload_description</label>
-      <input id="newImageDescription" placeholder="Description" value="" type="text" ></input>
-      <button id="testMe" >test_button</button>
-      <button id="uploadImage" class="left" data-lift="lift:L10n.i" type="submit" >upload_image</button>
-    </form>
-
-    <span id="image_messages"></span>
-  </div>
-
-  <div class="container">
-    <ul id="listImages">
-      <li id="singleImage">
-        <figure>
-          <img src="#" id="thumbnailImage"></img>
-        </figure>
-        <div class="thumb-content">
-          <h3><span id="viewImageTitle">imageTitle</span></h3>
-          <p><span id="viewImageDescription">imageDescription</span></p>
-          <button id="insertButton" onclick="insertAtCursor($('.wysiwyg-descriptionfield-editform')[0],'!http://dummy.nok(dummy)!')"><span data-lift="lift:L10n.i">project_description_add_image</span></button> 
-        </div>
-      </li>
-    </ul>
-  </div>
-  
+<section id="project-images" class="images imagesSection left">
+  <ul id="listImages">
+    <li id="singleImage">
+      <img src="#" id="thumbnailImage" class="left"></img>
+      <div class="thumb-content left">
+        <h3 id="viewImageTitle">imageTitle</h3>
+        <h5 id="viewImageDescription">imageDescription</h5>
+      </div>
+      <button class="insertButton" id="insertButton" onclick="insertAtCursor($('.wysiwyg-descriptionfield-editform')[0],'!http://dummy.nok(dummy)!')" data-lift="lift:L10n.i">project_description_add_image</button> 
+    </li>
+  </ul>
+     
+  <form data-lift="form.ajax" class="image-upload">
+    <label id="imagelabel" data-lift="lift:L10n.i">project_image_upload</label>
+    <input id="imageUpload" type="file" ></input>
+    <div id="imageuploadform" class="imageuploadstatus left"></div>
+    <input id="newImageIitle" placeholder="Title" value="" type="text" ></input>
+    <input id="newImageDescription" placeholder="Description" value="" type="text" ></input>
+    <button id="uploadImage" class="left" data-lift="lift:L10n.i" type="submit">upload_image</button>
+  </form>
+  <span id="image_messages"></span>
 
 
   <lift:with-resource-id>
@@ -40,8 +28,7 @@
     <script src="/js/jquery.fileupload-process.js"></script>
     <script src="/js/jquery.fileupload-image.js"></script>
   </lift:with-resource-id>
-
-
+  
 <script>
 function uploadImageToServer(inputToUpload, destination) {
 var file_data = $(inputToUpload).prop('files'); 
@@ -76,4 +63,5 @@ $('#imageuploadform').fileupload('send', {files: file_data, url: destination});
       }
   }
 </script>
+
 </section>

@@ -67,7 +67,7 @@ trait AddImagesSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddImages
             () => { 
 
               JsCmds.Run("uploadImageToServer('#imageUpload','/api/upload/image/"+newImage.id.toString()+"')") &
-              AppendHtml("listImages", listAnImage(localItem)(newImage).apply(singleImageTemplate)) &
+              JsCmds.After(TimeSpan(5000), AppendHtml("listImages", listAnImage(localItem)(newImage).apply(singleImageTemplate))) &
                 // clear the forms
                 JsCmds.SetValById("newImageIitle", "") &
                 JsCmds.SetValById("newImageDescription", "") 
