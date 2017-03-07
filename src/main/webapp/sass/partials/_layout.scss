@@ -1,10 +1,20 @@
-
 .questionsList li, .addTutorial, .detailedDescription, .projectVersions, .userProjectVersions, .commentInput form, .commentInput, .projectComments ul, .projectComments header, .projectComments, .mainContent, .mainContent .projectHeader div, .projectDetails, .userDetails, .postProject, .editProject, .loginScreen, .accountScreen,.logoutScreen, .bom{
 	@include box-sizing(border-box);
 }
+
 body{
 	overflow-x: hidden;
 }
+
+.container {
+  padding: $big-em;
+}
+
+.container-hor {
+  padding: $big-em 0;
+
+}
+
 .projectComments ul,.mainContent, .projectHeader, .mainContent .projectComments li, .commentInput, .commentInput input, .commentInput textarea, .commentInput form, .addTutorial, .projectComments, .userDetails, .projectDetails, .userProjectVersions, .projectVersions, .detailedDescription, .bom{
 	width: 100%;
 }

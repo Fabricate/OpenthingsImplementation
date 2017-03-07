@@ -44,7 +44,3 @@ $box: 40em;
 	-moz-box-shadow:$top $left $blur $color #{$inset};
 	box-shadow:$top $left $blur $color #{$inset};
 }
-
-.container {
-  padding: $big-em;
-}

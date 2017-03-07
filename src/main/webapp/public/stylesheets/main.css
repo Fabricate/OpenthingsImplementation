@@ -47,9 +47,6 @@ table {
 div, section, nav {
   position: relative; }
 
-.container {
-  padding: 3.125em; }
-
 /* Standard Animation styles */
 .animated {
   -webkit-animation-duration: 1s;
@@ -238,7 +235,8 @@ button, .btn {
           transition: opacity 0.3s ease-in-out;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  font-size: 1em; }
+  font-size: 0.875em;
+  font-weight: 600; }
 
 .btn {
   color: white !important;
@@ -928,12 +926,21 @@ html, body, .blogMain, .blogArticle, .blogArticle header, .blog {
 .visible {
   opacity: 1; }
 
+.no-margin {
+  margin: 0 !important; }
+
 .questionsList li, .addTutorial, .detailedDescription, .projectVersions, .userProjectVersions, .commentInput form, .commentInput, .projectComments ul, .projectComments header, .projectComments, .mainContent, .mainContent .projectHeader div, .projectDetails, .userDetails, .postProject, .editProject, .loginScreen, .accountScreen, .logoutScreen, .bom {
   -ms-box-sizing: border-box;
   box-sizing: border-box; }
 
 body {
   overflow-x: hidden; }
+
+.container {
+  padding: 3.125em; }
+
+.container-hor {
+  padding: 3.125em 0; }
 
 .projectComments ul, .mainContent, .projectHeader, .mainContent .projectComments li, .commentInput, .commentInput input, .commentInput textarea, .commentInput form, .addTutorial, .projectComments, .userDetails, .projectDetails, .userProjectVersions, .projectVersions, .detailedDescription, .bom {
   width: 100%; }
@@ -1388,9 +1395,12 @@ ul.tagit input[type="text"] {
   border-bottom: 1px solid #edebeb;
   color: #323232; }
 
-.projectVersions li {
-  border-top: 1px solid rgba(255, 255, 255, 0.5);
-  padding: 0.9375em 0;
+.projectVersionsList h2 {
+  text-transform: uppercase;
+  margin-bottom: 0.2em; }
+
+.projectVersionsList li {
+  border-top: 1px solid #eee;
   width: 100%; }
 
 .projectVersionsList ul {
@@ -1441,10 +1451,6 @@ ul.tagit input[type="text"] {
 .userProjectVersions {
   background-color: rgba(255, 255, 255, 0.3);
   color: #323232; }
-
-.userProjectVersions li {
-  border-top: 1px solid rgba(255, 255, 255, 0.5);
-  padding: 0.9375em 0; }
 
 .projectVersionsList .icon-eye {
   cursor: pointer; }
@@ -1527,7 +1533,7 @@ ul.tagit input[type="text"] {
   width: 100%; }
 
 .standardPage {
-  padding: 1.875em; }
+  padding: 3.125em; }
 
 .standardPage {
   max-width: 50em;
@@ -1965,22 +1971,10 @@ ul.tagit input[type="text"] {
   width: 100% !important;
   height: 100%; }
 
-.mainContent .userHeader div {
-  padding: 0 !important; }
-
-.mainContent .userHeader .userDes {
-  padding: 0.9375em 1.875em !important; }
-
 .usertitle {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  padding: 0.625em;
-  background: rgba(0, 0, 0, 0.2);
-  margin-bottom: 0; }
+  margin-bottom: 0.5em; }
 
 .userDes #teaser {
-  border-bottom: 1px solid #edebeb;
   padding-bottom: 0.9375em; }
 
 .reputation {
