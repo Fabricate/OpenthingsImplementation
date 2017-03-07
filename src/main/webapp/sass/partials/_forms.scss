@@ -16,6 +16,7 @@ select {
 	background-repeat: no-repeat;
 	background-position: calc(100% - 10px) center;
 	background-size: 5%;
+	padding: $xsmall-em $medium-em $xsmall-em $xsmall-em !important;
 }
 
 .projectVersions input{

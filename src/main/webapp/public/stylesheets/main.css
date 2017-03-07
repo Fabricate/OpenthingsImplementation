@@ -113,7 +113,7 @@ h6, .zeta {
   letter-spacing: 0.05em; }
 
 h1, .alpha {
-  font-size: 1.725em;
+  font-size: 1.5em;
   line-height: 1.0476190476190477;
   margin-bottom: 0.5238095238095238em;
   letter-spacing: 0.15em;
@@ -197,7 +197,8 @@ select {
   background-image: url("data:image/png;base64,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");
   background-repeat: no-repeat;
   background-position: calc(100% - 10px) center;
-  background-size: 5%; }
+  background-size: 5%;
+  padding: 0.625em 1.875em 0.625em 0.625em !important; }
 
 .projectVersions input {
   float: left;
@@ -753,6 +754,18 @@ figure.effect-lily:hover p {
 
 .listImages {
   overflow: hidden; }
+
+.insertButton {
+  margin: 0 0 0.1em 0 !important;
+  padding: 0;
+  border: 1px solid #000;
+  padding: 0.4em;
+  background: transparent;
+  color: #000;
+  font-weight: 500;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.15em; }
 
 html, body, .blogMain, .blogArticle, .blogArticle header, .blog {
   height: 100%; }
@@ -1678,9 +1691,6 @@ ul.tagit input[type="text"] {
 .brandingText {
   width: 65%; }
 
-.introSection, .homeProjectIntro, .landingPageMain footer {
-  padding: 0.9375em 0 0.625em; }
-
 .landingPageMain .preview {
   display: none; }
 
@@ -1689,7 +1699,6 @@ ul.tagit input[type="text"] {
 
 .introSection {
   width: 100%;
-  padding: 1.875em;
   background: #f0ad05; }
 
 .introSection footer {
@@ -1721,7 +1730,7 @@ ul.tagit input[type="text"] {
   margin: auto; }
 
 .explainItems li h3 {
-  font-size: 1.8em; }
+  font-size: 1.4em; }
 
 .explainItems li {
   width: 33.33%;
@@ -1729,10 +1738,11 @@ ul.tagit input[type="text"] {
   text-align: center; }
 
 .explainItems li h3 {
-  margin-top: 1.2em; }
+  margin-top: 1.2em;
+  margin-bottom: 0; }
 
 .explainItems li span {
-  font-size: 8em;
+  font-size: 6em;
   margin-bottom: 2em; }
 
 .introVidContainer {
@@ -1852,17 +1862,6 @@ ul.tagit input[type="text"] {
 .panel-container img {
   width: 80px;
   margin-right: 15px; }
-
-.panel-container .insertButton {
-  margin-bottom: 0;
-  padding: 0;
-  background: transparent;
-  color: #000;
-  font-weight: 500;
-  font-size: 0.75em;
-  text-transform: uppercase;
-  margin-left: 10px;
-  letter-spacing: 0.15em; }
 
 .mainContent .projectHeader .select-style {
   padding: 5px 45px 5px 10px; }

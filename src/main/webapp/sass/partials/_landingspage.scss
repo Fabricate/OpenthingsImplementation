@@ -57,9 +57,7 @@
 .brandingText{
 	width: 65%;
 }
-.introSection, .homeProjectIntro, .landingPageMain footer{
-	padding: $small-em 0 $xsmall-em;
-}
+
 .landingPageMain .preview{
 	display: none;
 }
@@ -68,7 +66,6 @@
 }
 .introSection{
 	width: 100%;
-	padding: $medium-em;
 	background: darken($brand-color, 10%);
 }
 .introSection footer{
@@ -101,7 +98,7 @@
 	margin: auto;
 }
 .explainItems li h3{
-	font-size: 1.8em;
+	font-size: 1.4em;
 }
 .explainItems li{
 	width: 33.33%;
@@ -110,9 +107,10 @@
 }
 .explainItems li h3{
 	margin-top: 1.2em;
+	margin-bottom: 0;
 }
 .explainItems li span{
-	font-size: 8em;
+	font-size: 6em;
 	margin-bottom: 2em;
 }
 .introVidContainer{
