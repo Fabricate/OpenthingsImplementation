@@ -66,7 +66,7 @@
 
 .slides-container .container{
 	color: $canvas;
-	padding: $xsmall-percentage;
+	padding: $xsmall-em;
 	display: inline-block;
 	position: absolute;
 	bottom: 10%;
@@ -85,13 +85,11 @@
 	background: rgba(black, .35);
 	z-index: 1;
 }
-.container a{
+
+.slides-container .container a{
 	color: white;
 }
 
-.container .creativeCommons, .container #initiator{
-	font-size: 0.875em;
-}
 .container #initiator{
 	margin-bottom: .5em;
 }

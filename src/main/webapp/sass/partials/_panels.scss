@@ -1,22 +1,21 @@
 .panel form{
 	max-width: 600px;
-	width: 50%;
+	width: 100%;
 }
 .panel input, .panel textarea, .panel select{
 	max-width: 100%;
 	width: 100%;
 	margin-bottom: $xsmall-em;
 }
-.panel{
-	padding: $small-percentage;
+.panel {
 	width: 100%;
 	position: fixed;
-	height: calc(100% - 51px);
+	height: calc(100% - 50px);
 	overflow-y: auto;
-	top: 51px;
+	top: 50px;
 	left: 0;
 	z-index: 4;
-	background: rgba(white,0.97);
+	background: #fff;
 	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;
 }
@@ -24,7 +23,7 @@
 	width: 100%;
 }
 .panel button, .panel input[type="submit"]{
-	margin-bottom: $medium-percentage;
+	margin-bottom: $medium-em;
 }
 .close-icon{
 	cursor: pointer;
@@ -73,17 +72,5 @@
 	img {
 		width: 80px;
 		margin-right: 15px;
-	}
-
-	.insertButton {
-		margin-bottom: 0;
-		padding: 0;
-		background: transparent;
-		color: #000;
-		font-weight: 500;
-		font-size: 0.75em;
-		text-transform: uppercase;
-		margin-left: 10px;
-		letter-spacing: 0.15em;
 	}
 }

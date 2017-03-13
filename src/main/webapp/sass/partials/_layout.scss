@@ -1,46 +1,63 @@
-
 .questionsList li, .addTutorial, .detailedDescription, .projectVersions, .userProjectVersions, .commentInput form, .commentInput, .projectComments ul, .projectComments header, .projectComments, .mainContent, .mainContent .projectHeader div, .projectDetails, .userDetails, .postProject, .editProject, .loginScreen, .accountScreen,.logoutScreen, .bom{
 	@include box-sizing(border-box);
 }
+
 body{
-	background-color: $lightgrey;
 	overflow-x: hidden;
 }
+
+.container {
+  padding: $big-em;
+}
+
+.container-hor {
+  padding: $big-em 0;
+
+}
+
 .projectComments ul,.mainContent, .projectHeader, .mainContent .projectComments li, .commentInput, .commentInput input, .commentInput textarea, .commentInput form, .addTutorial, .projectComments, .userDetails, .projectDetails, .userProjectVersions, .projectVersions, .detailedDescription, .bom{
 	width: 100%;
 }
+
 .mainContent .projectHeader img, .mainContent .projectHeader .projectMainDes{
- 	width: 50%;
- }
-.listView{
-	padding-bottom: $xsmall-percentage;
+ 	width: 100%;
+}
+
+.project-icon {
+	max-width: 100%;
+}
+
+.project-header {
+	border-bottom: 1px solid $lightgrey;
+}
+
+.listView {
 	text-align: center;
 }
+
 .col-2{
 	width: 50%;
 }
+
 .two-col{
 	width: 50%;
 }
+
 .fullWidth{
 	width: 100%;
 }
+
 .mainContent .preview{
-	margin: $xsmall-percentage 0 0 $xsmall-percentage;
-	width: 22.5%;
+	width: 25%;
 }
+
 .mainContent li a{
 	color: $darkgrey;
 }
-.mainContent .projectHeader div{
-	padding: $small-percentage;
-	background-color: $darkgrey;
-	color: white;
-
-
+.mainContent .projectHeader div {
+	color: $darkgrey;
 }
-.about__home{
-	padding: $medium-percentage;
+.about__home {
 	background: white;
 	width: 100%;
 }
@@ -49,10 +66,11 @@ body{
 	column-gap: 60px;
 	font-size: .875em;
 	margin: auto;
+	max-width: 80em;
 }
 .about__home .wrapper h2{
 	column-span: all;
-	text-align: center;
+	text-align: left;
 }
 .about__home .wrapper h3{
 	margin-top:1.5714285714285714em;
@@ -66,7 +84,7 @@ body{
 }
 .addTutorial{
 	background: white;
-	padding: $small-percentage;
+	padding: $small-em;
 	display: none;
 }
 .step{

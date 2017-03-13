@@ -1,17 +1,17 @@
 .standardPage{
-	padding: $medium-percentage;
+	padding: $big-em;
 }
 .standardPage{
 	max-width: 50em;
 	font-size: 1.2em;
 }
 .lazyLoginScreen{
-	padding: $medium-percentage;
+	padding: $medium-em;
 	background: white;
 }
 .standardPage ul{
 	list-style: square;
-	padding-left: $smedium-percentage;
+	padding-left: $smedium-em;
 }
 
 .termsPage{
@@ -27,25 +27,25 @@
 }
 .notFoundPage .simpleSearch{
 	background: white;
-	padding: $small-percentage;
+	padding: $small-em;
 	margin-top: $medium-em;
 }
 .notFoundPage header{
 	background: white;
-	padding: $small-percentage;
+	padding: $small-em;
 	display: inline-block;
 	font-size: .875em;
 	max-width: 45em;
 }
 
 .resetPasswordPage{
-	padding: $xsmall-percentage;
+	padding: $xsmall-em;
 	background-color: $canvas;
 }
 
 .mainfest-point{
 	background: $canvas;
-	padding: $smedium-percentage;
+	padding: $smedium-em;
 	margin-bottom: $smedium-em;
 	font-size: 80%;
 //	cursor: pointer;

@@ -1,34 +1,30 @@
 .skills{
-	background: $darkgrey;
-	padding: $medium-percentage;
 	width: 100%;
-	color: white;
 }
 
 .skills ul li{
-	padding: $xsmall-percentage;
+	padding: $xsmall-em;
 	width: 100%;
 }
 .skills ul li a{
-	color: white;
+	color: $darkgrey;
 }
 .skills ul li:nth-of-type(odd){
-	background: rgba($canvas, .1);
+	background: rgba($darkgrey, .1);
 }
 .skills ul li:nth-of-type(even){
-	background: rgba($canvas, .2);
+	background: rgba($darkgrey, .2);
 }
 
 .skills .editPage{
-	margin: $medium-percentage 0;
+	margin: $small-em 0;
 }
 #newskillname{
 	width: 100%;
-	border-color: white !important;
-	color: white;
+	color: $darkgrey;
 }
 
 .newskill{
 	width: 100%;
-	margin-bottom: $xsmall-percentage;
+	margin-bottom: $xsmall-em;
 }
