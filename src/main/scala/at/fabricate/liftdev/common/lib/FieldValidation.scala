@@ -1,5 +1,5 @@
 package at.fabricate.liftdev.common
-package model
+package lib
 
 import scala.xml.Text
 import net.liftweb.util.FieldError

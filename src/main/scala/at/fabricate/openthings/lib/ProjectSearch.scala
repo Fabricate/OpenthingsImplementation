@@ -11,7 +11,6 @@ import java.util.Locale
 import net.liftweb.common.Full
 import net.liftweb.mapper.QueryParam
 import net.liftweb.mapper.StartAt
-import at.fabricate.liftdev.common.snippet.EndlessScrollingPaginatorSnippet
 import at.fabricate.openthings.model.Project
 import net.liftweb.mapper.Like
 import net.liftweb.mapper.In

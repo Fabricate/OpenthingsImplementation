@@ -33,6 +33,7 @@ trait NaturalKey[NK] {
 
 abstract class EnumWithDescriptionAndObject[T] extends Enumeration {
 
+
 	type ExtendedValue = Value with ValueWithDescription[T]
 
 	def Value(inDescription: String, inWrapped: T): ExtendedValue = {
@@ -57,7 +58,7 @@ abstract class EnumWithDescriptionAndObject[T] extends Enumeration {
 		super.values.map(v => v.asInstanceOf[ExtendedValue]).asInstanceOf[Set[ExtendedValue]].toSeq
 	}
 
-	def valueOf(name: String) = try{Some(withName(name).asInstanceOf[ExtendedValue])} catch {case _ => None}
+	def valueOf(name: String) = try{Some(withName(name).asInstanceOf[ExtendedValue])} catch {case _ : Throwable => None}
 
 	def unapply(value: String) = getValues.find(_.toString == value)
 
@@ -91,7 +92,7 @@ abstract class EnumWithDescriptionAndObjectNaturalKey[T, NK] extends Enumeration
 		keys.get(key)
 	}
 
-	def valueOf(name: String) = try{Some(withName(name).asInstanceOf[ExtendedValue])} catch {case _ => None}
+	def valueOf(name: String) = try{Some(withName(name).asInstanceOf[ExtendedValue])} catch {case _ : Throwable => None}
 
 	def unapply(value: String) = getValues.find(_.toString == value)
 
@@ -112,7 +113,7 @@ abstract class EnumWithDescription extends Enumeration {
 		super.values.map(v => v.asInstanceOf[ExtendedValue]).asInstanceOf[Set[ExtendedValue]].toSeq
 	}
 
-	def valueOf(name: String) = try{Some(withName(name).asInstanceOf[ExtendedValue])} catch {case _ => None}
+	def valueOf(name: String) = try{Some(withName(name).asInstanceOf[ExtendedValue])} catch {case _ : Throwable => None}
 
 }
 
@@ -130,7 +131,7 @@ abstract class EnumWithName extends Enumeration {
 		super.values.map(v => v.asInstanceOf[ExtendedValue]).asInstanceOf[Set[ExtendedValue]].toSeq
 	}
 
-	def valueOf(name: String) = try{Some(withName(name).asInstanceOf[ExtendedValue])} catch {case _ => None}
+	def valueOf(name: String) = try{Some(withName(name).asInstanceOf[ExtendedValue])} catch {case _ : Throwable => None}
 
 }
 
@@ -151,6 +152,6 @@ abstract class EnumWithNaturalKey[T] extends Enumeration {
 		keys.get(key)
 	}
 
-	def valueOf(name: String) = try{Some(withName(name).asInstanceOf[ExtendedValue])} catch {case _ => None}
+	def valueOf(name: String) = try{Some(withName(name).asInstanceOf[ExtendedValue])} catch {case _ : Throwable => None}
 
 }

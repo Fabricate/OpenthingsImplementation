@@ -18,12 +18,13 @@ import net.liftweb.common.Box
 import net.liftweb.common.Full
 import net.liftweb.common.Empty
 import net.liftweb.mapper.OrderBy
-import net.liftweb.mapper.LongMappedMapper
+import net.liftweb.mapper.MappedLongForeignKey
 import net.liftweb.mapper.By
 import net.liftweb.util.FieldError
 import at.fabricate.liftdev.common.lib.MappedLanguage
 import scala.collection.mutable
 import at.fabricate.openthings.model.User
+import at.fabricate.liftdev.common.lib.FieldValidation
 
 // This is the basic database entity 
 // every db object should inherit from that
@@ -50,7 +51,7 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
 
     val userHasToBeLoggedInForSave = true;
    
-    object defaultTranslation extends LongMappedMapper(this, TheTranslationMeta){
+    object defaultTranslation extends MappedLongForeignKey(this, TheTranslationMeta){
     	override def validSelectValues =
     			Full(TheTranslationMeta.findMap(
     					By(TheTranslationMeta.translatedItem,self.primaryKeyField.get),
@@ -61,7 +62,7 @@ trait BaseEntityWithTitleAndDescription [T <: (BaseEntityWithTitleAndDescription
     	def getObjectOrHead : self.TheTranslation = obj.getOrElse(self.translations.head)
     }
     
-    object translationToSave extends LongMappedMapper(this, TheTranslationMeta)
+    object translationToSave extends MappedLongForeignKey(this, TheTranslationMeta)
 
 	def getTranslationMapper : LongKeyedMetaMapper[_] = TheTranslationMeta
 	

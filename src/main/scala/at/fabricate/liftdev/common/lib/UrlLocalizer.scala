@@ -65,7 +65,7 @@ object UrlLocalizer {
     sessionSiteLocale.openOr {
       val requestLocale = 
       (for {
-        listOfLanguages <- tryo(S.getRequestHeader("Accept-Language").get.split(Array(',')).toList.map(_.split(Array('_', '-'))))
+        listOfLanguages <- tryo(S.getRequestHeader("Accept-Language").openOrThrowException("Empty Box opened").split(Array(',')).toList.map(_.split(Array('_', '-'))))
       } yield listOfLanguages.map {
         case Array(lang) => new Locale(lang)
         case Array(lang, country) => new Locale(lang, country)

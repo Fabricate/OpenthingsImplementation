@@ -79,7 +79,7 @@ object ProjectREST extends RestHelper {
         argument => argument.split(",").toList.map(
             input => Helpers.tryo(input.toLong)).//Box.apply()).
             // filter empty boxes and open the remaining ones
-            filter(_.isDefined ).map (full => full.get) )
+            filter(_.isDefined ).map (full => full.openOrThrowException("Empty Box opened")) )
      openOr (Nil) )
     
     val tagParam = "tag"
@@ -87,7 +87,7 @@ object ProjectREST extends RestHelper {
         argument => argument.split(",").toList.map(
             input => Helpers.tryo(input.toLong)).//Box.apply()).
             // filter empty boxes and open the remaining ones
-            filter(_.isDefined ).map (full => full.get) )
+            filter(_.isDefined ).map (full => full.openOrThrowException("Empty Box opened")) )
      openOr (Nil) )  
  
     val ratingParam = "rating"

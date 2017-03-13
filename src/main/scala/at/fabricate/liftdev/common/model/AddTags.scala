@@ -75,7 +75,7 @@ with Cascade[TheTags]
 	          // filter out all empty boxes
 	          _ != Empty).map(
 	              // open the boxes now that only full boxes are available (hopefully now failure)
-	              tagBox => tagBox.open_!).
+	              tagBox => tagBox.openOrThrowException("Empty Box opened")).
 	              // convert to a list again
 	              toList
 	              

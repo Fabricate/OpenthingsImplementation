@@ -37,7 +37,7 @@ abstract class EnumWithKeyAndValue[K, T] extends Enumeration {
 		super.values.map(v => v.asInstanceOf[ExtendedValue]).asInstanceOf[Set[ExtendedValue]].toSeq
 	}
 
-	def valueOf(name: String) = try{Some(withName(name).asInstanceOf[ExtendedValue])} catch {case _ => None}
+	def valueOf(name: String) = try{Some(withName(name).asInstanceOf[ExtendedValue])} catch {case _ : Throwable => None}
 
 	def getEnum(key: K): Option[ExtendedValue] = {
 		keys.get(key)

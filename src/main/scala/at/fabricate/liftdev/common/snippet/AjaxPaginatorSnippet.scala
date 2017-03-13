@@ -5,24 +5,27 @@ import net.liftweb.http.PaginatorSnippet
 import net.liftweb.http.SHtml
 import scala.xml.NodeSeq
 import net.liftweb.http.SortedPaginator
-import net.liftweb.util._
 import net.liftweb.common._
-import net.liftweb.util.BindHelpers._
+import net.liftweb.util._
+import net.liftweb.util.Helpers._
+import net.liftweb.util.CSSHelpers._
+import net.liftweb.util.CssBind
 import net.liftweb.mapper._
 import net.liftweb.http.Paginator
 import net.liftweb.http.SortedPaginatorSnippet
 import scala.xml.Text
+import net.liftweb.http.NodeSeqFuncOrSeqNodeSeqFunc
 
 
 // WARNING: pagination links with ajax dont work unfortunately, would need some bugfixing
 trait AjaxPaginatorSnippet[T] extends PaginatorSnippet[T] {
-  private lazy val pagMemo = SHtml.idMemoize(ignored => super.paginate _)
+  private lazy val pagMemo = SHtml.idMemoize(ignored => (super.paginate _).asInstanceOf[NodeSeqFuncOrSeqNodeSeqFunc])
 
   /**
    * The pagination binding
    */
 
-  override def paginate(ns: NodeSeq): NodeSeq = pagMemo(ns)
+  def paginateResults(ns: NodeSeq): NodeSeq = pagMemo(ns)
 
   def rerender = memo.setHtml() & pagMemo.setHtml()
 
@@ -32,7 +35,7 @@ trait AjaxPaginatorSnippet[T] extends PaginatorSnippet[T] {
     else
       SHtml.a(() => { _first = newFirst; rerender }, ns)
 
-  lazy val memo = SHtml.idMemoize(ignored => renderIt _)
+  lazy val memo = SHtml.idMemoize(ignored => (renderIt _).asInstanceOf[NodeSeqFuncOrSeqNodeSeqFunc])
   def renderIt(in: NodeSeq): NodeSeq
   def render(html: NodeSeq): NodeSeq = memo(html)
   
@@ -53,8 +56,8 @@ trait AjaxPaginatorSnippet[T] extends PaginatorSnippet[T] {
   def paginatecss : CssSel = {
         "#first" #> pageXml(0, firstXml) &
         "#prev" #> pageXml(first-itemsPerPage max 0, prevXml) &
-        "#allpages" #> {(n:NodeSeq) => this.pagesXml(0 until numPages,n)} &
-        "#zoomedpages" #> {(ns: NodeSeq) => this.pagesXml(zoomedPages,ns)} &
+//        "#allpages" #> {(n:NodeSeq) => this.pagesXml(0 until numPages,n)} &
+//        "#zoomedpages" #> {(ns: NodeSeq) => this.pagesXml(zoomedPages,ns)} &
         "#next" #> pageXml(first+itemsPerPage min itemsPerPage*(numPages-1) max 0, nextXml) &
         "#last" #> pageXml(itemsPerPage*(numPages-1), lastXml) &
         "#records" #> currentXml &
@@ -77,10 +80,12 @@ with AjaxPaginatorSnippet[T] {
   /**
    * The sort links binding
    */
+    /*
   def sortColumns(ns: NodeSeq) = sortMemo(ns)
 
   override def rerender = sortMemo.setHtml() & super.rerender
   private lazy val sortMemo = SHtml.idMemoize(ignored => _sortColumns _)
+
 
   private def _sortColumns(xhtml: NodeSeq): NodeSeq = {
     val result = bind(sortPrefix, xhtml,
@@ -91,6 +96,8 @@ with AjaxPaginatorSnippet[T] {
       }.toSeq: _*)
     result
   }
+* 
+*/
 }
 
 //and then the Mapper-implementations:

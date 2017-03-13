@@ -1,12 +1,13 @@
-package at.fabricate.liftdev.common.snippet
+/*package at.fabricate.liftdev.common
+package snippet
 
 import net.liftweb.http.PaginatorSnippet
 import net.liftweb.http.SHtml
 import scala.xml.NodeSeq
 import net.liftweb.http.SortedPaginator
-import net.liftweb.util._
 import net.liftweb.common._
-import net.liftweb.util.BindHelpers._
+import net.liftweb.util._
+import net.liftweb.util.Helpers._
 import net.liftweb.mapper._
 import net.liftweb.http.Paginator
 import net.liftweb.http.SortedPaginatorSnippet
@@ -68,3 +69,4 @@ trait EndlessScrollingPaginatorSnippet[T] extends PaginatorSnippet[T] {
 }
 
 // maybe copy the other stuff from AjaxPaginator once!
+*/

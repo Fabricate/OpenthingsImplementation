@@ -143,7 +143,7 @@ class CustomizeUserHandlingSnippet[T <: MegaProtoUser[T] with BaseEntityWithTitl
 
   			"#txtFirstName" #> user.firstName.toForm &
   			"#txtLastName" #> user.lastName.toForm &
-  			"#nickName" #> user.defaultTranslation.obj.get.title.toForm &
+  			"#nickName" #> user.defaultTranslation.obj.openOrThrowException("Empty Box opened").title.toForm &
   			"#signuphidden" #> SHtml.hidden(action )&
   			"#signupform [action]" #> S.uri
   			).apply(xhtml)

@@ -38,7 +38,6 @@ import net.liftweb.common.Full
 import net.liftweb.common.Empty
 import lib.MatchString
 import model.BaseEntityWithTitleAndDescription
-import net.liftmodules.textile.TextileParser
 import java.util.Locale
 import net.liftweb.http.RedirectResponse
 import net.liftweb.common.Box
@@ -52,8 +51,13 @@ import net.liftweb.http.js.JsCmds.Replace
 import scala.xml.UnprefixedAttribute
 import scala.xml.Null
 
+//import net.liftmodules.textile.TextileParser
 
-abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends EndlessScrollingPaginatorSnippet[T] with DispatchSnippet with Logger {
+import at.fabricate.liftdev.common.lib.TextileParser
+
+
+
+abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
 
   // ### Things that have to be defined/refined in subclasses/traits ###
      type ItemType = T
@@ -251,7 +255,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
         // later user asHtml
        ("#list_items" #> ("#item" #> page.map(item => asHtml(item) )) &
          "#update_list" #>  JsCmds.Script(JE.JsRaw(
-         """doScroll = true;
+        		 """doScroll = true;
             $(window).scroll(function(){
       if( ($(window).scrollTop() == $(document).height() - $(window).height()) && doScroll == true ) {"""+
            SHtml.jsonCall("list_items", appendNextPage _ )._2.toJsCmd+"""
@@ -308,7 +312,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     case "edit" => edit _
     case "create" => create _
     case "view" => view(_)
-    case "paginate" => paginate _
+    case "paginate" => paginateResults _
     case "paginatecss" => paginatecss(_)
   }
   

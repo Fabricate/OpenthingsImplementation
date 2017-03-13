@@ -26,6 +26,7 @@ import at.fabricate.liftdev.common.lib.EnumWithDescriptionAndObject
 import at.fabricate.liftdev.common.lib.MappedEnumWithDescription
 import at.fabricate.openthings.snippet.ProjectSnippet
 import java.util.Locale
+import at.fabricate.liftdev.common.lib.FieldValidation
 
 object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling[User] with BaseMetaEntity[User] with BaseMetaEntityWithTitleDescriptionAndIcon[User]
 with AddSkillsMeta[User] {
@@ -68,9 +69,9 @@ with AddSkillsMeta[User] {
 
 
   // some basic user rights management
-  def canEditContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.get.permission == permissionsEnum.user
-  def canModerateContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.get.permission == permissionsEnum.moderator
-  def canAdministerContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.get.permission == permissionsEnum.administrator
+  def canEditContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.openOrThrowException("Empty Box opened").permission == permissionsEnum.user
+  def canModerateContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.openOrThrowException("Empty Box opened").permission == permissionsEnum.moderator
+  def canAdministerContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.openOrThrowException("Empty Box opened").permission == permissionsEnum.administrator
 
   // save the content of a session before the user gets logged in!
   override def capturePreLoginState() = {
