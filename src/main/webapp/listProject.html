@@ -1,10 +1,14 @@
 <div id="main" data-lift="surround?with=default;at=content">
 	<section class="mainContent listView left">
 			<div data-lift="Project.list?eager_eval=true">
-					<ul id="list_items">
+					<div data-lift="form.ajax">
+						<ul id="list_items">
 							<span data-lift="embed?what=modules/_list-item">ProjectAndUserHeader</span>
-					</ul>
-					<script id="update_list"></script>
+						</ul>
+						<div data-lift="Project.paginatecss">
+							<span id="first"> </span> | <span id="prev"> </span> | <span id="allpages"> </span> |  <span id="next"> </span> | <span id="last"> </span> | <span id="records"> </span> 
+						</div>
+					</div>
 			</div>
 	</section>
 </div>
