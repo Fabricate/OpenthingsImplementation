@@ -2,6 +2,7 @@ package at.fabricate.liftdev.common
 package snippet
 
 import net.liftweb.http.DispatchSnippet
+import net.liftweb.common.Logger
 import model.MatchByID
 import net.liftweb.mapper.Descending
 import net.liftweb.mapper.StartAt
@@ -37,6 +38,7 @@ import net.liftweb.common.Full
 import net.liftweb.common.Empty
 import lib.MatchString
 import model.BaseEntityWithTitleAndDescription
+import net.liftmodules.textile.TextileParser
 import java.util.Locale
 import net.liftweb.http.RedirectResponse
 import net.liftweb.common.Box
@@ -49,14 +51,10 @@ import scala.xml.Elem
 import net.liftweb.http.js.JsCmds.Replace
 import scala.xml.UnprefixedAttribute
 import scala.xml.Null
-
-//import net.liftmodules.textile.TextileParser
-
-import at.fabricate.liftdev.common.lib.TextileParser
+import net.liftweb.http.PaginatorSnippet
 
 
-
-abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet {
+abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends CustomizedPaginatorSnippet[T] with DispatchSnippet with Logger {
 
   // ### Things that have to be defined/refined in subclasses/traits ###
      type ItemType = T
@@ -254,7 +252,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
         // later user asHtml
        ("#list_items" #> ("#item" #> page.map(item => asHtml(item) )) &
          "#update_list" #>  JsCmds.Script(JE.JsRaw(
-        		 """doScroll = true;
+         """doScroll = true;
             $(window).scroll(function(){
       if( ($(window).scrollTop() == $(document).height() - $(window).height()) && doScroll == true ) {"""+
            SHtml.jsonCall("list_items", appendNextPage _ )._2.toJsCmd+"""
@@ -306,12 +304,12 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
    
    // ### methods that will be stacked ###
    def localDispatch : DispatchIt = {    
-    case "list" => renderIt(_)
-    case "renderIt" => renderIt(_)
+    case "list" => render(_)
+    case "render" => render(_)
     case "edit" => edit _
     case "create" => create _
     case "view" => view(_)
-    case "paginate" => paginateResults _
+    case "paginate" => paginate _
     case "paginatecss" => paginatecss(_)
   }
   
@@ -431,3 +429,4 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 
   }
 }
+
