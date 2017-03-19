@@ -1,4 +1,5 @@
-package at.fabricate.liftdev.common.snippet
+package at.fabricate.liftdev.common
+package snippet
 
 import net.liftweb.http.PaginatorSnippet
 import net.liftweb.http.SHtml
@@ -13,31 +14,12 @@ import net.liftweb.http.SortedPaginatorSnippet
 import scala.xml.Text
 
 
-trait EndlessScrollingPaginatorSnippet[T] extends PaginatorSnippet[T] {
-  private lazy val pagMemo = SHtml.idMemoize(ignored => super.paginate _)
+// WARNING: pagination links with ajax dont work unfortunately, would need some bugfixing
+trait CustomizedPaginatorSnippet[T] extends PaginatorSnippet[T] {
 
-  /**
-   * The pagination binding
-   */
-
-  override def paginate(ns: NodeSeq): NodeSeq = pagMemo(ns)
-
-  def rerender = memo.setHtml() & pagMemo.setHtml()
-
-  override def pageXml(newFirst: Long, ns: NodeSeq): NodeSeq =
-    if (first == newFirst || newFirst < 0 || newFirst >= count)
-      ns
-    else
-      SHtml.a(() => { _first = newFirst; rerender }, ns)
-
-  lazy val memo = SHtml.idMemoize(ignored => renderIt _)
   def renderIt(in: NodeSeq): NodeSeq
-  def render(html: NodeSeq): NodeSeq = memo(html)
-
-  /**
-   * Overrides the super's implementation so the first record can be overridden by a URL query parameter.
-   */
-  override var first = 0L
+  def render(html: NodeSeq): NodeSeq = renderIt(html)
+  
   
   	override def itemsPerPage = 12
   	override def prevXml: NodeSeq = Text("<")
@@ -66,5 +48,3 @@ trait EndlessScrollingPaginatorSnippet[T] extends PaginatorSnippet[T] {
     }
 
 }
-
-// maybe copy the other stuff from AjaxPaginator once!

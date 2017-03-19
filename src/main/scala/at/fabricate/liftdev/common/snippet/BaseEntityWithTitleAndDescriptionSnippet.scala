@@ -51,9 +51,10 @@ import scala.xml.Elem
 import net.liftweb.http.js.JsCmds.Replace
 import scala.xml.UnprefixedAttribute
 import scala.xml.Null
+import net.liftweb.http.PaginatorSnippet
 
 
-abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends EndlessScrollingPaginatorSnippet[T] with DispatchSnippet with Logger {
+abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends CustomizedPaginatorSnippet[T] with DispatchSnippet with Logger {
 
   // ### Things that have to be defined/refined in subclasses/traits ###
      type ItemType = T
@@ -303,8 +304,8 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
    
    // ### methods that will be stacked ###
    def localDispatch : DispatchIt = {    
-    case "list" => renderIt(_)
-    case "renderIt" => renderIt(_)
+    case "list" => render(_)
+    case "render" => render(_)
     case "edit" => edit _
     case "create" => create _
     case "view" => view(_)
