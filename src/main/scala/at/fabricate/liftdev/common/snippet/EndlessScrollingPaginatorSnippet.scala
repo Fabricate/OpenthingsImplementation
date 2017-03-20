@@ -22,7 +22,7 @@ trait EndlessScrollingPaginatorSnippet[T] extends PaginatorSnippet[T] {
    * The pagination binding
    */
 
-  override def paginate(ns: NodeSeq): NodeSeq = pagMemo(ns)
+  def paginateResults(ns: NodeSeq): NodeSeq = pagMemo(ns)
 
   def rerender = memo.setHtml() & pagMemo.setHtml()
 
