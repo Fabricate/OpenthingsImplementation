@@ -4,9 +4,12 @@ package lib
 import net.liftweb.mapper.MappedEnum
 import scala.xml.Elem
 import net.liftweb.mapper.Mapper
+import scala.reflect.runtime.universe._
 
- abstract class MappedEnumWithDescription[ElemTyp <: Elem, T <: Mapper[T]] (obj : T, theEnum: EnumWithDescriptionAndObject[ElemTyp], defaultString : String = "Not Found", defaultElem : ElemTyp = <span class="notFound">Not Found</span>.asInstanceOf[ElemTyp]) 
- 			extends MappedEnum[T, EnumWithDescriptionAndObject[ElemTyp]](obj, theEnum  ){
+ abstract class MappedEnumWithDescription[ElemTyp <: Elem, T <: Mapper[T]] (obj : T, theEnum: EnumWithDescriptionAndObject[ElemTyp], defaultString : String = "Not Found", defaultElem : ElemTyp = <span class="notFound">Not Found</span>.asInstanceOf[ElemTyp])(implicit tag: TypeTag[EnumWithDescriptionAndObject[ElemTyp]#Value]) 
+ 			extends MappedEnum[T, EnumWithDescriptionAndObject[ElemTyp]](obj, theEnum  )
+ 			// fix from https://medium.com/byte-code/overcoming-type-erasure-in-scala-8f2422070d20
+{
     self: MappedEnum[T, EnumWithDescriptionAndObject[ElemTyp]] =>
       // just private is possible here, as theEnum is also private
         private type EnumsExtendedValue = theEnum.ExtendedValue
