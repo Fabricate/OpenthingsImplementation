@@ -1,7 +1,6 @@
 package at.fabricate.openthings
 package snippet
 
-import net.liftweb.common.Logger
 import net.liftweb.http.DispatchSnippet
 import model.User
 import net.liftweb.http.S

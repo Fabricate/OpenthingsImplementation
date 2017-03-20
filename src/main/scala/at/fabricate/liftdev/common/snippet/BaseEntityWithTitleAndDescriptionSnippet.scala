@@ -2,7 +2,6 @@ package at.fabricate.liftdev.common
 package snippet
 
 import net.liftweb.http.DispatchSnippet
-import net.liftweb.common.Logger
 import model.MatchByID
 import net.liftweb.mapper.Descending
 import net.liftweb.mapper.StartAt
@@ -57,7 +56,7 @@ import at.fabricate.liftdev.common.lib.TextileParser
 
 
 
-abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet with Logger {
+abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends AjaxPaginatorSnippet[T] with DispatchSnippet {
 
   // ### Things that have to be defined/refined in subclasses/traits ###
      type ItemType = T

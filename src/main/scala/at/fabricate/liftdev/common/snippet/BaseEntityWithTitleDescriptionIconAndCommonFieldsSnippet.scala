@@ -1,7 +1,6 @@
 package at.fabricate.liftdev.common
 package snippet
 
-import net.liftweb.common.Logger
 import net.liftweb.http.DispatchSnippet
 import model.BaseEntityWithTitleDescriptionIconAndCommonFields
 import scala.xml.NodeSeq

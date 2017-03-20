@@ -1,4 +1,4 @@
-/*package at.fabricate.liftdev.common
+package at.fabricate.liftdev.common
 package snippet
 
 import net.liftweb.http.PaginatorSnippet
@@ -12,10 +12,11 @@ import net.liftweb.mapper._
 import net.liftweb.http.Paginator
 import net.liftweb.http.SortedPaginatorSnippet
 import scala.xml.Text
+import net.liftweb.http.NodeSeqFuncOrSeqNodeSeqFunc
 
 
 trait EndlessScrollingPaginatorSnippet[T] extends PaginatorSnippet[T] {
-  private lazy val pagMemo = SHtml.idMemoize(ignored => super.paginate _)
+  private lazy val pagMemo = SHtml.idMemoize(ignored => (super.paginate _).asInstanceOf[NodeSeqFuncOrSeqNodeSeqFunc])
 
   /**
    * The pagination binding
@@ -69,4 +70,3 @@ trait EndlessScrollingPaginatorSnippet[T] extends PaginatorSnippet[T] {
 }
 
 // maybe copy the other stuff from AjaxPaginator once!
-*/
