@@ -33,8 +33,8 @@ import net.liftweb.common.Empty
       private def wrapSpanWithClass(theClass : String,theText: String) : Elem = 
         <li class="left">
 			<span class={theClass}></span>
-			<h5 data-lift="lift:L10n.i">{difficultyText}</h5>
-			<h6 data-lift="lift:L10n.i">{theText}</h6>
+			<h5 data-lift="L10n.i">{difficultyText}</h5>
+			<h6 data-lift="L10n.i">{theText}</h6>
 		</li>
     
 	val kids = MultiLanguageValue(stage1,wrapSpanWithClass("icon-indication-bar0",stage1))
