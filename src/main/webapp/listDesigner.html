@@ -1,10 +1,12 @@
 <div id="main" data-lift="surround?with=default;at=content">
 	<section class="mainContent listView left">
         <div data-lift="User.list?eager_eval=true">
-  		    <ul id="list_items">
-  				  <span data-lift="embed?what=modules/_list-item">ProjectAndUserHeader</span>
-  		    </ul>
-          <script id="update_list"></script>
+		    <ul id="list_items">
+				<span data-lift="embed?what=modules/_list-item">ProjectAndUserHeader</span>
+		    </ul>
+						<div data-lift="User.paginatecss" class="pagination">
+							<span id="first"> </span> | <span id="prev"> </span> | <span id="zoomedpages"> </span> |  <span id="next"> </span> | <span id="last"> </span> | <span id="records"> </span>
+						</div>
         </div>
 	</section>
 </div>

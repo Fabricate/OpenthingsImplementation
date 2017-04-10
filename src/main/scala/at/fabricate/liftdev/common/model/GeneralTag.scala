@@ -3,8 +3,8 @@ package model
 
 import net.liftweb.mapper.IdPK
 import net.liftweb.util.FieldError
-
 import scala.collection.mutable
+import at.fabricate.liftdev.common.lib.FieldValidation
 
 trait GeneralTagMeta[ModelType <: (GeneralTag[ModelType]) ] extends BaseMetaEntity[ModelType] with BaseMetaEntityWithTitleAndDescription[ModelType] {
 	self: ModelType => 

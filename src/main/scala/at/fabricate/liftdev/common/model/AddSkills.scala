@@ -75,7 +75,7 @@ with Cascade[TheSkills]
 	          // filter out all empty boxes
 	          _ != Empty).map(
 	              // open the boxes now that only full boxes are available (hopefully now failure)
-	              skillBox => skillBox.open_!).
+	              skillBox => skillBox.openOrThrowException("Empty Box opened")).
 	              // convert to a list again
 	              toList
 	              

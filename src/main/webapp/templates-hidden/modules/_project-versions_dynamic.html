@@ -1,35 +1,35 @@
-<section id="project-versions" class="projectVersions container left">
-	<h2 data-lift="lift:L10n.i">project_versions</h2>
+<section id="project-versions" class="projectVersions left">
+	<h2 data-lift="L10n.i">project_versions</h2>
 			<ul  id="commits" class="projectVersionsList">
 <!--				<li> Status of the repository <span id="repositorystatus">RepoStatus</span></li>-->
 				<li id="listcommits" class="container-hor">
 					<article>
-						<h1 class="epsilon"><span id="commitdifferencecount">NumberOfDifferences</span> <span  data-lift="lift:L10n.i">differences_by</span> <span id="commitcommitter">Martin Risseeuw</span> <span class="icon-eye"></span></h1>
+						<h1 class="epsilon"><span id="commitdifferencecount">NumberOfDifferences</span> <span  data-lift="L10n.i">differences_by</span> <span id="commitcommitter">Martin Risseeuw</span> <span class="icon-eye"></span></h1>
 						<p><span id="committext">committext</span>
 						<span id="commitdifferencedetails">ListOfDifferences</span></p>
-						<a href"" class="btn" id="downloadcommit"><span class="icon-save"></span> <span data-lift="lift:L10n.i">download_this_version</span></a> <button id="revertcommit" data-lift="lift:L10n.i">undo_changes</button>
-						<button id="resetcommit" data-lift="lift:L10n.i">version_back</button>
+						<a href"" class="btn" id="downloadcommit"><span class="icon-save"></span> <span data-lift="L10n.i">download_this_version</span></a> <button id="revertcommit" data-lift="L10n.i">undo_changes</button>
+						<button id="resetcommit" data-lift="L10n.i">version_back</button>
 					</article>
 				</li>
 			</ul>
 			<div class="editPage">
 				<section class="addFiles left">
 					<ul id="files" class="projectVersionsList">
-							<p class="readyUpload" data-lift="lift:L10n.i">files_ready_to_commit</p>
+							<p class="readyUpload" data-lift="L10n.i">files_ready_to_commit</p>
 							<li id="listfiles">
 								<span id="deletefile" class="icon-delete delete-icon"></span> <span id="filename"></span>
 							</li>
 					</ul>
-					<h2 class="epsilon" data-lift="lift:L10n.i">select_files_to_upload</h2>
+					<h2 class="epsilon" data-lift="L10n.i">select_files_to_upload</h2>
 					<input id="fileupload" type="file" name="files[]"  multiple>
 					<div class="uploadstatus left"></div>
 					<input id="commitlabel" value="" type="text" required></input>
 					<input id="commitrepohidden" value="" type="hidden"></input>
-					<button id="commitrepo" class="left" type="submit" data-lift="lift:L10n.i">commit_files</button>
+					<button id="commitrepo" class="left" type="submit" data-lift="L10n.i">commit_files</button>
 				</section>
 			</div>
 	<section id="repositoryMessages" class="left"></section>
-	<lift:with-resource-id>
+	<with-resource-id>
 		<script src="/js/load-image.all.min.js"></script>
 		<!-- The Canvas to Blob plugin is included for image resizing functionality -->
 		<script src="/js/canvas-to-blob.min.js"></script>
@@ -39,7 +39,7 @@
 		<script src="/js/jquery.fileupload.js"></script>
 		<script src="/js/jquery.fileupload-process.js"></script>
 		<script src="/js/jquery.fileupload-image.js"></script>
-	</lift:with-resource-id>
+	</with-resource-id>
 		<script id="uploadconfig">
 			$(function () {
 					$('#fileupload').fileupload({

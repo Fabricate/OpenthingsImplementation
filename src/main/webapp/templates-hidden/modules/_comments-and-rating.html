@@ -1,47 +1,47 @@
-<section id="project-discussion" class="projectComments container right">
-	<header class="left">
-		<div class="rating left">
-			<div id="ratingMessages"></div>
-			<p id="newrating">
-				<i data-lift="lift:L10n.i">rating</i>:
-				<span class="icon-star2 rating1" id="rating1"></span>
-				<span class="icon-star2 rating2" id="rating2"></span>
-				<span class="icon-star2 rating3" id="rating3"></span>
-				<span class="icon-star2 rating4" id="rating4"></span>
-				<span class="icon-star2 rating5" id="rating5"></span>
-			</p>
-			<p itemtype="aggregateRating">
-				<i data-lift="lift:L10n.i">rating</i>:
-				<span id="rating"></span>
-			</p>
-		</div>
-		<div class="right">
-			<p class="viewcomments" onclick="ShowComments();"><span data-lift="lift:L10n.i">view</span> <i itemtype="commentCount"><span class="icon-discussion"></span></i> <span data-lift="lift:L10n.i">comments</span></p>
-		</div>
-	</header>
-	<ul class="left" id="comments" itemscope itemtype="http://schema.org/comment">
-		<li id="comment" itemprop="comment">
-			<article class="comment">
-				<h3 id="commenttitle" itemprop="name">What about the electronics</h3>
-				<h3 id="commentauthor" class="zeta" itemprop="author">Posted by: Martin Risseeuw</h3>
-				<p id="commentmessage"  itemprop="text">Selling excess solar or wind energy back to the power company is not a new idea. But what if, instead of selling renewable energy back to companies who then sell it to our neighbors, we could sell the energy directly to our neighbors?</p>
-			</article>
-		</li>
-	</ul>
-	<section id="commentMessages" class="left">
+<section id="project-discussion" class="projectComments right">
+		<header class="left">
+			<div class="rating left">
+				<div id="ratingMessages"></div>
+				<p id="newrating">
+					<i data-lift="L10n.i">rating</i>:
+					<span class="icon-star2 rating1" id="rating1"></span>
+					<span class="icon-star2 rating2" id="rating2"></span>
+					<span class="icon-star2 rating3" id="rating3"></span>
+					<span class="icon-star2 rating4" id="rating4"></span>
+					<span class="icon-star2 rating5" id="rating5"></span>
+				</p>
+				<p itemtype="aggregateRating">
+					<i data-lift="L10n.i">rating</i>:
+					<span id="rating"></span>
+				</p>
+			</div>
+			<div class="right">
+				<p class="viewcomments" onclick="ShowComments();"><span data-lift="L10n.i">view</span> <i itemtype="commentCount"><span class="icon-discussion"></span></i> <span data-lift="L10n.i">comments</span></p>
+			</div>
+		</header>
+		<ul class="left" id="comments" itemscope itemtype="http://schema.org/comment">
+			<li id="comment" itemprop="comment">
+				<article class="comment">
+					<h2 class="alpha" id="commenttitle" class="beta" itemprop="name">What about the electronics</h2>
+					<h3 id="commentauthor" class="zeta" itemprop="author">Posted by: Martin Risseeuw</h3>
+					<p id="commentmessage"  itemprop="text">Selling excess solar or wind energy back to the power company is not a new idea. But what if, instead of selling renewable energy back to companies who then sell it to our neighbors, we could sell the energy directly to our neighbors?</p>
+				</article>
+			</li>
+		</ul>
+		<section id="commentMessages" class="left">
 
-	</section>
-	<section id="newcomment" class="commentInput left">
-		<form class="left" data-lift="form.ajax">
-			<h1 class="gamma" data-lift="lift:L10n.i">add_your_comment</h1>
-			<input id="newcomtitle" placeholder="Title">
+		</section>
+		<section id="newcomment" class="commentInput left">
+			<form class="left" data-lift="form.ajax">
+				<h1 class="gamma" data-lift="L10n.i">add_your_comment</h1>
+				<input id="newcomtitle" placeholder="Title">
 <!--
 				<input id="newcomauthor" placeholder="Name">
  class="wysiwyg" -> causes problems - i guess because of two textiles on the same page!
 -->
-<textarea id="newcommessage" placeholder="Your comment" rows="6"></textarea>
-<input id="newcomsubmithidden" class="left" type="hidden"></input>
-<button id="newcomsubmit" class="left" onclick="openComments();"><span class="icon-messages"></span> <span data-lift="lift:L10n.i">submit_comment</span></button><img alt="" id="ajax-loader" style="display:none; margin-bottom: 0px; margin-left: 5px" src="/public/images/ajax-loader.gif">
-</form>
-</section>
-</section>
+				<textarea id="newcommessage" placeholder="Your comment" rows="6"></textarea>
+				<input id="newcomsubmithidden" class="left" type="hidden"></input>
+				<button id="newcomsubmit" class="left" onclick="openComments();"><span class="icon-messages"></span> <span data-lift="L10n.i">submit_comment</span></button><img alt="" id="ajax-loader" style="display:none; margin-bottom: 0px; margin-left: 5px" src="/public/images/ajax-loader.gif">
+			</form>
+		</section>
+	</section>

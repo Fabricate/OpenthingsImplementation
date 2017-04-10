@@ -3,15 +3,17 @@
 		<div id="searchMessages">
 
 		</div>
-		<div class="searchForm container left" data-lift="Search.form?eager_eval=true">
-			<h1 data-lift="lift:L10n.i">advanced_search</h1>
+		<div class="searchForm left" data-lift="Search.form?eager_eval=true">
+			<h1 data-lift="L10n.i">advanced_search</h1>
 			<span data-lift="embed?what=modules/_search-form">EditItemForm</span>
 		</div>
         <div data-lift="Search.list?eager_eval=true" class="searchContent">
 		    <ul id="list_items">
 				<span data-lift="embed?what=modules/_list-item">ProjectAndUserHeader</span>
 		    </ul>
-            <script id="update_list"></script>
+						<div data-lift="Search.paginatecss" class="pagination">
+							<span id="first"> </span> | <span id="prev"> </span> | <span id="zoomedpages"> </span> |  <span id="next"> </span> | <span id="last"> </span> | <span id="records"> </span>
+						</div>
         </div>
 	</section>
 </div>

@@ -23,6 +23,7 @@ import net.liftweb.common.Box
 import net.liftweb.mapper.MetaMegaProtoUser
 import net.liftweb.mapper.MegaProtoUser
 import net.liftweb.mapper.CreatedUpdated
+import at.fabricate.liftdev.common.lib.FieldValidation
 
 trait AddComment[T <: (AddComment[T]) ] extends BaseEntity[T]  with OneToMany[Long, T] { // 
 	self: T =>

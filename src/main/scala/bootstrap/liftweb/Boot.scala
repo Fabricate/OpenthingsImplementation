@@ -74,12 +74,11 @@ class Boot {
     LiftRules.dispatch.append(ProjectREST)
     
     // enable CORS for the REST API
-    LiftRules.supplimentalHeaders  = s => s.addHeaders(
-      List(HTTPParam("X-Lift-Version", LiftRules.liftVersion),
-        HTTPParam("Access-Control-Allow-Origin", "*"),
-        HTTPParam("Access-Control-Allow-Credentials", "true"),
-        HTTPParam("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS"),
-        HTTPParam("Access-Control-Allow-Headers", "WWW-Authenticate,Keep-Alive,User-Agent,X-Requested-With,Cache-Control,Content-Type")
+    LiftRules.supplementalHeaders.default.set(
+      List(("Access-Control-Allow-Origin","*"),
+        ("Access-Control-Allow-Credentials", "true"),
+        ("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS"),
+        ("Access-Control-Allow-Headers", "WWW-Authenticate,Keep-Alive,User-Agent,X-Requested-With,Cache-Control,Content-Type")
       ))
       /*
       * 

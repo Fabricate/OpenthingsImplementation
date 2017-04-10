@@ -1,12 +1,12 @@
-<section id="project-tags" class="tags tagsSection container left">
-	<h2 data-lift="lift:L10n.i">project_tags</h2>
+<section id="project-tags" class="tags tagsSection left">
+	<h2 data-lift="L10n.i">project_tags</h2>
 	<ul id="listtags" itemprop="keywords">
 		<li id="singletag"><a href="#">Tag</a></li>
 	</ul>
 	<div class="editPage">
 
 		<form data-lift="form.ajax">
-			<h3 data-lift="lift:L10n.i">add_tags_to_project</h3>
+			<h3 data-lift="L10n.i">add_tags_to_project</h3>
 			<ul id="selecttags">
 				<li id="selectsingletag"><input type="checkbox" id="tagselect"><label id="taglabel">TagName</label></li>
 			</ul>
@@ -15,7 +15,8 @@
 					<input id="newtagname" value="" placeholder="Add new tag" required minlength="5" maxlength="60" />
 				</div>
 				<input type="hidden" id="tagshidden" />
-				<button class="left" type="submit"><span class="icon-plus"></span> <span data-lift="lift:L10n.i">add</span> <span id="tag_messages"></span></button>
+		<!--		<input value="Add" type="submit" class="btn" />-->
+				<button class="left" type="submit"><span class="icon-plus"></span> <span data-lift="L10n.i">add</span> <span id="tag_messages"></span></button>
 			</div>
 		</form>
 	</div>

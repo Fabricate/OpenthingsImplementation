@@ -122,11 +122,11 @@ with AddSkills[Project] with AddImages[Project] {
         ("rating" -> accumulatedRatings.get ) ~ // generateDisplayRating()) ~
         ("icon" -> "%s%s".format(serverURI,icon.url)  ) ~
         ("creator" -> JObject(
-            JField("name", createdByUser.obj.get.defaultTranslation.getObjectOrHead.title.get) ::
-            JField("id", createdByUser.obj.get.id.get  ) ::
+            JField("name", createdByUser.obj.openOrThrowException("Empty Box opened").defaultTranslation.getObjectOrHead.title.get) ::
+            JField("id", createdByUser.obj.openOrThrowException("Empty Box opened").id.get  ) ::
             Nil)
         ) ~
-        ("url" -> "%s%s".format(serverURI,ProjectSnippet.urlToViewItem(this))  ) ~
+        ("url" -> "%s%s".format(serverURI,ProjectSnippet.urlToViewItem(this))) ~
         ("id" -> id.get) 
       )
   }

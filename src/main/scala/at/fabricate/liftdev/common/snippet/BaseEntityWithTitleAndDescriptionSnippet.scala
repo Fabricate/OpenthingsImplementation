@@ -38,7 +38,7 @@ import net.liftweb.common.Full
 import net.liftweb.common.Empty
 import lib.MatchString
 import model.BaseEntityWithTitleAndDescription
-import net.liftmodules.textile.TextileParser
+//import net.liftmodules.textile.TextileParser
 import java.util.Locale
 import net.liftweb.http.RedirectResponse
 import net.liftweb.common.Box
@@ -53,6 +53,8 @@ import scala.xml.UnprefixedAttribute
 import scala.xml.Null
 import net.liftweb.http.PaginatorSnippet
 
+//import net.liftmodules.textile.TextileParser
+import at.fabricate.liftdev.common.lib.TextileParser
 
 abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitleAndDescription[T]] extends CustomizedPaginatorSnippet[T] with DispatchSnippet with Logger {
 
@@ -309,7 +311,7 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
     case "edit" => edit _
     case "create" => create _
     case "view" => view(_)
-    case "paginate" => paginate _
+    case "paginate" => paginate(_)
     case "paginatecss" => paginatecss(_)
   }
   
@@ -429,3 +431,4 @@ abstract class BaseEntityWithTitleAndDescriptionSnippet[T <: BaseEntityWithTitle
 
   }
 }
+

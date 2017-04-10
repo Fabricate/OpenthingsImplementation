@@ -66,7 +66,7 @@ object FeaturedSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project]
 
     //val result = Project.findAll(query :_*)
 
-    val result = elements.map(TheItem.findByKey(_)).filter(_.isDefined).map(_.get)
+    val result = elements.map(TheItem.findByKey(_)).filter(_.isDefined).map(_.openOrThrowException("Empty Box opened"))
 
     //println("Featured.test: "+result.map(_.createdAt.toString()).mkString(", "))
 

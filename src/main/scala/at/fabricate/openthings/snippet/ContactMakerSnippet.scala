@@ -68,10 +68,10 @@ object ContactMakerSnippet  extends DispatchSnippet {
             val from = User.currentUser.map { aUser => aUser.email.get }
             
           if (from.isDefined && theProject.isDefined){
-            val to = List(theProject.get.createdByUser.obj.get.email.get) 
+            val to = List(theProject.openOrThrowException("Empty Box opened").createdByUser.obj.openOrThrowException("Empty Box opened").email.get) 
               //List("hello")
             
-          sendPlainMail("openthingsserver@gmail.com", from.get , subject.get, to ,"Name: "+name.get+"\n\n Option: "+options.get+"\n\n Message: \n"+message.get)
+          sendPlainMail("openthingsserver@gmail.com", from.openOrThrowException("Empty Box opened") , subject.get, to ,"Name: "+name.get+"\n\n Option: "+options.get+"\n\n Message: \n"+message.get)
           S.notice("Thank you for your message!")
              println("Message was sent!")
           //S.redirectTo("/index")
