@@ -52,7 +52,7 @@ object ImportHelper{
   def userExists(eMail : String) : Long =  {
     val found = findUserByMail(eMail)
     if (found.isEmpty) return -1
-    else found.open_!.id.get
+    else found.openOrThrowException("Opened empty Box").id.get
   }
   
   def findUserByMail(eMail : String) : Box[User] = User.find(By(User.email,eMail))
@@ -111,13 +111,13 @@ object ImportWaagProjects extends App {
       .map { aUser => {
         println("## Processing User: "+aUser.name+" ##") 
         // load the user from the db or create a new one
-        boxedUser = ImportHelper.findUserByMail(aUser.mail)
+        boxedUser = ImportHelper.findUserByMail(aUser.mail.get)
         if (boxedUser.isDefined)
-          user = boxedUser.open_!
+          user = boxedUser.openOrThrowException("Opened empty Box")
         else{
-          user = ImportHelper.createNewUser(aUser.name,aUser.mail, password)
+          user = ImportHelper.createNewUser(aUser.name.get,aUser.mail.get, password)
           val userIcon = aUser.picture
-          fileBox = ImportHelper.loadFileToFileParam(ImportHelper.combinePath(filePrefix, "/", userIcon), userIcon, "image/jpg") 
+          fileBox = ImportHelper.loadFileToFileParam(ImportHelper.combinePath(filePrefix, "/", userIcon.get), userIcon.get, "image/jpg") 
           if (fileBox.isDefined){
              user.icon.setFromUpload(fileBox)
              user.saveMe()
@@ -166,9 +166,9 @@ object ImportWaagProjects extends App {
               )
               
            // prepare the data to be valid for a project and create a new one
-           teaserPlaintext = Html2Markdown.toMarkdown(aProject.teaser,plaintextConverter)
+           teaserPlaintext = Html2Markdown.toMarkdown(aProject.teaser.get,plaintextConverter)
            if (teaserPlaintext.length() > 500) teaserPlaintext = teaserPlaintext.substring(0, 495)+"..."
-           val title = if (aProject.title.length() > 60) aProject.title.substring(0, 56)+"..."
+           val title = if (aProject.title.get.length() > 60) aProject.title.get.substring(0, 56)+"..."
            else aProject.title.get
            project = ImportHelper.createNewProject(title, 
                teaserPlaintext, 
@@ -191,7 +191,7 @@ object ImportWaagProjects extends App {
                 fileBox = ImportHelper.loadFileToFileParam(location, name, "image/jpeg") 
                 if (fileBox.isDefined){
                   val image = project.addNewImageToItem(Locale.ENGLISH, name , name)
-                  Image.setImageFromFileHolder(fileBox.open_!, image)
+                  Image.setImageFromFileHolder(fileBox.openOrThrowException("Opened empty Box"), image)
                   project.saveMe()
                   "/serve/image/"+image.id
                 } else {
@@ -222,9 +222,9 @@ object ImportWaagProjects extends App {
              case (e : SAXParseException) => {
                println("no well formed xml at description for project "+aProject.title+" failed")
                fileBox = ImportHelper.loadStringToFileParam(description,"description.txt","text/plain")
-               project.repository.copyFileToRepository(fileBox.open_!)
+               project.repository.copyFileToRepository(fileBox.openOrThrowException("Opened empty Box"))
                fileBox = ImportHelper.loadStringToFileParam(e.getMessage,"errormessage.txt","text/plain")
-               project.repository.copyFileToRepository(fileBox.open_!)
+               project.repository.copyFileToRepository(fileBox.openOrThrowException("Opened empty Box"))
                project.saveMe()
              }
              case (e : Exception) => {
@@ -239,28 +239,28 @@ object ImportWaagProjects extends App {
            * 
            */
            icon = aProject.images.head
-           fileBox = ImportHelper.loadFileToFileParam(ImportHelper.combinePath(filePrefix, "/", icon.filepath), icon.filename, icon.filemime) 
+           fileBox = ImportHelper.loadFileToFileParam(ImportHelper.combinePath(filePrefix, "/", icon.filepath.get), icon.filename.get, icon.filemime.get) 
                if (fileBox.isDefined){
                  try {
                  project.icon.setFromUpload(fileBox)
                  project.saveMe()
                  } catch {
-                   case e: Exception => println("Project Icon:  "+icon.filename+" at "+ImportHelper.combinePath(filePrefix, "/", icon.filepath)+" upload resulted in an error for Project "+aProject.title)
+                   case e: Exception => println("Project Icon:  "+icon.filename+" at "+ImportHelper.combinePath(filePrefix, "/", icon.filepath.get)+" upload resulted in an error for Project "+aProject.title)
                  }
                } else {
-                 println("Project Icon:  "+icon.filename+" at "+ImportHelper.combinePath(filePrefix, "/", icon.filepath)+" does not exist for Project "+aProject.title)
+                 println("Project Icon:  "+icon.filename+" at "+ImportHelper.combinePath(filePrefix, "/", icon.filepath.get)+" does not exist for Project "+aProject.title)
                }
 
           }
           files.map { aFile => {
-               val fileLocation = ImportHelper.combinePath(filePrefix, "/", aFile.filepath)
-               fileBox = ImportHelper.loadFileToFileParam(fileLocation, aFile.filename, aFile.filemime) 
+               val fileLocation = ImportHelper.combinePath(filePrefix, "/", aFile.filepath.get)
+               fileBox = ImportHelper.loadFileToFileParam(fileLocation, aFile.filename.get, aFile.filemime.get) 
                println("proceccing Project File "+ aFile.filename+" at "+fileLocation  )
                if (fileBox.isDefined){
-                 project.repository.copyFileToRepository(fileBox.open_!)
+                 project.repository.copyFileToRepository(fileBox.openOrThrowException("Opened empty Box"))
                  project.saveMe()
                } else {
-                 println("Project File:  "+aFile.filename+" at "+ImportHelper.combinePath(filePrefix, "/", aFile.filepath)+" does not exist for Project "+aProject.title)
+                 println("Project File:  "+aFile.filename+" at "+ImportHelper.combinePath(filePrefix, "/", aFile.filepath.get)+" does not exist for Project "+aProject.title)
                }
              }
           }

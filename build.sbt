@@ -36,7 +36,8 @@ libraryDependencies ++= {
     "net.liftmodules"   %% "imaging_3.0"        % "1.4-SNAPSHOT",
     "net.liftmodules"   %% "lift-jquery-module_3.0" % "2.9",
     "org.eclipse.jgit"  % "org.eclipse.jgit"    % "3.7.1.201504261725-r",
-    "mysql"             %"mysql-connector-java" % "5.1.41"
+    "mysql"             %"mysql-connector-java" % "5.1.41",
+    "com.github.tkqubo" % "html-to-markdown" 	% "0.3.0"
   )
 }
 

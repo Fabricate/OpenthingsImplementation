@@ -19,6 +19,7 @@ import lib.MatchString
 import scala.collection.mutable
 import at.fabricate.liftdev.common.lib.ImageHelper
 import java.util.Locale
+import at.fabricate.liftdev.common.lib.FieldValidation
 
 trait GeneralImageMeta[ModelType <: (GeneralImage[ModelType]) ] extends BaseMetaEntity[ModelType] with BaseMetaEntityWithTitleAndDescription[ModelType] {
 	self: ModelType => 
@@ -58,7 +59,7 @@ trait GeneralImageMeta[ModelType <: (GeneralImage[ModelType]) ] extends BaseMeta
       case r @ Req(MatchServePath(servePath) :: MatchImagePath(imgPath)  :: MatchItemByID(imageID) :: 
                  Nil, _, GetRequest) => ()  =>  {
                    if(imageID.resizedImage.isDefined && imageID.resizedImage.obj.isDefined){
-                     val imageData = imageID.resizedImage.obj.openTheBox
+                     val imageData = imageID.resizedImage.obj.openOrThrowException("Opened empty Box")
                      Full(InMemoryResponse(imageData.image.get,
                                List("Content-Type" -> imageData.imageFormat.toString(),
                                     "Content-Length" ->
@@ -74,7 +75,7 @@ trait GeneralImageMeta[ModelType <: (GeneralImage[ModelType]) ] extends BaseMeta
       case r @ Req(MatchServePath(servePath) :: MatchImagePath(imgPath)  :: MatchItemByID(imageID) :: MatchQualityPathThumb(thumbPath) ::
                  Nil, _, GetRequest) => ()  =>  {
                    if(imageID.thumbnailImage.isDefined && imageID.thumbnailImage.obj.isDefined){
-                     val imageData = imageID.thumbnailImage.obj.openTheBox
+                     val imageData = imageID.thumbnailImage.obj.openOrThrowException("Opened empty Box")
                      Full(InMemoryResponse(imageData.image.get,
                                List("Content-Type" -> imageData.imageFormat.get,
                                     "Content-Length" ->
@@ -90,7 +91,7 @@ trait GeneralImageMeta[ModelType <: (GeneralImage[ModelType]) ] extends BaseMeta
       case r @ Req(MatchServePath(servePath) :: MatchImagePath(imgPath)  :: MatchItemByID(imageID) :: MatchQualityPathOrig(origPath) ::
                  Nil, _, GetRequest) => ()  =>  {
                    if(imageID.originalImage.isDefined && imageID.originalImage.obj.isDefined){
-                     val imageData = imageID.originalImage.obj.openTheBox
+                     val imageData = imageID.originalImage.obj.openOrThrowException("Opened empty Box")
                      Full(InMemoryResponse(imageData.image.get,
                                List("Content-Type" -> imageData.imageFormat.get,
                                     "Content-Length" ->
@@ -149,17 +150,17 @@ trait GeneralImageMeta[ModelType <: (GeneralImage[ModelType]) ] extends BaseMeta
 	
 	// save the original image
 	var originalImageData = if (theItem.originalImage.isDefined && theItem.originalImage.obj.isDefined){
-	  theItem.originalImage.obj.openTheBox
+	  theItem.originalImage.obj.openOrThrowException("Opened empty Box")
 	} else {
 	  theItem.TheImageData.create
 	}
 	var thumbImageData = if (theItem.thumbnailImage.isDefined && theItem.thumbnailImage.obj.isDefined){
-	  theItem.thumbnailImage.obj.openTheBox
+	  theItem.thumbnailImage.obj.openOrThrowException("Opened empty Box")
 	} else {
 	  theItem.TheImageData.create
 	}
 	var resizedImageData = if (theItem.resizedImage.isDefined && theItem.resizedImage.obj.isDefined){
-	  theItem.resizedImage.obj.openTheBox
+	  theItem.resizedImage.obj.openOrThrowException("Opened empty Box")
 	} else {
 	  theItem.TheImageData.create
 	}

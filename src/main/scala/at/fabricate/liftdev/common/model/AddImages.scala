@@ -77,7 +77,7 @@ with Cascade[TheImage]
 	          // filter out all empty boxes
 	          _ != Empty).map(
 	              // open the boxes now that only full boxes are available (hopefully now failure)
-	              imageBox => imageBox.open_!).distinct.
+	              imageBox => imageBox.openOrThrowException("Opened empty Box")).distinct.
 	              // convert to a list again
 	              toList 
 	              

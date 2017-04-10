@@ -82,8 +82,8 @@ trait AddImagesSnippet[T <: (BaseEntityWithTitleAndDescription[T] with AddImages
    "#thumbnailImage [src]" #> "/serve/image/%s/thumb".format(singleImage.id.toString()) &
    "#resizedImage [src]" #> "/serve/image/%s".format(singleImage.id.toString()) &
    "#originalImage [src]" #> "/serve/image/%s/orig".format(singleImage.id.toString()) &
-   "#viewImageTitle" #> singleImage.defaultTranslation.openTheBox.title.get &
-   "#viewImageDescription" #> singleImage.defaultTranslation.openTheBox.description.get &
+   "#viewImageTitle" #> singleImage.defaultTranslation.openOrThrowException("Opened empty Box").title.get &
+   "#viewImageDescription" #> singleImage.defaultTranslation.openOrThrowException("Opened empty Box").description.get &
    "#insertButton [onclick]" #> "insertAtCursor($('.wysiwyg-descriptionfield-editform')[0],'!/serve/image/%s!')".format(singleImage.id)
        )
         }

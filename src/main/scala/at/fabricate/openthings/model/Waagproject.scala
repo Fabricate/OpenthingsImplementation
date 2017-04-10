@@ -52,7 +52,7 @@ class Waagproject extends LongKeyedMapper[Waagproject] with OneToMany[Long, Waag
   
   object created extends MappedLong(this){
     def toDate: Date = {
-      JodaHelpers.toDateTime(this.get*1000).open_!.toDate()
+      JodaHelpers.toDateTime(this.get*1000).openOrThrowException("Opened empty Box").toDate()
     }
   }
   
