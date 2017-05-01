@@ -24,7 +24,7 @@ import at.fabricate.openthings.snippet.ProjectSnippet
 * @author Johannes Fischer **/
 
 object Project extends Project with BaseMetaEntity[Project] with BaseMetaEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepositoryMeta[Project]
-with AddSkillsMeta[Project] {
+with AddSkillsMeta[Project] with AddImagesMeta[Project] {
   
   
 }
@@ -33,7 +33,7 @@ with AddSkillsMeta[Project] {
 /**Beschreibt eine Projekt-Instanz
 * @author Johannes Fischer **/
 class Project extends BaseEntity[Project] with BaseEntityWithTitleDescriptionIconAndCommonFields[Project] with AddRepository[Project]
-with AddSkills[Project] {
+with AddSkills[Project] with AddImages[Project] {
 
     // definitions for AddTag
   type TheTagType = Tag
@@ -46,6 +46,10 @@ with AddSkills[Project] {
     // definitions for AddCategories
   type TheCategoryType = Category
   def theCategoryObject = Category
+  
+  // definitions for AddImages
+  type TheImageType = Image
+  def theImageObject = Image
   
   // definitions for AddCreatedBy and maybe some others
   type TheUserType = User

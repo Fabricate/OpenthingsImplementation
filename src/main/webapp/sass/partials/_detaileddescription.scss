@@ -1,11 +1,11 @@
-.detailedDescription{
-	padding: $medium-percentage;
-	background: rgba(white, .5);
-	font-size: 80%;
+.detailedDescription {
+  border-bottom: 1px solid $lightgrey;
+  p {
+    font-size: 1em;
+  }
 }
 .creativeCommons{
 	box-sizing: border-box;
-	font-size: 1.5em;
 }
 .creativeCommons span{
 	margin-right: .3em;

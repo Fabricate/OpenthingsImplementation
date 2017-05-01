@@ -1,9 +1,7 @@
 .mainContent .projectHeader .select-style{
 	padding: 5px 45px 5px 10px;
 }
-.projectHeader{
-	background-color: $darkgrey;
-}
+
 .button__bar{
 	position: absolute;
 	left: 0;
@@ -19,20 +17,28 @@
 	background: transparent !important;
 	padding: 0 !important;
 }
+
+.projectHeader {
+	border-bottom: $lightgrey 1px solid;
+}
+
 .projectHeader select{
 	padding: .3em;
 	color: white;
 }
+
 .projectHeader p{
 	max-width: 800px;
 	margin-bottom: $small-em
 }
-.editPage{
-	display: none;
-}
+
 .editprojecticon{
 	cursor: pointer;
 }
 .loggedIn .designerView .projectHeader {
 	margin-top: 0;
 }
+
+
+.mainContent .col-2.left {
+  border-right: 1px solid $lightgrey;}

@@ -1,12 +1,11 @@
 .partners{
   background: $lightgrey;
   text-align: center;
-  padding: 0 $medium-percentage $small-percentage;
   width: 100%;
 }
 
 .partners ul{
-  padding: $small-percentage 0;
+  padding: $small-em 0;
 }
 .partners ul li{
   width: 100%;

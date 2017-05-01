@@ -1,11 +1,11 @@
 .needHelp{
-	padding: $small-percentage;
+	padding: $small-em;
 	background-color: rgba(white, .3);
 	color: $darkgrey;
 	width: 100%;
 }
 .needHelp li{
-	padding: $tiny-percentage 0;
+	padding: $tiny-em 0;
 	border-bottom: white 1px solid;
 }
 .addHelp{

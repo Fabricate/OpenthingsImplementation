@@ -1,11 +1,11 @@
 .tagsSection{
-	background: rgba(255,255,255, .75);
-	padding: $medium-percentage;
 	width: 100%;
+     border-bottom: 1px solid $lightgrey;
 }
+
 #selecttags{
-	padding: $xsmall-percentage 0;
-	margin-bottom: $xsmall-percentage;
+	padding: $xsmall-em 0;
+	margin-bottom: $xsmall-em;
 	float: left;
 }
 #selecttags label{

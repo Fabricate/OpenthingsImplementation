@@ -3,7 +3,6 @@
 	height: 74px;
 	background-color: white;
 	@include box-sizing(border-box);
-	padding: $small-em $medium-em;
 	border-bottom: 1px solid #ddd;
 }
 .mainSearch li{
@@ -22,12 +21,9 @@
 	padding: 0 $small-em;
 	margin: 0 0 0 $tiny-em;
 }
-.searchContent{
-	padding-bottom: $xsmall-percentage;
-}
 .searchContent .searchForm{
 	background-color: white;
-	padding: $small-percentage;
+	border-bottom: 1px solid $lightgrey;
 	z-index: 2;
 }
 .searchContent .searchForm #teaser, .searchContent .searchForm #description{
@@ -38,20 +34,24 @@
 }
 .searchContent .searchForm  input, .searchContent .searchForm  select{
 	float: left;
-	margin: 0 $tiny-percentage $xsmall-em 0;
+	margin: 0 $tiny-em $xsmall-em 0;
 	max-height: 3.40em;
 	width: 30%;
 }
+
 #searchform {
 	font-size: .875em;
-	    top: 0.6em;
-	right: .5em;
+
+	height: 100%;
 	float: right;
 }
 #searchform input{
 	padding: .1em .4em .1em 2.1em;
 	font-size: 1em;
 	width: 300px;
+	height: 50px;
+	border: 0;
+	background: #f2f2f2;
 }
 
 .searchForm select{
@@ -63,9 +63,10 @@
 #searchform button{
 	background: none repeat scroll 0 0 transparent;
 	color: $brand-color;
-	font-size: 1em;
-	left: 10px;
+	font-size: 1.5em;
+	right: 10px;
 	padding: 0.2em;
 	position: absolute;
+	height: 100%;
 	top: 0;
 }

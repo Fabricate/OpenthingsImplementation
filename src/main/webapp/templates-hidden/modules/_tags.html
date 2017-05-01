@@ -1,22 +1,8 @@
-<section id="project-tags" class="tags tagsSection left">
+<section id="project-tags" class="tags tagsSection container left">
 	<h2 data-lift="lift:L10n.i">project_tags</h2>
 	<ul id="listtags" itemprop="keywords">
 		<li id="singletag"><a href="#">Tag</a></li>
 	</ul>
-
-	<!-- <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
-	<script type="text/javascript">
-	    $(document).ready(function() {
-	        $("#myTags").tagit({
-    				availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"]
-					});
-	    });
-	</script>
-
-	<ul id="myTags">
-	    <li>Tag1</li>
-	    <li>Tag2</li>
-	</ul> -->
 	<div class="editPage">
 
 		<form data-lift="form.ajax">
@@ -29,7 +15,6 @@
 					<input id="newtagname" value="" placeholder="Add new tag" required minlength="5" maxlength="60" />
 				</div>
 				<input type="hidden" id="tagshidden" />
-		<!--		<input value="Add" type="submit" class="btn" />-->
 				<button class="left" type="submit"><span class="icon-plus"></span> <span data-lift="lift:L10n.i">add</span> <span id="tag_messages"></span></button>
 			</div>
 		</form>

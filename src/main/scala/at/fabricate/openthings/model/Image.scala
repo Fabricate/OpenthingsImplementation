@@ -2,18 +2,25 @@ package at.fabricate.openthings
 package model
 
 import net.liftweb.mapper._
+import at.fabricate.liftdev.common.model._
+import at.fabricate.liftdev.common.snippet.BaseEntityWithTitleAndDescriptionSnippet
 
-class Image extends LongKeyedMapper[Image] with IdPK {
-  def getSingleton = Image
-
-  object image extends MappedBinary(this)
-  object lookup extends MappedUniqueId(this, 32) {
-    override def dbIndexed_? = true
-  }
-  object saveTime extends MappedLong(this) {
-    //override def defaultValue = millis
-  }
-  object mimeType extends MappedString(this, 256)
+object Image extends Image with BaseMetaEntity[Image] with BaseMetaEntityWithTitleAndDescription[Image] with GeneralImageMeta[Image] 
+{
+  
 }
 
-object Image extends Image with LongKeyedMetaMapper[Image]
+
+class Image extends GeneralImage[Image] with BaseEntity[Image] with BaseEntityWithTitleAndDescription[Image]
+with ManyToMany 
+//with KeyedMetaMapper[Image] 
+{
+  def getSingleton = Image
+
+    // a link to all Images
+  val mappingToProjectImages  = Project.getImageMapper
+  
+  	// ManyToMany mapping
+  object projectImages extends MappedManyToMany(mappingToProjectImages, mappingToProjectImages.image, mappingToProjectImages.taggedItem, Project)   
+
+}

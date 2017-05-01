@@ -144,10 +144,10 @@ class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends Ma
       //just enter the limiting value that is needed there, 
       // ImageResizer.max will preserve the aspect ratio and will scale to the bounding box
       val (scaledWidth, scaledHeight) = if (ratio < targetRatio) {
-        (imageWidth, (imageHeight.doubleValue/ratio*targetRatio).toInt)
+        (imageWidth, (imageHeight.doubleValue/ratio*targetRatio).toInt+1)
         // should be (imageWidth,height)
       } else {
-        ((imageWidth.doubleValue/targetRatio*ratio).toInt,imageHeight)
+        ((imageWidth.doubleValue/targetRatio*ratio).toInt+1,imageHeight)
         // should be (width, imageHeight)
       }      
     val image = {
@@ -157,6 +157,9 @@ class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends Ma
     
     def heightDiff:Int = (image.getHeight-imageHeight)
     def widthDiff:Int = (image.getWidth-imageWidth)
+    
+
+
 
           // calculate the corner position of the resulting image
           // inside the scaled image, depends on cropping strategy
@@ -165,8 +168,15 @@ class MappedBinaryImageFileUpload[T <: BaseEntity[T]](fieldOwner : T) extends Ma
             case ALIGN_TOP_OR_LEFT => (0,0)
             case ALIGN_BOTTOM_OR_RIGHT => (widthDiff,heightDiff)
           }
-
-
+    /*
+    println ("resized width: "+image.getWidth)
+    println ("cropping width: "+imageWidth)
+    println ("left: "+left)
+    println ("scaled width: "+scaledWidth)
+    println ("scaled height: "+scaledHeight)
+    println ("target ratio: "+targetRatio)
+    * 
+    */
           // crop the image to fit the target size
           image.getSubimage(left,top, imageWidth, imageHeight)
   }

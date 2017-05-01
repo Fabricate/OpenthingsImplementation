@@ -1,22 +1,21 @@
 .panel form{
 	max-width: 600px;
-	width: 90%;
+	width: 100%;
 }
 .panel input, .panel textarea, .panel select{
 	max-width: 100%;
 	width: 100%;
 	margin-bottom: $xsmall-em;
 }
-.panel{
-	padding: $small-percentage;
+.panel {
 	width: 100%;
 	position: fixed;
-	height: calc(100% - 51px);
+	height: calc(100% - 50px);
 	overflow-y: auto;
-	top: 51px;
+	top: 50px;
 	left: 0;
 	z-index: 4;
-	background: rgba(white,0.97);
+	background: #fff;
 	box-shadow: 0 4px 5px rgba(50,50,50,0.2);
 	display: none;
 }
@@ -24,7 +23,7 @@
 	width: 100%;
 }
 .panel button, .panel input[type="submit"]{
-	margin-bottom: $medium-percentage;
+	margin-bottom: $medium-em;
 }
 .close-icon{
 	cursor: pointer;
@@ -34,4 +33,44 @@
 	top: 30px;
 	transform: rotate(45deg);
 	z-index: 2;
+}
+
+
+.panel-container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.panel-container {
+	.popup.images {
+		width: calc(50% - 60px);
+		margin-left: 60px;
+	}
+	.imagesSection {
+		display: flex;
+		flex-wrap: wrap;
+
+		form {
+			margin-top: 50px;
+			width: 100%;
+		}
+	}
+
+	#listImages {
+		width: 100%;
+		max-width: 600px;
+		li {
+			width: 100%;
+			padding: 10px 0;
+			border-bottom: 1px solid #eee;
+			display: flex;
+			align-items: center;
+
+		}
+	}
+
+	img {
+		width: 80px;
+		margin-right: 15px;
+	}
 }

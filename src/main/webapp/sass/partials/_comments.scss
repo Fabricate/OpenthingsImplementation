@@ -1,6 +1,6 @@
 .projectComments{
-	padding: $medium-percentage;
 	background-color: white;
+	border-bottom: 1px solid $lightgrey;
 }
 #commenttitle{
 	margin-bottom: 0;
@@ -23,19 +23,20 @@
 	text-align: right;
 	cursor: pointer;
 }
+
 .projectComments span{
 	margin-right: 0.1em;
 }
 .comment{
 	border-top: 1px solid $lightgrey;
-	padding: $small-percentage 0 0 0;
+	padding: $small-em 0 0 0;
 }
 .commentInput{
 	background: white;
 }
 .commentInput form{
 	border-top: 1px solid $lightgrey;
-	padding-top: $small-percentage;
+	padding-top: $small-em;
 }
 .commentInput input, .commentInput textarea{
 	margin-bottom: $xsmall-em;

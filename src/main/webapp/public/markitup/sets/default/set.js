@@ -52,7 +52,7 @@ var myTextileSettings = {
     {name:'Bulleted list', openWith:'(!(* |!|*)!)'},
     {name:'Numeric list', openWith:'(!(# |!|#)!)'},
     {separator:'---------------' },
-    {name:'Picture', replaceWith:'![![Source:!:http://]!]([![Alternative text]!])!'},
+    {name:'Picture', replaceWith:function(markitup){console.log('aap')}},
     {name:'Link', openWith:'"', closeWith:'([![Title]!])":[![Link:!:http://]!]', placeHolder:'Your text to link here...' },
     {separator:'---------------' },
     {name:'Quotes', openWith:'bq(!(([![Class]!]))!). '},
