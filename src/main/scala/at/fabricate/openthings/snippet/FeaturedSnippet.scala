@@ -74,10 +74,23 @@ object FeaturedSnippet extends BaseEntityWithTitleAndDescriptionSnippet[Project]
 
   }
 
+  //return the top three rated projects
+  def rated(xhtml: NodeSeq) : NodeSeq =
+  {
+      //get best three rated projects
+      val sorted : List[Project] = TheItem.findAll(
+        OrderBy(Project.accumulatedRatings,Descending)
+      )
 
-  // ### methods that will be stacked ###
+      val sliced : List[Project] = sorted.slice(0,3)
+      //println("Featured.rated: " + sorted.mkString(", "))
+
+      ("#list_items" #> ("#item" #> sliced.map(item => asHtml(item) ))).apply(xhtml)
+  }
+
    override def localDispatch : DispatchIt  = {
     case "feature" => feature _
+    case "rated" => rated _
   }
   /*
   def dispatch : DispatchIt  = {
