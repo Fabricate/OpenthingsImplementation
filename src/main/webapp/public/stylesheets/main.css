@@ -953,6 +953,9 @@ body {
 .col-2 {
   width: 50%; }
 
+.main .col-2 {
+  box-shadow: inset 1px 0 0 0 #f2f2f2; }
+
 .two-col {
   width: 50%; }
 
@@ -1887,8 +1890,8 @@ ul.tagit input[type="text"] {
 .loggedIn .designerView .projectHeader {
   margin-top: 0; }
 
-.mainContent .col-2.left {
-  border-right: 1px solid #edebeb; }
+.mainContent .col-2 {
+  box-shadow: inset 1px 0 0 0 #edebeb; }
 
 .videoHeader {
   padding: 0 !important; }
