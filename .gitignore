@@ -11,6 +11,8 @@ syntax: glob
 *.old
 .DS_Store
 
+src/main/resources/default.props
+
 # logs
 derby.log
 
