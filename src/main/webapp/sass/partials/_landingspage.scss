@@ -5,6 +5,12 @@
 	align-items: center;
 }
 
+.homelist {
+	display: flex;
+	justify-content: center;
+	margin-bottom: $big-em;
+}
+
 .landingSection::after{
 	content: "";
   background: url(../images/protheses.jpg);
