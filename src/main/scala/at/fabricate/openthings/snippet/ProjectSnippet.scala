@@ -39,13 +39,32 @@ with AddImagesSnippet[Project]
 
 
       val contentLanguage = UrlLocalizer.contentLocale
+      
+      private def disableEditing(item : ItemType)(n: NodeSeq): NodeSeq = {    
+         if (User.canEditProject(item) || User.canModerateContent(item) || User.canAdministerContent(item)){ //|| User.canModerateContent(item) || User.canAdministerContent(item)
+           n
+         }
+         else {
+           NodeSeq.Empty
+         }
+  }
     
 
    override def asHtml(item : ItemType) : CssSel = { 
    (   
-       "#personalwebsite" #> "" 
+       "#personalwebsite" #> "" &
+       "#edit_item_form" #> disableEditing(item) _ &
+       ".edit_project_button" #> disableEditing(item) _
    ) &
    (super.asHtml(item))
+  }
+   
+   override def toForm(item : ItemType) : CssSel = { 
+   (   
+       "#edit_item_form" #> disableEditing(item) _ &
+       ".edit_project_button" #> disableEditing(item) _
+   ) &
+   (super.toForm(item))
   }
   
   override def edit(xhtml : NodeSeq) : NodeSeq = (   

@@ -73,7 +73,8 @@ with AddSkillsMeta[User] {
   def canModerateContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.openOrThrowException("Empty Box opened").permission == permissionsEnum.moderator
   def canAdministerContent[T <: Mapper[T]](item : T) : Boolean = loggedIn_? && currentUser.openOrThrowException("Empty Box opened").permission == permissionsEnum.administrator
 
-  // save the content of a session before the user gets logged in!
+  def canEditProject [T <: BaseEntityWithTitleDescriptionIconAndCommonFields[T]](item : T) : Boolean = canEditContent(item) && item.createdByUser.get == currentUser.openOrThrowException("Empty Box opened").id.get
+  
   override def capturePreLoginState() = {
     val unsavedContents = ProjectSnippet.unsavedContent.get // is the SessionVar
 
