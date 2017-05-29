@@ -22,8 +22,8 @@ object UrlLocalizer {
   val defaultLocale = Locale.ENGLISH
 
   // will go to the requestLocale once it is set
-  @volatile 
-  object sessionSiteLocale extends SessionVar[Box[Locale]](Empty)
+//  @volatile 
+  object sessionSiteLocale extends SessionVar[Box[Locale]](Full(calcLocaleFromRequest))
   
   // will be used to display content in different
   object contentLocale extends RequestVar(defaultLocale)
@@ -60,9 +60,11 @@ object UrlLocalizer {
     
   def calcLocaleFromURL(in: Box[HTTPRequest]): Locale = getContentLocale
   
+  def getLocaleFromRequest(request: Box[HTTPRequest]) : Locale = sessionSiteLocale.is.openOr { calcLocaleFromRequest }
 
-  def calcLocaleFromRequest(request: Box[HTTPRequest]) : Locale =
-    sessionSiteLocale.openOr {
+  def calcLocaleFromRequest() : Locale = {
+    
+//    println("session locale not found")
       val requestLocale = 
       (for {
         listOfLanguages <- tryo(S.getRequestHeader("Accept-Language").openOrThrowException("Empty Box opened").split(Array(',')).toList.map(_.split(Array('_', '-'))))
@@ -78,7 +80,7 @@ object UrlLocalizer {
           var locale_found = false;
           var the_locale = defaultLocale//.getDefault
           for (aLocale : Locale <- aListOfLocales){
-            println("Locale: "+aLocale)
+//            println("Locale: "+aLocale)
             if (! locale_found && available_locales_templates.find{ oneLocale => oneLocale.getLanguage ==  aLocale.getLanguage}.isDefined ){
 //              println("requested locales: "+aListOfLocales.mkString(","))
 //              println("use locale: "+aLocale.getDisplayLanguage(aLocale))
@@ -95,6 +97,7 @@ object UrlLocalizer {
         case _ => {
 //          println("no locale in request")
           //Locale.getDefault
+          setSiteLocale(Full(defaultLocale))
           defaultLocale
         }
       }
@@ -105,7 +108,7 @@ object UrlLocalizer {
    */
   def init() {
     // hook into Lift
-    LiftRules.localeCalculator = calcLocaleFromRequest _
+    LiftRules.localeCalculator = getLocaleFromRequest _
     
 
     // rewrite requests with a locale at the head
