@@ -74,24 +74,26 @@ object UrlLocalizer {
       requestLocale match {
         case Full(aListOfLocales) => {
           // use a locale if the template translation is available for it
-          // or use english as a default
+          // or use english as a default          
           var locale_found = false;
           var the_locale = defaultLocale//.getDefault
           for (aLocale : Locale <- aListOfLocales){
-            if (! locale_found && available_locales_templates.contains(aLocale)){
-              println("requested locales: "+aListOfLocales.mkString(","))
-              println("use locale: "+aLocale.getDisplayLanguage(aLocale))
+            println("Locale: "+aLocale)
+            if (! locale_found && available_locales_templates.find{ oneLocale => oneLocale.getLanguage ==  aLocale.getLanguage}.isDefined ){
+//              println("requested locales: "+aListOfLocales.mkString(","))
+//              println("use locale: "+aLocale.getDisplayLanguage(aLocale))
               setSiteLocale(Full(aLocale)) 
               the_locale = aLocale
+              locale_found = true
             }
           }
-          if (!locale_found) {
-            println("no templates exist for required locales")
-          }
+//          if (!locale_found) {
+//            println("no templates exist for required locales")
+//          }
           the_locale
         }
         case _ => {
-          println("no locale in request")
+//          println("no locale in request")
           //Locale.getDefault
           defaultLocale
         }

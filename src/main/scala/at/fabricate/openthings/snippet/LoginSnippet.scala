@@ -29,9 +29,10 @@ object LoginSnippet extends CustomizeUserHandlingSnippet[User](User,UserSnippet)
       
     def language(xhtml: NodeSeq): NodeSeq = { 
     	("#selectLanguage" #> SHtml.ajaxSelect(
-    	    UrlLocalizer.allLanguages.map(lang => SelectableOption( lang.getDisplayLanguage, lang.getDisplayLanguage) ),
+    	    //UrlLocalizer.allLanguages.map(lang => SelectableOption( lang.getDisplayLanguage, lang.getDisplayLanguage) ),
+    	    UrlLocalizer.available_locales_templates.map(lang => SelectableOption( lang.getDisplayLanguage(lang), lang.getDisplayLanguage(lang)) ),
     	    Full(UrlLocalizer.getSiteLocale.getDisplayLanguage),
-    	    {s => UrlLocalizer.setSiteLocale(UrlLocalizer.allLanguages.find(_.getDisplayLanguage == s));JsCmds.Noop}
+    	    {s => UrlLocalizer.setSiteLocale(UrlLocalizer.allLanguages.find(_.getDisplayLanguage == s));JsCmds.Reload}
     	    )).apply(xhtml)
     }
       
