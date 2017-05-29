@@ -28,11 +28,9 @@ import at.fabricate.openthings.snippet.ProjectSnippet
 import java.util.Locale
 import at.fabricate.liftdev.common.lib.FieldValidation
 
-object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling[User] with BaseMetaEntity[User] with BaseMetaEntityWithTitleDescriptionAndIcon[User]
+object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling[User] with BaseMetaEntity[User] with BaseMetaEntityWithTitleDescriptionAndIcon[User] 
 with AddSkillsMeta[User] {
 
-  // important: user has to be saveable without login (for register, ...)
-  override val userHasToBeLoggedInForSave = false;
 
 
   override val basePath = "user" :: Nil
@@ -113,6 +111,8 @@ with OneToMany[Long, User]
 with AddSkills[User]
 with ManyToMany
 {
+    // important: user has to be saveable without login (for register, ...)
+  override val userHasToBeLoggedInForSave = false
 
   // redefine the validations
   // TODO: there is a bug, that title is always less than 5 characters
