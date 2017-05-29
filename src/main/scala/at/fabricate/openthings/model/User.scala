@@ -31,6 +31,8 @@ import at.fabricate.liftdev.common.lib.FieldValidation
 object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling[User] with BaseMetaEntity[User] with BaseMetaEntityWithTitleDescriptionAndIcon[User]
 with AddSkillsMeta[User] {
 
+  // important: user has to be saveable without login (for register, ...)
+  val userHasToBeLoggedInForSave = false;
 
 
   override val basePath = "user" :: Nil
