@@ -32,7 +32,7 @@ object User extends User with MetaMegaProtoUser[User] with CustomizeUserHandling
 with AddSkillsMeta[User] {
 
   // important: user has to be saveable without login (for register, ...)
-  val userHasToBeLoggedInForSave = false;
+  override val userHasToBeLoggedInForSave = false;
 
 
   override val basePath = "user" :: Nil
