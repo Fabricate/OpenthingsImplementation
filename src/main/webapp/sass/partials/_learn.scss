@@ -1,0 +1,96 @@
+.learn__list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding: 40px 40px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.learn__thumb{
+  width: 30vw;
+  height: 18.85vw;
+  background-size: contain;
+  background-repeat: no-repeat;
+  text-align: center;
+  background-image: url(../images/learn_thumb_bg.svg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  transition: transform 0.2s ease-in;
+}
+.learn__thumb:hover{
+  transform: scale(1.04,1.04);
+}
+.learn__thumb .inner h3, .learn__thumb .inner h2{
+  text-transform: uppercase;
+  margin-bottom: 0;
+  line-height: 1.3;
+  letter-spacing: 0.03em;
+}
+.learn__thumb .inner h3{
+  font-weight: 400;
+}
+.learn__thumb .inner h2{
+  font-size: 1.7em;
+}
+.learn__thumb__icon{
+  width: 100px;
+  height: 80px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin: 0 auto 1em auto;
+}
+.learn__thumb__icon.add__project{ background-image: url(../images/add_project_icon.svg); }
+.learn__thumb__icon.upload__file{ background-image: url(../images/upload_file_icon.svg); }
+.learn__thumb__icon.add__skill{ background-image: url(../images/add_skill_icon.svg); }
+.learn__thumb__icon.add__tag{ background-image: url(../images/add_tag_icon.svg); }
+.learn__thumb__icon.view__bee{ background-image: url(../images/view_bees_icon.svg); }
+.learn__thumb__icon.view__project{ background-image: url(../images/view_project_icon.svg); }
+
+
+.learn__footer{
+  padding: 40px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.learn__header{
+  padding: 80px 40px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: $canvas;
+  border-bottom: .2vw solid $brand-color;
+  letter-spacing: .03em;
+}
+.learn__header h1{
+  margin-bottom: .1em;
+}
+
+
+@media only screen and (max-width: 1024px)  {
+  .learn__thumb{
+    width: 44vw;
+    height: 27.5vw;
+    font-size: 90%;
+  }
+}
+@media only screen and (max-width: 800px)  {
+  .learn__thumb{
+    width: 44vw;
+    height: 27.5vw;
+    font-size: 80%;
+  }
+}
+
+@media only screen and (max-width: 415px)  {
+  .learn__thumb{
+    width: calc(100vw - 80px);
+    height: 50vw;
+    font-size: 80%;
+  }
+}

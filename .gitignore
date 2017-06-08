@@ -11,6 +11,9 @@ syntax: glob
 *.old
 .DS_Store
 
+#ignore all props files
+*.props
+
 # logs
 derby.log
 
